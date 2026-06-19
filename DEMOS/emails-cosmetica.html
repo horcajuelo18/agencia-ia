@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secuencia de Emails — Piel Viva Cosmética Natural</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro-verde: #0A1A0D;
+    --verde-oscuro: #0F2A14;
+    --verde-medio: #1A4020;
+    --verde-lima: #7CB342;
+    --verde-lima2: #94CC4A;
+    --verde-claro: #C5E1A5;
+    --texto: #E8F5E9;
+    --texto-dim: #81A884;
+    --gris: #4A6B4D;
+    --blanco: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--negro-verde);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER PÁGINA */
+  .page-header {
+    background: linear-gradient(180deg, var(--verde-oscuro) 0%, var(--negro-verde) 100%);
+    border-bottom: 1px solid rgba(124,179,66,0.2);
+    padding: 40px 40px 36px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--verde-lima); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+  .brand-name { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+  .brand-name span { color: var(--verde-lima); }
+  .brand-sub { font-size: 12px; color: var(--texto-dim); margin-top: 2px; }
+  .page-badge {
+    background: rgba(124,179,66,0.15);
+    border: 1px solid rgba(124,179,66,0.35);
+    color: var(--verde-lima);
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 20px;
+  }
+
+  /* LAYOUT PRINCIPAL */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 40px 60px;
+  }
+  @media(max-width:800px){
+    .main-layout { grid-template-columns: 1fr; padding: 20px; }
+    .timeline-col { display: flex; flex-direction: row; overflow-x: auto; padding-bottom: 16px; margin-bottom: 24px; gap: 0; }
+    .timeline-item { flex-direction: column; align-items: center; min-width: 100px; }
+    .timeline-line { width: 40px; height: 2px; flex-shrink: 0; }
+  }
+
+  /* TIMELINE */
+  .timeline-col { display: flex; flex-direction: column; padding-top: 30px; position: relative; }
+  .timeline-item { display: flex; align-items: flex-start; gap: 12px; position: relative; }
+  .timeline-node-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .timeline-node {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--verde-medio);
+    border: 2px solid var(--verde-lima);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem; color: var(--verde-lima);
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    position: relative; z-index: 1;
+  }
+  .timeline-node:hover, .timeline-node.active { background: var(--verde-lima); color: var(--negro-verde); transform: scale(1.1); }
+  .timeline-line { width: 2px; flex: 1; min-height: 60px; background: rgba(124,179,66,0.25); margin: 4px 0; }
+  .timeline-label { padding-top: 12px; }
+  .tl-dia { font-size: 11px; font-weight: 700; color: var(--verde-lima); letter-spacing: 1px; }
+  .tl-asunto { font-size: 11px; color: var(--texto-dim); line-height: 1.4; max-width: 130px; margin-top: 3px; }
+
+  /* EMAILS */
+  .emails-col { display: flex; flex-direction: column; gap: 32px; }
+
+  /* TARJETA EMAIL */
+  .email-card {
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    border: 1px solid rgba(124,179,66,0.15);
+    transition: border-color 0.2s;
+  }
+  .email-card:hover { border-color: rgba(124,179,66,0.4); }
+
+  /* META ENVELOPE */
+  .email-meta {
+    background: var(--verde-oscuro);
+    border-bottom: 1px solid rgba(124,179,66,0.15);
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;
+  }
+  .email-meta-fields { flex: 1; min-width: 200px; }
+  .meta-row { display: flex; gap: 8px; margin-bottom: 4px; font-size: 12px; }
+  .meta-key { color: var(--texto-dim); width: 52px; flex-shrink: 0; font-weight: 500; }
+  .meta-val { color: var(--texto); }
+  .meta-asunto { color: var(--blanco); font-weight: 600; }
+  .email-dia-badge {
+    background: var(--verde-lima);
+    color: var(--negro-verde);
+    font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 12px; white-space: nowrap; align-self: flex-start;
+  }
+
+  /* CUERPO DEL EMAIL */
+  .email-body { background: var(--blanco); color: #1A1A1A; }
+
+  /* Header del email interno */
+  .email-header-interno {
+    background: linear-gradient(135deg, #1A4A1A 0%, #2D6B2D 100%);
+    padding: 24px 32px; display: flex; align-items: center; gap: 14px;
+  }
+  .email-logo { width: 42px; height: 42px; border-radius: 8px; background: var(--verde-lima); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; color: #0A1A0D; }
+  .email-brand-interno { color: white; font-weight: 700; font-size: 1.1rem; }
+  .email-tagline { color: rgba(255,255,255,0.6); font-size: 11px; }
+
+  /* Cuerpo */
+  .email-content { padding: 32px; }
+  .email-saludo { font-size: 1.05rem; font-weight: 600; color: #1A4020; margin-bottom: 16px; }
+  .email-p { font-size: 0.93rem; color: #3A3A3A; margin-bottom: 14px; line-height: 1.7; }
+  .email-highlight {
+    background: #F1F8E9; border-left: 3px solid #7CB342;
+    padding: 14px 18px; border-radius: 4px; margin: 20px 0;
+    font-size: 0.92rem; color: #2D5A1A;
+  }
+  .email-cta-wrap { text-align: center; margin: 28px 0; }
+  .email-cta {
+    display: inline-block;
+    background: #7CB342; color: white;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+    padding: 14px 36px; border-radius: 4px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .email-cta:hover { background: #5A9028; }
+  .email-cta.secundario { background: transparent; color: #7CB342; border: 2px solid #7CB342; }
+  .email-firma { margin-top: 28px; padding-top: 20px; border-top: 1px solid #E8E8E8; }
+  .firma-nombre { font-weight: 700; color: #1A4020; font-size: 0.95rem; }
+  .firma-cargo { font-size: 12px; color: #888; }
+  .email-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
+  .product-card { border: 1px solid #E0E0E0; border-radius: 8px; overflow: hidden; text-align: center; }
+  .product-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #F5F5F5; }
+  .product-info { padding: 10px 8px; }
+  .product-name { font-size: 11px; font-weight: 600; color: #2A2A2A; }
+  .product-price { font-size: 13px; font-weight: 700; color: #5A9028; margin-top: 3px; }
+  .stars-row { color: #F59E0B; font-size: 1rem; margin: 8px 0 4px; }
+  .steps-list { list-style: none; }
+  .step-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; padding: 14px; background: #F9FBF7; border-radius: 6px; }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; background: #7CB342; color: white; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-text strong { display: block; color: #1A4020; font-size: 0.9rem; margin-bottom: 3px; }
+  .step-text span { font-size: 0.85rem; color: #555; }
+  .offer-box { background: linear-gradient(135deg, #1A4020 0%, #2D6B2D 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
+  .offer-code { font-size: 1.8rem; font-weight: 800; letter-spacing: 4px; color: #C5E1A5; margin: 8px 0; }
+  .offer-desc { font-size: 12px; opacity: 0.8; }
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  @media(max-width:400px){ .tips-grid { grid-template-columns: 1fr; } }
+  .tip-item { background: #F1F8E9; padding: 12px; border-radius: 6px; font-size: 0.85rem; color: #2A4A1A; }
+  .tip-icon { font-size: 1.2rem; margin-bottom: 4px; }
+
+  /* Footer del email interno */
+  .email-footer-interno {
+    background: #F9F9F9; border-top: 1px solid #E8E8E8;
+    padding: 16px 32px; text-align: center;
+    font-size: 11px; color: #9A9A9A; line-height: 1.6;
+  }
+  .email-footer-interno a { color: #7CB342; text-decoration: underline; }
+
+  /* Resumen stats */
+  .seq-stats {
+    background: var(--verde-oscuro);
+    border: 1px solid rgba(124,179,66,0.2);
+    border-radius: 10px; padding: 24px 32px;
+    display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 32px;
+    justify-content: space-around;
+  }
+  .seq-stat { text-align: center; }
+  .seq-stat-num { font-size: 2rem; font-weight: 800; color: var(--verde-lima); }
+  .seq-stat-label { font-size: 11px; color: var(--texto-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  footer { text-align: center; padding: 24px; background: var(--verde-oscuro); font-size: 12px; color: var(--gris); border-top: 1px solid rgba(124,179,66,0.15); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="brand">
+    <div class="brand-dot">🌿</div>
+    <div>
+      <div class="brand-name">Piel <span>Viva</span></div>
+      <div class="brand-sub">Cosmética Natural — Secuencia de email automatizada</div>
+    </div>
+  </div>
+  <div class="page-badge">5 emails · 14 días</div>
+</div>
+
+<div class="main-layout">
+
+  <!-- TIMELINE -->
+  <div class="timeline-col">
+    <div class="timeline-item">
+      <div class="timeline-node-wrap">
+        <div class="timeline-node active">D0</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-label">
+        <div class="tl-dia">Día 0</div>
+        <div class="tl-asunto">Bienvenida + Cupón</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node-wrap">
+        <div class="timeline-node">D1</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-label">
+        <div class="tl-dia">Día 1</div>
+        <div class="tl-asunto">Guía de uso</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node-wrap">
+        <div class="timeline-node">D3</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-label">
+        <div class="tl-dia">Día 3</div>
+        <div class="tl-asunto">Tips rutina</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node-wrap">
+        <div class="timeline-node">D7</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-label">
+        <div class="tl-dia">Día 7</div>
+        <div class="tl-asunto">Reseña + descuento</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node-wrap">
+        <div class="timeline-node">D14</div>
+      </div>
+      <div class="timeline-label">
+        <div class="tl-dia">Día 14</div>
+        <div class="tl-asunto">Oferta flash 48h</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAILS -->
+  <div class="emails-col">
+
+    <div class="seq-stats">
+      <div class="seq-stat"><div class="seq-stat-num">5</div><div class="seq-stat-label">Emails</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">14</div><div class="seq-stat-label">Días</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">100%</div><div class="seq-stat-label">Automatizado</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">↑35%</div><div class="seq-stat-label">Recompra estimada</div></div>
+    </div>
+
+    <!-- EMAIL 1 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">María · Piel Viva &lt;hola@pielviva.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre cliente]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">Tu pedido está en camino... y tu piel también 🌿</span></div>
+        </div>
+        <div class="email-dia-badge">Día 0 — Inmediato</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="email-logo">PV</div>
+          <div><div class="email-brand-interno">Piel Viva</div><div class="email-tagline">Cosmética natural de verdad</div></div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre], 🌿</p>
+          <p class="email-p">¡Gracias por tu pedido! Ya está preparándose y saldrá en las próximas 24 horas. Mientras esperás, queríamos escribirte personalmente.</p>
+          <p class="email-p">Has elegido cuidarte con cosmética natural de verdad: sin parabenos, sin siliconas, sin marketing vacío. Eso dice mucho de ti.</p>
+          <div class="email-highlight">
+            🎁 <strong>Un regalo para tu próximo pedido:</strong><br>
+            Como gracias por confiar en Piel Viva, aquí tienes un cupón del <strong>10% de descuento</strong> para tu segunda compra. Sin mínimo de pedido.
+            <div style="text-align:center;margin-top:12px;"><span style="font-size:1.5rem;font-weight:800;letter-spacing:4px;color:#1A4020;">BIENVENIDA10</span></div>
+            <div style="text-align:center;font-size:11px;color:#888;margin-top:4px;">Válido 30 días · Un solo uso</div>
+          </div>
+          <p class="email-p">En el próximo email te enviaremos una guía completa para sacar el máximo partido a tu nuevo producto. Porque un buen producto sin la técnica correcta no llega a su potencial.</p>
+          <p class="email-p">Cualquier duda, responde a este email. Lo leo yo personalmente.</p>
+          <div class="email-firma">
+            <div class="firma-nombre">María García</div>
+            <div class="firma-cargo">Fundadora · Piel Viva Cosmética Natural</div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Piel Viva · C/ Fuencarral 82, 28004 Madrid · <a href="#">Darse de baja</a> · <a href="#">Ver en navegador</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 2 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">María · Piel Viva &lt;hola@pielviva.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre cliente]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">Cómo usar [Producto] para resultados en 7 días ✨</span></div>
+        </div>
+        <div class="email-dia-badge">Día 1</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="email-logo">PV</div>
+          <div><div class="email-brand-interno">Piel Viva</div><div class="email-tagline">Tu guía de uso</div></div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">¡Tu pedido ya está en camino! Hoy te traemos la guía que preparamos para cada nuevo cliente: los 3 pasos exactos para que tu producto funcione al máximo desde el primer día.</p>
+          <ul class="steps-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>Limpia antes de aplicar</strong><span>La piel limpia absorbe hasta un 40% más de activos. Usa agua tibia (nunca caliente) y sécala con toquecitos, sin frotar. Espera 2 minutos antes de aplicar el producto.</span></div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-text"><strong>La cantidad correcta importa</strong><span>Menos es más en cosmética natural. Un tamaño de avellana es suficiente para la cara completa. Excederse no acelera los resultados — solo gasta el producto antes de tiempo.</span></div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>Constancia por encima de todo</strong><span>Los activos naturales trabajan de forma progresiva. Los resultados más visibles ocurren entre los días 14 y 28. La clave es no saltarse aplicaciones.</span></div>
+            </li>
+          </ul>
+          <div class="email-highlight">
+            💡 <strong>Consejo de María:</strong> Tómate una foto hoy antes de empezar la rutina. En 21 días querrás comparar. Los cambios son reales, pero graduales, y a veces no los ves porque te miras en el espejo cada día.
+          </div>
+          <div class="email-firma">
+            <div class="firma-nombre">María García</div>
+            <div class="firma-cargo">Fundadora · Piel Viva</div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Piel Viva · C/ Fuencarral 82, 28004 Madrid · <a href="#">Darse de baja</a> · <a href="#">Ver en navegador</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 3 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">María · Piel Viva &lt;hola@pielviva.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre cliente]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">La rutina de belleza natural que realmente funciona 🍃</span></div>
+        </div>
+        <div class="email-dia-badge">Día 3</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="email-logo">PV</div>
+          <div><div class="email-brand-interno">Piel Viva</div><div class="email-tagline">Tips de rutina natural</div></div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Hoy no te vendemos nada. Solo queremos compartir lo que hemos aprendido estudiando más de 200 ingredientes naturales y formulando más de 40 productos.</p>
+          <p class="email-p"><strong>4 principios de la belleza natural que nadie te cuenta:</strong></p>
+          <div class="tips-grid">
+            <div class="tip-item"><div class="tip-icon">💧</div><strong>Hidratación siempre va primero</strong><br>Aplica siempre del más ligero al más denso: sérum → crema → aceite.</div>
+            <div class="tip-item"><div class="tip-icon">🌞</div><strong>El SPF es el antienvejecimiento nº1</strong><br>Ningún activo funciona si el sol deshace su trabajo cada día.</div>
+            <div class="tip-item"><div class="tip-icon">😴</div><strong>La piel trabaja de noche</strong><br>Los activos regeneradores (retinol vegetal, bakuchiol) van en el turno de noche.</div>
+            <div class="tip-item"><div class="tip-icon">🥦</div><strong>La piel refleja tu interior</strong><br>La hidratación beber + omega 3 + descanso hacen lo que ninguna crema puede sola.</div>
+          </div>
+          <p class="email-p" style="margin-top:16px;">¿Tienes alguna duda sobre tu rutina actual o qué productos combinan mejor? Responde a este email y te lo cuento con mucho gusto.</p>
+          <div class="email-firma">
+            <div class="firma-nombre">María García</div>
+            <div class="firma-cargo">Fundadora · Piel Viva</div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Piel Viva · C/ Fuencarral 82, 28004 Madrid · <a href="#">Darse de baja</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 4 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">María · Piel Viva &lt;hola@pielviva.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre cliente]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">¿Qué te está pareciendo? + sorpresa para ti ⭐</span></div>
+        </div>
+        <div class="email-dia-badge">Día 7</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="email-logo">PV</div>
+          <div><div class="email-brand-interno">Piel Viva</div><div class="email-tagline">Tu opinión nos importa</div></div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Han pasado 7 días desde que recibiste tu pedido. ¿Cómo va todo? ¿Estás notando algo diferente en tu piel?</p>
+          <p class="email-p">Nos importa mucho saber tu opinión — no solo para mejorar, sino porque cada reseña ayuda a otras personas a dar el paso hacia la cosmética natural.</p>
+          <div class="email-highlight">
+            <div style="text-align:center;">
+              <div style="font-size:1rem;font-weight:700;color:#1A4020;margin-bottom:8px;">Si dejas una valoración de ⭐⭐⭐⭐⭐ en Google o Trustpilot...</div>
+              <div class="stars-row">⭐⭐⭐⭐⭐</div>
+              <div style="font-size:1.1rem;font-weight:800;color:#1A4020;">Te enviamos un 15% de descuento en tu próxima compra</div>
+              <div style="font-size:11px;color:#666;margin-top:6px;">Solo tienes que enviarnos una captura de pantalla respondiendo a este email.</div>
+            </div>
+          </div>
+          <div class="email-cta-wrap">
+            <a href="#" class="email-cta">Dejar mi valoración ⭐</a>
+          </div>
+          <p class="email-p" style="font-size:0.88rem;color:#666;">Si algo no ha cumplido tus expectativas, cuéntanoslo también. Cada feedback es un regalo para nosotras.</p>
+          <div class="email-firma">
+            <div class="firma-nombre">María García</div>
+            <div class="firma-cargo">Fundadora · Piel Viva</div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Piel Viva · C/ Fuencarral 82, 28004 Madrid · <a href="#">Darse de baja</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 5 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">María · Piel Viva &lt;hola@pielviva.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre cliente]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">[Nombre], esto caduca en 48h ⏳</span></div>
+        </div>
+        <div class="email-dia-badge">Día 14</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="email-logo">PV</div>
+          <div><div class="email-brand-interno">Piel Viva</div><div class="email-tagline">Oferta exclusiva — 48 horas</div></div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Han pasado 2 semanas. Si estás usando el producto con constancia, deberías empezar a notar los primeros resultados. Y si es así, seguramente ya estás pensando en qué sigue.</p>
+          <p class="email-p">Estos productos complementan perfectamente lo que ya tienes y muchas clientas los usan juntos para potenciar los resultados:</p>
+          <div class="email-products">
+            <div class="product-card">
+              <img src="https://picsum.photos/seed/cosm1/200/200" alt="" class="product-img">
+              <div class="product-info">
+                <div class="product-name">Sérum Vitamina C</div>
+                <div class="product-price">34,90 €</div>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://picsum.photos/seed/cosm2/200/200" alt="" class="product-img">
+              <div class="product-info">
+                <div class="product-name">Aceite de Argán Puro</div>
+                <div class="product-price">28,50 €</div>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="https://picsum.photos/seed/cosm3/200/200" alt="" class="product-img">
+              <div class="product-info">
+                <div class="product-name">Mascarilla Hidratante</div>
+                <div class="product-price">22,00 €</div>
+              </div>
+            </div>
+          </div>
+          <div class="offer-box">
+            <div style="font-size:0.9rem;opacity:0.8;">Por ser clienta, durante las próximas 48 horas tienes</div>
+            <div class="offer-code">PIELVIVA20</div>
+            <div style="font-size:1rem;font-weight:700;">20% de descuento en todo</div>
+            <div class="offer-desc">Válido hasta el [fecha+48h] · Sin mínimo de compra</div>
+          </div>
+          <div class="email-cta-wrap">
+            <a href="#" class="email-cta">Ver productos recomendados →</a>
+          </div>
+          <div class="email-firma">
+            <div class="firma-nombre">María García</div>
+            <div class="firma-cargo">Fundadora · Piel Viva</div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Piel Viva · C/ Fuencarral 82, 28004 Madrid · <a href="#">Darse de baja</a> · <a href="#">Ver en navegador</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /emails-col -->
+</div><!-- /main-layout -->
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+</body>
+</html>

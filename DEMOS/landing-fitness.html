@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TransFit 90 — 90 Días de Transformación Real</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro: #000000;
+    --negro2: #0D0D0D;
+    --naranja: #FF6B00;
+    --naranja2: #FF8C33;
+    --gris: #8A8A8A;
+    --gris-claro: #BDBDBD;
+    --blanco: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--negro); color: var(--blanco); font-family: 'Inter', sans-serif; line-height: 1.7; overflow-x: hidden; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(255,107,0,0.12) 0%, transparent 65%), var(--negro);
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    gap: 60px; padding: 80px 5% 60px; max-width: 1200px; margin: 0 auto;
+  }
+  @media(max-width:800px){ .hero { grid-template-columns: 1fr; text-align:center; } }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,0,0.15);
+    border: 1px solid rgba(255,107,0,0.4);
+    color: var(--naranja); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 2px; margin-bottom: 24px;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--naranja); animation: blink 1.4s ease infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 7.5rem);
+    line-height: 0.92; letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .hero h1 .naranja { color: var(--naranja); }
+  .hero-sub-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--gris-claro); letter-spacing: 4px; margin-bottom: 24px; }
+  .hero-desc { font-size: 1rem; color: var(--gris-claro); max-width: 480px; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  @media(max-width:800px){ .hero-ctas { justify-content:center; } .hero-desc { margin:0 auto 36px; } }
+  .btn-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 36px; border-radius: 2px; text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .btn-cta:hover { transform: translateY(-2px); opacity: 0.88; }
+  .btn-primary { background: var(--naranja); color: var(--negro); }
+  .btn-outline { background: transparent; color: var(--blanco); border: 1px solid rgba(255,255,255,0.3); }
+
+  /* VIDEO THUMBNAIL */
+  .video-thumb {
+    position: relative; border-radius: 6px; overflow: hidden;
+    aspect-ratio: 16/9; cursor: pointer;
+    box-shadow: 0 0 60px rgba(255,107,0,0.2);
+  }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.7); transition: filter 0.2s; }
+  .video-thumb:hover img { filter: brightness(0.9); }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--naranja);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 30px rgba(255,107,0,0.5);
+    transition: transform 0.2s;
+  }
+  .video-thumb:hover .play-btn { transform: translate(-50%,-50%) scale(1.1); }
+  .play-arrow { width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-left: 22px solid #000; margin-left: 4px; }
+  .video-label { position: absolute; bottom: 16px; left: 16px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+  /* STATS BAR */
+  .stats-bar { background: var(--naranja); padding: 24px 40px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 16px; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--negro); letter-spacing: 2px; }
+  .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(0,0,0,0.65); }
+
+  /* SECTION */
+  .section { padding: 90px 5%; max-width: 1100px; margin: 0 auto; }
+  .section-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--naranja); margin-bottom: 12px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1; letter-spacing: 2px; margin-bottom: 16px; }
+  .section-desc { color: var(--gris-claro); font-size: 1rem; max-width: 640px; }
+
+  /* RESULTADOS */
+  .resultados-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 50px; }
+  .resultado-card {
+    background: var(--negro2);
+    border: 1px solid rgba(255,107,0,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .resultado-imgs { display: grid; grid-template-columns: 1fr 1fr; }
+  .resultado-imgs img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; filter: grayscale(30%); }
+  .resultado-imgs .img-label-wrap { position: relative; }
+  .img-label { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: rgba(0,0,0,0.75); padding: 3px 10px; border-radius: 2px; white-space: nowrap; }
+  .img-label.antes { color: var(--gris-claro); }
+  .img-label.despues { color: var(--naranja); }
+  .resultado-info { padding: 20px; }
+  .resultado-nombre { font-weight: 700; font-size: 1rem; }
+  .resultado-stats { display: flex; gap: 20px; margin-top: 12px; }
+  .rs { text-align: center; }
+  .rs-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--naranja); letter-spacing: 1px; }
+  .rs-label { font-size: 10px; color: var(--gris); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* QUÉ INCLUYE */
+  .incluye-bg { background: var(--negro2); }
+  .incluye-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 50px; }
+  .incluye-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 22px; border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+  .incluye-item:hover { border-color: rgba(255,107,0,0.35); }
+  .incluye-emoji { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+  .incluye-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .incluye-desc { font-size: 0.88rem; color: var(--gris); }
+
+  /* TESTIMONIOS */
+  .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 50px; }
+  .test-card { background: var(--negro2); border: 1px solid rgba(255,255,255,0.07); padding: 28px; border-radius: 4px; }
+  .test-stars { color: var(--naranja); font-size: 1.1rem; margin-bottom: 14px; }
+  .test-text { font-size: 0.95rem; color: var(--gris-claro); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .test-author { display: flex; align-items: center; gap: 12px; }
+  .test-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--naranja); }
+  .test-name { font-weight: 700; font-size: 0.9rem; }
+  .test-data { font-size: 11px; color: var(--naranja); font-weight: 600; }
+
+  /* GARANTÍA */
+  .garantia {
+    margin: 0 5%; max-width: 760px;
+    background: linear-gradient(135deg, rgba(255,107,0,0.08) 0%, rgba(255,107,0,0.03) 100%);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 6px; padding: 44px; display: flex; gap: 32px; align-items: center;
+  }
+  @media(max-width:600px){ .garantia { flex-direction:column; text-align:center; } }
+  .garantia-badge { font-size: 5rem; flex-shrink: 0; }
+  .garantia-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--naranja); margin-bottom: 10px; }
+  .garantia-text { color: var(--gris-claro); font-size: 0.95rem; }
+
+  /* PRECIO */
+  .precio-wrap { text-align: center; padding: 90px 5%; }
+  .precio-card {
+    display: inline-block; max-width: 500px; width: 100%;
+    background: var(--negro2);
+    border: 2px solid var(--naranja);
+    padding: 50px 44px; border-radius: 6px;
+    box-shadow: 0 0 60px rgba(255,107,0,0.1);
+  }
+  .precio-top { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+  .precio-tachado { font-size: 1.2rem; text-decoration: line-through; color: var(--gris); }
+  .precio-num { font-family: 'Bebas Neue', sans-serif; font-size: 5.5rem; color: var(--naranja); letter-spacing: 2px; line-height: 1; }
+  .precio-eur { font-size: 2.5rem; vertical-align: super; }
+  .precio-sub { font-size: 12px; color: var(--gris); margin-bottom: 30px; }
+  .precio-feats { list-style: none; text-align: left; margin-bottom: 30px; }
+  .precio-feats li { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.95rem; }
+  .precio-feats li::before { content: '✓'; color: var(--naranja); font-weight: 700; }
+
+  /* FAQ */
+  .faq-section { padding: 80px 5%; max-width: 800px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; cursor: pointer; font-weight: 600; font-size: 1rem; transition: color 0.2s; user-select: none; }
+  .faq-q:hover { color: var(--naranja); }
+  .faq-icon { color: var(--naranja); font-size: 1.3rem; transition: transform 0.25s; flex-shrink: 0; margin-left: 16px; font-family: 'Bebas Neue', sans-serif; }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-a-inner { padding-bottom: 22px; color: var(--gris-claro); font-size: 0.93rem; line-height: 1.8; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  /* CTA FINAL */
+  .cta-final { background: var(--naranja); text-align: center; padding: 80px 5%; }
+  .cta-final h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem,5vw,4rem); color: var(--negro); letter-spacing: 2px; margin-bottom: 16px; }
+  .cta-final p { color: rgba(0,0,0,0.7); max-width: 520px; margin: 0 auto 32px; font-weight: 500; }
+  .btn-cta-dark { display: inline-block; background: var(--negro); color: var(--blanco); font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 18px 44px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s; }
+  .btn-cta-dark:hover { opacity: 0.85; }
+  .cta-nota { font-size: 12px; color: rgba(0,0,0,0.55); margin-top: 14px; }
+
+  footer { text-align: center; padding: 24px; background: #050505; font-size: 12px; color: var(--gris); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div style="background:linear-gradient(135deg,#0D0D0D 0%,#000 100%);">
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span>Plazas disponibles — Empieza hoy</div>
+      <h1>TRANS<span class="naranja">FIT</span><br>90</h1>
+      <div class="hero-sub-title">90 Días · 1 Transformación Real</div>
+      <p class="hero-desc">El programa de entrenamiento online que ha transformado a más de 2.800 personas. Sin excusas. Sin esperar. Sin volver atrás.</p>
+      <div class="hero-ctas">
+        <a href="#precio" class="btn-cta btn-primary">Empezar mi transformación — 147€</a>
+        <a href="#incluye" class="btn-cta btn-outline">Ver qué incluye</a>
+      </div>
+    </div>
+    <div class="video-thumb" onclick="alert('Aquí iría el vídeo de presentación del programa')">
+      <img src="https://picsum.photos/seed/fitness-gym/800/450" alt="TransFit 90 — Programa de entrenamiento">
+      <div class="play-btn"><div class="play-arrow"></div></div>
+      <div class="video-label">▶ Ver presentación del programa (3 min)</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">2.847</div><div class="stat-label">Alumnos transformados</div></div>
+  <div class="stat"><div class="stat-num">90</div><div class="stat-label">Días de programa</div></div>
+  <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Valoración media</div></div>
+  <div class="stat"><div class="stat-num">97%</div><div class="stat-label">Lo repiten o recomiendan</div></div>
+</div>
+
+<!-- RESULTADOS -->
+<div class="section">
+  <div class="section-tag">Resultados reales</div>
+  <h2 class="section-title">Ellos lo hicieron.<br>Tú también puedes.</h2>
+  <p class="section-desc">Personas normales, con vidas normales, que tomaron una decisión diferente. Estos son solo tres ejemplos de los miles que han completado TransFit 90.</p>
+  <div class="resultados-grid">
+    <div class="resultado-card">
+      <div class="resultado-imgs">
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/antes1/400/533" alt="Antes">
+          <div class="img-label antes">Antes</div>
+        </div>
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/despues1/400/533" alt="Después">
+          <div class="img-label despues">Día 90</div>
+        </div>
+      </div>
+      <div class="resultado-info">
+        <div class="resultado-nombre">David Romero, 34 años</div>
+        <div class="resultado-stats">
+          <div class="rs"><div class="rs-num">-14kg</div><div class="rs-label">Perdidos</div></div>
+          <div class="rs"><div class="rs-num">+22%</div><div class="rs-label">Músculo</div></div>
+          <div class="rs"><div class="rs-num">90</div><div class="rs-label">Días</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="resultado-card">
+      <div class="resultado-imgs">
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/antes2f/400/533" alt="Antes">
+          <div class="img-label antes">Antes</div>
+        </div>
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/despues2f/400/533" alt="Después">
+          <div class="img-label despues">Día 90</div>
+        </div>
+      </div>
+      <div class="resultado-info">
+        <div class="resultado-nombre">Patricia Vega, 28 años</div>
+        <div class="resultado-stats">
+          <div class="rs"><div class="rs-num">-9kg</div><div class="rs-label">Perdidos</div></div>
+          <div class="rs"><div class="rs-num">+31%</div><div class="rs-label">Fuerza</div></div>
+          <div class="rs"><div class="rs-num">90</div><div class="rs-label">Días</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="resultado-card">
+      <div class="resultado-imgs">
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/antes3m/400/533" alt="Antes">
+          <div class="img-label antes">Antes</div>
+        </div>
+        <div class="img-label-wrap">
+          <img src="https://picsum.photos/seed/despues3m/400/533" alt="Después">
+          <div class="img-label despues">Día 90</div>
+        </div>
+      </div>
+      <div class="resultado-info">
+        <div class="resultado-nombre">Jorge Blanco, 42 años</div>
+        <div class="resultado-stats">
+          <div class="rs"><div class="rs-num">-18kg</div><div class="rs-label">Perdidos</div></div>
+          <div class="rs"><div class="rs-num">+18%</div><div class="rs-label">Músculo</div></div>
+          <div class="rs"><div class="rs-num">90</div><div class="rs-label">Días</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUÉ INCLUYE -->
+<div id="incluye" class="incluye-bg" style="padding: 90px 0;">
+<div class="section" style="padding-top:0;padding-bottom:0;">
+  <div class="section-tag">Lo que obtienes</div>
+  <h2 class="section-title">Todo lo que necesitas.<br>Nada que no necesitas.</h2>
+  <div class="incluye-grid">
+    <div class="incluye-item">
+      <div class="incluye-emoji">🎥</div>
+      <div>
+        <div class="incluye-title">+180 vídeos de entrenamiento HD</div>
+        <div class="incluye-desc">Cada sesión explicada con técnica perfecta, variantes para todos los niveles y errores comunes.</div>
+      </div>
+    </div>
+    <div class="incluye-item">
+      <div class="incluye-emoji">🥗</div>
+      <div>
+        <div class="incluye-title">Plan nutricional personalizado</div>
+        <div class="incluye-desc">Calculadora de calorías, macros y recetas semanales adaptadas a tu objetivo: perder grasa, ganar músculo o ambos.</div>
+      </div>
+    </div>
+    <div class="incluye-item">
+      <div class="incluye-emoji">📊</div>
+      <div>
+        <div class="incluye-title">Seguimiento semanal con Laura</div>
+        <div class="incluye-desc">Sesión grupal semanal en directo donde Laura revisa tu progreso y ajusta el programa si hace falta.</div>
+      </div>
+    </div>
+    <div class="incluye-item">
+      <div class="incluye-emoji">👥</div>
+      <div>
+        <div class="incluye-title">Comunidad privada de alumnos</div>
+        <div class="incluye-desc">Grupo privado con miles de personas en tu misma situación. Motivación, retos, dudas y celebraciones.</div>
+      </div>
+    </div>
+    <div class="incluye-item">
+      <div class="incluye-emoji">📱</div>
+      <div>
+        <div class="incluye-title">App de seguimiento de progreso</div>
+        <div class="incluye-desc">Marca tus entrenamientos, registra tus medidas y visualiza tu evolución semana a semana.</div>
+      </div>
+    </div>
+    <div class="incluye-item">
+      <div class="incluye-emoji">🔄</div>
+      <div>
+        <div class="incluye-title">Acceso de por vida y actualizaciones</div>
+        <div class="incluye-desc">El programa evoluciona. Tú te llevas todas las actualizaciones futuras sin pagar nada más.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SOBRE LAURA (trainer) -->
+<div class="section" style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1000px;margin:0 auto;padding:90px 5%;">
+  <img src="https://picsum.photos/seed/laura-trainer/600/700" alt="Laura Sánchez" style="width:100%;border-radius:4px;object-fit:cover;">
+  <div>
+    <div class="section-tag">Tu entrenadora</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,4vw,3.5rem);letter-spacing:2px;margin-bottom:6px;">Laura Sánchez</h2>
+    <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--naranja);margin-bottom:20px;">Entrenadora Certificada · Nutrición Deportiva</div>
+    <p style="color:var(--gris-claro);font-size:0.95rem;margin-bottom:14px;">Con más de 10 años de experiencia en entrenamiento personal y nutrición deportiva, Laura lleva 4 años perfeccionando el método TransFit: la combinación exacta de entrenamiento de fuerza, cardio inteligente y nutrición sin restricciones absurdas que maximiza los resultados en el menor tiempo posible.</p>
+    <p style="color:var(--gris-claro);font-size:0.95rem;margin-bottom:24px;">Certificada en NSCA, ISSA y Nutrición Deportiva por la Universidad Complutense. Colabora con clubs deportivos y ha aparecido en Marca, Runners y Sportlife.</p>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;">
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--naranja);">2.8K</div><div style="font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:1px;">Alumnos</div></div>
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--naranja);">10</div><div style="font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:1px;">Años exp.</div></div>
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--naranja);">4.8★</div><div style="font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:1px;">Valoración</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIOS -->
+<div style="background:var(--negro2);padding:90px 0;">
+<div style="max-width:1100px;margin:0 auto;padding:0 5%;">
+  <div class="section-tag">Testimonios</div>
+  <h2 class="section-title">Lo que dicen<br>nuestros alumnos</h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">"Llevo 8 años intentando ponerme en forma. Probé gimnasios, dietas locas, apps de todo tipo. TransFit 90 es lo único que ha funcionado de verdad. El método de Laura no tiene trampa ni cartón."</p>
+      <div class="test-author">
+        <img src="https://picsum.photos/seed/tfit1/100/100" alt="" class="test-avatar">
+        <div><div class="test-name">Raúl Fernández</div><div class="test-data">Perdió 14kg · Toledo</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">"Soy madre de dos niños y no tenía tiempo para el gimnasio. TransFit 90 se adapta a tu vida. Entreno 40 minutos al día, cuando puedo. Y los resultados en 90 días superaron todo lo que esperaba."</p>
+      <div class="test-author">
+        <img src="https://picsum.photos/seed/tfit2f/100/100" alt="" class="test-avatar">
+        <div><div class="test-name">Elena Torres</div><div class="test-data">Perdió 9kg · Madrid</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">"Al principio dudé del precio. Al final de los 90 días pensé: ojalá hubiera pagado el doble y haberlo hecho antes. Estoy en la mejor forma de mi vida a los 40. No lo pensé dos veces para recomendárselo a mis amigos."</p>
+      <div class="test-author">
+        <img src="https://picsum.photos/seed/tfit3m/100/100" alt="" class="test-avatar">
+        <div><div class="test-name">Marcos Ibáñez</div><div class="test-data">+20% fuerza · Sevilla</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- GARANTÍA -->
+<div style="padding:60px 5%;max-width:900px;margin:0 auto;">
+  <div class="garantia">
+    <div class="garantia-badge">🛡️</div>
+    <div>
+      <div class="garantia-title">Garantía 30 días sin preguntas</div>
+      <p class="garantia-text">Si en los primeros 30 días no ves resultados o el programa no es lo que esperabas, te devolvemos el 100% del dinero sin hacer preguntas. Creemos en el método. Nosotros asumimos el riesgo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRECIO -->
+<div id="precio" class="precio-wrap">
+  <div class="section-tag">Inversión</div>
+  <h2 class="section-title" style="margin-bottom:10px;">Un precio.<br>Una decisión.</h2>
+  <p style="color:var(--gris-claro);margin-bottom:40px;">Todo incluido. Sin cuotas mensuales. Sin sorpresas.</p>
+  <div class="precio-card">
+    <div class="precio-top">Precio de acceso completo</div>
+    <div class="precio-tachado">Precio habitual: 297€</div>
+    <div class="precio-num"><span class="precio-eur">€</span>147</div>
+    <div class="precio-sub">Pago único · Sin cuotas · Sin suscripción</div>
+    <ul class="precio-feats">
+      <li>+180 vídeos de entrenamiento HD</li>
+      <li>Plan nutricional personalizado</li>
+      <li>Seguimiento semanal en directo con Laura</li>
+      <li>Comunidad privada de alumnos</li>
+      <li>App de seguimiento de progreso</li>
+      <li>Acceso de por vida y actualizaciones</li>
+      <li>Garantía 30 días total</li>
+    </ul>
+    <a href="#" class="btn-cta btn-primary" style="width:100%;text-align:center;display:block;font-size:14px;">Empezar mi transformación ahora</a>
+    <p style="font-size:11px;color:var(--gris);margin-top:14px;">Pago seguro · Tarjeta, PayPal o Bizum</p>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="section-tag">FAQ</div>
+  <h2 class="section-title" style="margin-bottom:40px;">Preguntas frecuentes</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Necesito ir al gimnasio o puedo hacerlo en casa?<span class="faq-icon">+</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Tienes las dos opciones. El programa incluye versiones de cada entrenamiento para gimnasio (con máquinas y pesas) y para casa (con mancuernas básicas o incluso sin material). Tú eliges según tus posibilidades.</div></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Cuánto tiempo al día necesito dedicar?<span class="faq-icon">+</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Entre 40 y 60 minutos al día, 5 días a la semana. Los fines de semana son de descanso activo opcional. El programa está diseñado para personas con vida real: trabajo, familia y compromisos.</div></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Funciona si soy principiante absoluto?<span class="faq-icon">+</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Sí. Hay una fase de adaptación de 2 semanas para principiantes. Laura explica cada ejercicio desde cero, con variantes más sencillas. También funciona si ya tienes experiencia — hay progresiones para todos los niveles.</div></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Hay algún seguimiento personalizado o es solo material grabado?<span class="faq-icon">+</span></div>
+    <div class="faq-a"><div class="faq-a-inner">Incluye sesiones semanales en directo con Laura donde puedes hacer preguntas en tiempo real. También tienes la comunidad privada donde Laura y el equipo responden dudas. No estás solo.</div></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si no termino los 90 días o me lesiono?<span class="faq-icon">+</span></div>
+    <div class="faq-a"><div class="faq-a-inner">El acceso es de por vida. Si tienes que pausar, vuelves donde lo dejaste cuando puedas. Si sufres una lesión, contacta con el equipo y te ayudamos a adaptar el programa a tu situación.</div></div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>¿SIGUES ESPERANDO<br>EL MOMENTO PERFECTO?</h2>
+  <p>El momento perfecto no existe. El momento es ahora. En 90 días, lo que hoy parece imposible será tu nueva normalidad.</p>
+  <a href="#" class="btn-cta-dark">Unirme a TransFit 90 — 147€</a>
+  <p class="cta-nota">Garantía 30 días · Acceso inmediato · Sin riesgo</p>
+</div>
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+
+<script>
+function toggleFaq(el){
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cucina di Marco — Curso Online de Cocina Italiana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro: #0D0A09;
+    --vino: #8B1A1A;
+    --vino-claro: #A52828;
+    --vino-muy-claro: #C23030;
+    --crema: #F5EDD8;
+    --crema-oscuro: #E8D9B5;
+    --gris: #9A9288;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--negro); color: var(--crema); font-family: 'Montserrat', sans-serif; line-height: 1.7; overflow-x: hidden; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0D0A09 0%, #1A0A0A 50%, #0D0A09 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 20px 40px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(139,26,26,0.18) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid rgba(139,26,26,0.6);
+    color: var(--gris);
+    font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    padding: 8px 20px; border-radius: 2px; margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; color: var(--vino-muy-claro); }
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 300; color: var(--gris);
+    max-width: 620px; margin: 0 auto 40px;
+  }
+  .hero-sub strong { color: var(--crema); font-weight: 600; }
+
+  /* COUNTDOWN */
+  .countdown-wrap { margin-bottom: 44px; }
+  .countdown-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gris); margin-bottom: 14px; }
+  .countdown { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .cd-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(139,26,26,0.4);
+    padding: 16px 24px; border-radius: 4px; min-width: 80px; text-align: center;
+  }
+  .cd-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; color: var(--vino-muy-claro); line-height: 1; }
+  .cd-unit { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gris); margin-top: 4px; }
+
+  .btn-hero {
+    display: inline-block;
+    background: var(--vino);
+    color: var(--crema);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px 48px; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-hero:hover { background: var(--vino-muy-claro); transform: translateY(-2px); }
+  .hero-note { font-size: 12px; color: var(--gris); margin-top: 16px; }
+
+  /* DIVIDER */
+  .divider { text-align: center; padding: 60px 20px; }
+  .divider-line {
+    display: flex; align-items: center; gap: 20px; max-width: 500px; margin: 0 auto;
+  }
+  .divider-line::before, .divider-line::after { content: ''; flex: 1; height: 1px; background: rgba(139,26,26,0.35); }
+  .divider-icon { color: var(--vino-claro); font-size: 1.4rem; }
+
+  /* SECTION */
+  section { padding: 80px 20px; max-width: 960px; margin: 0 auto; }
+  .section-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--vino-claro); margin-bottom: 14px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+  .section-desc { color: var(--gris); font-size: 1.05rem; max-width: 680px; }
+
+  /* PROBLEMA / SOLUCIÓN */
+  .problema-sol { background: rgba(255,255,255,0.025); border-top: 1px solid rgba(139,26,26,0.2); border-bottom: 1px solid rgba(139,26,26,0.2); }
+  .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 50px; }
+  @media(max-width:640px){ .ps-grid { grid-template-columns: 1fr; gap: 36px; } }
+  .ps-col h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px; }
+  .ps-col.problema h3 { color: var(--gris); }
+  .ps-col.solucion h3 { color: var(--vino-muy-claro); }
+  .ps-list { list-style: none; }
+  .ps-list li { display: flex; gap: 12px; margin-bottom: 14px; font-size: 0.95rem; }
+  .ps-list li::before { content: '✗'; color: #6B2020; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .ps-list.sol li::before { content: '✓'; color: var(--vino-muy-claro); }
+
+  /* MÓDULOS */
+  .modulos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 50px; }
+  .modulo-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(139,26,26,0.25);
+    padding: 28px; border-radius: 4px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .modulo-card:hover { border-color: rgba(139,26,26,0.7); transform: translateY(-3px); }
+  .modulo-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--vino-claro); margin-bottom: 10px; }
+  .modulo-card h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 10px; }
+  .modulo-card p { font-size: 0.9rem; color: var(--gris); }
+
+  /* INSTRUCTOR */
+  .instructor-grid { display: grid; grid-template-columns: 340px 1fr; gap: 60px; align-items: center; margin-top: 50px; }
+  @media(max-width:700px){ .instructor-grid { grid-template-columns: 1fr; } }
+  .instructor-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 4px; filter: grayscale(20%) contrast(1.05); }
+  .instructor-name { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 6px; }
+  .instructor-title { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--vino-claro); margin-bottom: 20px; }
+  .instructor-text { color: var(--gris); font-size: 0.95rem; margin-bottom: 14px; }
+  .instructor-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .istat { text-align: center; }
+  .istat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--vino-muy-claro); }
+  .istat-label { font-size: 11px; color: var(--gris); letter-spacing: 1px; }
+
+  /* TESTIMONIOS */
+  .testimonios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 50px; }
+  .testimonio {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 28px; border-radius: 4px;
+  }
+  .t-stars { color: var(--vino-muy-claro); font-size: 1.1rem; margin-bottom: 14px; }
+  .t-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--crema-oscuro); margin-bottom: 20px; line-height: 1.6; }
+  .t-author { display: flex; align-items: center; gap: 12px; }
+  .t-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+  .t-name { font-size: 0.9rem; font-weight: 600; }
+  .t-place { font-size: 11px; color: var(--gris); }
+
+  /* PRECIO */
+  .precio-section { text-align: center; }
+  .precio-card {
+    display: inline-block; max-width: 480px; width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 2px solid var(--vino);
+    padding: 48px 40px; border-radius: 6px; margin-top: 40px;
+  }
+  .precio-etiqueta { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gris); margin-bottom: 12px; }
+  .precio-valor { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: var(--vino-muy-claro); }
+  .precio-valor sup { font-size: 2rem; vertical-align: super; }
+  .precio-original { font-size: 1.1rem; text-decoration: line-through; color: var(--gris); margin-bottom: 6px; }
+  .precio-nota { font-size: 12px; color: var(--gris); margin-top: 6px; }
+  .precio-includes { list-style: none; margin: 28px 0; text-align: left; }
+  .precio-includes li { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.95rem; }
+  .precio-includes li::before { content: '✓'; color: var(--vino-muy-claro); font-weight: 700; flex-shrink: 0; }
+
+  /* FAQ */
+  .faq-list { margin-top: 50px; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; cursor: pointer;
+    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+    transition: color 0.2s;
+    user-select: none;
+    list-style: none;
+  }
+  .faq-q:hover { color: var(--vino-muy-claro); }
+  .faq-icon { color: var(--vino-claro); font-size: 1.3rem; transition: transform 0.25s; flex-shrink: 0; margin-left: 16px; }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-a-inner { padding-bottom: 22px; color: var(--gris); font-size: 0.95rem; line-height: 1.8; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  /* CTA FINAL */
+  .cta-final {
+    background: linear-gradient(135deg, #1A0A0A 0%, #0D0A09 100%);
+    border-top: 1px solid rgba(139,26,26,0.35);
+    text-align: center; padding: 100px 20px;
+  }
+  .cta-final .section-title { max-width: 600px; margin: 0 auto 30px; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 28px 20px; background: rgba(0,0,0,0.4); font-size: 12px; color: var(--gris); border-top: 1px solid rgba(255,255,255,0.06); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Inscripciones Abiertas — Plazas Limitadas</div>
+  <h1>La Cucina<br><em>di Marco</em></h1>
+  <p class="hero-sub">Aprende a cocinar la <strong>auténtica cocina italiana</strong> desde cero, con técnicas de restaurante y recetas de familia transmitidas de generación en generación.</p>
+
+  <div class="countdown-wrap">
+    <p class="countdown-label">El precio especial termina en</p>
+    <div class="countdown">
+      <div class="cd-block"><div class="cd-num" id="cd-d">03</div><div class="cd-unit">Días</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-h">14</div><div class="cd-unit">Horas</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-m">28</div><div class="cd-unit">Min</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-s">45</div><div class="cd-unit">Seg</div></div>
+    </div>
+  </div>
+
+  <a href="#precio" class="btn-hero">Quiero unirme al curso — 197€</a>
+  <p class="hero-note">Acceso de por vida · Garantía 30 días · 6 módulos completos</p>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- PROBLEMA / SOLUCIÓN -->
+<div class="problema-sol" style="padding: 80px 20px;">
+<section style="padding: 0;">
+  <div class="section-tag">El problema</div>
+  <h2 class="section-title">¿Por qué la cocina italiana de casa nunca sabe igual?</h2>
+  <p class="section-desc">No es culpa tuya. Nadie te ha enseñado los secretos que solo se aprenden en las cocinas italianas de verdad.</p>
+  <div class="ps-grid">
+    <div class="ps-col problema">
+      <h3>Lo que seguramente te pasa</h3>
+      <ul class="ps-list">
+        <li>Sigues recetas de internet y el resultado siempre defrauda</li>
+        <li>La pasta te queda blanda, los salsas sin sabor, la pizza sin carácter</li>
+        <li>No entiendes por qué en los restaurantes italianos sabe diferente</li>
+        <li>Te da vergüenza invitar a cenar porque no confías en tu cocina</li>
+        <li>Has comprado ingredientes caros que no sabes aprovechar</li>
+      </ul>
+    </div>
+    <div class="ps-col solucion">
+      <h3>Lo que cambiarás</h3>
+      <ul class="ps-list sol">
+        <li>Aprenderás las técnicas base que transforman ingredientes simples en alta cocina</li>
+        <li>Entenderás el por qué de cada paso, no solo el qué</li>
+        <li>Cocinarás con confianza, improvisando y adaptando</li>
+        <li>Impresionarás a familia y amigos con platos auténticos</li>
+        <li>Tendrás acceso de por vida para repasar cuando quieras</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- MÓDULOS -->
+<section>
+  <div class="section-tag">El programa</div>
+  <h2 class="section-title">6 Módulos para dominar la cocina italiana</h2>
+  <p class="section-desc">Desde la base hasta los platos más sofisticados, siguiendo el orden en que los aprenden los cocineros profesionales italianos.</p>
+  <div class="modulos-grid">
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 01</div>
+      <h4>Los fundamentos de la despensa italiana</h4>
+      <p>Aceites, harinas, quesos, tomates y especias. Aprende a elegir y almacenar los ingredientes correctos.</p>
+    </div>
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 02</div>
+      <h4>La pasta fresca perfecta</h4>
+      <p>Tagliatelle, pappardelle y ravioli desde cero. La técnica de amasado, el grosor, el reposo y el punto de cocción.</p>
+    </div>
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 03</div>
+      <h4>Salsas que lo cambian todo</h4>
+      <p>Pomodoro, ragù bolognese, pesto, carbonara y amatriciana auténticas. Sin trucos. Sin sustitutos.</p>
+    </div>
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 04</div>
+      <h4>Pizza napoletana en casa</h4>
+      <p>La masa de 48 horas, el horno doméstico al máximo y la técnica de estirado que separa la pizza de verdad de las demás.</p>
+    </div>
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 05</div>
+      <h4>Risotto y platos de cuchara</h4>
+      <p>Risotto al parmigiano, alla milanese y negro de sepia. La cremosidad perfecta sin trucos de restaurante.</p>
+    </div>
+    <div class="modulo-card">
+      <div class="modulo-num">Módulo 06</div>
+      <h4>Dolci — El final perfecto</h4>
+      <p>Tiramisú clásico, panna cotta, cannoli sicilianos y gelato artesanal. El cierre que tus invitados recordarán.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- INSTRUCTOR -->
+<section>
+  <div class="section-tag">Tu instructor</div>
+  <div class="instructor-grid">
+    <img src="https://picsum.photos/seed/chef-marco/400/533" alt="Marco Bellini" class="instructor-photo">
+    <div>
+      <h2 class="section-title" style="margin-bottom:0;">Marco Bellini</h2>
+      <div class="instructor-title">Chef · Nápoles, Italia</div>
+      <p class="instructor-text">Nacido en Nápoles en el seno de una familia de cocineros, Marco aprendió a hacer pasta antes de aprender a leer. Formado en el restaurante Da Michele y con experiencia en tres Michelin de Milán y Roma, lleva 8 años enseñando cocina italiana a personas de toda España.</p>
+      <p class="instructor-text">Su método es simple: entender el porqué antes del cómo. "Un buen cocinero no necesita receta, necesita criterio."</p>
+      <p class="instructor-text">Más de 3.400 alumnos formados. Colabora regularmente con revistas gastronómicas y aparece en medios como El País Semanal y La Vanguardia.</p>
+      <div class="instructor-stats">
+        <div class="istat"><div class="istat-num">3.4K</div><div class="istat-label">Alumnos</div></div>
+        <div class="istat"><div class="istat-num">18</div><div class="istat-label">Años cocinando</div></div>
+        <div class="istat"><div class="istat-num">4.9★</div><div class="istat-label">Valoración media</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- TESTIMONIOS -->
+<section>
+  <div class="section-tag">Lo que dicen los alumnos</div>
+  <h2 class="section-title">Resultados reales de personas reales</h2>
+  <div class="testimonios-grid">
+    <div class="testimonio">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Llevaba años intentando hacer la carbonara auténtica y siempre me quedaba una tortilla. Con Marco entendí el error en dos minutos. Ahora la hago perfecta cada semana."</p>
+      <div class="t-author">
+        <img src="https://picsum.photos/seed/t1mujer/100/100" alt="" class="t-avatar">
+        <div><div class="t-name">Sofía Martínez</div><div class="t-place">Madrid</div></div>
+      </div>
+    </div>
+    <div class="testimonio">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"El módulo de pizza cambió mi vida. No exagero. Llevo tres domingos haciendo pizzas en casa y mi familia ya no quiere pedir a domicilio. Merece cada euro."</p>
+      <div class="t-author">
+        <img src="https://picsum.photos/seed/t2hombre/100/100" alt="" class="t-avatar">
+        <div><div class="t-name">Carlos Rueda</div><div class="t-place">Barcelona</div></div>
+      </div>
+    </div>
+    <div class="testimonio">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Soy una cocinera principiante y tenía miedo de que fuera demasiado avanzado. Para nada. Marco explica con una paciencia y claridad que hacen todo comprensible. Totalmente recomendado."</p>
+      <div class="t-author">
+        <img src="https://picsum.photos/seed/t3mujer/100/100" alt="" class="t-avatar">
+        <div><div class="t-name">Ana García</div><div class="t-place">Valencia</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- PRECIO -->
+<section id="precio" class="precio-section">
+  <div class="section-tag">Inversión</div>
+  <h2 class="section-title">Un único pago. Acceso de por vida.</h2>
+  <div class="precio-card">
+    <div class="precio-etiqueta">Precio especial de lanzamiento</div>
+    <div class="precio-original">Precio habitual: 397€</div>
+    <div class="precio-valor"><sup>€</sup>197</div>
+    <div class="precio-nota">Pago único · Sin cuotas · Sin suscripción</div>
+    <ul class="precio-includes">
+      <li>6 módulos con más de 40 videolecciones en HD</li>
+      <li>Recetario PDF descargable (62 recetas)</li>
+      <li>Acceso a la comunidad privada de alumnos</li>
+      <li>Sesión de preguntas en directo con Marco (mensual)</li>
+      <li>Actualizaciones y recetas nuevas incluidas</li>
+      <li>Garantía de satisfacción de 30 días</li>
+    </ul>
+    <a href="#" class="btn-hero" style="width:100%;text-align:center;display:block;">Quiero empezar ahora</a>
+    <p style="font-size:11px;color:var(--gris);margin-top:14px;">Pago seguro · Tarjeta, PayPal o Bizum · Facturas disponibles</p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-icon">✦</span></div></div>
+
+<!-- FAQ -->
+<section>
+  <div class="section-tag">Dudas frecuentes</div>
+  <h2 class="section-title">Preguntas y respuestas</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Necesito experiencia previa en cocina?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">No. El curso está diseñado para que funcione tanto si eres principiante absoluto como si ya cocinas con cierta soltura y quieres mejorar. Marco empieza desde los fundamentos y construye progresivamente. Si sabes hervir agua, puedes hacer este curso.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Necesito utensilios especiales o ingredientes difíciles de encontrar?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Para la mayoría de recetas, solo necesitas los utensilios básicos de cualquier cocina: olla, sartén, tabla y cuchillo. En el módulo 1 Marco explica exactamente qué ingredientes usar y dónde encontrarlos en España. Nada que no encuentres en un buen supermercado o tienda gourmet.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Por cuánto tiempo tengo acceso?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Acceso de por vida. Una vez que compras el curso, es tuyo para siempre. Puedes verlo a tu ritmo, volver a cualquier lección cuando quieras, y acceder a todas las actualizaciones futuras sin coste adicional.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Qué pasa si no me gusta el curso?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Tienes 30 días de garantía de satisfacción total. Si por cualquier motivo sientes que el curso no era lo que esperabas, escríbenos y te devolvemos el 100% del importe sin preguntas. Creemos tanto en este curso que asumimos nosotros el riesgo.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Hay interacción con Marco o es solo vídeos grabados?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Además de las videolecciones grabadas, tienes acceso a la comunidad privada donde puedes hacer preguntas y compartir tus avances. Y una vez al mes, Marco hace una sesión en directo para resolver dudas de todos los alumnos. Nunca estás solo en el proceso.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <div class="section-tag">Última llamada</div>
+  <h2 class="section-title">La cocina italiana que siempre quisiste dominar te está esperando</h2>
+  <p style="color:var(--gris);max-width:520px;margin:0 auto 36px;font-size:1rem;">El precio especial de lanzamiento termina pronto. Únete hoy y empieza tu primer módulo esta tarde.</p>
+  <a href="#" class="btn-hero">Acceder al curso por 197€</a>
+  <p style="color:var(--gris);font-size:12px;margin-top:16px;">Garantía 30 días · Acceso inmediato · Facturas disponibles</p>
+</div>
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+
+<script>
+// COUNTDOWN — 3 días desde ahora
+(function(){
+  const end = new Date(Date.now() + 3*24*60*60*1000);
+  function update(){
+    const diff = end - Date.now();
+    if(diff<=0){ document.getElementById('cd-d').textContent='00'; document.getElementById('cd-h').textContent='00'; document.getElementById('cd-m').textContent='00'; document.getElementById('cd-s').textContent='00'; return; }
+    const d = Math.floor(diff/(1000*60*60*24));
+    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m = Math.floor((diff%(1000*60*60))/(1000*60));
+    const s = Math.floor((diff%(1000*60))/1000);
+    document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  update(); setInterval(update,1000);
+})();
+
+// FAQ
+function toggleFaq(el){
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

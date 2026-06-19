@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis Meta Ads — ModaSur</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0A14;
+    --surface: #12121F;
+    --surface2: #1A1A2E;
+    --surface3: #222235;
+    --accent: #E1306C;
+    --accent2: #F77737;
+    --accent-grad: linear-gradient(135deg, #E1306C, #F77737);
+    --accent-soft: rgba(225,48,108,0.12);
+    --text: #F0EFF8;
+    --text-muted: #8885A0;
+    --red: #FF4444;
+    --red-bg: rgba(255,68,68,0.1);
+    --yellow: #FFB340;
+    --yellow-bg: rgba(255,179,64,0.1);
+    --green: #4CAF50;
+    --green-bg: rgba(76,175,80,0.1);
+    --border: #2A2A40;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+  .mono { font-family: 'DM Mono', monospace; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 48px; }
+
+  /* HEADER */
+  .report-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 40px 0 36px; margin-bottom: 48px; position: relative; overflow: hidden; }
+  .header-glow { position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(225,48,108,0.2) 0%, transparent 70%); pointer-events: none; }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; position: relative; }
+  .header-left { display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+  .logo-badge {
+    width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0; background: var(--accent-grad);
+  }
+  .client-info h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .client-info p { color: var(--text-muted); font-size: 14px; }
+  .report-meta { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; color: var(--text-muted); }
+  .meta-item span { font-weight: 600; color: var(--text); }
+  .result-box { text-align: center; background: var(--surface2); border-radius: 16px; padding: 22px 28px; border: 1px solid var(--border); }
+  .result-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+  .result-value { font-size: 48px; font-weight: 700; font-family: 'DM Mono', monospace; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .result-tag { display: inline-block; background: var(--yellow-bg); color: var(--yellow); font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-top: 8px; border: 1px solid rgba(255,179,64,0.3); }
+
+  /* Section title */
+  .section-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .title-accent { height: 3px; width: 32px; background: var(--accent-grad); border-radius: 2px; margin-bottom: 12px; }
+
+  /* KPI table */
+  .kpi-table { width: 100%; }
+  .kpi-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .kpi-table thead th { background: var(--surface2); color: var(--text-muted); padding: 10px 16px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .kpi-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .kpi-table tbody tr:hover { background: var(--surface2); }
+  .kpi-table tbody td { padding: 13px 16px; vertical-align: middle; }
+  .kpi-name { font-weight: 600; }
+  .kpi-current { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 700; }
+  .kpi-benchmark { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--text-muted); }
+  .kpi-diff { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; }
+  .kpi-diff.bad { color: var(--red); }
+  .kpi-diff.warn { color: var(--yellow); }
+  .kpi-diff.good { color: var(--green); }
+  .status-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .sp-red { background: var(--red-bg); color: var(--red); border: 1px solid rgba(255,68,68,0.3); }
+  .sp-yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(255,179,64,0.3); }
+  .sp-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }
+
+  /* Problem cards */
+  .problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; display: flex; gap: 18px; align-items: flex-start; }
+  .problem-num { width: 40px; height: 40px; border-radius: 10px; background: var(--red-bg); border: 1px solid rgba(255,68,68,0.3); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--red); flex-shrink: 0; font-family: 'DM Mono', monospace; }
+  .problem-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .problem-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .problem-impact { display: inline-block; margin-top: 10px; font-size: 12px; background: var(--red-bg); color: var(--red); padding: 3px 12px; border-radius: 10px; font-weight: 600; }
+
+  /* Ad evaluation */
+  .ad-eval { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 14px; }
+  .ad-eval-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .ad-eval-name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .ad-format-tag { font-size: 11px; background: var(--surface2); color: var(--text-muted); padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+  .ad-score { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; }
+  .score-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  .score-fill { height: 100%; border-radius: 3px; }
+  .sf-red { background: var(--red); }
+  .sf-yellow { background: var(--yellow); }
+  .sf-green { background: var(--green); }
+  .ad-copy { background: var(--surface2); border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.7; color: var(--text-muted); font-style: italic; margin: 10px 0; border-left: 3px solid var(--border); }
+  .ad-copy strong { color: var(--text); font-style: normal; }
+  .ad-problems { margin-top: 10px; }
+  .ad-problem-item { display: flex; gap: 8px; font-size: 13px; color: var(--text-muted); padding: 4px 0; align-items: flex-start; }
+
+  /* New ad proposal */
+  .new-ad { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .new-ad::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-grad); }
+  .new-ad-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+  .new-ad-title { font-weight: 700; font-size: 15px; color: var(--text); }
+  .new-ad-format { font-size: 11px; padding: 3px 12px; border-radius: 20px; font-weight: 700; }
+  .fmt-video { background: rgba(225,48,108,0.15); color: var(--accent); border: 1px solid rgba(225,48,108,0.3); }
+  .fmt-carrusel { background: rgba(247,119,55,0.15); color: var(--accent2); border: 1px solid rgba(247,119,55,0.3); }
+  .fmt-imagen { background: rgba(76,175,80,0.1); color: var(--green); border: 1px solid rgba(76,175,80,0.3); }
+  .ad-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ad-detail { }
+  .ad-detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px; }
+  .ad-detail-value { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .ad-detail-value.highlight { font-style: italic; color: var(--text-muted); border-left: 2px solid var(--accent); padding-left: 8px; }
+  .audience-tag { display: inline-block; font-size: 11px; background: var(--surface2); color: var(--text-muted); padding: 2px 8px; border-radius: 6px; margin: 2px 2px 2px 0; }
+
+  /* Estimation */
+  .estimation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .est-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+  .est-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px; }
+  .est-before { font-size: 22px; font-weight: 700; color: var(--red); font-family: 'DM Mono', monospace; }
+  .est-after { font-size: 22px; font-weight: 700; color: var(--green); font-family: 'DM Mono', monospace; }
+  .est-arrow { font-size: 20px; margin: 4px 0; color: var(--text-muted); }
+
+  /* Footer */
+  .report-footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 22px; font-size: 12px; color: var(--text-muted); margin-top: 60px; }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+
+  @media (max-width: 640px) {
+    .header-inner { flex-direction: column; }
+    .ad-detail-grid { grid-template-columns: 1fr; }
+    section { margin-bottom: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="report-header">
+  <div class="header-glow"></div>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-badge">👗</div>
+        <div class="client-info">
+          <h1>ModaSur</h1>
+          <p>Moda mujer · Sevilla · Instagram + Facebook Ads</p>
+          <div class="report-meta">
+            <div class="meta-item">Período: <span>Mayo 2026</span></div>
+            <div class="meta-item">Presupuesto gastado: <span>1.847 €</span></div>
+            <div class="meta-item">Analista: <span>Agencia IA</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="result-box">
+        <div class="result-label">Resultado general</div>
+        <div class="result-value">1.847€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">gastados en mayo</div>
+        <div class="result-tag">⚠ MEJORABLE</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <section>
+    <div class="title-accent"></div>
+    <div class="section-title"><span>📊</span>KPIs Actuales vs. Benchmark del Sector (Moda)</div>
+    <div class="table-wrap">
+      <div class="kpi-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Métrica</th>
+              <th>Resultado actual</th>
+              <th>Benchmark sector</th>
+              <th>Diferencia</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kpi-name">Alcance</td>
+              <td class="kpi-current">38.400</td>
+              <td class="kpi-benchmark">65.000</td>
+              <td class="kpi-diff bad">-41%</td>
+              <td><span class="status-pill sp-red">Bajo</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">Impresiones</td>
+              <td class="kpi-current">94.200</td>
+              <td class="kpi-benchmark">180.000</td>
+              <td class="kpi-diff bad">-48%</td>
+              <td><span class="status-pill sp-red">Bajo</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">CTR (tasa de clics)</td>
+              <td class="kpi-current">1.2%</td>
+              <td class="kpi-benchmark">2.8%</td>
+              <td class="kpi-diff bad">-57%</td>
+              <td><span class="status-pill sp-red">Crítico</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">CPC (coste por clic)</td>
+              <td class="kpi-current">1.84 €</td>
+              <td class="kpi-benchmark">0.95 €</td>
+              <td class="kpi-diff bad">+93%</td>
+              <td><span class="status-pill sp-red">Crítico</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">CPL (coste por lead)</td>
+              <td class="kpi-current">28 €</td>
+              <td class="kpi-benchmark">12 €</td>
+              <td class="kpi-diff bad">+133%</td>
+              <td><span class="status-pill sp-red">Crítico</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">Conversiones (ventas)</td>
+              <td class="kpi-current">66</td>
+              <td class="kpi-benchmark">180</td>
+              <td class="kpi-diff bad">-63%</td>
+              <td><span class="status-pill sp-red">Bajo</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">ROAS (retorno inversión)</td>
+              <td class="kpi-current">1.4x</td>
+              <td class="kpi-benchmark">3.2x</td>
+              <td class="kpi-diff bad">-56%</td>
+              <td><span class="status-pill sp-red">Crítico</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">Frecuencia de impresión</td>
+              <td class="kpi-current">2.45</td>
+              <td class="kpi-benchmark">1.8–2.2</td>
+              <td class="kpi-diff warn">+10%</td>
+              <td><span class="status-pill sp-yellow">Fatiga de ad</span></td>
+            </tr>
+            <tr>
+              <td class="kpi-name">Tasa de conversión web</td>
+              <td class="kpi-current">0.8%</td>
+              <td class="kpi-benchmark">2.1%</td>
+              <td class="kpi-diff bad">-62%</td>
+              <td><span class="status-pill sp-red">Bajo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMAS -->
+  <section>
+    <div class="title-accent"></div>
+    <div class="section-title"><span>🔍</span>Dónde se Pierde el Dinero — 3 Problemas Identificados</div>
+
+    <div class="problem-card">
+      <div class="problem-num">1</div>
+      <div>
+        <div class="problem-title">Público demasiado amplio — sin segmentación real</div>
+        <div class="problem-desc">Los anuncios están configurados para "mujeres 18–55, España". Con este rango, Meta muestra los anuncios a personas con cero intención de compra, disparando el CPC y hundiendo el CTR. El 70% del presupuesto se gasta en personas que nunca comprarían.</div>
+        <div class="problem-impact">Impacto: CPC un 93% más caro de lo necesario</div>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-num">2</div>
+      <div>
+        <div class="problem-title">Creatividades sin gancho emocional ni urgencia</div>
+        <div class="problem-desc">Los 3 anuncios actuales muestran producto sobre fondo blanco con copy genérico. En el sector moda, las creatividades que funcionan muestran estilo de vida, antes/después de outfit, o incluyen urgencia real ("últimas unidades", "solo este fin de semana"). El CTR de 1.2% lo confirma.</div>
+        <div class="problem-impact">Impacto: CTR un 57% por debajo del sector</div>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-num">3</div>
+      <div>
+        <div class="problem-title">Sin retargeting configurado — se pierde el 97% de visitantes</div>
+        <div class="problem-desc">No existe ninguna campaña de retargeting para personas que visitaron la web o añadieron al carrito sin comprar. El 97% de los visitantes no compra en la primera visita — sin retargeting, ese dinero invertido en atraerlos se pierde completamente. Esta sola corrección puede duplicar el ROAS.</div>
+        <div class="problem-impact">Impacto: se pierde el 97% de visitantes interesados</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVALUACIÓN ANUNCIOS ACTUALES -->
+  <section>
+    <div class="title-accent"></div>
+    <div class="section-title"><span>📋</span>Evaluación de los Anuncios Actuales</div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>📸</span>Anuncio 1 — "Nueva Colección Verano"
+          <span class="ad-format-tag">Imagen</span>
+        </div>
+        <div>
+          <div class="ad-score" style="color:var(--red)">Puntuación: 3/10</div>
+          <div class="score-bar" style="width:120px"><div class="score-fill sf-red" style="width:30%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Titular:</strong> "Nueva Colección Verano 2026"<br>
+        <strong>Texto:</strong> "Descubre nuestra nueva colección de verano. Moda para mujer con los mejores tejidos. Compra ahora en nuestra tienda online."<br>
+        <strong>CTA:</strong> "Comprar ahora"
+      </div>
+      <div class="ad-problems">
+        <div class="ad-problem-item"><span>🔴</span>"Nueva Colección" no es un gancho — todas las tiendas tienen colección nueva</div>
+        <div class="ad-problem-item"><span>🔴</span>Sin propuesta de valor diferenciadora. ¿Por qué ModaSur y no Zara?</div>
+        <div class="ad-problem-item"><span>🔴</span>Sin urgencia ni escasez. El usuario lo ignorará y seguirá scrolleando</div>
+        <div class="ad-problem-item"><span>🟡</span>CTA correcto pero sin contexto que lo motive</div>
+      </div>
+    </div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>🎠</span>Anuncio 2 — "Productos Destacados"
+          <span class="ad-format-tag">Carrusel 4 imágenes</span>
+        </div>
+        <div>
+          <div class="ad-score" style="color:var(--yellow)">Puntuación: 5/10</div>
+          <div class="score-bar" style="width:120px"><div class="score-fill sf-yellow" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Titular:</strong> "Lo más vendido de la temporada"<br>
+        <strong>Texto:</strong> "Nuestros bestsellers de este verano. Vestidos, blusas y complementos para lucir perfecta. Envío gratis desde 39€."<br>
+        <strong>CTA:</strong> "Ver más"
+      </div>
+      <div class="ad-problems">
+        <div class="ad-problem-item"><span>🟡</span>Formato carrusel correcto para mostrar producto</div>
+        <div class="ad-problem-item"><span>🟡</span>"Envío gratis" es un diferenciador válido pero está enterrado en el texto</div>
+        <div class="ad-problem-item"><span>🔴</span>Las imágenes del carrusel son fotos de estudio frías — sin estilo de vida ni contexto emocional</div>
+        <div class="ad-problem-item"><span>🔴</span>"Ver más" es el peor CTA posible. Usar "Comprar con envío gratis" o "Ver precio"</div>
+      </div>
+    </div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>🎬</span>Anuncio 3 — "Video Lookbook"
+          <span class="ad-format-tag">Vídeo 30s</span>
+        </div>
+        <div>
+          <div class="ad-score" style="color:var(--yellow)">Puntuación: 6/10</div>
+          <div class="score-bar" style="width:120px"><div class="score-fill sf-yellow" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Titular:</strong> "Verano 2026 en ModaSur"<br>
+        <strong>Texto:</strong> "El lookbook de verano ya está aquí. Descubre todos los looks de la temporada."<br>
+        <strong>Video:</strong> 30s mostrando outfits en estudio de fotografía, sin subtítulos, sin texto superpuesto
+      </div>
+      <div class="ad-problems">
+        <div class="ad-problem-item"><span>🟡</span>Formato vídeo correcto — el mejor para alcance en Meta</div>
+        <div class="ad-problem-item"><span>🔴</span>Sin subtítulos: el 85% de los vídeos en Meta se ven sin sonido. Se pierde todo el mensaje</div>
+        <div class="ad-problem-item"><span>🔴</span>Los primeros 3 segundos no tienen gancho. El usuario hace scroll antes del impacto</div>
+        <div class="ad-problem-item"><span>🟡</span>Buena calidad de producción — con ajustes puede funcionar muy bien</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVOS ANUNCIOS PROPUESTOS -->
+  <section>
+    <div class="title-accent"></div>
+    <div class="section-title"><span>✨</span>5 Nuevos Anuncios Propuestos</div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 1 — "El outfit viral de TikTok"</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">Captación fría — Público nuevo</div>
+        </div>
+        <span class="new-ad-format fmt-video">🎬 Vídeo 15s</span>
+      </div>
+      <div class="ad-detail-grid">
+        <div class="ad-detail">
+          <div class="ad-detail-label">Titular</div>
+          <div class="ad-detail-value">"Este vestido lleva 2 semanas agotándose"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Llamada a la acción</div>
+          <div class="ad-detail-value">"Ver el vestido — antes de que se acabe"</div>
+        </div>
+        <div class="ad-detail" style="grid-column: 1 / -1">
+          <div class="ad-detail-label">Texto principal</div>
+          <div class="ad-detail-value highlight">"El vestido que arrasa este verano en Sevilla. Tejido fresco, tallas S a XL, envío en 24h. Quedan pocas unidades — no te quedes sin el tuyo."</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Público objetivo</div>
+          <div class="ad-detail-value">
+            <span class="audience-tag">Mujeres 22–45</span>
+            <span class="audience-tag">Sevilla +50km</span>
+            <span class="audience-tag">Interés: moda</span>
+            <span class="audience-tag">Zara, Mango, Asos</span>
+          </div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Descripción del vídeo</div>
+          <div class="ad-detail-value">Primeros 3s: texto grande "SE ESTÁ AGOTANDO ⚠". Luego: influencer local con el vestido puesto, subtítulos con precio tachado + precio especial. Finaliza con logo + CTA.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 2 — Carrusel "3 looks, 3 ocasiones"</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">Captación fría — Estilo de vida</div>
+        </div>
+        <span class="new-ad-format fmt-carrusel">🎠 Carrusel 6 imágenes</span>
+      </div>
+      <div class="ad-detail-grid">
+        <div class="ad-detail">
+          <div class="ad-detail-label">Titular</div>
+          <div class="ad-detail-value">"Un armario para todo el verano — desde 29€"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Llamada a la acción</div>
+          <div class="ad-detail-value">"Comprar mi look favorito"</div>
+        </div>
+        <div class="ad-detail" style="grid-column: 1 / -1">
+          <div class="ad-detail-label">Texto principal</div>
+          <div class="ad-detail-value highlight">"Brunch del domingo ☀ Noche de verano 🌙 Día de playa 🏖 Tenemos el look perfecto para cada momento. Envío gratis en pedidos +39€. Devoluciones sin preguntas."</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Público objetivo</div>
+          <div class="ad-detail-value">
+            <span class="audience-tag">Mujeres 25–50</span>
+            <span class="audience-tag">Andalucía</span>
+            <span class="audience-tag">Ingresos medios-altos</span>
+            <span class="audience-tag">Lifestyle + viajes</span>
+          </div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Estructura carrusel</div>
+          <div class="ad-detail-value">Carta 1: "Para el brunch" + foto real. Carta 2: "Para la noche" + foto. Carta 3: "Para la playa" + foto. Cartas 4–6: productos individuales con precio y botón "Ver".</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 3 — Retargeting carrito abandonado</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">Retargeting — Recuperación de ventas perdidas</div>
+        </div>
+        <span class="new-ad-format fmt-imagen">🖼 Imagen + texto directo</span>
+      </div>
+      <div class="ad-detail-grid">
+        <div class="ad-detail">
+          <div class="ad-detail-label">Titular</div>
+          <div class="ad-detail-value">"Tu carrito te está esperando 🛍"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Llamada a la acción</div>
+          <div class="ad-detail-value">"Finalizar mi compra"</div>
+        </div>
+        <div class="ad-detail" style="grid-column: 1 / -1">
+          <div class="ad-detail-label">Texto principal</div>
+          <div class="ad-detail-value highlight">"¿Se te olvidó algo? Los artículos en tu carrito tienen stock limitado. Completa tu pedido hoy y te regalamos el envío 🎁. Devoluciones gratuitas 30 días."</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Público objetivo (retargeting)</div>
+          <div class="ad-detail-value">
+            <span class="audience-tag">Visitaron web últimos 30d</span>
+            <span class="audience-tag">Añadieron al carrito</span>
+            <span class="audience-tag">NO compraron</span>
+          </div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Nota</div>
+          <div class="ad-detail-value">Este anuncio puede tener un ROAS de 5–8x porque el público ya conoce la marca. Presupuesto recomendado: 10–15% del total.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 4 — UGC (contenido de clienta real)</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">Captación fría — Prueba social</div>
+        </div>
+        <span class="new-ad-format fmt-video">🎬 Vídeo 20s (UGC)</span>
+      </div>
+      <div class="ad-detail-grid">
+        <div class="ad-detail">
+          <div class="ad-detail-label">Titular</div>
+          <div class="ad-detail-value">"'Me lo puse en la boda de mi prima y recibí 40 piropos'"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Llamada a la acción</div>
+          <div class="ad-detail-value">"Ver el vestido"</div>
+        </div>
+        <div class="ad-detail" style="grid-column: 1 / -1">
+          <div class="ad-detail-label">Concepto del vídeo</div>
+          <div class="ad-detail-value highlight">Clienta real (micro-influencer local, 1k–5k seguidores) grabando en vertical con móvil. Formato "review honesta". Muestra el producto sin caja, lo prueba, reacción natural. Subtítulos automáticos. Último segundo: logo + precio + CTA.</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Público objetivo</div>
+          <div class="ad-detail-value">
+            <span class="audience-tag">Mujeres 20–40</span>
+            <span class="audience-tag">Sevilla + Málaga + Cádiz</span>
+            <span class="audience-tag">Lookalike de compradoras</span>
+          </div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Por qué funciona</div>
+          <div class="ad-detail-value">Los anuncios UGC tienen un CTR 4x mayor que el contenido de estudio. Parece un post orgánico, no un anuncio.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 5 — Oferta flash fin de semana</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">Captación + Retargeting — Urgencia</div>
+        </div>
+        <span class="new-ad-format fmt-imagen">🖼 Imagen con texto urgente</span>
+      </div>
+      <div class="ad-detail-grid">
+        <div class="ad-detail">
+          <div class="ad-detail-label">Titular</div>
+          <div class="ad-detail-value">"⏳ Solo hasta el domingo: 20% en toda la colección"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Llamada a la acción</div>
+          <div class="ad-detail-value">"Aprovechar el descuento ahora"</div>
+        </div>
+        <div class="ad-detail" style="grid-column: 1 / -1">
+          <div class="ad-detail-label">Texto principal</div>
+          <div class="ad-detail-value highlight">"Este fin de semana, toda la nueva colección de verano con un 20% de descuento. Solo quedan 48 horas. Código aplicado automáticamente — sin necesidad de cupón. Envío gratis. ¿A qué esperas?"</div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Público objetivo</div>
+          <div class="ad-detail-value">
+            <span class="audience-tag">Visitantes web 60 días</span>
+            <span class="audience-tag">Público frío similar</span>
+            <span class="audience-tag">Interacción Instagram</span>
+          </div>
+        </div>
+        <div class="ad-detail">
+          <div class="ad-detail-label">Activación</div>
+          <div class="ad-detail-value">Lanzar viernes 20h, pausar lunes 8h. Repetir 2–3 fines de semana al mes para generar hábito de compra.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTIMACIÓN -->
+  <section>
+    <div class="title-accent"></div>
+    <div class="section-title"><span>📈</span>Estimación de Mejora con los Cambios Propuestos</div>
+    <div class="estimation-grid">
+      <div class="est-card">
+        <div class="est-label">CTR</div>
+        <div class="est-before">1.2%</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">2.6%</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">CPC</div>
+        <div class="est-before">1.84 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">0.98 €</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">CPL</div>
+        <div class="est-before">28 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">14 €</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">ROAS</div>
+        <div class="est-before">1.4x</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">2.8x</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">Conversiones/mes</div>
+        <div class="est-before">66</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">~160</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">Ingresos con mismo presupuesto</div>
+        <div class="est-before">2.586 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">5.172 €</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:12px;text-align:center">* Estimaciones basadas en benchmarks del sector moda en Meta Ads. Resultados reales pueden variar. Se alcanza en 4–8 semanas de optimización.</p>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong style="color:var(--accent)">Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com">aecadro@gmail.com</a>
+  <br><small style="opacity:0.5">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

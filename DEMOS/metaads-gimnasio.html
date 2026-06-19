@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis Meta Ads — FitLife Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #050505;
+    --surface: #0E0E0E;
+    --surface2: #161616;
+    --surface3: #1E1E1E;
+    --accent: #FF6B00;
+    --accent-soft: rgba(255,107,0,0.12);
+    --accent-border: rgba(255,107,0,0.3);
+    --text: #F5F5F5;
+    --text-muted: #888;
+    --red: #FF3333;
+    --red-bg: rgba(255,51,51,0.1);
+    --yellow: #FFB340;
+    --yellow-bg: rgba(255,179,64,0.1);
+    --green: #00C853;
+    --green-bg: rgba(0,200,83,0.1);
+    --border: #222;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+  .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
+  .mono { font-family: 'Courier New', monospace; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 52px; }
+
+  /* HEADER */
+  .report-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 44px 0 38px; margin-bottom: 52px; position: relative; overflow: hidden; }
+  .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
+  .header-glow { position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%); pointer-events: none; }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; position: relative; }
+  .header-left { display: flex; align-items: flex-start; gap: 18px; }
+  .logo-badge { width: 64px; height: 64px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0; background: var(--accent); }
+  .client-info h1 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 3px; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .client-tagline { color: var(--accent); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .client-info p { color: var(--text-muted); font-size: 13px; }
+  .report-meta { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; color: var(--text-muted); }
+  .meta-item span { font-weight: 600; color: var(--text); }
+
+  .result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; min-width: 220px; }
+  .result-mini { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center; }
+  .result-mini .rm-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; }
+  .result-mini .rm-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 2px; }
+  .rm-orange { color: var(--accent); }
+  .rm-red { color: var(--red); }
+  .rm-yellow { color: var(--yellow); }
+  .rm-green { color: var(--green); }
+
+  /* Section title */
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .section-num { font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--text-muted); letter-spacing: 0; }
+
+  /* KPI table */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th { background: var(--surface2); color: var(--text-muted); padding: 11px 16px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 13px 16px; vertical-align: middle; }
+  .kpi-name { font-weight: 600; }
+  .kpi-val { font-family: 'Courier New', monospace; font-weight: 700; font-size: 15px; }
+  .kpi-bench { font-family: 'Courier New', monospace; font-size: 13px; color: var(--text-muted); }
+  .kpi-diff { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; }
+  .kpi-diff.bad { color: var(--red); }
+  .kpi-diff.warn { color: var(--yellow); }
+  .kpi-diff.good { color: var(--green); }
+  .status-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .sp-red { background: var(--red-bg); color: var(--red); border: 1px solid rgba(255,51,51,0.3); }
+  .sp-yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(255,179,64,0.3); }
+  .sp-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(0,200,83,0.3); }
+
+  /* Problem card */
+  .problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 14px; display: flex; gap: 18px; align-items: flex-start; position: relative; overflow: hidden; }
+  .problem-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--red); }
+  .problem-num { width: 38px; height: 38px; border-radius: 8px; background: var(--red-bg); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--red); flex-shrink: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; border: 1px solid rgba(255,51,51,0.3); }
+  .problem-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .problem-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .problem-impact { display: inline-block; margin-top: 10px; font-size: 12px; background: var(--red-bg); color: var(--red); padding: 3px 12px; border-radius: 8px; font-weight: 600; border: 1px solid rgba(255,51,51,0.2); }
+
+  /* Ad eval */
+  .ad-eval { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 14px; }
+  .ad-eval-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .ad-eval-name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .ad-format-tag { font-size: 11px; background: var(--surface2); color: var(--text-muted); padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+  .score-wrap { text-align: right; }
+  .ad-score { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; }
+  .score-bar { height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-top: 5px; width: 120px; }
+  .score-fill { height: 100%; border-radius: 3px; }
+  .sf-red { background: var(--red); }
+  .sf-yellow { background: var(--yellow); }
+  .sf-green { background: var(--green); }
+  .ad-copy { background: var(--surface2); border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.7; color: var(--text-muted); font-style: italic; margin: 10px 0; border-left: 3px solid var(--accent); }
+  .ad-copy strong { color: var(--text); font-style: normal; }
+  .issue-item { display: flex; gap: 8px; font-size: 13px; color: var(--text-muted); padding: 4px 0; align-items: flex-start; }
+
+  /* New ad */
+  .new-ad { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .new-ad::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+  .new-ad-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+  .new-ad-title { font-weight: 700; font-size: 15px; color: var(--text); }
+  .new-ad-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .ad-format-badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; }
+  .fmt-video { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+  .fmt-carrusel { background: rgba(255,179,64,0.1); color: var(--yellow); border: 1px solid rgba(255,179,64,0.3); }
+  .fmt-imagen { background: var(--green-bg); color: var(--green); border: 1px solid rgba(0,200,83,0.3); }
+  .fmt-stories { background: rgba(140,100,200,0.12); color: #B39DDB; border: 1px solid rgba(140,100,200,0.3); }
+  .ad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ad-field { }
+  .ad-field-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 5px; }
+  .ad-field-value { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .ad-field-value.copy-text { font-style: italic; color: var(--text-muted); border-left: 2px solid var(--accent); padding-left: 10px; }
+  .audience-tag { display: inline-block; font-size: 11px; background: var(--surface2); color: var(--text-muted); padding: 2px 8px; border-radius: 6px; margin: 2px 2px 2px 0; border: 1px solid var(--border); }
+  .month-badge { display: inline-block; font-size: 11px; background: var(--accent-soft); color: var(--accent); padding: 2px 8px; border-radius: 6px; margin: 2px 2px 2px 0; border: 1px solid var(--accent-border); font-weight: 700; }
+
+  /* Estimation */
+  .est-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .est-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+  .est-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 10px; }
+  .est-before { font-size: 20px; font-weight: 700; color: var(--red); font-family: 'Courier New', monospace; }
+  .est-arrow { font-size: 16px; color: var(--accent); margin: 4px 0; }
+  .est-after { font-size: 20px; font-weight: 700; color: var(--green); font-family: 'Courier New', monospace; }
+
+  /* Seasonal block */
+  .seasonal-block { background: var(--surface); border: 1px solid var(--accent-border); border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+  .seasonal-block::before { content: '🔥'; position: absolute; top: 16px; right: 20px; font-size: 32px; opacity: 0.15; }
+  .seasonal-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+  .seasonal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .seasonal-card { background: var(--surface2); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
+  .seasonal-card .month { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--accent); margin-bottom: 6px; }
+  .seasonal-card .volume { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+  .seasonal-card .desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .volume-high { color: var(--green); }
+  .volume-med { color: var(--yellow); }
+  .volume-low { color: var(--text-muted); }
+
+  /* Footer */
+  .report-footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 22px; font-size: 12px; color: var(--text-muted); margin-top: 60px; }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .header-inner { flex-direction: column; }
+    .ad-grid { grid-template-columns: 1fr; }
+    section { margin-bottom: 36px; }
+    .result-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="report-header">
+  <div class="header-stripe"></div>
+  <div class="header-glow"></div>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-badge">💪</div>
+        <div class="client-info">
+          <h1>FitLife Gym</h1>
+          <div class="client-tagline">Gimnasio boutique · Valencia</div>
+          <p>Instagram + Facebook Ads · Objetivo: captación de nuevos socios</p>
+          <div class="report-meta">
+            <div class="meta-item">Período: <span>Mayo 2026</span></div>
+            <div class="meta-item">Presupuesto: <span>920 €</span></div>
+            <div class="meta-item">Plataformas: <span>Meta Ads (IG + FB)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="result-grid">
+        <div class="result-mini">
+          <div class="rm-val rm-orange">920€</div>
+          <div class="rm-label">Invertido</div>
+        </div>
+        <div class="result-mini">
+          <div class="rm-val rm-red">12</div>
+          <div class="rm-label">Socios captados</div>
+        </div>
+        <div class="result-mini">
+          <div class="rm-val rm-red">76€</div>
+          <div class="rm-label">Coste por socio</div>
+        </div>
+        <div class="result-mini">
+          <div class="rm-val rm-yellow">1.8x</div>
+          <div class="rm-label">ROAS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <section>
+    <div class="section-title"><span class="section-num">01</span>KPIs vs. Benchmark (Sector Fitness)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>FitLife (actual)</th>
+            <th>Benchmark fitness</th>
+            <th>Diferencia</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kpi-name">Alcance mensual</td>
+            <td class="kpi-val">22.400</td>
+            <td class="kpi-bench">48.000</td>
+            <td class="kpi-diff bad">-53%</td>
+            <td><span class="status-pill sp-red">Bajo</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">CTR</td>
+            <td class="kpi-val">0.9%</td>
+            <td class="kpi-bench">2.4%</td>
+            <td class="kpi-diff bad">-62%</td>
+            <td><span class="status-pill sp-red">Crítico</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">CPC</td>
+            <td class="kpi-val">2.20 €</td>
+            <td class="kpi-bench">1.10 €</td>
+            <td class="kpi-diff bad">+100%</td>
+            <td><span class="status-pill sp-red">Crítico</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">Coste por lead (formulario)</td>
+            <td class="kpi-val">32 €</td>
+            <td class="kpi-bench">14 €</td>
+            <td class="kpi-diff bad">+128%</td>
+            <td><span class="status-pill sp-red">Crítico</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">Coste por socio nuevo</td>
+            <td class="kpi-val">76 €</td>
+            <td class="kpi-bench">30–40 €</td>
+            <td class="kpi-diff bad">+90%</td>
+            <td><span class="status-pill sp-red">Crítico</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">Tasa de conversión web</td>
+            <td class="kpi-val">0.6%</td>
+            <td class="kpi-bench">1.8%</td>
+            <td class="kpi-diff bad">-67%</td>
+            <td><span class="status-pill sp-red">Bajo</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">Frecuencia de impresión</td>
+            <td class="kpi-val">3.1</td>
+            <td class="kpi-bench">1.8–2.2</td>
+            <td class="kpi-diff bad">+40%</td>
+            <td><span class="status-pill sp-yellow">Fatiga de ad</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">ROAS</td>
+            <td class="kpi-val">1.8x</td>
+            <td class="kpi-bench">3.5x</td>
+            <td class="kpi-diff bad">-49%</td>
+            <td><span class="status-pill sp-red">Bajo</span></td>
+          </tr>
+          <tr>
+            <td class="kpi-name">Retargeting activo</td>
+            <td class="kpi-val">NO</td>
+            <td class="kpi-bench">SÍ</td>
+            <td class="kpi-diff bad">—</td>
+            <td><span class="status-pill sp-red">Ausente</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PROBLEMAS -->
+  <section>
+    <div class="section-title"><span class="section-num">02</span>Problema Principal — Anuncios Genéricos sin Diferenciación</div>
+
+    <div class="problem-card">
+      <div class="problem-num">1</div>
+      <div>
+        <div class="problem-title">Los anuncios no explican qué hace especial a FitLife frente a los macro-gimnasios</div>
+        <div class="problem-desc">Cuando alguien en Valencia busca un gimnasio, tiene 20+ opciones desde 15€/mes. Los anuncios de FitLife dicen "gym boutique Valencia" pero no comunican POR QUÉ pagar más. El usuario compara precio, ve 59€/mes y hace scroll. La solución no es bajar el precio — es justificar el valor.</div>
+        <div class="problem-impact">Impacto directo: CTR de 0.9% (sector: 2.4%)</div>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-num">2</div>
+      <div>
+        <div class="problem-title">Sin aprovechar los picos de demanda naturales del sector fitness</div>
+        <div class="problem-desc">Enero (propósito de año nuevo) y septiembre (vuelta al cole/rutinas) son los dos meses con MAYOR intención de apuntarse a un gimnasio. Los demás meses bajan un 40–60% en demanda. FitLife no tiene ninguna campaña diferenciada para estos picos — gasta el mismo presupuesto en febrero (demanda mínima) que en enero.</div>
+        <div class="problem-impact">Impacto: pérdida de 60–80 socios/año por falta de estrategia estacional</div>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-num">3</div>
+      <div>
+        <div class="problem-title">Sin embudo: el anuncio lleva a la home, no a una landing de conversión</div>
+        <div class="problem-desc">Los usuarios que hacen clic llegan a la página principal del gimnasio. Ahí tienen que buscar precios, servicios, cómo apuntarse... y se pierden. Una landing específica por campaña (con precio, beneficios y formulario de prueba gratis) puede triplicar la tasa de conversión sin cambiar el presupuesto.</div>
+        <div class="problem-impact">Conversión actual 0.6% → potencial 1.8% con landing dedicada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVALUACIÓN ANUNCIOS -->
+  <section>
+    <div class="section-title"><span class="section-num">03</span>Evaluación de Anuncios Actuales</div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>📸</span>Anuncio 1 — "Gimnasio Boutique Valencia"
+          <span class="ad-format-tag">Imagen</span>
+        </div>
+        <div class="score-wrap">
+          <div class="ad-score" style="color:var(--red)">3/10</div>
+          <div class="score-bar"><div class="score-fill sf-red" style="width:30%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Titular:</strong> "FitLife Gym — Gimnasio Boutique en Valencia"<br>
+        <strong>Texto:</strong> "El mejor gimnasio boutique de Valencia. Entrenadores personales, clases grupales y equipamiento de última generación. Únete hoy."<br>
+        <strong>CTA:</strong> "Más información"
+      </div>
+      <div class="issue-item"><span>🔴</span>"El mejor gimnasio" — cero credibilidad sin prueba. Todo el mundo dice lo mismo</div>
+      <div class="issue-item"><span>🔴</span>"Más información" como CTA es el peor posible para captación. No convierte</div>
+      <div class="issue-item"><span>🔴</span>Sin precio, sin oferta, sin razón para actuar ahora</div>
+      <div class="issue-item"><span>🟡</span>La imagen del gym con equipo moderno está bien, pero sin personas entrenando no hay emoción</div>
+    </div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>🎬</span>Anuncio 2 — "Tour del Gimnasio"
+          <span class="ad-format-tag">Vídeo 45s</span>
+        </div>
+        <div class="score-wrap">
+          <div class="ad-score" style="color:var(--yellow)">5/10</div>
+          <div class="score-bar"><div class="score-fill sf-yellow" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Texto:</strong> "¿Quieres ver cómo es FitLife por dentro? Ven a conocer nuestras instalaciones."<br>
+        <strong>Video:</strong> Tour del espacio en 45 segundos, música de fondo, sin texto superpuesto ni subtítulos<br>
+        <strong>CTA:</strong> "Ver más"
+      </div>
+      <div class="issue-item"><span>🟡</span>Vídeo del espacio es buena idea — el problema es la ejecución</div>
+      <div class="issue-item"><span>🔴</span>45 segundos es demasiado. La atención se pierde en los primeros 8s. Cortar a 15–20s</div>
+      <div class="issue-item"><span>🔴</span>Sin subtítulos en ningún momento — el 80% lo ve sin sonido</div>
+      <div class="issue-item"><span>🔴</span>No muestra personas entrenando — solo el espacio vacío. Sin emoción</div>
+    </div>
+
+    <div class="ad-eval">
+      <div class="ad-eval-header">
+        <div class="ad-eval-name">
+          <span>🎠</span>Anuncio 3 — "Nuestros Servicios"
+          <span class="ad-format-tag">Carrusel 5 imágenes</span>
+        </div>
+        <div class="score-wrap">
+          <div class="ad-score" style="color:var(--yellow)">5/10</div>
+          <div class="score-bar"><div class="score-fill sf-yellow" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <strong>Titular:</strong> "Todo lo que necesitas en un solo lugar"<br>
+        <strong>Cards:</strong> "Sala musculación" / "Clases grupales" / "Entrenador personal" / "Nutrición" / "Zona cardio"<br>
+        <strong>CTA:</strong> "Contactar"
+      </div>
+      <div class="issue-item"><span>🟡</span>Carrusel para mostrar servicios es correcto</div>
+      <div class="issue-item"><span>🔴</span>Cada card solo muestra el nombre del servicio. Sin beneficio ni diferenciación</div>
+      <div class="issue-item"><span>🔴</span>"Contactar" no activa intención de compra. Usar "Reservar clase de prueba GRATIS"</div>
+      <div class="issue-item"><span>🟡</span>Buena idea de base — con reescritura de copies puede funcionar</div>
+    </div>
+  </section>
+
+  <!-- ESTACIONALIDAD -->
+  <section>
+    <div class="section-title"><span class="section-num">04</span>Estrategia Estacional — Capitalizar los Picos del Sector</div>
+    <div class="seasonal-block">
+      <div class="seasonal-title">Demanda mensual de gimnasios (Valencia) — Estimación</div>
+      <div class="seasonal-grid">
+        <div class="seasonal-card">
+          <div class="month">ENERO</div>
+          <div class="volume volume-high">🔥🔥🔥 Muy Alta (+280%)</div>
+          <div class="desc">Propósito de año nuevo. El mes con más búsquedas de "gimnasio Valencia" del año. Doblar presupuesto. Campaña "Empieza el año" con oferta matrícula gratis.</div>
+        </div>
+        <div class="seasonal-card">
+          <div class="month">FEB — AGO</div>
+          <div class="volume volume-low">📉 Normal / Baja</div>
+          <div class="desc">Meses de mantenimiento. Reducir presupuesto en branding, enfocar en retargeting y fidelización. No malgastar presupuesto en captación fría.</div>
+        </div>
+        <div class="seasonal-card">
+          <div class="month">SEPTIEMBRE</div>
+          <div class="volume volume-high">🔥🔥🔥 Muy Alta (+220%)</div>
+          <div class="desc">Vuelta a la rutina tras el verano. Segundo pico más importante del año. Campaña "Septiembre es tu mes" con descuento primer mes o clase de prueba.</div>
+        </div>
+        <div class="seasonal-card">
+          <div class="month">DICIEMBRE</div>
+          <div class="volume volume-med">🔥🔥 Alta</div>
+          <div class="desc">Pre-propósitos. Campaña "Regalo de Navidad" — tarjetas regalo de membresía. CPA más bajo que enero por menor competencia.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUEVOS ANUNCIOS -->
+  <section>
+    <div class="section-title"><span class="section-num">05</span>5 Nuevos Anuncios Propuestos</div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 1 — "Ven a entrenar GRATIS esta semana"</div>
+          <div class="new-ad-sub">Captación fría · Propuesta irresistible · Todo el año</div>
+        </div>
+        <span class="ad-format-badge fmt-imagen">🖼 Imagen + texto</span>
+      </div>
+      <div class="ad-grid">
+        <div class="ad-field">
+          <div class="ad-field-label">Titular</div>
+          <div class="ad-field-value">"Semana gratis sin compromisos — FitLife Valencia"</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Llamada a la acción</div>
+          <div class="ad-field-value">"Reservar mi semana gratis"</div>
+        </div>
+        <div class="ad-field" style="grid-column: 1 / -1">
+          <div class="ad-field-label">Texto principal</div>
+          <div class="ad-field-value copy-text">"¿Indeciso entre gimnasios? Prueba FitLife gratis durante 7 días. Sin tarjeta de crédito. Sin permanencia. Solo tú, el equipo y la energía del mejor gym boutique de Valencia. 🏋️ Plazas limitadas cada semana."</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Público objetivo</div>
+          <div class="ad-field-value">
+            <span class="audience-tag">Valencia 25–45</span>
+            <span class="audience-tag">Interés: fitness</span>
+            <span class="audience-tag">Competidores (McFit, Holmes)</span>
+          </div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Por qué funciona</div>
+          <div class="ad-field-value">Elimina el riesgo de la decisión. Una vez que vienen, la tasa de conversión a socio en la semana de prueba es del 70–80%.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 2 — "Año nuevo, cuerpo nuevo" (Enero)</div>
+          <div class="new-ad-sub">Campaña estacional · <span class="month-badge">ENERO</span> · Alta demanda</div>
+        </div>
+        <span class="ad-format-badge fmt-video">🎬 Vídeo 20s</span>
+      </div>
+      <div class="ad-grid">
+        <div class="ad-field">
+          <div class="ad-field-label">Titular</div>
+          <div class="ad-field-value">"Este año no lo dejes para mañana — matrícula GRATIS"</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Llamada a la acción</div>
+          <div class="ad-field-value">"Apuntarme en enero"</div>
+        </div>
+        <div class="ad-field" style="grid-column: 1 / -1">
+          <div class="ad-field-label">Texto principal</div>
+          <div class="ad-field-value copy-text">"Cada enero te propones lo mismo. Este año hazlo diferente. En FitLife no estás solo: entrenador personal incluido los 3 primeros meses, clases grupales ilimitadas y un equipo que no te deja rendirte. 🔥 Matrícula GRATIS solo en enero. Quedan X plazas."</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Vídeo</div>
+          <div class="ad-field-value">Primeros 3s: "¿OTRO AÑO SIN CUMPLIRLO?" en texto blanco sobre negro. Luego: montaje rápido de transformaciones reales de socios con texto superpuesto. Último segundo: precio + CTA + urgencia.</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Presupuesto recomendado</div>
+          <div class="ad-field-value">x2.5 el presupuesto habitual en enero. El ROI de este mes es 4–5x el del resto del año.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 3 — "Vuelta a la rutina" (Septiembre)</div>
+          <div class="new-ad-sub">Campaña estacional · <span class="month-badge">SEPTIEMBRE</span> · Alta demanda</div>
+        </div>
+        <span class="ad-format-badge fmt-carrusel">🎠 Carrusel</span>
+      </div>
+      <div class="ad-grid">
+        <div class="ad-field">
+          <div class="ad-field-label">Titular</div>
+          <div class="ad-field-value">"El verano fue largo. Septiembre, es el momento."</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Llamada a la acción</div>
+          <div class="ad-field-value">"Primer mes a mitad de precio"</div>
+        </div>
+        <div class="ad-field" style="grid-column: 1 / -1">
+          <div class="ad-field-label">Texto principal</div>
+          <div class="ad-field-value copy-text">"Septiembre sabe a nuevo comienzo. Clases de pilates, crossfit, boxeo y sala 24/7 — todo en FitLife. Este mes, tu primera cuota a 29€ (luego 59€/mes sin permanencia). Plazas limitadas para septiembre."</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Estructura carrusel</div>
+          <div class="ad-field-value">Card 1: Hook "Septiembre". Card 2: foto clase pilates + "Pilates y yoga ilimitado". Card 3: foto boxeo + "Boxeo y fitness funcional". Card 4: precio y CTA.</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Público objetivo</div>
+          <div class="ad-field-value">
+            <span class="audience-tag">Valencia 22–50</span>
+            <span class="audience-tag">Exsocios (retargeting)</span>
+            <span class="audience-tag">Lookalike socios actuales</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 4 — Testimonial real de socio</div>
+          <div class="new-ad-sub">Captación fría + retargeting · Prueba social</div>
+        </div>
+        <span class="ad-format-badge fmt-video">🎬 Vídeo UGC 30s</span>
+      </div>
+      <div class="ad-grid">
+        <div class="ad-field">
+          <div class="ad-field-label">Titular</div>
+          <div class="ad-field-value">"'Llevo 4 meses y perdí 8kg — sin hacer dieta'"</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Llamada a la acción</div>
+          <div class="ad-field-value">"Ver mi historia completa"</div>
+        </div>
+        <div class="ad-field" style="grid-column: 1 / -1">
+          <div class="ad-field-label">Concepto del vídeo</div>
+          <div class="ad-field-value copy-text">Socio real (hombre/mujer 30–45) grabándose con el móvil antes de entrenar. Cuenta su historia en 25 segundos: "Entré aquí sin saber nada de gym. Los entrenadores me hicieron un plan personalizado y en 4 meses..." Muestra fotos progreso. Último segundo: CTA FitLife + "Semana de prueba gratis".</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Público objetivo</div>
+          <div class="ad-field-value">
+            <span class="audience-tag">Valencia 28–55</span>
+            <span class="audience-tag">Sin experiencia gym</span>
+            <span class="audience-tag">Interés: pérdida de peso</span>
+          </div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Por qué funciona</div>
+          <div class="ad-field-value">Los testimoniales reales tienen un CTR 3–4x mayor que los anuncios de marca. La identificación emocional vence al escepticismo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-ad">
+      <div class="new-ad-header">
+        <div>
+          <div class="new-ad-title">Anuncio 5 — Retargeting "Vuelve a FitLife"</div>
+          <div class="new-ad-sub">Retargeting ex-socios y visitantes web</div>
+        </div>
+        <span class="ad-format-badge fmt-stories">📱 Stories</span>
+      </div>
+      <div class="ad-grid">
+        <div class="ad-field">
+          <div class="ad-field-label">Titular</div>
+          <div class="ad-field-value">"Te echamos de menos 👀 — Vuelve con oferta exclusiva"</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Llamada a la acción</div>
+          <div class="ad-field-value">"Volver a FitLife con descuento"</div>
+        </div>
+        <div class="ad-field" style="grid-column: 1 / -1">
+          <div class="ad-field-label">Texto principal</div>
+          <div class="ad-field-value copy-text">"Sabemos que la vida se complica. Pero FitLife sigue aquí — con tus entrenadores de siempre y el equipo que recuerdas. Esta semana vuelves con el primer mes a precio de socio veterano: 39€ (precio normal 59€). Solo para ti."</div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Público objetivo</div>
+          <div class="ad-field-value">
+            <span class="audience-tag">Ex-socios (lista CRM)</span>
+            <span class="audience-tag">Visitaron web, no se apuntaron</span>
+            <span class="audience-tag">Engagement Instagram 90 días</span>
+          </div>
+        </div>
+        <div class="ad-field">
+          <div class="ad-field-label">Presupuesto recomendado</div>
+          <div class="ad-field-value">10% del presupuesto total. Potencial ROAS 6–9x por alta intención previa.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTIMACIÓN -->
+  <section>
+    <div class="section-title"><span class="section-num">06</span>Estimación de Mejora con el Plan Propuesto</div>
+    <div class="est-grid">
+      <div class="est-card">
+        <div class="est-label">CTR</div>
+        <div class="est-before">0.9%</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">2.2%</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">CPC</div>
+        <div class="est-before">2.20 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">1.05 €</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">Coste por lead</div>
+        <div class="est-before">32 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">13 €</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">Coste por socio</div>
+        <div class="est-before">76 €</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">32 €</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">Socios/mes (mismo presupuesto)</div>
+        <div class="est-before">12</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">28–32</div>
+      </div>
+      <div class="est-card">
+        <div class="est-label">ROAS</div>
+        <div class="est-before">1.8x</div>
+        <div class="est-arrow">→</div>
+        <div class="est-after">3.8x</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:14px;text-align:center">* Estimaciones basadas en benchmarks del sector fitness en Meta Ads España. Resultados en 6–10 semanas de optimización progresiva.</p>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong style="color:var(--accent)">Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com">aecadro@gmail.com</a>
+  <br><small style="opacity:0.4">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

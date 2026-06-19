@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe SEO — Da Vinci Ristorante</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FFFFFF;
+    --surface: #F8F4F2;
+    --surface2: #EDE8E5;
+    --accent: #C0392B;
+    --accent-light: #E74C3C;
+    --accent-bg: #FEF0EE;
+    --text: #1A1410;
+    --text-muted: #6B5F5A;
+    --red: #C62828;
+    --red-light: #FFEBEE;
+    --yellow: #E65100;
+    --yellow-light: #FFF3E0;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --border: #E0D8D4;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+  .mono { font-family: 'DM Mono', monospace; }
+  .container { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 44px; }
+
+  /* HEADER */
+  .report-header { background: var(--accent); color: white; padding: 40px 0 34px; margin-bottom: 44px; }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .header-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .logo-badge { width: 58px; height: 58px; background: rgba(255,255,255,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+  .client-info h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .client-info p { opacity: 0.75; font-size: 14px; }
+  .report-meta { display: flex; gap: 24px; margin-top: 12px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.7; }
+  .meta-item span { font-weight: 600; opacity: 1; }
+  .global-score-box { text-align: center; background: rgba(0,0,0,0.2); border-radius: 16px; padding: 22px 30px; }
+  .score-number { font-size: 52px; font-weight: 700; line-height: 1; color: #FF8A65; font-family: 'DM Mono', monospace; }
+  .score-label { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+  .score-badge { display: inline-block; background: #FF8A65; color: white; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; margin-top: 8px; }
+
+  /* Section titles */
+  .section-title { font-size: 18px; font-weight: 700; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+  /* Hallazgos summary */
+  .hallazgos-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+  .hallazgo-pill { border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 140px; text-align: center; }
+  .hallazgo-pill .hp-num { font-size: 32px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .hallazgo-pill .hp-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .hp-red { background: var(--red-light); color: var(--red); }
+  .hp-yellow { background: var(--yellow-light); color: var(--yellow); }
+  .hp-green { background: var(--green-light); color: var(--green); }
+
+  /* Cards */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .alert-card { border-radius: 12px; padding: 18px; border-left: 4px solid; }
+  .alert-card.red { background: var(--red-light); border-color: var(--red); }
+  .alert-card.yellow { background: var(--yellow-light); border-color: var(--yellow); }
+  .alert-card.green { background: var(--green-light); border-color: var(--green); }
+  .alert-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .alert-card.red h3 { color: var(--red); }
+  .alert-card.yellow h3 { color: var(--yellow); }
+  .alert-card.green h3 { color: var(--green); }
+  .alert-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* Metric block */
+  .metric-block { background: var(--surface); border-radius: 16px; padding: 24px; margin-bottom: 16px; border: 1px solid var(--border); }
+
+  /* CWV grid */
+  .cwv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .cwv-card { background: white; border-radius: 12px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+  .cwv-card .cwv-value { font-size: 26px; font-weight: 700; font-family: 'DM Mono', monospace; margin: 6px 0 2px; }
+  .cwv-card .cwv-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+  .cwv-card .cwv-status { font-size: 11px; font-weight: 600; margin-top: 4px; }
+  .cv-red .cwv-value, .cv-red .cwv-status { color: var(--red); }
+  .cv-yellow .cwv-value, .cv-yellow .cwv-status { color: var(--yellow); }
+  .cv-green .cwv-value, .cv-green .cwv-status { color: var(--green); }
+
+  /* Progress */
+  .progress-wrap { margin: 8px 0; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .progress-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+  .fill-red { background: var(--red); }
+  .fill-yellow { background: var(--yellow); }
+  .fill-green { background: var(--green); }
+  .fill-accent { background: var(--accent); }
+
+  /* Status dot */
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .dot-red { background: var(--red); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-green { background: var(--green); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--accent); color: white; padding: 10px 13px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+  tbody tr:hover { background: var(--accent-bg); }
+  tbody td { padding: 10px 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+
+  /* Difficulty bar */
+  .diff-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; width: 80px; display: inline-block; vertical-align: middle; }
+  .diff-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+
+  /* Priority badge */
+  .priority-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .priority-badge.critico { background: var(--red); color: white; }
+  .priority-badge.importante { background: var(--yellow); color: white; }
+  .priority-badge.recomendado { background: var(--green); color: white; }
+
+  /* Code block */
+  .code-block { background: #1A1410; color: #F8F4F2; border-radius: 10px; padding: 16px 18px; font-family: 'DM Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; margin-top: 10px; }
+  .code-key { color: #FF8A65; }
+  .code-val { color: #A5D6A7; }
+  .code-comment { color: #78716C; }
+
+  /* Page audit card */
+  .page-audit { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 12px; }
+  .page-url { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); margin-bottom: 10px; background: var(--accent-bg); display: inline-block; padding: 3px 10px; border-radius: 6px; }
+  .issue-list { list-style: none; }
+  .issue-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; padding: 5px 0; border-bottom: 1px solid var(--surface2); }
+  .issue-list li:last-child { border-bottom: none; }
+  .issue-icon { flex-shrink: 0; font-size: 14px; }
+
+  /* Footer */
+  .report-footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 22px; font-size: 12px; color: var(--text-muted); margin-top: 60px; }
+  .report-footer strong { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; }
+    .score-number { font-size: 40px; }
+    section { margin-bottom: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="report-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-badge">🍝</div>
+        <div class="client-info">
+          <h1>Da Vinci Ristorante</h1>
+          <p>Restaurante italiano · Madrid Centro · Propietario: Luigi Conti</p>
+          <div class="report-meta">
+            <div class="meta-item">Tipo: <span>Informe SEO Completo</span></div>
+            <div class="meta-item">Fecha: <span>Junio 2026</span></div>
+            <div class="meta-item">Web: <span>davinci-ristorante.es</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="global-score-box">
+        <div class="score-number">42</div>
+        <div class="score-label">Puntuación SEO / 100</div>
+        <div class="score-badge">Necesita mejoras</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- RESUMEN HALLAZGOS -->
+  <section>
+    <div class="section-title"><span>📋</span>Resumen de Hallazgos</div>
+    <div class="hallazgos-row">
+      <div class="hallazgo-pill hp-red">
+        <div class="hp-num">3</div>
+        <div class="hp-label">🔴 Críticos</div>
+      </div>
+      <div class="hallazgo-pill hp-yellow">
+        <div class="hp-num">5</div>
+        <div class="hp-label">🟡 Importantes</div>
+      </div>
+      <div class="hallazgo-pill hp-green">
+        <div class="hp-num">4</div>
+        <div class="hp-label">🟢 Recomendados</div>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="alert-card red">
+        <h3>🚨 Sin sitemap XML ni robots.txt</h3>
+        <p>Google no puede rastrear la web eficientemente. Algunas páginas pueden no estar indexadas.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 Velocidad móvil crítica (3.8s)</h3>
+        <p>Google penaliza las webs lentas. El 62% de las búsquedas de restaurantes son desde móvil.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 Sin Schema Markup (datos estructurados)</h3>
+        <p>Sin Schema de restaurante, Google no puede mostrar el menú, horario y valoraciones directamente en los resultados.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ 3 errores 404 detectados</h3>
+        <p>Páginas que fueron eliminadas pero siguen referenciadas. Dañan la autoridad del dominio.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ Meta tags duplicadas o vacías</h3>
+        <p>La página de menú y la de reservas tienen el mismo title tag que la home.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ Sin presencia en palabras clave de nicho</h3>
+        <p>No posiciona para "pasta fresca Madrid", "carbonara auténtica Madrid" ni términos de alta conversión.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANÁLISIS TÉCNICO -->
+  <section>
+    <div class="section-title"><span>⚙️</span>Análisis Técnico</div>
+
+    <!-- Velocidad -->
+    <div class="metric-block" style="margin-bottom:16px">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px">Velocidad de carga</h3>
+      <div class="cwv-grid" style="margin-bottom:16px">
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">Tiempo de carga móvil</div>
+          <div class="cwv-value">3.8s</div>
+          <div class="cwv-status">⚠ Lento (objetivo &lt;2s)</div>
+        </div>
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">Tiempo de carga desktop</div>
+          <div class="cwv-value">2.1s</div>
+          <div class="cwv-status">Mejorable (&lt;1.5s ideal)</div>
+        </div>
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">PageSpeed móvil</div>
+          <div class="cwv-value">31</div>
+          <div class="cwv-status">Muy bajo (objetivo 75+)</div>
+        </div>
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">PageSpeed desktop</div>
+          <div class="cwv-value">62</div>
+          <div class="cwv-status">Mejorable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Web Vitals -->
+    <div class="metric-block">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px">Core Web Vitals (Google)</h3>
+      <div class="cwv-grid">
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">LCP (Mayor contenido)</div>
+          <div class="cwv-value">4.2s</div>
+          <div class="cwv-status">Falla (objetivo &lt;2.5s)</div>
+        </div>
+        <div class="cwv-card cv-green">
+          <div class="cwv-label">FID (Interactividad)</div>
+          <div class="cwv-value">48ms</div>
+          <div class="cwv-status">Correcto (&lt;100ms)</div>
+        </div>
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">CLS (Estabilidad visual)</div>
+          <div class="cwv-value">0.18</div>
+          <div class="cwv-status">Mejorable (objetivo &lt;0.1)</div>
+        </div>
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">Errores 404</div>
+          <div class="cwv-value">3</div>
+          <div class="cwv-status">Redirigir urgente</div>
+        </div>
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">Sitemap XML</div>
+          <div class="cwv-value">NO</div>
+          <div class="cwv-status">Crear e indexar</div>
+        </div>
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">Schema Markup</div>
+          <div class="cwv-value">NO</div>
+          <div class="cwv-status">Implementar urgente</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORDS -->
+  <section>
+    <div class="section-title"><span>🔍</span>Análisis de Palabras Clave Objetivo</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Vol. mensual</th>
+            <th>Dificultad</th>
+            <th>Posición actual</th>
+            <th>Posición objetivo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>restaurante italiano madrid</strong></td>
+            <td class="mono">8.100</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:72%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Alta</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#67</td>
+            <td style="color:var(--green);font-weight:600">Top 10</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>pasta fresca madrid</strong></td>
+            <td class="mono">2.900</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:48%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#42</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>ristorante madrid centro</strong></td>
+            <td class="mono">1.600</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:55%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media-Alta</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#28</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-yellow status-dot"></span>Prioritario</td>
+          </tr>
+          <tr>
+            <td><strong>cena romántica madrid italiano</strong></td>
+            <td class="mono">880</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:38%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--yellow);font-weight:600">#15</td>
+            <td style="color:var(--green);font-weight:600">Top 3</td>
+            <td><span class="dot-yellow status-dot"></span>Prioritario</td>
+          </tr>
+          <tr>
+            <td><strong>pizza napolitana madrid</strong></td>
+            <td class="mono">1.200</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:60%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media-Alta</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#53</td>
+            <td style="color:var(--green);font-weight:600">Top 10</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>restaurante italiano malasaña</strong></td>
+            <td class="mono">480</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:25%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Baja</small>
+            </td>
+            <td style="color:var(--yellow);font-weight:600">#12</td>
+            <td style="color:var(--green);font-weight:600">Top 3</td>
+            <td><span class="dot-yellow status-dot"></span>Prioritario</td>
+          </tr>
+          <tr>
+            <td><strong>carbonara auténtica madrid</strong></td>
+            <td class="mono">390</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:20%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Baja</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#71</td>
+            <td style="color:var(--green);font-weight:600">Top 3</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>reservar restaurante italiano madrid</strong></td>
+            <td class="mono">720</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:42%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#44</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>brunch italiano madrid</strong></td>
+            <td class="mono">260</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:18%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Baja</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">Sin datos</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-green status-dot"></span>Oportunidad</td>
+          </tr>
+          <tr>
+            <td><strong>da vinci ristorante madrid</strong></td>
+            <td class="mono">140</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:5%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Muy baja</small>
+            </td>
+            <td style="color:var(--green);font-weight:600">#1</td>
+            <td style="color:var(--green);font-weight:600">#1</td>
+            <td><span class="dot-green status-dot"></span>OK</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COMPETENCIA SEO -->
+  <section>
+    <div class="section-title"><span>🏁</span>Análisis de Competencia SEO</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Restaurante</th>
+            <th>Puntuación SEO</th>
+            <th>Dominio (DA)</th>
+            <th>Reseñas Maps</th>
+            <th>Blog/Contenido</th>
+            <th>Ventaja clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Il Sorpasso</strong><br><small style="color:var(--text-muted)">Malasaña, Madrid</small></td>
+            <td><span style="color:var(--green);font-weight:700">78/100</span></td>
+            <td class="mono">42</td>
+            <td>4.6★ (312 res.)</td>
+            <td><span class="dot-green status-dot"></span>Blog activo (8 art.)</td>
+            <td>Tráfico de blog + links editoriales en medios gastronómicos</td>
+          </tr>
+          <tr>
+            <td><strong>Bella Napoli</strong><br><small style="color:var(--text-muted)">Lavapiés, Madrid</small></td>
+            <td><span style="color:var(--green);font-weight:700">71/100</span></td>
+            <td class="mono">38</td>
+            <td>4.8★ (489 res.)</td>
+            <td><span class="dot-yellow status-dot"></span>Solo página menú SEO</td>
+            <td>Schema completo + 489 reseñas impulsan Google Maps</td>
+          </tr>
+          <tr>
+            <td><strong>Osteria del Valle</strong><br><small style="color:var(--text-muted)">Chueca, Madrid</small></td>
+            <td><span style="color:var(--yellow);font-weight:700">64/100</span></td>
+            <td class="mono">31</td>
+            <td>4.5★ (198 res.)</td>
+            <td><span class="dot-red status-dot"></span>Sin blog</td>
+            <td>URLs optimizadas + meta tags correctas en todas las páginas</td>
+          </tr>
+          <tr>
+            <td><strong>Da Vinci Ristorante</strong><br><small style="color:var(--text-muted)">Usted</small></td>
+            <td><span style="color:var(--red);font-weight:700">42/100</span></td>
+            <td class="mono">18</td>
+            <td>4.3★ (67 res.)</td>
+            <td><span class="dot-red status-dot"></span>Sin blog</td>
+            <td>Nombre propio bien posicionado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PÁGINAS A OPTIMIZAR -->
+  <section>
+    <div class="section-title"><span>📄</span>Páginas a Optimizar — Problemas Específicos</div>
+
+    <div class="page-audit">
+      <div class="page-url">davinci-ristorante.es/ (Home)</div>
+      <ul class="issue-list">
+        <li><span class="issue-icon">🔴</span><div><strong>Title actual:</strong> <span class="mono" style="color:var(--red)">"Da Vinci Restaurant - Inicio"</span><br><strong>Title propuesto:</strong> <span class="mono" style="color:var(--green)">"Da Vinci Ristorante | Restaurante Italiano en Madrid Centro | Pasta Fresca"</span></div></li>
+        <li><span class="issue-icon">🔴</span><div><strong>Meta description:</strong> Vacía. Propuesta: <span class="mono" style="color:var(--green)">"Auténtica cocina italiana en el corazón de Madrid. Pasta fresca artesanal, pizzas napolitanas y carta de vinos seleccionados. Reserva tu mesa online."</span></div></li>
+        <li><span class="issue-icon">🟡</span><div><strong>H1 actual:</strong> "Bienvenidos" — Demasiado genérico. Propuesto: "Restaurante Italiano Auténtico en Madrid Centro"</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">davinci-ristorante.es/menu</div>
+      <ul class="issue-list">
+        <li><span class="issue-icon">🔴</span><div><strong>Title actual:</strong> <span class="mono" style="color:var(--red)">"Menú"</span> — Idéntico al de la home. Propuesto: <span class="mono" style="color:var(--green)">"Carta y Menú del Día | Da Vinci Ristorante Madrid | Pasta y Pizza Artesanal"</span></div></li>
+        <li><span class="issue-icon">🔴</span><div><strong>Menú en PDF o imagen:</strong> Google no puede leer el contenido. Pasar los platos a texto HTML con keywords naturales.</div></li>
+        <li><span class="issue-icon">🟡</span><div>Sin links internos desde la página de inicio hacia el menú.</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">davinci-ristorante.es/reservas</div>
+      <ul class="issue-list">
+        <li><span class="issue-icon">🔴</span><div><strong>Title propuesto:</strong> <span class="mono" style="color:var(--green)">"Reservar Mesa en Da Vinci Ristorante | Restaurante Italiano Madrid"</span></div></li>
+        <li><span class="issue-icon">🟡</span><div>Sin texto en la página, solo el formulario. Añadir texto con keywords: "Reserva tu mesa en nuestro restaurante italiano en Madrid. Disponible lunes a domingo..."</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">davinci-ristorante.es/nosotros</div>
+      <ul class="issue-list">
+        <li><span class="issue-icon">🟡</span><div><strong>Title propuesto:</strong> <span class="mono" style="color:var(--green)">"Luigi Conti - Chef y Fundador | Da Vinci Ristorante | Historia de la cocina italiana"</span></div></li>
+        <li><span class="issue-icon">🟢</span><div>Buena oportunidad para enlazar a medios que hayan mencionado el restaurante (links internos + externos).</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">davinci-ristorante.es/galeria (CREAR)</div>
+      <ul class="issue-list">
+        <li><span class="issue-icon">🟢</span><div><strong>Página nueva recomendada.</strong> Google Images es fuente de tráfico. Publicar 20+ fotos con alt text optimizado: "pasta carbonara auténtica madrid", "pizza napolitana horno de leña madrid".</div></li>
+        <li><span class="issue-icon">🟢</span><div>Oportunidad de posicionamiento en búsquedas de imágenes + tráfico largo plazo.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PLAN DE ACCIÓN -->
+  <section>
+    <div class="section-title"><span>🚀</span>Plan de Acción SEO — 5 Correcciones Urgentes</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Corrección</th>
+            <th>Impacto esperado</th>
+            <th>Tiempo estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-badge critico">1. Crítico</span></td>
+            <td>
+              <strong>Instalar Schema Markup de restaurante</strong><br>
+              <small>Añadir datos estructurados JSON-LD con nombre, dirección, horario, valoración, menú y reservas. Google muestra estos datos directamente en los resultados.</small>
+            </td>
+            <td>Estrellas y horario visibles en Google (+35% CTR)</td>
+            <td>2–3 horas</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge critico">2. Crítico</span></td>
+            <td>
+              <strong>Crear sitemap XML y enviar a Google Search Console</strong><br>
+              <small>Generar sitemap con todas las URLs y enviarlo para que Google rastree correctamente las páginas.</small>
+            </td>
+            <td>Indexación completa del sitio en 2 semanas</td>
+            <td>1 hora</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge critico">3. Crítico</span></td>
+            <td>
+              <strong>Corregir los 3 errores 404 y optimizar velocidad</strong><br>
+              <small>Redirigir 301 las páginas eliminadas. Comprimir imágenes (son la causa principal del LCP de 4.2s).</small>
+            </td>
+            <td>PageSpeed móvil 31→60+ en 2 semanas</td>
+            <td>3–4 horas</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">4. Importante</span></td>
+            <td>
+              <strong>Reescribir title y meta description de todas las páginas</strong><br>
+              <small>Usar los textos propuestos en el apartado anterior. Cada página debe tener title y meta únicos con keywords objetivo.</small>
+            </td>
+            <td>+20% CTR en búsquedas orgánicas en 30 días</td>
+            <td>2 horas</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">5. Importante</span></td>
+            <td>
+              <strong>Convertir menú PDF/imagen a texto HTML</strong><br>
+              <small>Google indexará los nombres de los platos. Cada plato es una keyword potencial ("carbonara roma", "pappardelle cinghiale", etc.).</small>
+            </td>
+            <td>+15 keywords indexadas, tráfico nicho</td>
+            <td>4–5 horas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong>Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com" style="color:var(--accent)">aecadro@gmail.com</a>
+  <br><small style="opacity:0.6">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

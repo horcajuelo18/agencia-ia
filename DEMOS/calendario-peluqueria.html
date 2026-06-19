@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario de Contenido — Corte & Arte Peluquería</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blanco-roto: #FAFAFA;
+    --blanco: #FFFFFF;
+    --dorado: #B8860B;
+    --dorado-claro: #D4A017;
+    --dorado-muy-claro: #E8C547;
+    --dorado-bg: #FBF7EC;
+    --gris-oscuro: #2A2A2A;
+    --gris: #6A6A6A;
+    --gris-claro: #E0E0E0;
+    --texto: #1A1A1A;
+
+    --feed-bg: #FFF9EC;
+    --feed-border: #D4A017;
+    --feed-text: #8B6508;
+    --story-bg: #EEF6FF;
+    --story-border: #3B82F6;
+    --story-text: #1D4ED8;
+    --reel-bg: #FFF0F6;
+    --reel-border: #EC4899;
+    --reel-text: #BE185D;
+  }
+  body { background: var(--blanco-roto); color: var(--texto); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+
+  /* HEADER */
+  header {
+    background: var(--gris-oscuro);
+    color: #FAFAFA; padding: 36px 32px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    border-bottom: 4px solid var(--dorado);
+  }
+  .logo-area { display: flex; align-items: center; gap: 18px; }
+  .logo-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--dorado); display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; flex-shrink: 0;
+  }
+  .logo-name { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.5px; }
+  .logo-sub { font-size: 12px; color: rgba(250,250,250,0.6); font-weight: 400; }
+  .header-right { text-align: right; }
+  .header-mes { font-size: 1.1rem; font-weight: 700; color: var(--dorado-muy-claro); }
+  .header-periodo { font-size: 11px; color: rgba(250,250,250,0.5); margin-top: 3px; }
+
+  /* RESUMEN */
+  .resumen {
+    background: var(--blanco); border-bottom: 1px solid var(--gris-claro);
+    padding: 16px 32px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .resumen-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gris); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .chip-feed { background: var(--feed-bg); color: var(--feed-text); border: 1.5px solid var(--feed-border); }
+  .chip-story { background: var(--story-bg); color: var(--story-text); border: 1.5px solid var(--story-border); }
+  .chip-reel { background: var(--reel-bg); color: var(--reel-text); border: 1.5px solid var(--reel-border); }
+  .chip-total { background: #F5F5F5; color: var(--gris-oscuro); border: 1.5px solid var(--gris-claro); }
+
+  /* MAIN */
+  main { padding: 28px 32px; max-width: 1400px; margin: 0 auto; }
+  @media(max-width:700px){ main { padding: 16px; } }
+
+  /* SEMANA */
+  .semana-header { display: flex; align-items: center; gap: 14px; margin: 36px 0 14px; }
+  .semana-header:first-child { margin-top: 0; }
+  .semana-pill {
+    background: var(--dorado); color: white;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; white-space: nowrap;
+  }
+  .semana-line { flex: 1; height: 1px; background: var(--gris-claro); }
+  .semana-fechas { font-size: 11px; color: var(--gris); font-weight: 500; white-space: nowrap; }
+
+  /* TABLA */
+  .tabla { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,0.06); margin-bottom: 4px; }
+  .tabla th {
+    background: var(--gris-oscuro); color: #FAFAFA;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 12px 16px; text-align: left;
+  }
+  .tabla tr { border-bottom: 1px solid #F0F0F0; }
+  .tabla tr:last-child { border-bottom: none; }
+  .tabla tr:hover td { background: #FFFBF0; }
+  .tabla td { padding: 14px 16px; vertical-align: top; }
+
+  .td-dia { min-width: 78px; font-weight: 700; font-size: 0.88rem; color: var(--gris-oscuro); }
+  .td-num { font-size: 11px; color: var(--gris); font-weight: 400; margin-top: 2px; }
+  .tipo-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .tipo-feed { background: var(--feed-bg); color: var(--feed-text); border: 1px solid var(--feed-border); }
+  .tipo-story { background: var(--story-bg); color: var(--story-text); border: 1px solid var(--story-border); }
+  .tipo-reel { background: var(--reel-bg); color: var(--reel-text); border: 1px solid var(--reel-border); }
+  .td-tema { font-weight: 600; font-size: 0.88rem; color: var(--gris-oscuro); min-width: 180px; }
+  .td-caption { font-size: 0.83rem; color: #444; line-height: 1.55; }
+  .td-hashtags { font-size: 0.78rem; color: var(--dorado); line-height: 1.6; min-width: 200px; }
+
+  @media(max-width:900px){ .td-hashtags { display: none; } }
+  @media(max-width:600px){ .td-caption { display: none; } }
+
+  /* LEYENDA */
+  .leyenda {
+    display: flex; gap: 20px; flex-wrap: wrap; align-items: center;
+    margin: 20px 0; padding: 16px 20px; background: white;
+    border-radius: 8px; border: 1px solid var(--gris-claro);
+  }
+  .leyenda-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gris); }
+
+  /* TIPS BOX */
+  .tips-box {
+    background: var(--dorado-bg); border: 1px solid rgba(184,134,11,0.3);
+    border-left: 4px solid var(--dorado);
+    padding: 18px 22px; border-radius: 6px; margin-top: 24px;
+  }
+  .tips-title { font-weight: 700; font-size: 0.9rem; color: var(--dorado); margin-bottom: 10px; letter-spacing: 0.5px; }
+  .tips-list { list-style: none; }
+  .tips-list li { font-size: 0.85rem; color: #5A4A00; margin-bottom: 6px; display: flex; gap: 8px; }
+  .tips-list li::before { content: '→'; color: var(--dorado-claro); flex-shrink: 0; }
+
+  footer { text-align: center; padding: 24px; background: var(--gris-oscuro); color: rgba(250,250,250,0.45); font-size: 12px; margin-top: 40px; border-top: 3px solid var(--dorado); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-circle">✂️</div>
+    <div>
+      <div class="logo-name">Corte &amp; Arte</div>
+      <div class="logo-sub">Peluquería · Ana Morales · Toledo</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-mes">📅 Julio 2026</div>
+    <div class="header-periodo">Plan de contenido Instagram · 30 publicaciones</div>
+  </div>
+</header>
+
+<div class="resumen">
+  <span class="resumen-label">Resumen:</span>
+  <span class="chip chip-feed">📸 12 Feeds</span>
+  <span class="chip chip-story">💬 10 Stories</span>
+  <span class="chip chip-reel">🎬 8 Reels</span>
+  <span class="chip chip-total">🎯 30 en total</span>
+</div>
+
+<main>
+
+<!-- SEMANA 1 -->
+<div class="semana-header">
+  <div class="semana-pill">Semana 1</div>
+  <div class="semana-line"></div>
+  <div class="semana-fechas">1 – 5 julio</div>
+</div>
+<table class="tabla">
+  <thead><tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<div class="td-num">1 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Transformación completa — balayage rubio</td>
+      <td class="td-caption">De oscuro a luminoso en una sesión. Este balayage rubio miel con reflejos dorados es el look que lleva semanas en nuestra lista de espera. ✨ Sin decoloración agresiva. Sin sacrificar la salud del cabello. ¿Te apuntas? 📲 Reserva por DM.</td>
+      <td class="td-hashtags">#balayage #rubio #peluqueriaToledo #transformacion #pelo #cortearte</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<div class="td-num">2 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Time-lapse corte bob francés</td>
+      <td class="td-caption">Del pelo largo al bob francés en 45 segundos. Porque a veces el mejor cambio del verano es el que no esperabas. 💇‍♀️ ¿Te atreves? Cuéntanos en comentarios.</td>
+      <td class="td-hashtags">#bobFrances #corte #timelapse #peluqueria #cambiodelook #verano2026</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<div class="td-num">3 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Encuesta: ¿cuál es tu mayor problema con el pelo?</td>
+      <td class="td-caption">Poll con opciones: "Frizz", "Sin volumen", "Color apagado", "Puntas abiertas". Responder a los resultados con consejos el día siguiente.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<div class="td-num">4 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Coloración chocolate con reflejos caramelo</td>
+      <td class="td-caption">El marrón chocolate con babylights caramelo es el color estrella de este verano. Luminoso, natural y con efecto sol sin necesitar el sol. ☀️ Resultado en 3 horas. Cita disponibles esta semana. Escríbenos.</td>
+      <td class="td-hashtags">#chocolate #babylights #caramelo #color #peluqueriaToledo #coloracion</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<div class="td-num">5 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Cómo hacemos el brushing perfecto (tutorial)</td>
+      <td class="td-caption">Guardad esto 📌 El brushing perfecto en 5 pasos que puedes replicar en casa. Ana explica exactamente qué cepillo usar, en qué dirección y a qué temperatura. Nunca más pelo sin vida un viernes.</td>
+      <td class="td-hashtags">#brushing #tutorialPelo #pelobrillante #consejos #ana #peluqueria</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 2 -->
+<div class="semana-header">
+  <div class="semana-pill">Semana 2</div>
+  <div class="semana-line"></div>
+  <div class="semana-fechas">7 – 12 julio</div>
+</div>
+<table class="tabla">
+  <thead><tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<div class="td-num">7 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Horario y disponibilidad semana</td>
+      <td class="td-caption">Agenda abierta con días disponibles + "¿Reservas tu hueco?" + link WhatsApp. Urgencia suave.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<div class="td-num">8 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Recogido nupcial — cliente real</td>
+      <td class="td-caption">Cuando una clienta te dice "Ana, confío en ti para el día más importante de mi vida"... respiras hondo y te pones manos a la obra. Este recogido nupcial para María fue uno de nuestros favoritos. 💍 ¿Tienes boda? Contáctanos con tiempo.</td>
+      <td class="td-hashtags">#peinadoNupcial #boda #recogido #novia #peluqueriaNovia #toledo</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<div class="td-num">9 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Antes/Después — melena con daños vs. tratada</td>
+      <td class="td-caption">A la izquierda, el pelo tal y como llegó. A la derecha, el mismo pelo después de nuestro tratamiento de keratina con proteínas de seda. 8 semanas de crecimiento reparado en una sesión. 🙌 Resultados desde 45€.</td>
+      <td class="td-hashtags">#keratina #tratamiento #antesydespues #reparacion #pelo #cortearte</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<div class="td-num">10 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Un día en el salón — behind the scenes</td>
+      <td class="td-caption">Empezamos con el primer corte a las 9h y terminamos con el último brushing a las 19h. Esto es un día normal en Corte & Arte. Gracias por hacer posible que trabajemos haciendo lo que amamos. 🧡</td>
+      <td class="td-hashtags">#diaNormal #BTS #salon #peluqueria #trabajo #Toledo #artesanos</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<div class="td-num">11 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Tip: cómo proteger el pelo del sol en verano</td>
+      <td class="td-caption">Serie de 3-4 stories con tips: 1) protector solar para el pelo 2) evita el cloro sin aclarado 3) hidrata cada semana en verano 4) producto recomendado (que vendemos en el salón).</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<div class="td-num">12 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Look de verano — ondas playeras</td>
+      <td class="td-caption">El look que más pedís en julio: ondas playeras con acabado natural y textura. Efecto "recién salida del agua" que dura todo el día. ¿El secreto? Sal marina + mousse fijador + difusor a temperatura media. Técnica completa en nuestros highlights. 🌊</td>
+      <td class="td-hashtags">#ondasPlayeras #verano #look #beachWaves #peinado #cabello</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 3 -->
+<div class="semana-header">
+  <div class="semana-pill">Semana 3</div>
+  <div class="semana-line"></div>
+  <div class="semana-fechas">14 – 19 julio</div>
+</div>
+<table class="tabla">
+  <thead><tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<div class="td-num">14 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Coloración degradada — de raíz oscura a puntas rubias</td>
+      <td class="td-caption">El degradado perfecto no lo hace la suerte. Lo hacen el conocimiento, el tiempo y la técnica correcta. Aquí el proceso completo de 3h en 50 segundos. ¿Cuánto tardamos? Descúbrelo. 👀</td>
+      <td class="td-hashtags">#degradado #roots #rubio #coloracion #proceso #peluqueriaToledo</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<div class="td-num">15 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">¿Qué tratamiento necesita tu pelo?</td>
+      <td class="td-caption">Quiz interactivo de 3 preguntas: tipo de pelo + problema principal + frecuencia de lavado → respuesta personalizada "tu pelo necesita X". Muy guarable.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<div class="td-num">16 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Ana Morales — sobre el salón</td>
+      <td class="td-caption">Hace 12 años abrí Corte & Arte con dos sillas y muchas ganas. Hoy tenemos equipo, clientes que llevan años con nosotras y la satisfacción de haber construido algo de lo que estar orgullosa. Gracias Toledo por tanto. — Ana ✂️</td>
+      <td class="td-hashtags">#AnaMoreales #CorteYArte #historia #peluqueria #toledo #emprendedora</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<div class="td-num">17 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Alisado brasileño — proceso y resultado</td>
+      <td class="td-caption">El alisado brasileño que te libera del frizz hasta 4 meses. Ingrediente estrella: queratina de origen vegetal, sin formaldehído. Cabello liso, brillante y manejable. Consulta disponibilidad esta semana. 📩</td>
+      <td class="td-hashtags">#alisadoBrasileno #queratina #frizz #liso #pelo #tratamientocabello</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<div class="td-num">18 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Reseña cliente — pantallazos Google</td>
+      <td class="td-caption">Compartir 2-3 reseñas reales de Google con agradecimiento personalizado. "Gracias Lucía por estas palabras tan bonitas. ¡Te esperamos pronto! 🧡"</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<div class="td-num">19 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Tutorial: trenza espiga paso a paso</td>
+      <td class="td-caption">Guardad esto 📌 La trenza espiga perfecta en 5 pasos que puedes hacer sola en casa. Ana lo explica lento, claro y desde el principio. Comparte con alguien que lo necesite. 🪢</td>
+      <td class="td-hashtags">#trenzaEspiga #tutorial #peluqueria #DIY #peinados #fácil</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 4 -->
+<div class="semana-header">
+  <div class="semana-pill">Semana 4</div>
+  <div class="semana-line"></div>
+  <div class="semana-fechas">21 – 26 julio</div>
+</div>
+<table class="tabla">
+  <thead><tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<div class="td-num">21 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Mechas californianas — el clásico que nunca falla</td>
+      <td class="td-caption">Las mechas californianas siguen siendo el servicio más pedido del salón, y hay una razón: son el balance perfecto entre natural y luminoso. No hay dos iguales. Cada cabeza es un cuadro diferente. 🎨 Reservas abiertas para agosto.</td>
+      <td class="td-hashtags">#mechasCalifornianas #highlights #cabello #summer #peluqueria #toledo</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<div class="td-num">22 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Oferta flash 48h — 20% en tratamientos</td>
+      <td class="td-caption">Story urgente: "Hasta el miércoles, 20% de descuento en todos los tratamientos de hidratación y keratina. Solo con cita previa. ¡Corre! ⏳" + link WhatsApp.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<div class="td-num">23 jul</div></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Transformación completa — cliente con cabello dañado</td>
+      <td class="td-caption">3 horas, un buen diagnóstico y la técnica correcta. Esto es lo que pasa cuando cuidamos el pelo desde dentro hacia fuera. El antes duele un poco. El después te pone los pelos de punta. 😂✨</td>
+      <td class="td-hashtags">#transformacion #reparacion #antesydespues #pelo #cuidadocabello</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<div class="td-num">24 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Nuestros productos favoritos para el verano</td>
+      <td class="td-caption">Si hay dos productos que no pueden faltar en tu neceser de verano según Ana son: el protector solar capilar y la mascarilla de hidratación semanal. En el salón tenemos ambos. Pregúntanos cuáles son los adecuados para tu tipo de cabello. 🌞</td>
+      <td class="td-hashtags">#productosCabello #verano #proteccionsolar #hidratacion #pelo #recomendacion</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<div class="td-num">25 jul</div></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Encuesta: ¿qué servicio quieres en agosto?</td>
+      <td class="td-caption">Poll: "¿Qué es lo primero que reservarías para agosto?" + opciones: Color / Corte / Tratamiento / Peinado especial. Usar resultados para planificar próximo mes.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<div class="td-num">26 jul</div></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Cierre de mes — gracias Toledo</td>
+      <td class="td-caption">Julio ha sido un mes precioso. Muchas transformaciones, muchas sonrisas al bajar el espejo y muchas clientas nuevas que se convierten en fijas. ¿Lo mejor? Saber que volvéis. Gracias Toledo. Nos vemos en agosto. ✂️🧡</td>
+      <td class="td-hashtags">#julio #gracias #corteyarte #toledo #peluqueria #cierredemes</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="leyenda">
+  <span style="font-size:12px;font-weight:700;color:var(--gris);">LEYENDA:</span>
+  <div class="leyenda-item"><span class="tipo-badge tipo-feed">📸 Feed</span> Publicación permanente en el perfil</div>
+  <div class="leyenda-item"><span class="tipo-badge tipo-story">💬 Story</span> 24 horas de visibilidad — alta interacción</div>
+  <div class="leyenda-item"><span class="tipo-badge tipo-reel">🎬 Reel</span> Mayor alcance orgánico — favorecido por el algoritmo</div>
+</div>
+
+<div class="tips-box">
+  <div class="tips-title">💡 Recomendaciones para maximizar resultados</div>
+  <ul class="tips-list">
+    <li>Publicar Reels entre 18:00 y 21:00h para mayor alcance</li>
+    <li>Responder todos los comentarios en las primeras 2h — el algoritmo lo premia</li>
+    <li>Usar entre 5 y 10 hashtags mezclando grandes (#peluqueria) y pequeños (#peluqueriaToledo)</li>
+    <li>Guardar las Stories de "antes/después" en Highlights del perfil</li>
+    <li>Los Reels de tutoriales son el contenido más guardado — priorizar calidad de audio</li>
+  </ul>
+</div>
+
+</main>
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+</body>
+</html>

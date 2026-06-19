@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital — Prana Yoga Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FDF8F2;
+    --surface: #F5EEE4;
+    --surface2: #EDE3D4;
+    --accent: #6B4FA0;
+    --accent-light: #8B6FC0;
+    --accent-bg: #F3EEFF;
+    --text: #1E1A2E;
+    --text-muted: #6B6478;
+    --red: #C62828;
+    --red-light: #FFEBEE;
+    --yellow: #E65100;
+    --yellow-light: #FFF3E0;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --border: #DDD5CA;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+  h1, h2, .report-title { font-family: 'Fraunces', serif; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 40px; }
+
+  /* Header */
+  .report-header {
+    background: linear-gradient(135deg, #4A2E80 0%, #6B4FA0 60%, #8B6FC0 100%);
+    color: white; padding: 44px 0 36px; margin-bottom: 44px;
+  }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .logo-badge {
+    width: 60px; height: 60px; background: rgba(255,255,255,0.15);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .client-info h1 { font-size: 26px; font-weight: 600; font-style: italic; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .client-info p { opacity: 0.75; font-size: 14px; font-family: 'Inter', sans-serif; }
+  .report-meta { display: flex; gap: 24px; margin-top: 12px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.7; font-family: 'Inter', sans-serif; }
+  .meta-item span { font-weight: 600; opacity: 1; }
+
+  .global-score-box { text-align: center; background: rgba(255,255,255,0.12); border-radius: 20px; padding: 22px 32px; border: 1px solid rgba(255,255,255,0.2); }
+  .score-number { font-size: 54px; font-weight: 700; line-height: 1; color: #FFD54F; font-family: 'Fraunces', serif; }
+  .score-label { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+  .score-badge { display: inline-block; background: #FFD54F; color: #4A2E80; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Section title */
+  .section-title {
+    font-family: 'Fraunces', serif; font-size: 19px; font-weight: 400; font-style: italic;
+    color: var(--accent); border-bottom: 2px solid var(--surface2);
+    padding-bottom: 10px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-icon { font-size: 18px; }
+
+  /* Cards */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .alert-card { border-radius: 14px; padding: 20px; border-left: 4px solid; }
+  .alert-card.red { background: var(--red-light); border-color: var(--red); }
+  .alert-card.yellow { background: var(--yellow-light); border-color: var(--yellow); }
+  .alert-card.green { background: var(--green-light); border-color: var(--green); }
+  .alert-card.purple { background: var(--accent-bg); border-color: var(--accent); }
+  .alert-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .alert-card.red h3 { color: var(--red); }
+  .alert-card.yellow h3 { color: var(--yellow); }
+  .alert-card.green h3 { color: var(--green); }
+  .alert-card.purple h3 { color: var(--accent); }
+  .alert-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* Metric block */
+  .metric-block { background: var(--surface); border-radius: 18px; padding: 26px; margin-bottom: 18px; border: 1px solid var(--border); }
+  .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .metric-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .score-pill { font-size: 14px; font-weight: 600; padding: 5px 16px; border-radius: 20px; }
+  .score-pill.red { background: var(--red); color: white; }
+  .score-pill.yellow { background: var(--yellow); color: white; }
+  .score-pill.green { background: var(--green); color: white; }
+  .score-pill.amber { background: #FB8C00; color: white; }
+
+  .progress-wrap { margin-top: 8px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
+  .progress-bar { height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 5px; }
+  .fill-red { background: var(--red); }
+  .fill-yellow { background: var(--yellow); }
+  .fill-green { background: var(--green); }
+  .fill-amber { background: #FB8C00; }
+  .fill-accent { background: var(--accent); }
+
+  .metric-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 12px; margin-top: 18px; }
+  .metric-item { background: var(--bg); border-radius: 12px; padding: 14px; border: 1px solid var(--border); }
+  .metric-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px; }
+  .metric-item .value { font-size: 20px; font-weight: 700; font-family: 'Fraunces', serif; }
+  .metric-item .value.red { color: var(--red); }
+  .metric-item .value.yellow { color: var(--yellow); }
+  .metric-item .value.green { color: var(--green); }
+  .metric-item .value.accent { color: var(--accent); }
+  .metric-item .note { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* Summary scores */
+  .summary-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .score-card { background: var(--surface); border-radius: 14px; padding: 18px; text-align: center; border: 1px solid var(--border); }
+  .score-card .sc-value { font-size: 30px; font-weight: 700; font-family: 'Fraunces', serif; }
+  .score-card .sc-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .sc-red { color: var(--red); }
+  .sc-yellow { color: var(--yellow); }
+  .sc-green { color: var(--green); }
+  .sc-amber { color: #FB8C00; }
+  .sc-accent { color: var(--accent); }
+
+  /* Status dot */
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot-red { background: var(--red); }
+  .dot-yellow { background: #FB8C00; }
+  .dot-green { background: var(--green); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--accent); color: white; padding: 11px 14px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+  tbody tr:hover { background: var(--accent-bg); }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+
+  .priority-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .priority-badge.urgente { background: var(--red); color: white; }
+  .priority-badge.importante { background: var(--yellow); color: white; }
+  .priority-badge.recomendado { background: var(--green); color: white; }
+  .priority-badge.quickwin { background: var(--accent); color: white; }
+
+  /* Quick wins */
+  .quickwins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .qw-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .qw-icon { font-size: 28px; flex-shrink: 0; }
+  .qw-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: var(--accent); }
+  .qw-desc { font-size: 13px; color: var(--text-muted); }
+  .qw-impact { margin-top: 8px; font-size: 12px; background: var(--accent-bg); color: var(--accent); display: inline-block; padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+
+  /* Footer */
+  .report-footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 22px; font-size: 12px; color: var(--text-muted); margin-top: 60px; }
+  .report-footer strong { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; }
+    .score-number { font-size: 42px; }
+    section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="container">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div class="logo-badge">🧘</div>
+        <div class="client-info">
+          <h1>Prana Yoga Studio</h1>
+          <p>Madrid · Instructora Ana Vega · 3 años en activo</p>
+          <div class="report-meta">
+            <div class="meta-item">Tipo: <span>Diagnóstico Digital Completo</span></div>
+            <div class="meta-item">Fecha: <span>Junio 2026</span></div>
+            <div class="meta-item">Analista: <span>Agencia IA</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="global-score-box">
+        <div class="score-number">61</div>
+        <div class="score-label">de 100 puntos</div>
+        <div class="score-badge">Mejorable</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- RESUMEN -->
+  <section>
+    <div class="section-title"><span class="section-icon">📋</span>Resumen Ejecutivo</div>
+    <p style="color:var(--text-muted);margin-bottom:20px">Prana Yoga Studio tiene una base digital sólida: buena valoración en Maps, presencia en Instagram y una web operativa. Sin embargo, hay <strong style="color:var(--yellow)">oportunidades claras de crecimiento</strong> que actualmente no se están aprovechando. El estudio está dejando escapar clientes que buscan yoga en Madrid sin encontrar Prana entre los primeros resultados.</p>
+    <div class="cards-grid">
+      <div class="alert-card yellow">
+        <h3>⚠ Web que no convierte</h3>
+        <p>La web existe pero está en Wix, carga lento y no tiene sistema de reservas. Los visitantes llegan y se van sin contactar.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ SEO local sin explotar</h3>
+        <p>Solo posiciona para el nombre propio. Búsquedas como "yoga Madrid Chamberí" o "clases yoga adultos Madrid" van a la competencia.</p>
+      </div>
+      <div class="alert-card green">
+        <h3>✅ Buena base en Maps y RRSS</h3>
+        <p>47 reseñas con 4.7★ y 2.300 seguidores en Instagram son una ventaja importante sobre la competencia. Hay que potenciarlas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY SCORES -->
+  <section>
+    <div class="section-title"><span class="section-icon">📊</span>Puntuaciones por Área</div>
+    <div class="summary-scores">
+      <div class="score-card"><div class="sc-value sc-amber">65/100</div><div class="sc-label">🌐 Web</div></div>
+      <div class="score-card"><div class="sc-value sc-green">70/100</div><div class="sc-label">📍 Google Maps</div></div>
+      <div class="score-card"><div class="sc-value sc-accent">72/100</div><div class="sc-label">📱 Redes Sociales</div></div>
+      <div class="score-card"><div class="sc-value sc-yellow">45/100</div><div class="sc-label">🔍 SEO</div></div>
+    </div>
+  </section>
+
+  <!-- WEB -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>🌐</span> Presencia Web</div>
+        <span class="score-pill amber">65/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>65%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-amber" style="width:65%"></div></div>
+      </div>
+      <div class="metric-items">
+        <div class="metric-item">
+          <div class="label">Web propia</div>
+          <div class="value green">SÍ</div>
+          <div class="note">Wix — planayoga.es</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Velocidad (móvil)</div>
+          <div class="value red">6.2s</div>
+          <div class="note">Objetivo: &lt;3s</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Reservas online</div>
+          <div class="value red">NO</div>
+          <div class="note">Solo WhatsApp</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Captura de emails</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin newsletter</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Blog / Contenido</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin artículos SEO</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Diseño adaptado móvil</div>
+          <div class="value green">SÍ</div>
+          <div class="note">Wix responsive</div>
+        </div>
+      </div>
+      <div class="alert-card yellow" style="margin-top:16px">
+        <h3>⚠ Wix limita el crecimiento</h3>
+        <p>Wix es una solución válida para empezar, pero penaliza el SEO, carga lento y no permite un sistema de reservas profesional integrado. Migrar a una web propia con WordPress o similar puede triplicar el tráfico orgánico en 6 meses.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOOGLE MAPS -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>📍</span> Google Maps / Perfil de Empresa</div>
+        <span class="score-pill green">70/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>70%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-green" style="width:70%"></div></div>
+      </div>
+      <div class="metric-items">
+        <div class="metric-item">
+          <div class="label">Reseñas totales</div>
+          <div class="value green">47</div>
+          <div class="note">Muy buena base</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Valoración media</div>
+          <div class="value green">4.7 ★</div>
+          <div class="note">Excelente</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Fotos actualizadas</div>
+          <div class="value green">SÍ</div>
+          <div class="note">28 fotos — bien</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Respuesta a reseñas</div>
+          <div class="value yellow">60%</div>
+          <div class="note">Mejorar al 100%</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posts en Maps</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin publicaciones</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Horarios actualizados</div>
+          <div class="value green">SÍ</div>
+          <div class="note">Correcto</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES SOCIALES -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>📱</span> Redes Sociales</div>
+        <span class="score-pill green">72/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>72%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-accent" style="width:72%"></div></div>
+      </div>
+      <div class="metric-items">
+        <div class="metric-item">
+          <div class="label">Instagram seguidores</div>
+          <div class="value accent">2.300</div>
+          <div class="note">Buena base local</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Tasa de engagement</div>
+          <div class="value yellow">2.1%</div>
+          <div class="note">Mejorable (objetivo 4%)</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Frecuencia de posts</div>
+          <div class="value yellow">Irregular</div>
+          <div class="note">Sin calendario fijo</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Reels / Video</div>
+          <div class="value red">Escaso</div>
+          <div class="note">Sin estrategia viral</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Stories diarias</div>
+          <div class="value yellow">3–4 /semana</div>
+          <div class="note">Debería ser diario</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">TikTok / Pinterest</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin presencia</div>
+        </div>
+      </div>
+      <div class="alert-card purple" style="margin-top:16px">
+        <h3>💡 El contenido de yoga tiene alto potencial viral</h3>
+        <p>Las clases de yoga, especialmente las secuencias de asanas filmadas, son uno de los tipos de contenido con mayor alcance orgánico en Instagram Reels y TikTok. Ana Vega tiene la experiencia y el espacio para crear contenido que puede multiplicar x5 los seguidores en 6 meses con estrategia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>🔍</span> Posicionamiento SEO</div>
+        <span class="score-pill yellow">45/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>45%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-yellow" style="width:45%"></div></div>
+      </div>
+      <div class="metric-items">
+        <div class="metric-item">
+          <div class="label">Posición "Prana Yoga Madrid"</div>
+          <div class="value green">#1</div>
+          <div class="note">Propio nombre — OK</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posición "yoga Madrid"</div>
+          <div class="value red">#42</div>
+          <div class="note">Invisible (pág. 5+)</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posición "clases yoga Chamberí"</div>
+          <div class="value red">#18</div>
+          <div class="note">Página 2</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posición "yoga embarazadas Madrid"</div>
+          <div class="value red">Sin datos</div>
+          <div class="note">Oportunidad de nicho</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Tráfico orgánico mensual</div>
+          <div class="value yellow">~180</div>
+          <div class="note">Potencial: 2.000+</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Velocidad web (PageSpeed)</div>
+          <div class="value red">38/100</div>
+          <div class="note">Wix penaliza SEO</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCIA -->
+  <section>
+    <div class="section-title"><span class="section-icon">🏁</span>Análisis de Competencia (Yoga Madrid)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Estudio</th>
+            <th>Puntuación</th>
+            <th>Web</th>
+            <th>Maps ★</th>
+            <th>Instagram</th>
+            <th>Posición SEO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Prana Yoga Studio</strong><br><small style="color:var(--text-muted)">Usted</small></td>
+            <td><span class="score-pill amber" style="font-size:12px">61/100</span></td>
+            <td><span class="dot-yellow status-dot"></span>Wix (lento)</td>
+            <td>4.7★ (47 res.)</td>
+            <td>2.300 seg.</td>
+            <td><span class="dot-red status-dot"></span>"yoga Madrid" #42</td>
+          </tr>
+          <tr>
+            <td><strong>Espacio Yoga Sol</strong></td>
+            <td><span class="score-pill green" style="font-size:12px">82/100</span></td>
+            <td><span class="dot-green status-dot"></span>WordPress propio</td>
+            <td>4.8★ (203 res.)</td>
+            <td>11.400 seg.</td>
+            <td><span class="dot-green status-dot"></span>"yoga Madrid" #1–2</td>
+          </tr>
+          <tr>
+            <td><strong>Centro Hatha & Vin</strong></td>
+            <td><span class="score-pill green" style="font-size:12px">75/100</span></td>
+            <td><span class="dot-green status-dot"></span>Web propia</td>
+            <td>4.6★ (118 res.)</td>
+            <td>5.200 seg.</td>
+            <td><span class="dot-yellow status-dot"></span>"yoga Madrid" #3–5</td>
+          </tr>
+          <tr>
+            <td><strong>Yoga Mindful Retiro</strong></td>
+            <td><span class="score-pill amber" style="font-size:12px">68/100</span></td>
+            <td><span class="dot-green status-dot"></span>Web con blog activo</td>
+            <td>4.5★ (79 res.)</td>
+            <td>3.800 seg.</td>
+            <td><span class="dot-yellow status-dot"></span>"yoga Madrid" #6–9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- QUICK WINS -->
+  <section>
+    <div class="section-title"><span class="section-icon">⚡</span>Quick Wins — Resultados en 30 días</div>
+    <div class="quickwins-grid">
+      <div class="qw-card">
+        <div class="qw-icon">⭐</div>
+        <div>
+          <div class="qw-title">Responder todas las reseñas</div>
+          <div class="qw-desc">Responder el 40% de reseñas sin respuesta. Google premia los perfiles activos con mejor posición en Maps.</div>
+          <div class="qw-impact">+15% visibilidad Maps</div>
+        </div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-icon">📅</div>
+        <div>
+          <div class="qw-title">Calendario de Instagram</div>
+          <div class="qw-desc">3 publicaciones semanales fijas + 1 Reel/semana. Consistencia = algoritmo favorable.</div>
+          <div class="qw-impact">+30% alcance orgánico</div>
+        </div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-icon">🔗</div>
+        <div>
+          <div class="qw-title">Link en bio optimizado</div>
+          <div class="qw-desc">Cambiar el link de bio de Instagram a una página de reservas directa (Calendly/Acuity). Cada visita al perfil = potencial cliente.</div>
+          <div class="qw-impact">+40% conversión perfil</div>
+        </div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-icon">📝</div>
+        <div>
+          <div class="qw-title">Post en Google Maps semanal</div>
+          <div class="qw-desc">Publicar 1 post/semana en el perfil de Maps con ofertas, horarios especiales o eventos. Gratuito y mejora el posicionamiento local.</div>
+          <div class="qw-impact">+20% clics en Maps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN DE ACCIÓN -->
+  <section>
+    <div class="section-title"><span class="section-icon">🚀</span>Plan de Acción — 6 Meses</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Acción</th>
+            <th>Impacto</th>
+            <th>Coste orientativo</th>
+            <th>Plazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-badge urgente">Urgente</span></td>
+            <td><strong>Sistema de reservas online</strong><br><small>Integrar Acuity Scheduling o Reservio en la web. Permite reservar clases 24/7 sin WhatsApp.</small></td>
+            <td>+25% conversión web</td>
+            <td>20–50 €/mes</td>
+            <td>Semana 1–2</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge urgente">Urgente</span></td>
+            <td><strong>Migrar web de Wix a WordPress</strong><br><small>Con blog SEO, carga en &lt;2s y diseño profesional. El blog es la palanca de crecimiento SEO.</small></td>
+            <td>x4 tráfico orgánico en 6m</td>
+            <td>600–1.200 € (única vez)</td>
+            <td>Mes 1</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">Importante</span></td>
+            <td><strong>Estrategia SEO local</strong><br><small>Optimizar para "yoga Chamberí", "yoga embarazadas Madrid", "retiro yoga Madrid". 2 artículos/mes en blog.</small></td>
+            <td>Top 5 en nichos específicos</td>
+            <td>250–400 €/mes</td>
+            <td>Mes 1–3</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">Importante</span></td>
+            <td><strong>Estrategia Reels en Instagram</strong><br><small>1 Reel/semana de secuencias de asanas o trucos de respiración. Alta viralidad orgánica.</small></td>
+            <td>+500–1.000 seg./mes</td>
+            <td>200–350 €/mes gestión</td>
+            <td>Mes 1–2</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">Importante</span></td>
+            <td><strong>Campaña de reseñas activa</strong><br><small>Email automático post-clase pidiendo reseña en Google. Objetivo: 100 reseñas en 3 meses.</small></td>
+            <td>Top 3 Maps "yoga Madrid"</td>
+            <td>Gratuito / incluido web</td>
+            <td>Mes 1</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge recomendado">Recomendado</span></td>
+            <td><strong>Meta Ads (Retargeting)</strong><br><small>Anuncios para visitas a la web que no reservaron. Muy bajo coste, muy alta intención.</small></td>
+            <td>+8–12 alumnos nuevos/mes</td>
+            <td>150–300 €/mes inversión</td>
+            <td>Mes 3–4</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge recomendado">Recomendado</span></td>
+            <td><strong>Newsletter mensual</strong><br><small>Lista de email con consejos de bienestar, horarios y promociones especiales. Fideliza alumnos.</small></td>
+            <td>+20% retención alumnos</td>
+            <td>15–30 €/mes (Mailchimp)</td>
+            <td>Mes 2–3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong>Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com" style="color:var(--accent)">aecadro@gmail.com</a>
+  <br><small style="opacity:0.6">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

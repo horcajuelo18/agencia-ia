@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Citas — Psicología Martínez</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2D5986 0%, #5B4B8A 60%, #7B4D8A 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+
+  .page-header { text-align: center; color: white; margin-bottom: 32px; }
+  .page-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .page-header p { font-size: 15px; opacity: 0.85; line-height: 1.5; }
+  .service-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 6px 18px;
+    color: white;
+    font-size: 13px; font-weight: 600;
+    margin-top: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* PHONE */
+  .phone-outer { position: relative; width: 380px; max-width: 100%; }
+  .phone-frame {
+    background: #1C1C1E;
+    border-radius: 50px;
+    padding: 14px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.07), 0 40px 80px rgba(0,0,0,0.5), 0 0 0 2px #3A3A3C;
+  }
+  .phone-screen { background: #EEE8F5; border-radius: 38px; overflow: hidden; height: 720px; display: flex; flex-direction: column; }
+  .status-bar { background: #4A3882; padding: 10px 20px 6px; display: flex; justify-content: space-between; align-items: center; color: white; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .status-right { display: flex; gap: 6px; align-items: center; }
+  .notch { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 100px; height: 26px; background: #1C1C1E; border-radius: 0 0 16px 16px; z-index: 10; }
+
+  /* WA HEADER */
+  .wa-header { background: #4A3882; color: white; padding: 10px 16px; display: flex; align-items: center; gap: 10px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .wa-back { font-size: 18px; opacity: 0.8; }
+  .wa-avatar { width: 38px; height: 38px; background: #9B7EC8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .wa-contact h4 { font-size: 14px; font-weight: 600; }
+  .wa-contact p { font-size: 11px; opacity: 0.8; }
+  .wa-icons { margin-left: auto; display: flex; gap: 14px; font-size: 16px; opacity: 0.8; }
+
+  /* CHAT */
+  .chat-scroll {
+    flex: 1; overflow-y: auto; padding: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+    background-color: #EEE8F5;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%239B7EC8' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chat-scroll::-webkit-scrollbar { display: none; }
+
+  .date-pill { text-align: center; margin: 6px 0; }
+  .date-pill span { background: rgba(255,255,255,0.9); color: #667781; font-size: 11px; padding: 3px 12px; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+  .msg-row { display: flex; margin-bottom: 2px; }
+  .msg-row.user { justify-content: flex-end; }
+  .msg-row.bot { justify-content: flex-start; }
+
+  .bubble {
+    max-width: 84%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    animation: pop 0.18s ease;
+    word-break: break-word;
+  }
+  @keyframes pop { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+  .bubble.bot { background: white; border-top-left-radius: 0; color: #111; }
+  .bubble.user { background: #D4C8F0; border-top-right-radius: 0; color: #111; }
+  .btime { font-size: 10px; color: #667781; margin-top: 3px; text-align: right; }
+  .tick { color: #7B4D8A; font-size: 11px; }
+
+  /* TYPING */
+  .typing-row { display: flex; }
+  .typing-bub { background: white; border-radius: 8px; border-top-left-radius: 0; padding: 10px 14px; display: flex; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+  .td { width: 6px; height: 6px; background: #9B7EC8; border-radius: 50%; animation: bn 1.2s infinite; }
+  .td:nth-child(2) { animation-delay: 0.2s; }
+  .td:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bn { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+  /* QR */
+  .qr-area { padding: 6px 8px 4px; }
+  .qr-label { font-size: 11px; color: #667781; margin-bottom: 6px; text-align: center; }
+  .qr-btns { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .qrb {
+    background: white;
+    border: 1.5px solid #7B4D8A;
+    color: #4A3882;
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .qrb:hover { background: #7B4D8A; color: white; }
+  .qrb:active { transform: scale(0.96); }
+  .qrb:disabled { opacity: 0.45; pointer-events: none; }
+
+  /* NAME INPUT */
+  .name-input-area { padding: 6px 8px; }
+  .name-input-row { display: flex; gap: 6px; }
+  .name-field { flex: 1; background: white; border: 1.5px solid #7B4D8A; border-radius: 20px; padding: 8px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; color: #111; }
+  .name-send { background: #7B4D8A; border: none; border-radius: 50%; width: 38px; height: 38px; color: white; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* BOTTOM */
+  .wa-bar { background: #F0EDF8; padding: 6px 10px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .wa-bar-fake { flex: 1; background: white; border-radius: 20px; padding: 8px 14px; font-size: 12px; color: #8696a0; }
+  .wa-mic { width: 36px; height: 36px; background: #7B4D8A; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; flex-shrink: 0; }
+
+  .site-footer { color: rgba(255,255,255,0.45); font-size: 12px; text-align: center; margin-top: 24px; }
+
+  /* NOTE bubble */
+  .note-pill { background: rgba(123,77,138,0.12); border: 1px solid rgba(123,77,138,0.2); border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #4A3882; margin: 6px 0; text-align: center; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Sistema de Citas Automático</h1>
+  <p>Reserva tu consulta en cualquier momento,<br>cómodo y confidencial</p>
+  <div class="service-badge">🧠 Psicología Martínez · Madrid</div>
+</div>
+
+<div class="phone-outer">
+  <div class="phone-frame">
+    <div class="notch"></div>
+    <div class="phone-screen">
+
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="status-right"><span>●●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+
+      <div class="wa-header">
+        <div class="wa-back">←</div>
+        <div class="wa-avatar">🧠</div>
+        <div class="wa-contact">
+          <h4>Psicología Martínez ✓</h4>
+          <p>🟢 Asistente de citas</p>
+        </div>
+        <div class="wa-icons"><span>📞</span><span>⋮</span></div>
+      </div>
+
+      <div class="chat-scroll" id="chatScroll">
+        <div class="date-pill"><span>Hoy · 9:41</span></div>
+      </div>
+
+      <div id="bottomArea">
+        <div class="wa-bar">
+          <div class="wa-bar-fake">Escribe un mensaje...</div>
+          <div class="wa-mic">🎤</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="site-footer">Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</div>
+
+<script>
+const chat = document.getElementById('chatScroll');
+const bottomArea = document.getElementById('bottomArea');
+let typingEl = null;
+const T = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+
+function scrollDown() { chat.scrollTop = chat.scrollHeight; }
+
+function addBubble(from, html, time) {
+  const row = document.createElement('div');
+  row.className = `msg-row ${from}`;
+  const b = document.createElement('div');
+  b.className = `bubble ${from}`;
+  const tick = from === 'user' ? ' <span class="tick">✓✓</span>' : '';
+  b.innerHTML = `<div>${html}</div><div class="btime">${time||T()}${tick}</div>`;
+  row.appendChild(b);
+  chat.appendChild(row);
+  scrollDown();
+}
+
+function addNotePill(text) {
+  const d = document.createElement('div');
+  d.className = 'note-pill';
+  d.textContent = text;
+  chat.appendChild(d);
+  scrollDown();
+}
+
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'typing-row';
+  row.innerHTML = `<div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  chat.appendChild(row);
+  typingEl = row;
+  scrollDown();
+}
+function removeTyping() { if(typingEl){typingEl.remove();typingEl=null;} }
+
+function botReply(html, delay, cb) {
+  setTimeout(() => {
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      addBubble('bot', html);
+      if(cb) setTimeout(cb, 400);
+    }, Math.min(900 + html.length*4, 1700));
+  }, delay||400);
+}
+
+function setQR(label, buttons) {
+  bottomArea.innerHTML = `
+    <div class="qr-area">
+      ${label ? `<div class="qr-label">${label}</div>` : ''}
+      <div class="qr-btns" id="qrbtns"></div>
+    </div>
+    <div class="wa-bar">
+      <div class="wa-bar-fake">Escribe un mensaje...</div>
+      <div class="wa-mic">🎤</div>
+    </div>`;
+  const wrap = document.getElementById('qrbtns');
+  buttons.forEach(btn => {
+    const b = document.createElement('button');
+    b.className = 'qrb';
+    b.textContent = btn.label;
+    b.onclick = () => { disableButtons(); addBubble('user', btn.label); btn.action(); };
+    wrap.appendChild(b);
+  });
+}
+
+function disableButtons() { document.querySelectorAll('.qrb').forEach(b => b.disabled=true); }
+
+function resetBottom() {
+  bottomArea.innerHTML = `<div class="wa-bar"><div class="wa-bar-fake">Escribe un mensaje...</div><div class="wa-mic">🎤</div></div>`;
+}
+
+// — FLOW —
+
+function step1() {
+  botReply('Hola 😊 Bienvenido al servicio de citas de <strong>Psicología Martínez</strong>. Estoy aquí para ayudarte a reservar tu consulta.<br><br>¿Cómo preferiría asistir?', 800, () => {
+    setQR('Selecciona modalidad:', [
+      { label: '🏥 Presencial (Madrid)', action: () => step2('Presencial') },
+      { label: '💻 Videollamada (online)', action: () => step2('Online') },
+    ]);
+  });
+}
+
+function step2(modalidad) {
+  const esOnline = modalidad === 'Online';
+  botReply(`Entendido — <strong>${modalidad}</strong> 👍<br><br>¿Qué tipo de consulta buscas?`, 600, () => {
+    setQR('', [
+      { label: '🤝 Primera consulta', action: () => step3(modalidad, 'Primera consulta', esOnline) },
+      { label: '🔄 Consulta de seguimiento', action: () => step3(modalidad, 'Seguimiento', esOnline) },
+      { label: '💑 Terapia de pareja', action: () => step3(modalidad, 'Terapia de pareja', esOnline) },
+      { label: '👦 Psicología adolescentes', action: () => step3(modalidad, 'Psicología adolescentes', esOnline) },
+    ]);
+  });
+}
+
+function step3(modalidad, tipo, esOnline) {
+  const intro = tipo === 'Primera consulta'
+    ? 'La primera consulta dura <strong>60 minutos</strong> y tiene un coste de <strong>70€</strong>. Es un espacio sin juicios donde podrás explicar con tranquilidad lo que te ha traído hasta aquí.'
+    : tipo === 'Terapia de pareja'
+    ? 'Las sesiones de pareja duran <strong>90 minutos</strong> y tienen un coste de <strong>100€</strong>. Pueden asistir ambos miembros juntos o por separado según el proceso.'
+    : tipo === 'Psicología adolescentes'
+    ? 'Trabajamos con adolescentes (12-18 años) en sesiones de <strong>50 minutos</strong> por <strong>65€</strong>. El ambiente es distendido y adaptado a su edad.'
+    : 'Las sesiones de seguimiento duran <strong>50 minutos</strong> y tienen un coste de <strong>65€</strong>.';
+
+  botReply(`${intro}<br><br>¿Tienes preferencia de día?`, 600, () => {
+    setQR('', [
+      { label: '📅 Esta semana', action: () => step4(modalidad, tipo, esOnline, 'Esta semana') },
+      { label: '📅 Semana que viene', action: () => step4(modalidad, tipo, esOnline, 'Semana que viene') },
+      { label: '📅 Sin preferencia', action: () => step4(modalidad, tipo, esOnline, 'Antes posible') },
+    ]);
+  });
+}
+
+function step4(modalidad, tipo, esOnline, semana) {
+  botReply('Tenemos disponibilidad en estos días:<br><br>📅 <strong>Martes 24</strong> — mañana o tarde<br>📅 <strong>Jueves 26</strong> — solo tarde<br>📅 <strong>Viernes 27</strong> — mañana', 600, () => {
+    setQR('Elige un día:', [
+      { label: '📅 Martes 24', action: () => step5(modalidad, tipo, esOnline, 'Martes 24 de junio') },
+      { label: '📅 Jueves 26', action: () => step5_tarde(modalidad, tipo, esOnline, 'Jueves 26 de junio') },
+      { label: '📅 Viernes 27', action: () => step5_manana(modalidad, tipo, esOnline, 'Viernes 27 de junio') },
+    ]);
+  });
+}
+
+function step5(modalidad, tipo, esOnline, dia) {
+  botReply('¿Prefieres mañana o tarde?', 400, () => {
+    setQR('', [
+      { label: '☀️ Mañana', action: () => step5_manana(modalidad, tipo, esOnline, dia) },
+      { label: '🌙 Tarde', action: () => step5_tarde(modalidad, tipo, esOnline, dia) },
+    ]);
+  });
+}
+
+function step5_manana(modalidad, tipo, esOnline, dia) {
+  botReply(`Horas disponibles por la mañana el ${dia}:`, 500, () => {
+    setQR('', [
+      { label: '🕘 9:00h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '9:00h') },
+      { label: '🕙 10:30h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '10:30h') },
+      { label: '🕚 12:00h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '12:00h') },
+    ]);
+  });
+}
+
+function step5_tarde(modalidad, tipo, esOnline, dia) {
+  botReply(`Horas disponibles por la tarde el ${dia}:`, 500, () => {
+    setQR('', [
+      { label: '🕔 16:00h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '16:00h') },
+      { label: '🕔 17:30h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '17:30h') },
+      { label: '🕕 19:00h', action: () => step6_nombre(modalidad, tipo, esOnline, dia, '19:00h') },
+    ]);
+  });
+}
+
+function step6_nombre(modalidad, tipo, esOnline, dia, hora) {
+  resetBottom();
+  botReply('Casi listo 😊 ¿Cómo te llamas para completar la reserva?', 600, () => {
+    bottomArea.innerHTML = `
+      <div class="name-input-area">
+        <div class="name-input-row">
+          <input class="name-field" id="nameField" placeholder="Tu nombre..." maxlength="30"/>
+          <button class="name-send" onclick="step7(event,'${modalidad}','${tipo}','${dia}','${hora}',${esOnline})">➤</button>
+        </div>
+      </div>
+      <div class="wa-bar">
+        <div class="wa-bar-fake">Escribe tu nombre...</div>
+        <div class="wa-mic">🎤</div>
+      </div>`;
+    const field = document.getElementById('nameField');
+    field.focus();
+    field.addEventListener('keydown', e => { if(e.key==='Enter') step7(e, modalidad, tipo, dia, hora, esOnline); });
+  });
+}
+
+function step7(e, modalidad, tipo, dia, hora, esOnline) {
+  const field = document.getElementById('nameField');
+  const nombre = (field ? field.value.trim() : '') || 'Laura';
+  resetBottom();
+  addBubble('user', nombre);
+
+  const videoLink = esOnline ? `<br>🔗 <strong>Enlace de videollamada:</strong> <span style="color:#7B4D8A">meet.psicologiamartinez.es/sesion-${Math.floor(Math.random()*9000)+1000}</span><br>El enlace se activa 5 minutos antes de la sesión.` : `<br>📍 <strong>Dirección:</strong> Calle Velázquez 48, 2ºA, Madrid`;
+
+  const confirmMsg = `✅ <strong>¡Cita confirmada, ${nombre}!</strong><br><br>📅 ${dia}<br>🕐 ${hora}<br>🧠 ${tipo}<br>📡 ${modalidad}${videoLink}<br><br>Recibirás un recordatorio el día anterior. Si necesitas cancelar o cambiar, escríbenos con al menos 24 horas de antelación.`;
+
+  botReply(confirmMsg, 700, () => {
+    // Nota confidencialidad
+    setTimeout(() => {
+      addNotePill('🔒 Recuerda que todo lo que hables en consulta es completamente confidencial.');
+      scrollDown();
+      // Cierre empático
+      setTimeout(() => {
+        botReply('Dar el primer paso siempre requiere valentía. Estamos aquí para acompañarte 💙', 600, () => {
+          setQR('¿Necesitas algo más?', [
+            { label: '✏️ Cambiar cita', action: () => { resetBottom(); botReply('Por supuesto, dime qué día y hora te viene mejor y lo cambiamos sin problema.', 500); } },
+            { label: '❓ Preguntas frecuentes', action: () => { resetBottom(); botReply('Con mucho gusto 😊 ¿Sobre qué tienes dudas?<br><br>• 🔒 Confidencialidad y secreto profesional<br>• 💳 Formas de pago (efectivo, tarjeta, transferencia)<br>• 🏥 ¿Se puede con seguro médico? (Adeslas, Asisa, DKV)<br>• 📍 Cómo llegar a la consulta<br><br>Escribe tu pregunta y te respondo.', 500); } },
+            { label: '👤 Hablar con el Dr.', action: () => { resetBottom(); botReply('El Dr. Alejandro Martínez atiende llamadas y mensajes en horario de consulta (9:00h–20:00h).<br><br>📞 <strong>912 456 789</strong><br>📧 consulta@psicologiamartinez.es', 500); } },
+          ]);
+        });
+      }, 800);
+    }, 600);
+  });
+}
+
+// START
+setTimeout(step1, 800);
+</script>
+</body>
+</html>

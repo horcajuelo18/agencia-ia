@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital — Fontanería López e Hijos</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FFFFFF;
+    --surface: #F5F5F5;
+    --surface2: #EBEBEB;
+    --accent: #1B3A6B;
+    --accent-light: #2A5298;
+    --text: #1A1A1A;
+    --text-muted: #5C5C5C;
+    --red: #D32F2F;
+    --red-light: #FFEBEE;
+    --yellow: #F57C00;
+    --yellow-light: #FFF3E0;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --border: #E0E0E0;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  /* Layout */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 40px; }
+
+  /* Header */
+  .report-header {
+    background: var(--accent);
+    color: white;
+    padding: 40px 0 32px;
+    margin-bottom: 40px;
+  }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .logo-badge {
+    width: 56px; height: 56px; background: rgba(255,255,255,0.15);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+  .client-info h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .client-info p { opacity: 0.75; font-size: 14px; }
+  .global-score-box { text-align: center; background: rgba(255,255,255,0.1); border-radius: 16px; padding: 20px 28px; }
+  .score-number { font-size: 52px; font-weight: 700; line-height: 1; color: #FF5252; font-family: 'DM Mono', monospace; }
+  .score-label { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-badge { display: inline-block; background: #FF5252; color: white; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Report meta */
+  .report-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.7; }
+  .meta-item span { font-weight: 600; opacity: 1; }
+
+  /* Section titles */
+  .section-title {
+    font-size: 18px; font-weight: 700; color: var(--accent);
+    border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-icon { font-size: 20px; }
+
+  /* Cards grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+  /* Alert cards */
+  .alert-card {
+    border-radius: 12px; padding: 20px;
+    border-left: 4px solid;
+  }
+  .alert-card.red { background: var(--red-light); border-color: var(--red); }
+  .alert-card.yellow { background: var(--yellow-light); border-color: var(--yellow); }
+  .alert-card.green { background: var(--green-light); border-color: var(--green); }
+  .alert-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .alert-card.red h3 { color: var(--red); }
+  .alert-card.yellow h3 { color: var(--yellow); }
+  .alert-card.green h3 { color: var(--green); }
+  .alert-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* Metric block */
+  .metric-block {
+    background: var(--surface); border-radius: 16px; padding: 24px; margin-bottom: 16px;
+  }
+  .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .metric-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .score-pill {
+    font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500;
+    padding: 4px 14px; border-radius: 20px;
+  }
+  .score-pill.red { background: var(--red); color: white; }
+  .score-pill.yellow { background: var(--yellow); color: white; }
+  .score-pill.green { background: var(--green); color: white; }
+
+  /* Progress bar */
+  .progress-wrap { margin-top: 8px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .progress-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+  .fill-red { background: var(--red); }
+  .fill-yellow { background: var(--yellow); }
+  .fill-green { background: var(--green); }
+
+  /* Metric items */
+  .metric-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+  .metric-item {
+    background: white; border-radius: 10px; padding: 14px;
+    border: 1px solid var(--border);
+  }
+  .metric-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px; }
+  .metric-item .value { font-size: 18px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .metric-item .value.red { color: var(--red); }
+  .metric-item .value.yellow { color: var(--yellow); }
+  .metric-item .value.green { color: var(--green); }
+  .metric-item .note { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Status dot */
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot-red { background: var(--red); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-green { background: var(--green); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--accent); color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+  tbody tr:hover { background: #EBF0FA; }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+
+  /* Action plan */
+  .action-table thead th:nth-child(1) { width: 22%; }
+  .priority-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .priority-badge.urgente { background: var(--red); color: white; }
+  .priority-badge.importante { background: var(--yellow); color: white; }
+  .priority-badge.recomendado { background: var(--green); color: white; }
+
+  /* Stars */
+  .stars { color: #FFC107; font-size: 14px; }
+
+  /* Footer */
+  .report-footer {
+    background: var(--surface); border-top: 1px solid var(--border);
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-muted); margin-top: 60px;
+  }
+  .report-footer strong { color: var(--accent); }
+
+  /* Summary score row */
+  .summary-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .score-card { background: var(--surface); border-radius: 12px; padding: 16px; text-align: center; }
+  .score-card .sc-value { font-size: 28px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .score-card .sc-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .sc-red { color: var(--red); }
+  .sc-yellow { color: var(--yellow); }
+  .sc-green { color: var(--green); }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; }
+    .global-score-box { align-self: flex-start; }
+    .score-number { font-size: 40px; }
+    section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="container">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div class="logo-badge">🔧</div>
+        <div class="client-info">
+          <h1>Fontanería López e Hijos</h1>
+          <p>Toledo · Fontanero autónomo · 15 años de experiencia</p>
+          <div class="report-meta">
+            <div class="meta-item">Tipo: <span>Diagnóstico Digital Completo</span></div>
+            <div class="meta-item">Fecha: <span>Junio 2026</span></div>
+            <div class="meta-item">Analista: <span>Agencia IA</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="global-score-box">
+        <div class="score-number">38</div>
+        <div class="score-label">de 100 puntos</div>
+        <div class="score-badge">⚠ Crítico</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- RESUMEN EJECUTIVO -->
+  <section>
+    <div class="section-title"><span class="section-icon">📋</span>Resumen Ejecutivo</div>
+    <p style="color:var(--text-muted);margin-bottom:20px">Hemos analizado la presencia digital de Fontanería López e Hijos en web, Google Maps, redes sociales y posicionamiento SEO. El resultado es <strong style="color:var(--red)">preocupante</strong>: la empresa prácticamente no existe online, lo que provoca una pérdida directa de clientes potenciales que buscan fontaneros en Toledo.</p>
+    <div class="cards-grid">
+      <div class="alert-card red">
+        <h3>🚨 Sin presencia web</h3>
+        <p>No tiene página web propia. Los clientes no pueden encontrarle cuando buscan "fontanero Toledo" en Google. Pierde clientes todos los días a favor de la competencia.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 SEO inexistente</h3>
+        <p>Sin web, no hay posicionamiento. Las búsquedas de urgencias (fontanero 24h, atasco, pérdida de agua) van directamente a los 3 competidores principales.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 Redes sociales abandonadas</h3>
+        <p>El último post en Facebook fue hace 8 meses. Un perfil inactivo transmite desconfianza y puede hacer que un cliente elija a otro proveedor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY SCORES -->
+  <section>
+    <div class="section-title"><span class="section-icon">📊</span>Puntuaciones por Área</div>
+    <div class="summary-scores">
+      <div class="score-card"><div class="sc-value sc-red">25/100</div><div class="sc-label">🌐 Web</div></div>
+      <div class="score-card"><div class="sc-value sc-yellow">55/100</div><div class="sc-label">📍 Google Maps</div></div>
+      <div class="score-card"><div class="sc-value sc-red">15/100</div><div class="sc-label">📱 Redes Sociales</div></div>
+      <div class="score-card"><div class="sc-value sc-red">10/100</div><div class="sc-label">🔍 SEO</div></div>
+    </div>
+  </section>
+
+  <!-- WEB -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>🌐</span> Presencia Web</div>
+        <span class="score-pill red">25/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>25%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-red" style="width:25%"></div></div>
+      </div>
+      <div class="metric-items" style="margin-top:16px">
+        <div class="metric-item">
+          <div class="label">Página web propia</div>
+          <div class="value red">NO</div>
+          <div class="note">Solo usa WhatsApp</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Velocidad de carga</div>
+          <div class="value red">N/A</div>
+          <div class="note">Sin web que medir</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Adaptada a móvil</div>
+          <div class="value red">N/A</div>
+          <div class="note">Sin web</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Formulario contacto</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin captación de leads</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">HTTPS / Seguridad</div>
+          <div class="value red">N/A</div>
+          <div class="note">Sin dominio propio</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Presupuesto online</div>
+          <div class="value red">NO</div>
+          <div class="note">Solo llamada o WhatsApp</div>
+        </div>
+      </div>
+      <div class="alert-card red" style="margin-top:16px">
+        <h3>¿Qué supone no tener web?</h3>
+        <p>En Toledo hay aproximadamente 1.200–1.500 búsquedas mensuales de "fontanero Toledo" y variantes. El 100% de esas búsquedas va a sus competidores. Con una web básica bien posicionada, podría captar entre 15 y 30 clientes nuevos al mes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOOGLE MAPS -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>📍</span> Google Maps / Perfil de Empresa</div>
+        <span class="score-pill yellow">55/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>55%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-yellow" style="width:55%"></div></div>
+      </div>
+      <div class="metric-items" style="margin-top:16px">
+        <div class="metric-item">
+          <div class="label">Ficha reclamada</div>
+          <div class="value green">SÍ</div>
+          <div class="note">Bien configurado</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Reseñas totales</div>
+          <div class="value yellow">12</div>
+          <div class="note">Objetivo: +50</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Valoración media</div>
+          <div class="value green">4.2 ★</div>
+          <div class="note">Aceptable</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Fotos del perfil</div>
+          <div class="value red">3</div>
+          <div class="note">Antiguas y baja calidad</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Responde reseñas</div>
+          <div class="value red">NO</div>
+          <div class="note">Ninguna respondida</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Servicios listados</div>
+          <div class="value red">2</div>
+          <div class="note">Solo "fontanería" y "reparaciones"</div>
+        </div>
+      </div>
+      <div class="alert-card yellow" style="margin-top:16px">
+        <h3>⚠ Oportunidad de mejora fácil</h3>
+        <p>Google Maps es la herramienta gratuita más poderosa para un negocio local. Con más reseñas (+40), fotos actualizadas y responder a los comentarios, puede aparecer en el "Top 3" local y recibir llamadas directas sin necesidad de web.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES SOCIALES -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>📱</span> Redes Sociales</div>
+        <span class="score-pill red">15/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>15%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-red" style="width:15%"></div></div>
+      </div>
+      <div class="metric-items" style="margin-top:16px">
+        <div class="metric-item">
+          <div class="label">Facebook</div>
+          <div class="value yellow">SÍ</div>
+          <div class="note">89 seguidores</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Último post</div>
+          <div class="value red">8 meses</div>
+          <div class="note">Perfil abandonado</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Instagram</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin cuenta</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">TikTok/YouTube</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin presencia</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Interacción media</div>
+          <div class="value red">0–2 likes</div>
+          <div class="note">Sin engagement</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Contenido útil</div>
+          <div class="value red">NO</div>
+          <div class="note">Sin consejos/trucos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO -->
+  <section>
+    <div class="metric-block">
+      <div class="metric-header">
+        <div class="metric-title"><span>🔍</span> Posicionamiento SEO</div>
+        <span class="score-pill red">10/100</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Puntuación actual</span><span>10%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-red" style="width:10%"></div></div>
+      </div>
+      <div style="margin-top:16px" class="alert-card red">
+        <h3>🚨 Sin posicionamiento en Google</h3>
+        <p>Al no tener web, Fontanería López e Hijos no aparece en ningún resultado orgánico de búsqueda. Las siguientes palabras clave, que los clientes usan todos los días, llevan directamente a la competencia:</p>
+      </div>
+      <div class="metric-items" style="margin-top:12px">
+        <div class="metric-item">
+          <div class="label">Posición en "fontanero Toledo"</div>
+          <div class="value red">Sin datos</div>
+          <div class="note">No aparece en Google</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posición en "fontanero urgencias Toledo"</div>
+          <div class="value red">Sin datos</div>
+          <div class="note">Búsquedas de alto valor</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Posición en "atasco tuberías Toledo"</div>
+          <div class="value red">Sin datos</div>
+          <div class="note">Sin captación</div>
+        </div>
+        <div class="metric-item">
+          <div class="label">Tráfico web mensual</div>
+          <div class="value red">0</div>
+          <div class="note">Sin web</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCIA -->
+  <section>
+    <div class="section-title"><span class="section-icon">🏁</span>Análisis de Competencia (Toledo)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Puntuación</th>
+            <th>Web propia</th>
+            <th>Google Maps ★</th>
+            <th>Redes Sociales</th>
+            <th>SEO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fontanería López e Hijos</strong><br><small style="color:var(--text-muted)">Usted</small></td>
+            <td><span class="score-pill red" style="font-size:12px">38/100</span></td>
+            <td><span class="dot-red status-dot"></span>No</td>
+            <td>4.2★ (12 reseñas)</td>
+            <td>Facebook inactivo</td>
+            <td><span class="dot-red status-dot"></span>Ninguno</td>
+          </tr>
+          <tr>
+            <td><strong>Instalaciones García</strong></td>
+            <td><span class="score-pill yellow" style="font-size:12px">71/100</span></td>
+            <td><span class="dot-green status-dot"></span>Sí (WordPress)</td>
+            <td>4.6★ (89 reseñas)</td>
+            <td>Facebook + Instagram</td>
+            <td><span class="dot-green status-dot"></span>Posición 1–3</td>
+          </tr>
+          <tr>
+            <td><strong>Fontaneros Toledo 24h</strong></td>
+            <td><span class="score-pill yellow" style="font-size:12px">65/100</span></td>
+            <td><span class="dot-green status-dot"></span>Sí (básica)</td>
+            <td>4.4★ (54 reseñas)</td>
+            <td>Solo Facebook</td>
+            <td><span class="dot-yellow status-dot"></span>Posición 4–8</td>
+          </tr>
+          <tr>
+            <td><strong>Pinturas y Fontanería MR</strong></td>
+            <td><span class="score-pill yellow" style="font-size:12px">58/100</span></td>
+            <td><span class="dot-yellow status-dot"></span>Sí (desactualizada)</td>
+            <td>4.1★ (31 reseñas)</td>
+            <td>Instagram (340 seg.)</td>
+            <td><span class="dot-yellow status-dot"></span>Posición 6–12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px">* Datos obtenidos mediante análisis manual de búsquedas en Google.es, junio 2026.</p>
+  </section>
+
+  <!-- PLAN DE ACCIÓN -->
+  <section>
+    <div class="section-title"><span class="section-icon">🚀</span>Plan de Acción Priorizado</div>
+    <div class="table-wrap">
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Acción</th>
+            <th>Impacto estimado</th>
+            <th>Coste orientativo</th>
+            <th>Plazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-badge urgente">Urgente</span></td>
+            <td><strong>Optimizar ficha Google Maps</strong><br><small>Completar descripción, añadir 10+ fotos actuales, listar todos los servicios, responder reseñas existentes</small></td>
+            <td>+30–50% llamadas directas</td>
+            <td>Gratuito / 2h de trabajo</td>
+            <td>Esta semana</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge urgente">Urgente</span></td>
+            <td><strong>Campaña de reseñas Google</strong><br><small>Pedir reseñas a los 30 clientes más recientes. Objetivo: pasar de 12 a 50 reseñas en 2 meses</small></td>
+            <td>+40% conversión Maps</td>
+            <td>Gratuito</td>
+            <td>Inmediato</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge urgente">Urgente</span></td>
+            <td><strong>Crear web profesional</strong><br><small>Landing page con servicios, área de cobertura, formulario de urgencias y WhatsApp click-to-chat</small></td>
+            <td>+15–30 consultas/mes</td>
+            <td>400–800 € (única vez)</td>
+            <td>1 mes</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">Importante</span></td>
+            <td><strong>SEO local básico</strong><br><small>Optimizar web para "fontanero Toledo", "urgencias fontanería Toledo", "atasco tuberías Toledo"</small></td>
+            <td>Top 5 Google en 3–6 meses</td>
+            <td>150–300 €/mes</td>
+            <td>Tras web</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">Importante</span></td>
+            <td><strong>Reactivar Facebook + crear Instagram</strong><br><small>2 posts/semana: antes/después de trabajos, consejos de mantenimiento. Contenido local.</small></td>
+            <td>Branding + confianza</td>
+            <td>200 €/mes (gestión)</td>
+            <td>Mes 1–2</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge recomendado">Recomendado</span></td>
+            <td><strong>Google Ads (urgencias)</strong><br><small>Anuncio para "fontanero urgencias Toledo" — solo se paga cuando hacen clic. Alta intención de compra.</small></td>
+            <td>+8–15 clientes urgencia/mes</td>
+            <td>200–400 €/mes inversión</td>
+            <td>Mes 2–3</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge recomendado">Recomendado</span></td>
+            <td><strong>Sistema de presupuestos online</strong><br><small>Formulario web que envía WhatsApp automático con los datos del cliente</small></td>
+            <td>Ahorro 2h/semana</td>
+            <td>Incluido en web</td>
+            <td>Mes 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ESTIMACION -->
+  <section>
+    <div class="section-title"><span class="section-icon">💰</span>Estimación de Impacto</div>
+    <div class="cards-grid">
+      <div class="alert-card yellow">
+        <h3>Situación actual</h3>
+        <p>Captación 100% boca a boca. Sin presencia online. Clientes nuevos: ~3–5/mes estimados. Cero visibilidad en búsquedas de urgencias.</p>
+      </div>
+      <div class="alert-card green">
+        <h3>Con plan completo (6 meses)</h3>
+        <p>Estimamos +20–35 consultas digitales nuevas al mes. Si convierte el 40%, son +8–14 clientes nuevos/mes solo por el canal digital.</p>
+      </div>
+    </div>
+    <div class="alert-card green" style="margin-top:16px">
+      <h3>✅ ROI estimado del plan digital</h3>
+      <p>Inversión mensual total: ~600–900 €/mes (web + SEO + redes). Con un ticket medio de 180 € por trabajo, necesita solo 4–5 trabajos nuevos al mes para rentabilizar la inversión. El resto es beneficio neto.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong>Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com" style="color:var(--accent)">aecadro@gmail.com</a>
+  <br><small style="opacity:0.6">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

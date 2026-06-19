@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis Google Ads — Clínica Dental Smile Plus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8FBFF;
+    --surface: #FFFFFF;
+    --border: #D6E4F7;
+    --accent: #0066CC;
+    --accent-dark: #004A99;
+    --red: #C0392B; --red-bg: #FDEEEC;
+    --orange: #D35400; --orange-bg: #FEF5EC;
+    --green: #1E8449; --green-bg: #EAFAF1;
+    --text: #1A1A2E; --muted: #6B7A8D;
+    --mono: 'Courier New', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+  .wrapper { max-width: 960px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  .report-header { background: linear-gradient(135deg, #0066CC 0%, #0044AA 100%); color: #fff; border-radius: 14px; padding: 36px 40px; margin-bottom: 28px; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; margin-bottom: 14px; }
+  .report-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .report-header p { opacity: 0.85; font-size: 15px; }
+  .meta-row { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.75; }
+  .meta-item strong { display: block; font-size: 18px; opacity: 1; font-family: var(--mono); }
+
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px 32px; margin-bottom: 22px; }
+  .section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 14px; }
+  .kpi-card { border-radius: 8px; padding: 18px; border: 1px solid; position: relative; }
+  .kpi-card.bad { background: var(--red-bg); border-color: #F1948A; }
+  .kpi-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .kpi-current { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--red); }
+  .kpi-bench { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi-bench span { font-family: var(--mono); color: var(--green); font-weight: 600; }
+  .dot { position: absolute; top: 14px; right: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 6px rgba(192,57,43,0.6); }
+
+  .problem-box { background: #FFF3CD; border: 1px solid #FFEAA7; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .problem-box h3 { color: #856404; font-size: 15px; margin-bottom: 8px; }
+  .problem-box p { font-size: 14px; color: #664D03; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 10px 12px; background: #EBF3FF; color: var(--muted); font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; font-weight: 700; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F2F7FF; }
+  .tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+  .tag.quema { background: var(--red-bg); color: var(--red); border: 1px solid #F1948A; }
+  .tag.ok { background: var(--green-bg); color: var(--green); border: 1px solid #82E0AA; }
+  .tag.alerta { background: var(--orange-bg); color: var(--orange); border: 1px solid #F0B27A; }
+  .mono { font-family: var(--mono); font-size: 13px; }
+
+  /* COMPETITORS */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .comp-card { border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+  .comp-name { font-weight: 700; font-size: 15px; color: var(--accent); margin-bottom: 4px; }
+  .comp-url { font-family: var(--mono); font-size: 11px; color: var(--green); margin-bottom: 12px; }
+  .comp-badge { display: inline-block; background: var(--green-bg); color: var(--green); font-size: 11px; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: 600; }
+  .comp-learn { font-size: 13px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .comp-learn strong { color: var(--text); }
+
+  /* AD CARDS */
+  .ad-card { border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 14px; }
+  .ad-card.proposed { border-color: #0066CC; background: #F0F6FF; }
+  .ad-url { font-family: var(--mono); font-size: 11px; color: var(--green); margin-bottom: 8px; }
+  .ad-title { font-size: 17px; color: var(--accent); font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+  .ad-desc { font-size: 13px; color: #444; line-height: 1.5; }
+  .ad-number { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; font-weight: 700; }
+  .ad-score { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .score-bar { flex: 1; height: 5px; background: #E0ECFF; border-radius: 3px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 3px; }
+  .ad-problems { margin-top: 10px; font-size: 13px; }
+  .ad-problems li { margin-left: 18px; color: var(--red); margin-top: 3px; }
+  .ad-ext { margin-top: 10px; padding: 8px 12px; background: #EBF3FF; border-radius: 6px; font-size: 12px; color: var(--muted); }
+  .ad-ext strong { color: var(--accent); }
+
+  /* KEYWORDS MISIONES */
+  .kw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .kw-col h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; }
+  .kw-col.bad h3 { background: var(--red-bg); color: var(--red); }
+  .kw-col.good h3 { background: var(--green-bg); color: var(--green); }
+  .kw-item { padding: 8px 12px; font-family: var(--mono); font-size: 13px; border-bottom: 1px solid var(--border); }
+  .kw-item:last-child { border-bottom: none; }
+
+  .estimate-row { display: flex; gap: 16px; align-items: stretch; }
+  .est-box { flex: 1; border-radius: 8px; padding: 20px; text-align: center; }
+  .est-box.before { background: var(--red-bg); border: 1px solid #F1948A; }
+  .est-box.after { background: var(--green-bg); border: 1px solid #82E0AA; }
+  .est-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 10px; font-weight: 700; }
+  .est-value { font-size: 30px; font-family: var(--mono); font-weight: 700; }
+  .est-box.before .est-value { color: var(--red); }
+  .est-box.after .est-value { color: var(--green); }
+  .est-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .arrow-mid { display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--accent); font-weight: 700; padding: 0 8px; }
+
+  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+
+  @media(max-width:640px) {
+    .wrapper { padding: 16px 14px 40px; }
+    .report-header { padding: 24px 18px; }
+    .kw-grid { grid-template-columns: 1fr; }
+    .estimate-row { flex-direction: column; }
+    .arrow-mid { transform: rotate(90deg); }
+    .section { padding: 18px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="report-header">
+    <div class="badge">Diagnóstico Google Ads — Mayo 2026</div>
+    <h1>Clínica Dental Smile Plus</h1>
+    <p>Madrid · Especialización: Ortodoncia Invisible &amp; Estética Dental</p>
+    <div class="meta-row">
+      <div class="meta-item">Inversión mensual<strong>1.680 €</strong></div>
+      <div class="meta-item">Campañas activas<strong>2</strong></div>
+      <div class="meta-item">Keywords activas<strong>31</strong></div>
+      <div class="meta-item">Período<strong>Mayo 2026</strong></div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA CENTRAL -->
+  <div class="section">
+    <div class="section-title">Diagnóstico principal</div>
+    <div class="problem-box">
+      <h3>⚠ Problema crítico detectado: keywords genéricas vs keywords de alto valor</h3>
+      <p>El 73% del presupuesto se destina a la keyword "dentista" y variantes genéricas que compiten con <strong>toda la odontología de Madrid</strong>. Su clínica es especialista en ortodoncia invisible — debería pujar por términos de alto valor y alta intención donde la competencia es menor y la conversión es superior.</p>
+    </div>
+
+    <div class="kw-grid">
+      <div class="kw-col bad">
+        <h3>Actuales — Keywords genéricas (malgastando)</h3>
+        <div class="kw-item">dentista Madrid</div>
+        <div class="kw-item">clínica dental</div>
+        <div class="kw-item">dentista barato</div>
+        <div class="kw-item">empaste dental precio</div>
+        <div class="kw-item">limpieza dental Madrid</div>
+        <div class="kw-item">urgencias dentales</div>
+      </div>
+      <div class="kw-col good">
+        <h3>Propuestas — Keywords de alto valor y conversión</h3>
+        <div class="kw-item">ortodoncia invisible adultos Madrid</div>
+        <div class="kw-item">invisalign precio Madrid</div>
+        <div class="kw-item">invisalign clínica Madrid</div>
+        <div class="kw-item">alineadores dentales Madrid</div>
+        <div class="kw-item">invisalign vs brackets Madrid</div>
+        <div class="kw-item">ortodoncia discreta precio</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section">
+    <div class="section-title">KPIs actuales vs benchmark clínicas dentales especializadas</div>
+    <div class="kpi-grid">
+      <div class="kpi-card bad">
+        <div class="dot"></div>
+        <div class="label">CTR Campaña genérica</div>
+        <div class="kpi-current">1,9%</div>
+        <div class="kpi-bench">Especialistas Invisalign: <span>6,3%</span></div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="dot"></div>
+        <div class="label">CPC medio actual</div>
+        <div class="kpi-current">7,20 €</div>
+        <div class="kpi-bench">Objetivo con cambios: <span>4,80 €</span></div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="dot"></div>
+        <div class="label">Tasa de conversión</div>
+        <div class="kpi-current">1,4%</div>
+        <div class="kpi-bench">Clínicas especializadas: <span>5,1%</span></div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="dot"></div>
+        <div class="label">Coste por cita</div>
+        <div class="kpi-current">514 €</div>
+        <div class="kpi-bench">Objetivo alcanzable: <span>94 €</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA KEYWORDS -->
+  <div class="section">
+    <div class="section-title">Análisis keywords activas — rentabilidad</div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Keyword</th><th>Coste/mes</th><th>Clics</th><th>Citas</th><th>Coste/cita</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">dentista Madrid</td><td class="mono">490 €</td><td>68</td><td>0</td><td class="mono">∞</td><td><span class="tag quema">Quema dinero</span></td></tr>
+          <tr><td class="mono">clínica dental Madrid</td><td class="mono">310 €</td><td>43</td><td>1</td><td class="mono">310 €</td><td><span class="tag quema">Sin retorno</span></td></tr>
+          <tr><td class="mono">invisalign Madrid</td><td class="mono">180 €</td><td>25</td><td>5</td><td class="mono">36 €</td><td><span class="tag ok">Muy rentable</span></td></tr>
+          <tr><td class="mono">ortodoncia invisible</td><td class="mono">140 €</td><td>19</td><td>3</td><td class="mono">47 €</td><td><span class="tag ok">Rentable</span></td></tr>
+          <tr><td class="mono">dentista barato</td><td class="mono">260 €</td><td>36</td><td>0</td><td class="mono">∞</td><td><span class="tag quema">Quema dinero</span></td></tr>
+          <tr><td class="mono">blanqueamiento dental</td><td class="mono">120 €</td><td>17</td><td>2</td><td class="mono">60 €</td><td><span class="tag ok">Aceptable</span></td></tr>
+          <tr><td class="mono">urgencias dentales</td><td class="mono">180 €</td><td>25</td><td>0</td><td class="mono">∞</td><td><span class="tag quema">Fuera de nicho</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--red);">Las keywords rentables (Invisalign + ortodoncia) representan solo el <strong>19% del presupuesto</strong> y generan el <strong>88% de las citas</strong>.</p>
+  </div>
+
+  <!-- COMPETIDORES -->
+  <div class="section">
+    <div class="section-title">Análisis competidores — clínicas que lo hacen bien en Google Ads</div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-name">OrthoSmile Madrid</div>
+        <div class="comp-url">orthosmile.es › invisalign-madrid</div>
+        <div class="comp-badge">CTR 7,1% · CPC 3,90 €</div>
+        <p style="font-size:13px;color:var(--muted);">Pujan exclusivamente por "invisalign" y variantes. Landing page dedicada con precio desde + financiación. Usan extensión de precio y reseñas.</p>
+        <div class="comp-learn"><strong>Aprender de ellos:</strong> Landing específica Invisalign, precio visible, extensión de valoraciones Google.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Clínica Dental Premium</div>
+        <div class="comp-url">clinicapremium.es › alineadores</div>
+        <div class="comp-badge">CTR 6,4% · CPC 4,20 €</div>
+        <p style="font-size:13px;color:var(--muted);">Usan anuncios responsivos con 15 títulos y 4 descripciones. Incluyen "primera consulta gratis" solo en campañas de retargeting, no en captación fría.</p>
+        <div class="comp-learn"><strong>Aprender de ellos:</strong> Anuncios responsivos optimizados, segmentar "gratis" solo para remarketing.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Sonrisa Perfecta Clínica</div>
+        <div class="comp-url">sonrisaperfecta.es › invisalign-precio</div>
+        <div class="comp-badge">CTR 5,9% · CPC 4,60 €</div>
+        <p style="font-size:13px;color:var(--muted);">Invierten en campañas de marca + remarketing. Su keyword de mayor volumen es "invisalign precio Madrid" — búsqueda de alta intención y alta conversión.</p>
+        <div class="comp-learn"><strong>Aprender de ellos:</strong> Campaña de marca propia para defensa, retargeting con oferta especial.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANUNCIOS ACTUALES -->
+  <div class="section">
+    <div class="section-title">Anuncios actuales — evaluación</div>
+    <div class="ad-card">
+      <div class="ad-number">Anuncio principal</div>
+      <div class="ad-url">smileplus.es › dentista-madrid</div>
+      <div class="ad-title">Clínica Dental en Madrid | Smile Plus | Primera Visita Gratis</div>
+      <div class="ad-desc">Cuidamos tu sonrisa con la mejor tecnología. Implantes, ortodoncia y blanqueamiento. Pide cita online ahora. Financiación disponible.</div>
+      <div class="ad-score">
+        <div class="score-bar"><div class="score-fill" style="width:25%;background:var(--red);"></div></div>
+        <span style="font-family:var(--mono);font-size:12px;color:var(--red);">2.5/10</span>
+      </div>
+      <ul class="ad-problems">
+        <li>No menciona ortodoncia invisible — su producto estrella — en ningún lugar</li>
+        <li>URL de destino es la home genérica, no una landing específica</li>
+        <li>"Primera visita gratis" para dentista genérico atrae pacientes de bajo valor</li>
+      </ul>
+    </div>
+
+    <div class="ad-card">
+      <div class="ad-number">Anuncio Invisalign (el único bueno)</div>
+      <div class="ad-url">smileplus.es › invisalign</div>
+      <div class="ad-title">Invisalign en Madrid | Ortodoncia Sin Brackets | Smile Plus</div>
+      <div class="ad-desc">Alinea tus dientes con Invisalign. Resultados visibles en 6 meses. Consulta inicial de diagnóstico. Centro certificado Invisalign Provider.</div>
+      <div class="ad-score">
+        <div class="score-bar"><div class="score-fill" style="width:62%;background:var(--orange);"></div></div>
+        <span style="font-family:var(--mono);font-size:12px;color:var(--orange);">6/10</span>
+      </div>
+      <ul class="ad-problems">
+        <li>Buena base pero falta precio orientativo o rango — es lo que más busca el usuario</li>
+        <li>No incluye diferenciador de "centro certificado" en el título, que es más visible</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROPUESTOS -->
+  <div class="section">
+    <div class="section-title">5 anuncios propuestos</div>
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #1 — Keyword "invisalign precio Madrid"</div>
+      <div class="ad-url">smileplus.es › invisalign-precio-madrid</div>
+      <div class="ad-title">Invisalign Madrid Desde 89€/mes | Centro Certificado | Sin Brackets</div>
+      <div class="ad-desc">Descubra su precio exacto en 20 minutos de diagnóstico gratuito. Financiación sin intereses hasta 36 meses. +400 tratamientos Invisalign completados en Madrid.</div>
+      <div class="ad-ext"><strong>Extensiones:</strong> Precio "desde 2.900 €" · Teléfono · Valoración Google 4,8★ · Sitelink "Calcula tu precio"</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #2 — Keyword "ortodoncia invisible adultos Madrid"</div>
+      <div class="ad-url">smileplus.es › ortodoncia-adultos</div>
+      <div class="ad-title">Ortodoncia Invisible Para Adultos | Discreta y Cómoda | Madrid</div>
+      <div class="ad-desc">Alinea tus dientes sin que nadie lo note. Extractible, sin dolor, sin restricciones de comida. Primera consulta de diagnóstico 100% gratuita y sin compromiso.</div>
+      <div class="ad-ext"><strong>Extensiones:</strong> "Antes y después reales" · Fragmento "Ventajas: Extraíble, Invisible, Cómoda"</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #3 — Keyword "invisalign vs brackets"</div>
+      <div class="ad-url">smileplus.es › invisalign-vs-brackets</div>
+      <div class="ad-title">¿Invisalign o Brackets? | Te Asesoramos Gratis | Smile Plus Madrid</div>
+      <div class="ad-desc">Cuéntenos su caso y le diremos cuál es mejor para usted. Diagnóstico digital gratuito en 20 minutos. Centro certificado Invisalign Provider en Madrid.</div>
+      <div class="ad-ext"><strong>Extensiones:</strong> "Asesoría personalizada gratuita" · Teléfono · Ubicación</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #4 — Remarketing (visitantes web sin cita)</div>
+      <div class="ad-url">smileplus.es › oferta-invisalign</div>
+      <div class="ad-title">¿Aún Dudas? | Invisalign con Descuento Junio | Solo Esta Semana</div>
+      <div class="ad-desc">Tienes hasta el 30 de junio para aprovechar nuestra promoción en Invisalign. Ahorra 300 € en tu tratamiento. Diagnóstico gratuito incluido. Plazas limitadas.</div>
+      <div class="ad-ext"><strong>Nota:</strong> Solo para listas de remarketing — usuarios que visitaron la web sin convertir.</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #5 — Campaña marca propia (defensa)</div>
+      <div class="ad-url">smileplus.es</div>
+      <div class="ad-title">Smile Plus Madrid | Invisalign Oficial | Tu Clínica de Confianza</div>
+      <div class="ad-desc">La clínica dental especialista en ortodoncia invisible de Madrid. Más de 400 sonrisas transformadas. Reserva tu cita online en 2 minutos.</div>
+      <div class="ad-ext"><strong>Objetivo:</strong> Evitar que competidores roben tráfico de tu marca. CPC mínimo (0,10-0,30 €).</div>
+    </div>
+  </div>
+
+  <!-- ESTIMACION -->
+  <div class="section">
+    <div class="section-title">Proyección con cambios — mismo presupuesto, mejor distribución</div>
+    <div class="estimate-row">
+      <div class="est-box before">
+        <div class="est-label">Ahora</div>
+        <div class="est-value">514 €</div>
+        <div class="est-sub">por cita conseguida</div>
+        <div class="est-sub">~3 citas/mes · CTR 1,9%</div>
+      </div>
+      <div class="arrow-mid">→</div>
+      <div class="est-box after">
+        <div class="est-label">Objetivo 45 días</div>
+        <div class="est-value">94 €</div>
+        <div class="est-sub">por cita conseguida</div>
+        <div class="est-sub">~18 citas/mes · CTR 5,8%</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted);text-align:center;">Con el mismo presupuesto de 1.680 €/mes, redirigiendo a keywords de alto valor. Un tratamiento Invisalign factura entre 2.900 € y 4.500 €.</p>
+  </div>
+
+  <div class="footer">Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</div>
+</div>
+</body>
+</html>

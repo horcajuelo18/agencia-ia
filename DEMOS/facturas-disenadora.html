@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Financiero — Sara Ruiz · Diseño Gráfico</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0A12;
+    --surface: #12121E;
+    --surface2: #1A1A2A;
+    --border: #2A2A3A;
+    --accent: #9B59B6;
+    --accent2: #E91E8C;
+    --grad: linear-gradient(135deg, #9B59B6, #E91E8C);
+    --text: #E8E8F0;
+    --muted: #6B6B85;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --orange: #F39C12;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+  .wrapper { max-width: 1060px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* HEADER */
+  .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+  .dash-title { font-size: 22px; font-weight: 700; }
+  .dash-title span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .dash-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .export-btn { background: var(--grad); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--sans); letter-spacing: 0.3px; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; position: relative; overflow: hidden; }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .kpi.ing::before { background: var(--green); }
+  .kpi.gas::before { background: var(--red); }
+  .kpi.ben::before { background: var(--grad); }
+  .kpi.iva::before { background: var(--orange); }
+  .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .kpi-value { font-family: var(--mono); font-size: 26px; font-weight: 500; }
+  .kpi.ing .kpi-value { color: var(--green); }
+  .kpi.gas .kpi-value { color: var(--red); }
+  .kpi.ben .kpi-value { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .kpi.iva .kpi-value { color: var(--orange); }
+  .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* GRID 2 col */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
+  .card-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 18px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  /* CHART */
+  .chart-wrap { overflow-x: auto; }
+  .chart { display: flex; align-items: flex-end; gap: 10px; height: 140px; padding-bottom: 24px; position: relative; min-width: 340px; }
+  .chart-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+  .bar-group { display: flex; gap: 3px; align-items: flex-end; width: 100%; justify-content: center; }
+  .bar { border-radius: 4px 4px 0 0; min-width: 14px; flex: 1; max-width: 22px; transition: opacity 0.2s; position: relative; }
+  .bar:hover { opacity: 0.8; }
+  .bar.ing { background: linear-gradient(180deg, #2ECC71, #1A8A4A); }
+  .bar.gas { background: linear-gradient(180deg, #E74C3C, #A93226); }
+  .chart-label { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 6px; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; margin-right: 5px; }
+
+  /* CLIENTES */
+  .client-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .client-item:last-child { border-bottom: none; }
+  .client-info { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .client-name { font-size: 14px; font-weight: 600; }
+  .client-fac { font-size: 12px; color: var(--muted); }
+  .client-total { font-family: var(--mono); font-size: 14px; color: var(--green); }
+  .badge-st { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; margin-left: 6px; }
+  .badge-st.ok { background: rgba(46,204,113,0.15); color: var(--green); }
+  .badge-st.pend { background: rgba(243,156,18,0.15); color: var(--orange); }
+
+  /* FACTURAS TABLE */
+  .fac-wrap { overflow-x: auto; }
+  .fac-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+  .fac-table th { text-align: left; padding: 9px 12px; background: var(--surface2); color: var(--muted); font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; font-weight: 600; }
+  .fac-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .fac-table tr:last-child td { border-bottom: none; }
+  .fac-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .fnum { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .mono { font-family: var(--mono); }
+  .st-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 600; }
+  .st-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .st-badge.pagado { background: rgba(46,204,113,0.12); color: var(--green); }
+  .st-badge.pagado::before { background: var(--green); }
+  .st-badge.pendiente { background: rgba(243,156,18,0.12); color: var(--orange); }
+  .st-badge.pendiente::before { background: var(--orange); }
+  .st-badge.vencida { background: rgba(231,76,60,0.12); color: var(--red); }
+  .st-badge.vencida::before { background: var(--red); }
+
+  /* ALERTS */
+  .alert { border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-size: 14px; }
+  .alert.warn { background: rgba(231,76,60,0.08); border: 1px solid rgba(231,76,60,0.25); color: #F1948A; }
+  .alert.info { background: rgba(243,156,18,0.08); border: 1px solid rgba(243,156,18,0.25); color: #F0B27A; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert strong { display: block; font-weight: 700; margin-bottom: 2px; }
+
+  /* FISCAL */
+  .fiscal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .fiscal-item { background: var(--surface2); border-radius: 8px; padding: 14px; }
+  .fiscal-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .fiscal-val { font-family: var(--mono); font-size: 18px; color: var(--text); }
+  .fiscal-val.accent { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .fiscal-val.red { color: var(--red); }
+  .fiscal-val.orange { color: var(--orange); }
+
+  .full-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; margin-bottom: 20px; }
+
+  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+
+  @media(max-width:700px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .dash-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="dash-header">
+    <div>
+      <div class="dash-title"><span>Sara Ruiz</span> — Diseño Gráfico &amp; Branding</div>
+      <div class="dash-sub">Panel financiero 2026 · Autónoma · Madrid · Actualizado: 19 junio 2026</div>
+    </div>
+    <button class="export-btn" onclick="alert('Función disponible en versión completa')">⬇ Exportar a Excel</button>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi ing">
+      <div class="kpi-label">Ingresos YTD 2026</div>
+      <div class="kpi-value">34.800 €</div>
+      <div class="kpi-sub">Ene–Jun 2026 (6 meses)</div>
+    </div>
+    <div class="kpi gas">
+      <div class="kpi-label">Gastos YTD 2026</div>
+      <div class="kpi-value">8.200 €</div>
+      <div class="kpi-sub">Software, equipo, formación</div>
+    </div>
+    <div class="kpi ben">
+      <div class="kpi-label">Beneficio neto</div>
+      <div class="kpi-value">26.600 €</div>
+      <div class="kpi-sub">Margen: 76,4%</div>
+    </div>
+    <div class="kpi iva">
+      <div class="kpi-label">IVA pendiente Q2</div>
+      <div class="kpi-value">3.480 €</div>
+      <div class="kpi-sub">Vence 20 julio 2026</div>
+    </div>
+  </div>
+
+  <!-- ALERTAS -->
+  <div class="full-card">
+    <div class="card-title">Alertas activas</div>
+    <div class="alert warn">
+      <div class="alert-icon">⚠</div>
+      <div>
+        <strong>Factura vencida — Estudio Kraken (FAC-2026-042)</strong>
+        2.400 € pendientes desde hace 38 días. Fecha vencimiento: 12 mayo 2026. Se recomienda enviar segundo recordatorio.
+      </div>
+    </div>
+    <div class="alert warn">
+      <div class="alert-icon">⚠</div>
+      <div>
+        <strong>Factura sin cobrar — TechWave SL (FAC-2026-051)</strong>
+        1.800 € pendientes desde hace 31 días. Fecha vencimiento: 19 mayo 2026. Primer recordatorio enviado sin respuesta.
+      </div>
+    </div>
+    <div class="alert info">
+      <div class="alert-icon">📅</div>
+      <div>
+        <strong>Declaración IVA Q2 — Vence el 20 de julio 2026</strong>
+        IVA repercutido Q2: 3.480 € · IVA soportado Q2: 820 €. Importe a ingresar estimado: <strong>2.660 €</strong>. Prepara la documentación antes del 15 de julio.
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAFICA + CLIENTES -->
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Ingresos vs Gastos — 2026</div>
+      <div class="chart-wrap">
+        <div class="chart">
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:82px;" title="Ingresos Ene: 4.800€"></div>
+              <div class="bar gas" style="height:26px;" title="Gastos Ene: 1.530€"></div>
+            </div>
+            <div class="chart-label">Ene</div>
+          </div>
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:68px;" title="Ingresos Feb: 4.100€"></div>
+              <div class="bar gas" style="height:22px;" title="Gastos Feb: 1.290€"></div>
+            </div>
+            <div class="chart-label">Feb</div>
+          </div>
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:95px;" title="Ingresos Mar: 6.200€"></div>
+              <div class="bar gas" style="height:30px;" title="Gastos Mar: 1.750€"></div>
+            </div>
+            <div class="chart-label">Mar</div>
+          </div>
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:74px;" title="Ingresos Abr: 5.200€"></div>
+              <div class="bar gas" style="height:18px;" title="Gastos Abr: 1.050€"></div>
+            </div>
+            <div class="chart-label">Abr</div>
+          </div>
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:88px;" title="Ingresos May: 7.400€"></div>
+              <div class="bar gas" style="height:25px;" title="Gastos May: 1.470€"></div>
+            </div>
+            <div class="chart-label">May</div>
+          </div>
+          <div class="chart-col">
+            <div class="bar-group">
+              <div class="bar ing" style="height:60px;" title="Ingresos Jun: 7.100€"></div>
+              <div class="bar gas" style="height:19px;" title="Gastos Jun: 1.110€"></div>
+            </div>
+            <div class="chart-label">Jun</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:var(--green);"></span>Ingresos</span>
+        <span><span class="legend-dot" style="background:var(--red);"></span>Gastos</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Top 5 clientes 2026</div>
+      <div class="client-item">
+        <div class="client-info">
+          <div class="avatar" style="background:linear-gradient(135deg,#9B59B6,#E91E8C);">MG</div>
+          <div>
+            <div class="client-name">Moda Green SL</div>
+            <div class="client-fac">8 facturas · Branding completo</div>
+          </div>
+        </div>
+        <div><span class="client-total">11.400 €</span><span class="badge-st ok">Pagado</span></div>
+      </div>
+      <div class="client-item">
+        <div class="client-info">
+          <div class="avatar" style="background:linear-gradient(135deg,#3498DB,#2C3E50);">EK</div>
+          <div>
+            <div class="client-name">Estudio Kraken</div>
+            <div class="client-fac">5 facturas · Identidad visual</div>
+          </div>
+        </div>
+        <div><span class="client-total">7.200 €</span><span class="badge-st pend">2.400 € pend.</span></div>
+      </div>
+      <div class="client-item">
+        <div class="client-info">
+          <div class="avatar" style="background:linear-gradient(135deg,#E74C3C,#C0392B);">TW</div>
+          <div>
+            <div class="client-name">TechWave SL</div>
+            <div class="client-fac">4 facturas · Web + UI Kit</div>
+          </div>
+        </div>
+        <div><span class="client-total">6.300 €</span><span class="badge-st pend">1.800 € pend.</span></div>
+      </div>
+      <div class="client-item">
+        <div class="client-info">
+          <div class="avatar" style="background:linear-gradient(135deg,#27AE60,#1E8449);">BP</div>
+          <div>
+            <div class="client-name">Bodega Palomares</div>
+            <div class="client-fac">3 facturas · Packaging vino</div>
+          </div>
+        </div>
+        <div><span class="client-total">5.400 €</span><span class="badge-st ok">Pagado</span></div>
+      </div>
+      <div class="client-item">
+        <div class="client-info">
+          <div class="avatar" style="background:linear-gradient(135deg,#F39C12,#D68910);">CA</div>
+          <div>
+            <div class="client-name">Clínica Apertura</div>
+            <div class="client-fac">3 facturas · Branding dental</div>
+          </div>
+        </div>
+        <div><span class="client-total">4.500 €</span><span class="badge-st ok">Pagado</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACTURAS -->
+  <div class="full-card">
+    <div class="card-title">Últimas 10 facturas emitidas</div>
+    <div class="fac-wrap">
+      <table class="fac-table">
+        <thead>
+          <tr><th>Nº Factura</th><th>Cliente</th><th>Concepto</th><th>Base</th><th>IVA 21%</th><th>Total</th><th>Emisión</th><th>Cobro</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="fnum">FAC-2026-058</td>
+            <td>Moda Green SL</td>
+            <td>Social media kit Jun</td>
+            <td class="mono">900 €</td>
+            <td class="mono">189 €</td>
+            <td class="mono">1.089 €</td>
+            <td class="mono">10/06/26</td>
+            <td class="mono">—</td>
+            <td><span class="st-badge pendiente">Pendiente</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-055</td>
+            <td>Bodega Palomares</td>
+            <td>Diseño etiqueta Reserva</td>
+            <td class="mono">1.200 €</td>
+            <td class="mono">252 €</td>
+            <td class="mono">1.452 €</td>
+            <td class="mono">03/06/26</td>
+            <td class="mono">10/06/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-053</td>
+            <td>Clínica Apertura</td>
+            <td>Manual de marca completo</td>
+            <td class="mono">1.800 €</td>
+            <td class="mono">378 €</td>
+            <td class="mono">2.178 €</td>
+            <td class="mono">28/05/26</td>
+            <td class="mono">05/06/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-051</td>
+            <td>TechWave SL</td>
+            <td>UI Kit web (fase 2)</td>
+            <td class="mono">1.800 €</td>
+            <td class="mono">378 €</td>
+            <td class="mono">2.178 €</td>
+            <td class="mono">19/05/26</td>
+            <td class="mono">—</td>
+            <td><span class="st-badge vencida">Vencida +31d</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-048</td>
+            <td>Moda Green SL</td>
+            <td>Look book primavera 2026</td>
+            <td class="mono">2.400 €</td>
+            <td class="mono">504 €</td>
+            <td class="mono">2.904 €</td>
+            <td class="mono">10/05/26</td>
+            <td class="mono">20/05/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-045</td>
+            <td>Autoescuela Nova</td>
+            <td>Rediseño logotipo + papelería</td>
+            <td class="mono">750 €</td>
+            <td class="mono">157,50 €</td>
+            <td class="mono">907,50 €</td>
+            <td class="mono">05/05/26</td>
+            <td class="mono">12/05/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-042</td>
+            <td>Estudio Kraken</td>
+            <td>Identidad visual corporativa</td>
+            <td class="mono">2.400 €</td>
+            <td class="mono">504 €</td>
+            <td class="mono">2.904 €</td>
+            <td class="mono">12/04/26</td>
+            <td class="mono">—</td>
+            <td><span class="st-badge vencida">Vencida +38d</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-039</td>
+            <td>TechWave SL</td>
+            <td>UI Kit web (fase 1)</td>
+            <td class="mono">1.500 €</td>
+            <td class="mono">315 €</td>
+            <td class="mono">1.815 €</td>
+            <td class="mono">02/04/26</td>
+            <td class="mono">12/04/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-035</td>
+            <td>Bodega Palomares</td>
+            <td>Packaging vino joven</td>
+            <td class="mono">2.200 €</td>
+            <td class="mono">462 €</td>
+            <td class="mono">2.662 €</td>
+            <td class="mono">20/03/26</td>
+            <td class="mono">28/03/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+          <tr>
+            <td class="fnum">FAC-2026-031</td>
+            <td>Moda Green SL</td>
+            <td>Manual de marca Moda Green</td>
+            <td class="mono">3.200 €</td>
+            <td class="mono">672 €</td>
+            <td class="mono">3.872 €</td>
+            <td class="mono">08/03/26</td>
+            <td class="mono">18/03/26</td>
+            <td><span class="st-badge pagado">Pagado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FISCAL -->
+  <div class="full-card">
+    <div class="card-title">Resumen fiscal Q2 2026 (Abr–Jun)</div>
+    <div class="fiscal-grid">
+      <div class="fiscal-item">
+        <div class="fiscal-label">Base imponible Q2</div>
+        <div class="fiscal-val">16.550 €</div>
+      </div>
+      <div class="fiscal-item">
+        <div class="fiscal-label">IVA repercutido (21%)</div>
+        <div class="fiscal-val orange">3.475,50 €</div>
+      </div>
+      <div class="fiscal-item">
+        <div class="fiscal-label">IVA soportado Q2</div>
+        <div class="fiscal-val">820 €</div>
+      </div>
+      <div class="fiscal-item">
+        <div class="fiscal-label">IVA a ingresar</div>
+        <div class="fiscal-val accent">2.655,50 €</div>
+      </div>
+      <div class="fiscal-item">
+        <div class="fiscal-label">Retenciones IRPF (15%)</div>
+        <div class="fiscal-val red">2.482,50 €</div>
+      </div>
+      <div class="fiscal-item">
+        <div class="fiscal-label">Vencimiento Q2</div>
+        <div class="fiscal-val orange">20 jul 2026</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;font-size:12px;color:var(--muted);">* Las retenciones IRPF del 15% son retenidas por el cliente en factura. El IVA a ingresar es la diferencia entre IVA repercutido e IVA soportado.</p>
+  </div>
+
+  <div class="footer">Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</div>
+</div>
+</body>
+</html>

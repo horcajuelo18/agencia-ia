@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secuencia de Emails — Carlos Martín Estrategia Empresarial</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --azul-negro: #0A0F1A;
+    --azul-oscuro: #0F1A2E;
+    --azul-medio: #162240;
+    --azul-royal: #2752A0;
+    --azul-claro: #4A7ACC;
+    --azul-muy-claro: #6B9CE8;
+    --dorado: #D4AF37;
+    --dorado-claro: #E8CC6A;
+    --texto: #D8E4F8;
+    --texto-dim: #6A84B0;
+    --gris: #344566;
+    --blanco: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--azul-negro); color: var(--texto); font-family: 'Inter', sans-serif; line-height: 1.7; min-height: 100vh; }
+
+  /* HEADER PÁGINA */
+  .page-header {
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-negro) 100%);
+    border-bottom: 1px solid rgba(39,82,160,0.3);
+    padding: 40px 44px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+  .brand-area { display: flex; align-items: center; gap: 18px; }
+  .brand-monogram {
+    width: 54px; height: 54px; border-radius: 4px;
+    background: var(--azul-royal); display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: white;
+    flex-shrink: 0;
+  }
+  .brand-name { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; line-height: 1.2; }
+  .brand-tagline { font-size: 11px; color: var(--texto-dim); margin-top: 2px; letter-spacing: 1px; }
+  .seq-badge {
+    background: rgba(39,82,160,0.2);
+    border: 1px solid rgba(39,82,160,0.5);
+    color: var(--azul-muy-claro);
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 4px;
+  }
+
+  /* LAYOUT */
+  .main-layout {
+    display: grid; grid-template-columns: 230px 1fr;
+    gap: 0; max-width: 1200px; margin: 0 auto; padding: 44px 44px 60px;
+  }
+  @media(max-width:800px){
+    .main-layout { grid-template-columns: 1fr; padding: 20px; }
+    .timeline-col { flex-direction: row; display: flex; overflow-x: auto; padding-bottom: 16px; margin-bottom: 24px; }
+  }
+
+  /* TIMELINE */
+  .timeline-col { display: flex; flex-direction: column; padding-top: 36px; }
+  .timeline-item { display: flex; align-items: flex-start; gap: 14px; }
+  .tl-node-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .tl-node {
+    width: 52px; height: 52px; border-radius: 4px;
+    background: var(--azul-medio); border: 2px solid var(--azul-royal);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem; color: var(--azul-muy-claro);
+    cursor: pointer; transition: all 0.2s; position: relative; z-index: 1;
+  }
+  .tl-node:hover, .tl-node.active { background: var(--azul-royal); color: white; border-color: var(--azul-claro); }
+  .tl-line { width: 2px; flex: 1; min-height: 56px; background: rgba(39,82,160,0.3); margin: 4px 0; }
+  .tl-label { padding-top: 8px; }
+  .tl-dia { font-size: 11px; font-weight: 700; color: var(--azul-muy-claro); letter-spacing: 1px; }
+  .tl-asunto { font-size: 11px; color: var(--texto-dim); line-height: 1.4; max-width: 130px; margin-top: 3px; }
+
+  /* EMAILS */
+  .emails-col { display: flex; flex-direction: column; gap: 30px; }
+
+  /* STATS */
+  .seq-stats {
+    background: var(--azul-oscuro); border: 1px solid rgba(39,82,160,0.25);
+    border-radius: 8px; padding: 22px 28px;
+    display: flex; gap: 28px; flex-wrap: wrap; justify-content: space-around; margin-bottom: 28px;
+  }
+  .seq-stat { text-align: center; }
+  .seq-stat-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--azul-muy-claro); }
+  .seq-stat-label { font-size: 11px; color: var(--texto-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* TARJETA EMAIL */
+  .email-card { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.4); border: 1px solid rgba(39,82,160,0.2); transition: border-color 0.2s; }
+  .email-card:hover { border-color: rgba(39,82,160,0.5); }
+
+  .email-meta {
+    background: var(--azul-oscuro); border-bottom: 1px solid rgba(39,82,160,0.2);
+    padding: 16px 24px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;
+  }
+  .email-meta-fields { flex: 1; min-width: 200px; }
+  .meta-row { display: flex; gap: 8px; margin-bottom: 4px; font-size: 12px; }
+  .meta-key { color: var(--texto-dim); width: 52px; flex-shrink: 0; font-weight: 500; }
+  .meta-val { color: var(--texto); }
+  .meta-asunto { color: var(--blanco); font-weight: 600; }
+  .email-dia-badge {
+    background: var(--azul-royal); color: white;
+    font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 4px; white-space: nowrap; align-self: flex-start;
+  }
+
+  .email-body { background: var(--blanco); color: #1A1A1A; }
+
+  /* Header interno */
+  .email-header-interno {
+    background: linear-gradient(135deg, #0F1A2E 0%, #162240 100%);
+    padding: 22px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .ei-brand-left { display: flex; align-items: center; gap: 14px; }
+  .ei-mono { width: 40px; height: 40px; border-radius: 4px; background: var(--azul-royal); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 700; color: white; font-size: 1.1rem; }
+  .ei-name { font-family: 'Fraunces', serif; color: white; font-size: 1.05rem; font-weight: 700; }
+  .ei-tag { font-size: 10px; color: rgba(255,255,255,0.5); }
+  .ei-right { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+  /* Cuerpo */
+  .email-content { padding: 32px; }
+  .email-saludo { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600; color: #0F1A2E; margin-bottom: 16px; }
+  .email-p { font-size: 0.93rem; color: #3A3A3A; margin-bottom: 14px; line-height: 1.7; }
+  .email-highlight {
+    background: #EEF4FF; border-left: 3px solid #2752A0;
+    padding: 14px 18px; border-radius: 4px; margin: 20px 0;
+    font-size: 0.92rem; color: #0F1A2E;
+  }
+  .email-cta-wrap { text-align: center; margin: 28px 0; }
+  .email-cta {
+    display: inline-block; background: #2752A0; color: white;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+    padding: 14px 36px; border-radius: 4px; text-decoration: none;
+  }
+  .email-cta.urgente { background: #C0392B; }
+  .email-cta.gold { background: #B8860B; }
+  .email-firma { margin-top: 28px; padding-top: 20px; border-top: 1px solid #E8E8E8; display: flex; gap: 14px; align-items: center; }
+  .firma-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #2752A0; }
+  .firma-nombre { font-family: 'Fraunces', serif; font-weight: 700; color: #0F1A2E; font-size: 0.95rem; }
+  .firma-cargo { font-size: 11px; color: #888; }
+
+  /* CASO ÉXITO */
+  .caso-card { background: #F8FAFE; border: 1px solid #D0DCF0; border-radius: 8px; padding: 20px; margin: 20px 0; }
+  .caso-empresa { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; color: #0F1A2E; margin-bottom: 6px; }
+  .caso-sector { font-size: 11px; color: #888; margin-bottom: 14px; }
+  .caso-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .caso-stat { text-align: center; background: #EEF4FF; padding: 12px 8px; border-radius: 6px; }
+  .caso-stat-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; color: #2752A0; }
+  .caso-stat-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .caso-quote { font-style: italic; font-size: 0.88rem; color: #555; border-left: 2px solid #2752A0; padding-left: 12px; margin-top: 12px; }
+
+  /* ERROR BOX */
+  .error-box { background: #FEF3F2; border: 1px solid #FECACA; border-radius: 8px; padding: 20px; margin: 20px 0; }
+  .error-title { font-weight: 700; color: #991B1B; margin-bottom: 12px; font-size: 0.95rem; }
+  .error-list { list-style: none; }
+  .error-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.88rem; color: #7F1D1D; }
+  .error-item::before { content: '✗'; color: #EF4444; font-weight: 700; flex-shrink: 0; }
+
+  /* LLAMADA */
+  .llamada-box {
+    background: linear-gradient(135deg, #0F1A2E 0%, #162240 100%);
+    border-radius: 8px; padding: 28px; text-align: center; margin: 20px 0;
+  }
+  .llamada-titulo { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 8px; }
+  .llamada-desc { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+  .llamada-items { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+  .llamada-item { font-size: 12px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px; }
+  .llamada-item::before { content: '✓'; color: #6B9CE8; font-weight: 700; }
+
+  /* URGENCIA */
+  .urgencia-box { background: #FFF9EC; border: 2px solid #D4AF37; border-radius: 8px; padding: 20px; margin: 20px 0; }
+  .urgencia-titulo { font-family: 'Fraunces', serif; font-weight: 700; color: #8B6508; font-size: 1.05rem; margin-bottom: 8px; }
+  .urgencia-barra { background: #E8CC6A; height: 12px; border-radius: 6px; margin: 12px 0; position: relative; }
+  .urgencia-fill { background: #B8860B; height: 100%; border-radius: 6px; width: 80%; }
+  .urgencia-label { font-size: 12px; color: #8B6508; font-weight: 700; }
+
+  .email-footer-interno {
+    background: #F9F9F9; border-top: 1px solid #E8E8E8;
+    padding: 14px 32px; text-align: center; font-size: 11px; color: #9A9A9A;
+  }
+  .email-footer-interno a { color: #2752A0; text-decoration: underline; }
+
+  footer { text-align: center; padding: 24px; background: var(--azul-oscuro); font-size: 12px; color: var(--gris); border-top: 1px solid rgba(39,82,160,0.2); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="brand-area">
+    <div class="brand-monogram">CM</div>
+    <div>
+      <div class="brand-name">Carlos Martín</div>
+      <div class="brand-tagline">Estrategia Empresarial · Secuencia de captación automatizada</div>
+    </div>
+  </div>
+  <div class="seq-badge">5 emails · 10 días · Lead magnet</div>
+</div>
+
+<div class="main-layout">
+
+  <!-- TIMELINE -->
+  <div class="timeline-col">
+    <div class="timeline-item">
+      <div class="tl-node-wrap">
+        <div class="tl-node active">D0</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-label">
+        <div class="tl-dia">Día 0</div>
+        <div class="tl-asunto">Bienvenida + lead magnet</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-node-wrap">
+        <div class="tl-node">D2</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-label">
+        <div class="tl-dia">Día 2</div>
+        <div class="tl-asunto">Caso de éxito</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-node-wrap">
+        <div class="tl-node">D4</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-label">
+        <div class="tl-dia">Día 4</div>
+        <div class="tl-asunto">Error clave (educativo)</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-node-wrap">
+        <div class="tl-node">D6</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-label">
+        <div class="tl-dia">Día 6</div>
+        <div class="tl-asunto">CTA llamada gratuita</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-node-wrap">
+        <div class="tl-node">D10</div>
+      </div>
+      <div class="tl-label">
+        <div class="tl-dia">Día 10</div>
+        <div class="tl-asunto">Último aviso — urgencia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAILS -->
+  <div class="emails-col">
+
+    <div class="seq-stats">
+      <div class="seq-stat"><div class="seq-stat-num">5</div><div class="seq-stat-label">Emails</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">10</div><div class="seq-stat-label">Días</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">~60%</div><div class="seq-stat-label">Tasa apertura est.</div></div>
+      <div class="seq-stat"><div class="seq-stat-num">↑Conversión</div><div class="seq-stat-label">a llamada calificada</div></div>
+    </div>
+
+    <!-- EMAIL 1 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">Carlos Martín &lt;carlos@carlosmartinestrategia.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre] — descargó "5 errores que destruyen tu margen"</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">Aquí está tu guía (y algo más importante) 📥</span></div>
+        </div>
+        <div class="email-dia-badge">Día 0 — Inmediato</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="ei-brand-left">
+            <div class="ei-mono">CM</div>
+            <div><div class="ei-name">Carlos Martín</div><div class="ei-tag">Estrategia Empresarial</div></div>
+          </div>
+          <div class="ei-right">carlosmartinestrategia.es</div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Tu guía "5 errores que destruyen tu margen" ya está disponible. La encontrarás adjunta a este email y también en el enlace de abajo.</p>
+          <div class="email-cta-wrap">
+            <a href="#" class="email-cta">Descargar la guía PDF →</a>
+          </div>
+          <p class="email-p">Antes de que la leas, quiero que sepas una cosa: esa guía la escribí porque durante 15 años de consultoría he visto a más de 80 empresas cometer los mismos errores una y otra vez.</p>
+          <p class="email-p">No son errores de falta de trabajo. Son errores de <strong>sistema</strong>. Y se detectan en una tarde cuando sabes qué mirar.</p>
+          <div class="email-highlight">
+            En los próximos días te enviaré:<br><br>
+            📌 Un caso de éxito real con números concretos<br>
+            📌 El mayor error estratégico que cometen los empresarios de tu sector<br>
+            📌 Cómo solicitar una sesión de diagnóstico gratuita conmigo<br><br>
+            Léelos. Son cortos y directos. No hay relleno.
+          </div>
+          <p class="email-p">Si tienes alguna pregunta sobre la guía o quieres comentar algo antes de que lleguen los siguientes emails, responde directamente aquí. Lo leo personalmente.</p>
+          <div class="email-firma">
+            <img src="https://picsum.photos/seed/carlosm/100/100" alt="Carlos Martín" class="firma-avatar">
+            <div><div class="firma-nombre">Carlos Martín</div><div class="firma-cargo">Consultor de Estrategia Empresarial · 15 años · +80 empresas</div></div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Carlos Martín Estrategia · C/ Velázquez 34, 28001 Madrid · <a href="#">Darse de baja</a> · <a href="#">Ver en navegador</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 2 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">Carlos Martín &lt;carlos@carlosmartinestrategia.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">Cómo esta empresa triplicó sus beneficios en 8 meses 📈</span></div>
+        </div>
+        <div class="email-dia-badge">Día 2</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="ei-brand-left">
+            <div class="ei-mono">CM</div>
+            <div><div class="ei-name">Carlos Martín</div><div class="ei-tag">Caso de éxito</div></div>
+          </div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Hoy te cuento el caso de Manufacturas Álvarez S.L. — una empresa industrial de Valencia con 12 empleados que facturaba 1,4 millones y llevaba 3 años estancada.</p>
+          <div class="caso-card">
+            <div class="caso-empresa">Manufacturas Álvarez S.L.</div>
+            <div class="caso-sector">Sector: Industrial · Valencia · 12 empleados</div>
+            <div class="caso-stats">
+              <div class="caso-stat"><div class="caso-stat-num">×3</div><div class="caso-stat-label">Beneficio neto</div></div>
+              <div class="caso-stat"><div class="caso-stat-num">8</div><div class="caso-stat-label">Meses</div></div>
+              <div class="caso-stat"><div class="caso-stat-num">+62%</div><div class="caso-stat-label">Margen EBITDA</div></div>
+            </div>
+            <p class="caso-quote">"Llevábamos 3 años trabajando más y ganando menos. Carlos identificó en la primera sesión lo que nosotros no habíamos visto en años." — Javier Álvarez, CEO</p>
+          </div>
+          <p class="email-p"><strong>¿Qué hicimos?</strong> Tres cambios concretos que solos no parecen gran cosa, pero juntos cambiaron la ecuación del negocio:</p>
+          <p class="email-p">1. Eliminamos el 30% de clientes que consumían el 60% del tiempo y generaban el 15% del margen. Resultado: liberamos capacidad para los buenos.<br><br>2. Rediseñamos la tarifa de servicios de urgencia — habían estado vendiendo a precio de servicio estándar lo que el mercado pagaba al triple.<br><br>3. Formalizamos 3 contratos de servicio recurrente con sus mejores clientes. El margen sobre ingresos recurrentes era casi el doble que el puntual.</p>
+          <p class="email-p">Ningún despido. Ninguna inversión. Solo ver los números desde fuera y hacer las preguntas correctas.</p>
+          <div class="email-highlight">
+            ¿Cuántos clientes tienes ahora que cuestan más de lo que aportan? ¿Tienes claro tu margen real por tipo de trabajo? Si no sabes la respuesta, ese es el primer punto de trabajo.
+          </div>
+          <div class="email-firma">
+            <img src="https://picsum.photos/seed/carlosm/100/100" alt="Carlos Martín" class="firma-avatar">
+            <div><div class="firma-nombre">Carlos Martín</div><div class="firma-cargo">Consultor de Estrategia Empresarial</div></div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Carlos Martín Estrategia · <a href="#">Darse de baja</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 3 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">Carlos Martín &lt;carlos@carlosmartinestrategia.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">El error que cometen el 90% de los empresarios (y destruye su crecimiento)</span></div>
+        </div>
+        <div class="email-dia-badge">Día 4</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="ei-brand-left">
+            <div class="ei-mono">CM</div>
+            <div><div class="ei-name">Carlos Martín</div><div class="ei-tag">Contenido educativo</div></div>
+          </div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Hoy no te vendo nada. Solo quiero compartir el patrón más destructivo que he visto en 15 años de consultoría. Lo llamo <strong>"el síndrome del operario"</strong>.</p>
+          <p class="email-p">Ocurre cuando el empresario deja de dirigir y empieza a ejecutar. Cuando en lugar de trabajar <em>en</em> el negocio, trabaja <em>como</em> el negocio.</p>
+          <div class="error-box">
+            <div class="error-title">Señales de que tienes el síndrome del operario:</div>
+            <ul class="error-list">
+              <li>Eres el primero en llegar y el último en salir, pero la empresa no crece</li>
+              <li>Cuando te vas de vacaciones, el negocio sufre o para</li>
+              <li>Tus mejores decisiones estratégicas las tomas agotado, a última hora</li>
+              <li>Conoces los detalles operativos mejor que cualquier empleado</li>
+              <li>Llevas meses sin revisar los números con calma ni planificar a 12 meses</li>
+            </ul>
+          </div>
+          <p class="email-p">Esto no es un problema de esfuerzo. Es un problema de rol. Y tiene solución concreta: no es "delegar más" (ese consejo solo frustra). Es rediseñar el sistema para que el negocio funcione sin ti en el centro.</p>
+          <p class="email-p">Es exactamente lo que hacemos en las sesiones de diagnóstico. Pero eso lo vemos mañana pasado. Hoy solo quería que pusieras nombre a algo que quizás llevas tiempo sintiendo.</p>
+          <div class="email-firma">
+            <img src="https://picsum.photos/seed/carlosm/100/100" alt="Carlos Martín" class="firma-avatar">
+            <div><div class="firma-nombre">Carlos Martín</div><div class="firma-cargo">Consultor de Estrategia Empresarial</div></div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Carlos Martín Estrategia · <a href="#">Darse de baja</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 4 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">Carlos Martín &lt;carlos@carlosmartinestrategia.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">¿Hablamos? 30 minutos gratis. Sin compromiso. 📞</span></div>
+        </div>
+        <div class="email-dia-badge">Día 6 — CTA principal</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="ei-brand-left">
+            <div class="ei-mono">CM</div>
+            <div><div class="ei-name">Carlos Martín</div><div class="ei-tag">Sesión de diagnóstico gratuita</div></div>
+          </div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Esta semana abro agenda para sesiones de diagnóstico gratuitas de 30 minutos. Son plazas limitadas y van muy rápido.</p>
+          <p class="email-p">¿En qué consiste? En 30 minutos analizamos:</p>
+          <div class="llamada-box">
+            <div class="llamada-titulo">Sesión de Diagnóstico Estratégico</div>
+            <div class="llamada-desc">30 minutos · Gratuita · Sin presión de venta</div>
+            <div class="llamada-items">
+              <div class="llamada-item">Dónde está limitando tu margen ahora mismo</div>
+              <div class="llamada-item">Cuál es el mayor freno a tu crecimiento</div>
+              <div class="llamada-item">Qué 2-3 acciones concretas puedes hacer ya</div>
+              <div class="llamada-item">Si tiene sentido trabajar juntos o no</div>
+            </div>
+            <a href="#" class="email-cta" style="background:#2752A0;color:white;display:inline-block;padding:14px 36px;border-radius:4px;font-weight:700;text-decoration:none;">Reservar mi sesión gratuita →</a>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:10px;">Solo quedan 6 plazas disponibles esta semana</div>
+          </div>
+          <p class="email-p">Si en 30 minutos no te aporto ningún insight útil, me lo dices y tan amigos. Pero en 15 años de consultoría eso no ha pasado ninguna vez.</p>
+          <p class="email-p">El diagnóstico es gratuito porque creo en demostrar valor antes de pedir dinero. Funciona para ambos.</p>
+          <div class="email-firma">
+            <img src="https://picsum.photos/seed/carlosm/100/100" alt="Carlos Martín" class="firma-avatar">
+            <div><div class="firma-nombre">Carlos Martín</div><div class="firma-cargo">Consultor de Estrategia Empresarial</div></div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Carlos Martín Estrategia · <a href="#">Darse de baja</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 5 -->
+    <div class="email-card">
+      <div class="email-meta">
+        <div class="email-meta-fields">
+          <div class="meta-row"><span class="meta-key">De:</span><span class="meta-val">Carlos Martín &lt;carlos@carlosmartinestrategia.es&gt;</span></div>
+          <div class="meta-row"><span class="meta-key">Para:</span><span class="meta-val">[Nombre]</span></div>
+          <div class="meta-row"><span class="meta-key">Asunto:</span><span class="meta-val meta-asunto">[Nombre], último aviso — plazas al 80% ⚠️</span></div>
+        </div>
+        <div class="email-dia-badge">Día 10 — Urgencia</div>
+      </div>
+      <div class="email-body">
+        <div class="email-header-interno">
+          <div class="ei-brand-left">
+            <div class="ei-mono">CM</div>
+            <div><div class="ei-name">Carlos Martín</div><div class="ei-tag">Último aviso — plazas limitadas</div></div>
+          </div>
+        </div>
+        <div class="email-content">
+          <p class="email-saludo">Hola [Nombre],</p>
+          <p class="email-p">Hace unos días te escribí sobre las sesiones de diagnóstico gratuitas. Hoy te escribo porque quedan muy pocas plazas de consultoría para este trimestre y no quiero que te enteres demasiado tarde.</p>
+          <div class="urgencia-box">
+            <div class="urgencia-titulo">⚠️ Plazas de consultoría Q3 2026</div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#8B6508;margin-bottom:6px;"><span>Disponibilidad trimestral</span><span>80% ocupado</span></div>
+            <div class="urgencia-barra"><div class="urgencia-fill"></div></div>
+            <div class="urgencia-label">Solo quedan 3 plazas nuevas para este trimestre</div>
+          </div>
+          <p class="email-p">No digo esto para presionarte. Lo digo porque es la realidad de cómo trabajo: máximo 8 clientes simultáneos para mantener la calidad. Cuando están ocupados, la lista de espera puede ser de 3 meses.</p>
+          <p class="email-p">Si estás pensando en mejorar el margen de tu negocio, en escalar sin que la operación te consuma, o en tener por primera vez una visión estratégica clara a 12 meses... este es el momento.</p>
+          <div class="email-highlight">
+            <strong>Lo que incluye la consultoría trimestral:</strong><br><br>
+            Diagnóstico completo del negocio (semana 1) · Plan estratégico a 90 días · Sesiones semanales de seguimiento · Acceso directo por WhatsApp entre sesiones · Revisión de KPIs clave cada mes
+          </div>
+          <div class="email-cta-wrap">
+            <a href="#" class="email-cta urgente">Reservar mi plaza ahora →</a>
+          </div>
+          <p class="email-p" style="font-size:0.88rem;text-align:center;color:#888;">O si prefieres hablar primero: <a href="#" style="color:#2752A0;">agenda una llamada gratuita de 30 minutos</a></p>
+          <p class="email-p">Si finalmente decides que no es el momento, sin problema. No recibirás más emails sobre esto. Solo quería asegurarme de que tenías toda la información antes de que las plazas estuvieran completas.</p>
+          <div class="email-firma">
+            <img src="https://picsum.photos/seed/carlosm/100/100" alt="Carlos Martín" class="firma-avatar">
+            <div><div class="firma-nombre">Carlos Martín</div><div class="firma-cargo">Consultor de Estrategia Empresarial · 15 años · +80 empresas</div></div>
+          </div>
+        </div>
+        <div class="email-footer-interno">
+          Carlos Martín Estrategia · C/ Velázquez 34, 28001 Madrid · <a href="#">Darse de baja</a> · <a href="#">Ver en navegador</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /emails-col -->
+</div><!-- /main-layout -->
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+</body>
+</html>

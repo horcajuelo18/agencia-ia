@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis Google Ads — Bufete Pérez & Asociados</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --border: #E8E4DF;
+    --accent: #1B3A6B;
+    --accent-light: #2A5298;
+    --red: #C0392B;
+    --red-bg: #FDEEEC;
+    --orange: #D35400;
+    --orange-bg: #FEF5EC;
+    --green: #1E8449;
+    --green-bg: #EAFAF1;
+    --text: #1A1A2E;
+    --muted: #6B6B7A;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+  .wrapper { max-width: 960px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* HEADER */
+  .report-header { background: var(--accent); color: #fff; border-radius: 12px; padding: 36px 40px; margin-bottom: 32px; position: relative; overflow: hidden; }
+  .report-header::after { content: ''; position: absolute; right: -40px; top: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+  .badge { display: inline-block; background: #C0392B; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 12px; font-family: var(--mono); }
+  .report-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  .report-header p { opacity: 0.8; font-size: 15px; }
+  .meta-row { display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.75; }
+  .meta-item strong { display: block; font-size: 16px; opacity: 1; font-family: var(--mono); }
+
+  /* SECTION */
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px 32px; margin-bottom: 24px; }
+  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  h2 { font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+
+  /* KPI GRID */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .kpi-card { border-radius: 8px; padding: 20px; border: 1px solid var(--border); position: relative; }
+  .kpi-card.bad { background: var(--red-bg); border-color: #F1948A; }
+  .kpi-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .kpi-row { display: flex; align-items: flex-end; gap: 12px; }
+  .kpi-current { font-family: var(--mono); font-size: 26px; font-weight: 500; color: var(--red); }
+  .kpi-bench { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+  .kpi-bench span { font-family: var(--mono); color: var(--green); font-weight: 500; }
+  .semaforo { position: absolute; top: 16px; right: 16px; width: 12px; height: 12px; border-radius: 50%; }
+  .semaforo.red { background: var(--red); box-shadow: 0 0 8px rgba(192,57,43,0.5); }
+  .kpi-diff { font-size: 12px; color: var(--red); font-family: var(--mono); margin-top: 6px; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 10px 12px; background: #F4F2EE; color: var(--muted); font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F9F8F6; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+  .tag.problema { background: var(--red-bg); color: var(--red); }
+  .tag.ok { background: var(--green-bg); color: var(--green); }
+  .tag.alerta { background: var(--orange-bg); color: var(--orange); }
+  .tag.quema { background: #C0392B; color: #fff; }
+  .mono { font-family: var(--mono); }
+
+  /* NEGATIVES LIST */
+  .neg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .neg-tag { background: #F4F2EE; border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-family: var(--mono); font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .neg-tag::before { content: '✕'; color: var(--red); font-weight: 700; font-family: var(--sans); }
+
+  /* AD CARDS */
+  .ad-card { border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+  .ad-card.proposed { border-color: #2A5298; background: #F0F4FA; }
+  .ad-url { font-family: var(--mono); font-size: 12px; color: var(--green); margin-bottom: 8px; }
+  .ad-title { font-size: 18px; color: var(--accent-light); font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+  .ad-desc { font-size: 14px; color: #444; }
+  .ad-score { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+  .score-bar { flex: 1; height: 6px; background: #E8E4DF; border-radius: 3px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 3px; }
+  .score-label { font-size: 12px; font-family: var(--mono); min-width: 40px; text-align: right; }
+  .ad-problems { margin-top: 10px; font-size: 13px; }
+  .ad-problems li { margin-left: 16px; color: var(--red); margin-top: 4px; }
+  .ad-number { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; font-weight: 600; }
+  .ad-extension { margin-top: 10px; padding: 8px 12px; background: #EEF2F8; border-radius: 6px; font-size: 12px; color: var(--muted); }
+  .ad-extension strong { color: var(--accent); }
+
+  /* ESTIMACION */
+  .estimate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .est-box { border-radius: 8px; padding: 20px; text-align: center; }
+  .est-box.before { background: var(--red-bg); border: 1px solid #F1948A; }
+  .est-box.after { background: var(--green-bg); border: 1px solid #82E0AA; }
+  .est-box .est-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 12px; }
+  .est-box .est-value { font-size: 32px; font-family: var(--mono); font-weight: 500; }
+  .est-box.before .est-value { color: var(--red); }
+  .est-box.after .est-value { color: var(--green); }
+  .est-box .est-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .arrow-center { display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--accent); font-weight: 700; }
+
+  /* FOOTER */
+  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .wrapper { padding: 20px 16px 40px; }
+    .report-header { padding: 24px 20px; }
+    .report-header h1 { font-size: 22px; }
+    .section { padding: 20px 16px; }
+    .estimate-grid { grid-template-columns: 1fr; }
+    .arrow-center { transform: rotate(90deg); }
+    .meta-row { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <div class="badge">DIAGNÓSTICO CRÍTICO — MAYO 2026</div>
+    <h1>Análisis Google Ads</h1>
+    <p>Bufete Pérez & Asociados — Abogados Laborales, Madrid</p>
+    <div class="meta-row">
+      <div class="meta-item">Período analizado<strong>Mayo 2026</strong></div>
+      <div class="meta-item">Inversión mensual<strong>2.340 €/mes</strong></div>
+      <div class="meta-item">Campañas activas<strong>3 campañas</strong></div>
+      <div class="meta-item">Palabras clave<strong>47 activas</strong></div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section">
+    <div class="section-title">Rendimiento actual vs benchmark sector legal</div>
+    <div class="kpi-grid">
+      <div class="kpi-card bad">
+        <div class="semaforo red"></div>
+        <div class="label">CTR (Tasa de clics)</div>
+        <div class="kpi-row">
+          <div class="kpi-current">2,1%</div>
+        </div>
+        <div class="kpi-bench">Benchmark sector: <span>5,8%</span></div>
+        <div class="kpi-diff">-63% por debajo del sector</div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="semaforo red"></div>
+        <div class="label">CPC Medio</div>
+        <div class="kpi-row">
+          <div class="kpi-current">8,40 €</div>
+        </div>
+        <div class="kpi-bench">Benchmark sector: <span>4,20 €</span></div>
+        <div class="kpi-diff">+100% por encima del sector</div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="semaforo red"></div>
+        <div class="label">Tasa de conversión</div>
+        <div class="kpi-row">
+          <div class="kpi-current">1,8%</div>
+        </div>
+        <div class="kpi-bench">Benchmark sector: <span>4,2%</span></div>
+        <div class="kpi-diff">-57% por debajo del sector</div>
+      </div>
+      <div class="kpi-card bad">
+        <div class="semaforo red"></div>
+        <div class="label">Coste por consulta</div>
+        <div class="kpi-row">
+          <div class="kpi-current">467 €</div>
+        </div>
+        <div class="kpi-bench">Benchmark sector: <span>100 €</span></div>
+        <div class="kpi-diff">+367% sobre el óptimo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEYWORDS TABLE -->
+  <div class="section">
+    <div class="section-title">Palabras clave activas — análisis de rentabilidad</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Coste/mes</th>
+            <th>Clics</th>
+            <th>Conversiones</th>
+            <th>Coste/conv.</th>
+            <th>Diagnóstico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">abogado laboral Madrid</td>
+            <td class="mono">380 €</td>
+            <td>45</td>
+            <td>3</td>
+            <td class="mono">127 €</td>
+            <td><span class="tag alerta">Mejorable</span></td>
+          </tr>
+          <tr>
+            <td class="mono">abogado despido Madrid</td>
+            <td class="mono">290 €</td>
+            <td>35</td>
+            <td>4</td>
+            <td class="mono">73 €</td>
+            <td><span class="tag ok">Rentable</span></td>
+          </tr>
+          <tr>
+            <td class="mono">abogado</td>
+            <td class="mono">510 €</td>
+            <td>61</td>
+            <td>0</td>
+            <td class="mono">∞</td>
+            <td><span class="tag quema">Quema dinero</span></td>
+          </tr>
+          <tr>
+            <td class="mono">asesoría laboral</td>
+            <td class="mono">420 €</td>
+            <td>50</td>
+            <td>1</td>
+            <td class="mono">420 €</td>
+            <td><span class="tag quema">Quema dinero</span></td>
+          </tr>
+          <tr>
+            <td class="mono">reclamación salarios</td>
+            <td class="mono">180 €</td>
+            <td>21</td>
+            <td>3</td>
+            <td class="mono">60 €</td>
+            <td><span class="tag ok">Rentable</span></td>
+          </tr>
+          <tr>
+            <td class="mono">derecho laboral</td>
+            <td class="mono">340 €</td>
+            <td>40</td>
+            <td>0</td>
+            <td class="mono">∞</td>
+            <td><span class="tag quema">Quema dinero</span></td>
+          </tr>
+          <tr>
+            <td class="mono">indemnización despido</td>
+            <td class="mono">160 €</td>
+            <td>19</td>
+            <td>4</td>
+            <td class="mono">40 €</td>
+            <td><span class="tag ok">Rentable</span></td>
+          </tr>
+          <tr>
+            <td class="mono">bufete Madrid</td>
+            <td class="mono">310 €</td>
+            <td>37</td>
+            <td>0</td>
+            <td class="mono">∞</td>
+            <td><span class="tag quema">Quema dinero</span></td>
+          </tr>
+          <tr>
+            <td class="mono">abogado barato Madrid</td>
+            <td class="mono">210 €</td>
+            <td>25</td>
+            <td>1</td>
+            <td class="mono">210 €</td>
+            <td><span class="tag problema">Sin retorno</span></td>
+          </tr>
+          <tr>
+            <td class="mono">acoso laboral abogado</td>
+            <td class="mono">140 €</td>
+            <td>17</td>
+            <td>3</td>
+            <td class="mono">47 €</td>
+            <td><span class="tag ok">Rentable</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--red);"><strong>1.580 € mensuales</strong> (67% del presupuesto) invertidos en keywords genéricas sin ninguna conversión registrada.</p>
+  </div>
+
+  <!-- NEGATIVOS -->
+  <div class="section">
+    <div class="section-title">Términos negativos a añadir — urgente</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Estas búsquedas están activando sus anuncios sin intención de contratar. Añadir como palabras clave negativas ahorra dinero inmediatamente.</p>
+    <div class="neg-grid">
+      <div class="neg-tag">abogado gratis</div>
+      <div class="neg-tag">asesoría gratis</div>
+      <div class="neg-tag">plantilla despido</div>
+      <div class="neg-tag">formulario finiquito</div>
+      <div class="neg-tag">modelo carta</div>
+      <div class="neg-tag">curso derecho laboral</div>
+      <div class="neg-tag">oposiciones laborales</div>
+      <div class="neg-tag">trabajo abogado</div>
+      <div class="neg-tag">empleo bufete</div>
+      <div class="neg-tag">prácticas abogacía</div>
+      <div class="neg-tag">convenio colectivo PDF</div>
+      <div class="neg-tag">estatuto trabajadores</div>
+      <div class="neg-tag">calculadora finiquito</div>
+      <div class="neg-tag">simulador indemnización</div>
+      <div class="neg-tag">abogado turno oficio</div>
+    </div>
+  </div>
+
+  <!-- ANUNCIOS ACTUALES -->
+  <div class="section">
+    <div class="section-title">Análisis de anuncios actuales</div>
+
+    <div class="ad-card">
+      <div class="ad-number">Anuncio #1 — Campaña principal</div>
+      <div class="ad-url">bufeteperezasociados.es › laboral › consulta</div>
+      <div class="ad-title">Abogados Laborales Madrid | Pérez & Asociados | Consulta Gratis</div>
+      <div class="ad-desc">Defienda sus derechos laborales. Más de 10 años de experiencia. Llámenos ahora y resolvemos su caso. Atención personalizada y discreta. Madrid Centro.</div>
+      <div class="ad-score">
+        <div class="score-bar"><div class="score-fill" style="width:30%;background:var(--red);"></div></div>
+        <div class="score-label mono" style="color:var(--red);">3/10</div>
+      </div>
+      <ul class="ad-problems">
+        <li>Sin propuesta de valor diferenciadora — "experiencia" y "atención personalizada" las dicen todos</li>
+        <li>"Consulta Gratis" atrae personas que buscan gratis, no clientes que pagan</li>
+        <li>Falta urgencia, falta CTA específico, no menciona especialización laboral concreta</li>
+      </ul>
+    </div>
+
+    <div class="ad-card">
+      <div class="ad-number">Anuncio #2 — Campaña despidos</div>
+      <div class="ad-url">bufeteperezasociados.es › despido › reclamar</div>
+      <div class="ad-title">¿Te Han Despedido? | Abogados Laborales | Bufete Pérez Madrid</div>
+      <div class="ad-desc">Recupere lo que le corresponde. Especialistas en despidos improcedentes. Sin pago inicial. Consulte su caso hoy.</div>
+      <div class="ad-score">
+        <div class="score-bar"><div class="score-fill" style="width:55%;background:var(--orange);"></div></div>
+        <div class="score-label mono" style="color:var(--orange);">5.5/10</div>
+      </div>
+      <ul class="ad-problems">
+        <li>La pregunta inicial es buena pero pierde fuerza en la descripción</li>
+        <li>"Sin pago inicial" puede atraer clientes no cualificados — mejor especificar honorarios</li>
+        <li>No incluye estadísticas de éxito ni dato concreto que genere confianza</li>
+      </ul>
+    </div>
+
+    <div class="ad-card">
+      <div class="ad-number">Anuncio #3 — Campaña genérica</div>
+      <div class="ad-url">bufeteperezasociados.es</div>
+      <div class="ad-title">Bufete Pérez & Asociados | Abogados en Madrid | Llámenos</div>
+      <div class="ad-desc">Expertos en derecho laboral, civil y mercantil. Resolución rápida de conflictos. Presencia en Madrid y alrededores. Solicite cita.</div>
+      <div class="ad-score">
+        <div class="score-bar"><div class="score-fill" style="width:15%;background:var(--red);"></div></div>
+        <div class="score-label mono" style="color:var(--red);">1.5/10</div>
+      </div>
+      <ul class="ad-problems">
+        <li>Demasiado genérico — menciona civil y mercantil cuando la campaña es laboral</li>
+        <li>"Llámenos" como título no genera ningún deseo de clic</li>
+        <li>Sin beneficio, sin urgencia, sin diferenciación — un anuncio que parece de 2010</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ANUNCIOS PROPUESTOS -->
+  <div class="section">
+    <div class="section-title">5 anuncios propuestos — formato Google Ads real</div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #1 — Para keyword "abogado despido Madrid"</div>
+      <div class="ad-url">bufeteperezasociados.es › despido-improcedente-madrid</div>
+      <div class="ad-title">Despido Improcedente Madrid | +300 Casos Ganados | Primera Cita Gratis</div>
+      <div class="ad-desc">Calculamos su indemnización en 24h. Especialistas en derecho laboral desde 2014. Sin victoria, sin honorarios. Llame ahora: +34 910 000 000.</div>
+      <div class="ad-extension"><strong>Extensiones:</strong> Número de teléfono · Valoraciones Google (4,9★) · Sitelink "Calcular indemnización" · Destacado "Respuesta en 24h"</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #2 — Para keyword "reclamación salarios"</div>
+      <div class="ad-url">bufeteperezasociados.es › reclamar-salarios</div>
+      <div class="ad-title">¿Te Deben Salarios? | Reclamamos Tu Dinero | Abogados Laborales</div>
+      <div class="ad-desc">Recupere nóminas impagadas con los mejores especialistas de Madrid. Gestión express, presupuesto sin compromiso. Resultado garantizado o sin coste.</div>
+      <div class="ad-extension"><strong>Extensiones:</strong> Fragmento "Tipos de casos: Nóminas, Finiquitos, EREs, Acoso" · Formulario de cliente potencial</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #3 — Para keyword "acoso laboral abogado"</div>
+      <div class="ad-url">bufeteperezasociados.es › acoso-laboral</div>
+      <div class="ad-title">Acoso Laboral Madrid | Confidencial y Urgente | Bufete Pérez</div>
+      <div class="ad-desc">Proteja sus derechos con total discreción. Especialistas en acoso laboral y mobbing. Evaluamos su caso hoy mismo. Consulta confidencial y gratuita.</div>
+      <div class="ad-extension"><strong>Extensiones:</strong> Destacado "Absoluta confidencialidad" · "Despacho en el centro de Madrid"</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #4 — Para keyword "indemnización despido"</div>
+      <div class="ad-url">bufeteperezasociados.es › calcular-indemnizacion</div>
+      <div class="ad-title">Calcule Su Indemnización | Abogados Despido Madrid | En 24 Horas</div>
+      <div class="ad-desc">¿Sabe cuánto le corresponde realmente? Calculamos su indemnización gratis y le decimos si puede reclamar más. 12 años defendiendo trabajadores en Madrid.</div>
+      <div class="ad-extension"><strong>Extensiones:</strong> Sitelink "Calculadora indemnización" · Precio "Primera consulta 0 €" · Teléfono</div>
+    </div>
+
+    <div class="ad-card proposed">
+      <div class="ad-number">Propuesta #5 — Para keyword "abogado laboral Madrid" (genérico premium)</div>
+      <div class="ad-url">bufeteperezasociados.es › abogado-laboral-madrid</div>
+      <div class="ad-title">Abogado Laboral Nº1 Madrid | Ganamos el 91% de los Casos | Llame Ya</div>
+      <div class="ad-desc">Más de 300 empleados defendidos exitosamente. Honorarios solo si ganamos. Despacho en el corazón de Madrid, atención de 9:00 a 20:00. Consulta hoy.</div>
+      <div class="ad-extension"><strong>Extensiones:</strong> Valoraciones Google · Número de teléfono · "Horario ampliado lunes a viernes"</div>
+    </div>
+  </div>
+
+  <!-- ESTIMACIÓN -->
+  <div class="section">
+    <div class="section-title">Proyección con cambios aplicados</div>
+    <div class="estimate-grid">
+      <div class="est-box before">
+        <div class="est-label">Situación actual</div>
+        <div class="est-value">467 €</div>
+        <div class="est-sub">coste por consulta</div>
+        <div class="est-sub" style="margin-top:8px;">CPC: 8,40 € · CTR: 2,1%</div>
+        <div class="est-sub">~5 consultas/mes</div>
+      </div>
+      <div class="arrow-center">→</div>
+      <div class="est-box after">
+        <div class="est-label">Objetivo con cambios</div>
+        <div class="est-value">95 €</div>
+        <div class="est-sub">coste por consulta</div>
+        <div class="est-sub" style="margin-top:8px;">CPC: 3,80 € · CTR: 5,2%</div>
+        <div class="est-sub">~25 consultas/mes</div>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--muted);text-align:center;">Estimación conservadora. Sin aumentar presupuesto — solo optimizando lo existente. Resultados visibles en 30-45 días.</p>
+  </div>
+
+  <div class="footer">
+    Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com
+  </div>
+</div>
+</body>
+</html>

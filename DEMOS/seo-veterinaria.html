@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe SEO — Clínica Veterinaria San Isidro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FFFFFF;
+    --surface: #F3F9F4;
+    --surface2: #E4F2E6;
+    --accent: #2E7D32;
+    --accent-light: #43A047;
+    --accent-bg: #E8F5E9;
+    --text: #0D1F10;
+    --text-muted: #4A6650;
+    --red: #C62828;
+    --red-light: #FFEBEE;
+    --yellow: #E65100;
+    --yellow-light: #FFF3E0;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --border: #D0E8D3;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; }
+  .mono { font-family: 'Courier New', monospace; }
+  .container { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  section { margin-bottom: 44px; }
+
+  /* HEADER */
+  .report-header { background: var(--accent); color: white; padding: 40px 0 34px; margin-bottom: 44px; }
+  .header-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .header-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .logo-badge { width: 58px; height: 58px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+  .client-info h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .client-info p { opacity: 0.75; font-size: 14px; }
+  .report-meta { display: flex; gap: 24px; margin-top: 12px; flex-wrap: wrap; }
+  .meta-item { font-size: 13px; opacity: 0.7; }
+  .meta-item span { font-weight: 600; opacity: 1; }
+  .global-score-box { text-align: center; background: rgba(0,0,0,0.15); border-radius: 16px; padding: 22px 30px; }
+  .score-number { font-size: 52px; font-weight: 700; line-height: 1; color: #A5D6A7; font-family: 'Courier New', monospace; }
+  .score-label { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+  .score-badge { display: inline-block; background: #FFD54F; color: #1B5E20; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; margin-top: 8px; }
+
+  /* Section titles */
+  .section-title { font-size: 18px; font-weight: 700; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+  /* Cards */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .alert-card { border-radius: 12px; padding: 18px; border-left: 4px solid; }
+  .alert-card.red { background: var(--red-light); border-color: var(--red); }
+  .alert-card.yellow { background: var(--yellow-light); border-color: var(--yellow); }
+  .alert-card.green { background: var(--green-light); border-color: var(--green); }
+  .alert-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .alert-card.red h3 { color: var(--red); }
+  .alert-card.yellow h3 { color: var(--yellow); }
+  .alert-card.green h3 { color: var(--green); }
+  .alert-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* Metric block */
+  .metric-block { background: var(--surface); border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+
+  /* Hallazgos */
+  .hallazgos-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+  .hallazgo-pill { border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 130px; text-align: center; }
+  .hallazgo-pill .hp-num { font-size: 30px; font-weight: 700; font-family: 'Courier New', monospace; }
+  .hallazgo-pill .hp-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .hp-red { background: var(--red-light); color: var(--red); }
+  .hp-yellow { background: var(--yellow-light); color: var(--yellow); }
+  .hp-green { background: var(--green-light); color: var(--green); }
+
+  /* Summary scores */
+  .summary-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .score-card { background: var(--surface); border-radius: 14px; padding: 18px; text-align: center; border: 1px solid var(--border); }
+  .score-card .sc-value { font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace; }
+  .score-card .sc-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .sc-red { color: var(--red); }
+  .sc-yellow { color: var(--yellow); }
+  .sc-green { color: var(--green); }
+
+  /* CWV */
+  .cwv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .cwv-card { background: white; border-radius: 12px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+  .cwv-card .cwv-value { font-size: 24px; font-weight: 700; font-family: 'Courier New', monospace; margin: 6px 0 2px; }
+  .cwv-card .cwv-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+  .cwv-card .cwv-status { font-size: 11px; font-weight: 600; margin-top: 4px; }
+  .cv-red .cwv-value, .cv-red .cwv-status { color: var(--red); }
+  .cv-yellow .cwv-value, .cv-yellow .cwv-status { color: var(--yellow); }
+  .cv-green .cwv-value, .cv-green .cwv-status { color: var(--green); }
+
+  /* Progress */
+  .progress-wrap { margin: 8px 0; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .progress-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+  .fill-red { background: var(--red); }
+  .fill-yellow { background: var(--yellow); }
+  .fill-green { background: var(--green); }
+
+  /* Status dot */
+  .status-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .dot-red { background: var(--red); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-green { background: var(--green); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--accent); color: white; padding: 10px 13px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  thead th:first-child { border-radius: 8px 0 0 0; }
+  thead th:last-child { border-radius: 0 8px 0 0; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+  tbody tr:hover { background: var(--accent-bg); }
+  tbody td { padding: 10px 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+
+  .diff-bar { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; width: 80px; display: inline-block; vertical-align: middle; }
+  .diff-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+
+  .priority-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .priority-badge.critico { background: var(--red); color: white; }
+  .priority-badge.importante { background: var(--yellow); color: white; }
+  .priority-badge.recomendado { background: var(--green); color: white; }
+
+  /* Reviews section */
+  .reviews-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .review-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .review-card .rv-value { font-size: 26px; font-weight: 700; font-family: 'Courier New', monospace; }
+  .review-card .rv-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
+  .stars { color: #FFC107; font-size: 18px; letter-spacing: 2px; }
+  .review-quote { background: var(--surface); border-radius: 10px; padding: 14px 16px; margin-top: 10px; font-size: 13px; font-style: italic; color: var(--text-muted); border-left: 3px solid var(--accent); }
+
+  /* Page audit */
+  .page-audit { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 12px; }
+  .page-url { font-family: 'Courier New', monospace; font-size: 12px; color: var(--accent); margin-bottom: 10px; background: var(--accent-bg); display: inline-block; padding: 3px 10px; border-radius: 6px; }
+  .issue-list { list-style: none; }
+  .issue-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--surface2); }
+  .issue-list li:last-child { border-bottom: none; }
+
+  /* Footer */
+  .report-footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 22px; font-size: 12px; color: var(--text-muted); margin-top: 60px; }
+  .report-footer strong { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; }
+    .score-number { font-size: 40px; }
+    section { margin-bottom: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="report-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-badge">🐾</div>
+        <div class="client-info">
+          <h1>Clínica Veterinaria San Isidro</h1>
+          <p>Madrid · Dra. Carmen Ruiz · Veterinaria y cirugía general</p>
+          <div class="report-meta">
+            <div class="meta-item">Tipo: <span>Informe SEO Completo</span></div>
+            <div class="meta-item">Fecha: <span>Junio 2026</span></div>
+            <div class="meta-item">Web: <span>vetisidro.es</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="global-score-box">
+        <div class="score-number">58</div>
+        <div class="score-label">Puntuación SEO / 100</div>
+        <div class="score-badge">Mejorable — Buena base</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- RESUMEN HALLAZGOS -->
+  <section>
+    <div class="section-title"><span>📋</span>Resumen de Hallazgos</div>
+    <div class="hallazgos-row">
+      <div class="hallazgo-pill hp-red">
+        <div class="hp-num">2</div>
+        <div class="hp-label">🔴 Críticos</div>
+      </div>
+      <div class="hallazgo-pill hp-yellow">
+        <div class="hp-num">4</div>
+        <div class="hp-label">🟡 Importantes</div>
+      </div>
+      <div class="hallazgo-pill hp-green">
+        <div class="hp-num">5</div>
+        <div class="hp-label">🟢 Recomendados</div>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="alert-card green">
+        <h3>✅ Buena base técnica</h3>
+        <p>La web carga en 2.4s en móvil, tiene HTTPS, sitemap XML y está correctamente indexada. Sólido punto de partida.</p>
+      </div>
+      <div class="alert-card green">
+        <h3>✅ Google Maps destacado</h3>
+        <p>94 reseñas con 4.6★ y posición Top 3 en "veterinario Madrid". Las reseñas son el factor SEO local más poderoso.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 Sin keywords de urgencia</h3>
+        <p>No posiciona para "urgencias veterinarias Madrid" ni "veterinario 24h Madrid" — búsquedas de altísima intención y conversión.</p>
+      </div>
+      <div class="alert-card red">
+        <h3>🚨 Sin Schema Markup médico</h3>
+        <p>Sin datos estructurados de tipo "VeterinaryCare", Google no puede mostrar valoraciones, horario ni servicios en los resultados.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ Blog sin estrategia SEO</h3>
+        <p>Tiene blog pero los artículos no están optimizados para búsquedas. Potencial enorme sin aprovechar.</p>
+      </div>
+      <div class="alert-card yellow">
+        <h3>⚠ Páginas de servicios genéricas</h3>
+        <p>Una sola página para todos los servicios. Cada servicio debería tener su propia URL optimizada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL -->
+  <section>
+    <div class="section-title"><span>⚙️</span>Análisis Técnico</div>
+    <div class="metric-block">
+      <div class="cwv-grid">
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">Tiempo de carga móvil</div>
+          <div class="cwv-value">2.4s</div>
+          <div class="cwv-status">Aceptable (objetivo &lt;2s)</div>
+        </div>
+        <div class="cwv-card cv-green">
+          <div class="cwv-label">PageSpeed móvil</div>
+          <div class="cwv-value">68</div>
+          <div class="cwv-status">Bien (objetivo 80+)</div>
+        </div>
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">LCP</div>
+          <div class="cwv-value">2.8s</div>
+          <div class="cwv-status">Mejorable (&lt;2.5s)</div>
+        </div>
+        <div class="cwv-card cv-green">
+          <div class="cwv-label">CLS</div>
+          <div class="cwv-value">0.06</div>
+          <div class="cwv-status">Correcto (&lt;0.1)</div>
+        </div>
+        <div class="cwv-card cv-green">
+          <div class="cwv-label">HTTPS</div>
+          <div class="cwv-value">SÍ</div>
+          <div class="cwv-status">Correcto</div>
+        </div>
+        <div class="cwv-card cv-green">
+          <div class="cwv-label">Sitemap XML</div>
+          <div class="cwv-value">SÍ</div>
+          <div class="cwv-status">Indexado en GSC</div>
+        </div>
+        <div class="cwv-card cv-red">
+          <div class="cwv-label">Schema Markup</div>
+          <div class="cwv-value">NO</div>
+          <div class="cwv-status">Implementar urgente</div>
+        </div>
+        <div class="cwv-card cv-yellow">
+          <div class="cwv-label">Errores 404</div>
+          <div class="cwv-value">1</div>
+          <div class="cwv-status">Redirigir</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORDS -->
+  <section>
+    <div class="section-title"><span>🔍</span>Análisis de Palabras Clave Objetivo</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Vol. mensual</th>
+            <th>Dificultad</th>
+            <th>Posición actual</th>
+            <th>Posición objetivo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>veterinario Madrid</strong></td>
+            <td class="mono">22.000</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:80%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Muy alta</small>
+            </td>
+            <td style="color:var(--yellow);font-weight:600">#8</td>
+            <td style="color:var(--green);font-weight:600">Top 3</td>
+            <td><span class="dot-yellow status-dot"></span>Importante</td>
+          </tr>
+          <tr>
+            <td><strong>clínica veterinaria Madrid</strong></td>
+            <td class="mono">8.100</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:70%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Alta</small>
+            </td>
+            <td style="color:var(--green);font-weight:600">#4</td>
+            <td style="color:var(--green);font-weight:600">Top 2</td>
+            <td><span class="dot-green status-dot"></span>Cerca</td>
+          </tr>
+          <tr>
+            <td><strong>urgencias veterinarias Madrid</strong></td>
+            <td class="mono">5.400</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:55%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media-Alta</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#31</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>veterinario 24h Madrid</strong></td>
+            <td class="mono">3.200</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:48%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#44</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>vacunas perro Madrid</strong></td>
+            <td class="mono">1.900</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:35%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#22</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Urgente</td>
+          </tr>
+          <tr>
+            <td><strong>veterinario San Isidro Madrid</strong></td>
+            <td class="mono">720</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:18%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Baja</small>
+            </td>
+            <td style="color:var(--green);font-weight:600">#2</td>
+            <td style="color:var(--green);font-weight:600">#1</td>
+            <td><span class="dot-green status-dot"></span>Bien</td>
+          </tr>
+          <tr>
+            <td><strong>castración perro Madrid precio</strong></td>
+            <td class="mono">880</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:30%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media-Baja</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">Sin datos</td>
+            <td style="color:var(--green);font-weight:600">Top 3</td>
+            <td><span class="dot-red status-dot"></span>Oportunidad</td>
+          </tr>
+          <tr>
+            <td><strong>peluquería canina Madrid</strong></td>
+            <td class="mono">2.100</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:45%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Media</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">#38</td>
+            <td style="color:var(--green);font-weight:600">Top 10</td>
+            <td><span class="dot-yellow status-dot"></span>Prioritario</td>
+          </tr>
+          <tr>
+            <td><strong>análisis veterinario Madrid</strong></td>
+            <td class="mono">590</td>
+            <td>
+              <div class="diff-bar"><div class="diff-fill" style="width:22%"></div></div>
+              <small style="color:var(--text-muted);margin-left:6px">Baja</small>
+            </td>
+            <td style="color:var(--red);font-weight:600">Sin datos</td>
+            <td style="color:var(--green);font-weight:600">Top 5</td>
+            <td><span class="dot-red status-dot"></span>Oportunidad</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RESEÑAS COMO FACTOR SEO -->
+  <section>
+    <div class="section-title"><span>⭐</span>Análisis de Reseñas Google Maps como Factor SEO Local</div>
+    <p style="color:var(--text-muted);margin-bottom:20px">Las reseñas de Google son el <strong>segundo factor más importante</strong> en el posicionamiento local (después de la relevancia del perfil). Para clínicas veterinarias, la frecuencia y el texto de las reseñas puede incluir keywords que Google indexa directamente.</p>
+    <div class="metric-block">
+      <div class="reviews-metrics" style="margin-bottom:20px">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <div class="rv-value" style="color:var(--green)">4.6</div>
+          <div class="rv-label">Valoración media</div>
+        </div>
+        <div class="review-card">
+          <div class="rv-value" style="color:var(--green)">94</div>
+          <div class="rv-label">Reseñas totales</div>
+        </div>
+        <div class="review-card">
+          <div class="rv-value" style="color:var(--yellow)">72%</div>
+          <div class="rv-label">Respondidas</div>
+        </div>
+        <div class="review-card">
+          <div class="rv-value" style="color:var(--green)">Top 3</div>
+          <div class="rv-label">Posición Maps local</div>
+        </div>
+        <div class="review-card">
+          <div class="rv-value" style="color:var(--yellow)">3.2</div>
+          <div class="rv-label">Reseñas nuevas/mes</div>
+        </div>
+        <div class="review-card">
+          <div class="rv-value" style="color:var(--red)">6</div>
+          <div class="rv-label">Sin respuesta (&gt;6 meses)</div>
+        </div>
+      </div>
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--accent)">Reseñas que contienen keywords valiosas (Google las indexa)</h4>
+      <div class="review-quote">"La Dra. Carmen es increíble. Llevé a mi perro de urgencia por un golpe y nos atendieron en 20 minutos. <strong>Mejor veterinario urgencias Madrid</strong>, sin duda."</div>
+      <div class="review-quote" style="margin-top:8px">"La clínica más completa del barrio de San Isidro. Tienen ecografía, análisis de sangre y <strong>peluquería canina</strong>. Todo en el mismo sitio."</div>
+      <div class="review-quote" style="margin-top:8px">"Las <strong>vacunas del perro en Madrid</strong> nunca habían sido tan fáciles. Precio razonable y la Dra. Carmen explicó todo el calendario."</div>
+      <div class="alert-card green" style="margin-top:16px">
+        <h3>✅ Oportunidad: pedir reseñas con keywords</h3>
+        <p>Al pedir reseñas a clientes satisfechos, puede sugerir términos como "urgencias veterinarias", "vacunas perro Madrid" o "peluquería canina". El texto de las reseñas influye en el posicionamiento local para esas keywords.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCIA -->
+  <section>
+    <div class="section-title"><span>🏁</span>Análisis de Competencia SEO</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Clínica</th>
+            <th>SEO Score</th>
+            <th>Reseñas Maps</th>
+            <th>Blog activo</th>
+            <th>Schema</th>
+            <th>Ventaja clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>VetMadrid Centro</strong></td>
+            <td><span style="color:var(--green);font-weight:700">81/100</span></td>
+            <td>4.7★ (342 res.)</td>
+            <td><span class="dot-green status-dot"></span>12 artículos/año</td>
+            <td><span class="dot-green status-dot"></span>Completo</td>
+            <td>Blog con "urgencias veterinarias Madrid" en Top 1</td>
+          </tr>
+          <tr>
+            <td><strong>Clínica Vet 24h Carabanchel</strong></td>
+            <td><span style="color:var(--green);font-weight:700">74/100</span></td>
+            <td>4.5★ (218 res.)</td>
+            <td><span class="dot-yellow status-dot"></span>Esporádico</td>
+            <td><span class="dot-green status-dot"></span>Sí</td>
+            <td>Servicios 24h bien posicionado en keywords de urgencia</td>
+          </tr>
+          <tr>
+            <td><strong>Animalia Vet Usera</strong></td>
+            <td><span style="color:var(--yellow);font-weight:700">62/100</span></td>
+            <td>4.4★ (127 res.)</td>
+            <td><span class="dot-red status-dot"></span>No</td>
+            <td><span class="dot-yellow status-dot"></span>Básico</td>
+            <td>Muchas páginas de servicios individuales</td>
+          </tr>
+          <tr>
+            <td><strong>Vet San Isidro (Usted)</strong></td>
+            <td><span style="color:var(--yellow);font-weight:700">58/100</span></td>
+            <td>4.6★ (94 res.)</td>
+            <td><span class="dot-yellow status-dot"></span>Sin optimizar</td>
+            <td><span class="dot-red status-dot"></span>No</td>
+            <td>Buena valoración y base de reseñas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PÁGINAS -->
+  <section>
+    <div class="section-title"><span>📄</span>Páginas a Crear y Optimizar</div>
+
+    <div class="page-audit">
+      <div class="page-url">vetisidro.es/urgencias-veterinarias-madrid (CREAR)</div>
+      <ul class="issue-list">
+        <li><span>🔴</span><div><strong>Página nueva urgente.</strong> Crear página dedicada a urgencias con: horario 24h o de guardia, qué hacer en emergencias, teléfono destacado. Title: "Urgencias Veterinarias Madrid | Clínica Veterinaria San Isidro — Atención Inmediata"</div></li>
+        <li><span>🟢</span><div>Esta página sola puede captar 400–600 visitas/mes cuando posicione en Top 5 para "urgencias veterinarias Madrid".</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">vetisidro.es/vacunas-perro-gato-madrid (CREAR)</div>
+      <ul class="issue-list">
+        <li><span>🔴</span><div>Página con calendario completo de vacunas, precios orientativos y por qué vacunar. Title: "Vacunas para Perros y Gatos en Madrid | Precios y Calendario | Vet San Isidro"</div></li>
+        <li><span>🟡</span><div>Keywords incluidas: "vacunas perro precio Madrid", "calendario vacunas cachorro Madrid", "vacuna rabia Madrid".</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">vetisidro.es/servicios (Optimizar)</div>
+      <ul class="issue-list">
+        <li><span>🔴</span><div>Dividir en páginas individuales: /cirugia-veterinaria-madrid · /ecografia-veterinaria-madrid · /peluqueria-canina-madrid · /analisis-clinicos-veterinarios-madrid</div></li>
+        <li><span>🟡</span><div><strong>Title actual:</strong> "Servicios" — demasiado genérico. Cada servicio necesita su propio title optimizado.</div></li>
+      </ul>
+    </div>
+
+    <div class="page-audit">
+      <div class="page-url">vetisidro.es/blog (Optimizar)</div>
+      <ul class="issue-list">
+        <li><span>🟡</span><div>Artículos actuales sin H1 optimizado ni meta description. Reescribir cada artículo con keyword objetivo claro.</div></li>
+        <li><span>🟢</span><div>Artículos recomendados: "Qué hacer si tu perro no come", "Cuándo vacunar a un cachorro", "Síntomas de pancreatitis en gatos". Cada uno puede traer 100–300 visitas/mes.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PLAN ACCIÓN -->
+  <section>
+    <div class="section-title"><span>🚀</span>Plan de Acción SEO Priorizado</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Acción</th>
+            <th>Impacto esperado</th>
+            <th>Plazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-badge critico">1. Crítico</span></td>
+            <td><strong>Implementar Schema VeterinaryCare</strong><br><small>Añadir JSON-LD con nombre, dirección, horario, servicios, valoración y teléfono. Genera Rich Snippets en Google.</small></td>
+            <td>Estrellas y horario en Google (+40% CTR)</td>
+            <td>1 semana</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge critico">2. Crítico</span></td>
+            <td><strong>Crear página de urgencias veterinarias</strong><br><small>URL dedicada: /urgencias-veterinarias-madrid. Texto optimizado, teléfono, mapa, formulario rápido.</small></td>
+            <td>+400 visitas/mes en 3 meses</td>
+            <td>2 semanas</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">3. Importante</span></td>
+            <td><strong>Crear páginas de servicio individuales</strong><br><small>Cirugía, ecografía, peluquería canina, análisis. Cada una con title, meta y texto de 400–600 palabras optimizado.</small></td>
+            <td>+6 keywords en Top 10 en 4 meses</td>
+            <td>1 mes</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">4. Importante</span></td>
+            <td><strong>Estrategia de reseñas activa</strong><br><small>Email/WhatsApp automático tras visita pidiendo reseña. Objetivo: 8 reseñas nuevas/mes (ahora 3.2).</small></td>
+            <td>Top 1–2 Maps "veterinario Madrid"</td>
+            <td>Inmediato</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge importante">5. Importante</span></td>
+            <td><strong>Plan de contenidos blog (SEO)</strong><br><small>2 artículos/mes con keywords de cola larga. Temas: enfermedades comunes, cuidados preventivos, nutrición.</small></td>
+            <td>+800 visitas/mes orgánico en 6 meses</td>
+            <td>Mensual</td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge recomendado">6. Recomendado</span></td>
+            <td><strong>Optimizar velocidad móvil</strong><br><small>Comprimir imágenes, activar caché, reducir JavaScript. Objetivo: LCP &lt;2s, PageSpeed 80+.</small></td>
+            <td>+10 puntos SEO técnico</td>
+            <td>2 semanas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer class="report-footer">
+  Demo · <strong>Agencia IA</strong> · Alejandro Horcajuelo · <a href="mailto:aecadro@gmail.com" style="color:var(--accent)">aecadro@gmail.com</a>
+  <br><small style="opacity:0.6">Este informe contiene datos de demostración. Los datos reales varían según el negocio analizado.</small>
+</footer>
+
+</body>
+</html>

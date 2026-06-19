@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario de Contenido — El Rincón de María</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --crema: #FFF8F0;
+    --crema2: #FDF0E0;
+    --terracota: #C75B2A;
+    --terracota-claro: #E07444;
+    --terracota-muy-claro: #F2A07A;
+    --marron: #6B3A1F;
+    --texto: #3A2010;
+    --gris: #7A6A5A;
+    --verde: #5A7A3A;
+
+    --feed-bg: #FFF3E8;
+    --feed-border: #E07444;
+    --feed-text: #C75B2A;
+    --story-bg: #E8F4F8;
+    --story-border: #4A90A4;
+    --story-text: #2A6A7C;
+    --reel-bg: #F0E8FF;
+    --reel-border: #8B5CF6;
+    --reel-text: #6D28D9;
+  }
+  body { background: var(--crema); color: var(--texto); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+
+  /* HEADER */
+  header {
+    background: var(--terracota);
+    color: #FFF8F0; padding: 40px 30px 36px;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;
+  }
+  .header-left { }
+  .header-marca { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; opacity: 0.75; margin-bottom: 6px; }
+  .header-titulo { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 4px; }
+  .header-sub { font-size: 0.95rem; opacity: 0.85; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .header-mes { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; }
+  .header-periodo { font-size: 12px; opacity: 0.7; }
+
+  /* RESUMEN CHIPS */
+  .resumen {
+    background: var(--crema2); border-bottom: 2px solid var(--terracota-muy-claro);
+    padding: 18px 30px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .resumen-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); margin-right: 4px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+  }
+  .chip-feed { background: var(--feed-bg); color: var(--feed-text); border: 1.5px solid var(--feed-border); }
+  .chip-story { background: var(--story-bg); color: var(--story-text); border: 1.5px solid var(--story-border); }
+  .chip-reel { background: var(--reel-bg); color: var(--reel-text); border: 1.5px solid var(--reel-border); }
+  .chip-total { background: #FFF; color: var(--texto); border: 1.5px solid rgba(58,32,16,0.2); }
+  .resumen-sep { flex: 1; }
+  .resumen-tip { font-size: 11px; color: var(--gris); }
+
+  /* CONTENIDO PRINCIPAL */
+  main { padding: 30px; max-width: 1400px; margin: 0 auto; }
+
+  /* SEMANA HEADER */
+  .semana-header {
+    display: flex; align-items: center; gap: 16px;
+    margin: 36px 0 16px;
+  }
+  .semana-header:first-child { margin-top: 0; }
+  .semana-num { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; color: var(--terracota); }
+  .semana-line { flex: 1; height: 1px; background: var(--terracota-muy-claro); opacity: 0.5; }
+  .semana-fechas { font-size: 11px; color: var(--gris); font-weight: 500; }
+
+  /* TABLA */
+  .tabla { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .tabla th {
+    background: var(--terracota); color: #FFF8F0;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 12px 14px; text-align: left;
+  }
+  .tabla th:first-child { border-radius: 4px 0 0 0; }
+  .tabla th:last-child { border-radius: 0 4px 0 0; }
+
+  .tabla tr:nth-child(even) td { background: rgba(255,255,255,0.6); }
+  .tabla tr:nth-child(odd) td { background: rgba(255,248,240,0.8); }
+  .tabla tr:hover td { background: rgba(199,91,42,0.07); }
+
+  .tabla td { padding: 14px 14px; border-bottom: 1px solid rgba(199,91,42,0.12); vertical-align: top; }
+
+  .td-dia { font-weight: 700; font-size: 0.9rem; white-space: nowrap; color: var(--marron); min-width: 80px; }
+  .td-num { font-size: 11px; color: var(--gris); font-weight: 400; }
+
+  .tipo-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .tipo-feed { background: var(--feed-bg); color: var(--feed-text); border: 1px solid var(--feed-border); }
+  .tipo-story { background: var(--story-bg); color: var(--story-text); border: 1px solid var(--story-border); }
+  .tipo-reel { background: var(--reel-bg); color: var(--reel-text); border: 1px solid var(--reel-border); }
+
+  .td-tema { font-weight: 600; font-size: 0.88rem; color: var(--marron); }
+  .td-caption { font-size: 0.83rem; color: var(--texto); line-height: 1.5; }
+  .td-hashtags { font-size: 0.78rem; color: var(--terracota); line-height: 1.5; }
+
+  /* LEYENDA */
+  .leyenda { display: flex; gap: 20px; flex-wrap: wrap; margin: 24px 0 0; padding: 18px 20px; background: white; border-radius: 8px; border: 1px solid rgba(199,91,42,0.15); }
+  .leyenda-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--gris); }
+
+  /* RESPONSIVE */
+  @media(max-width: 900px) {
+    main { padding: 16px; }
+    .tabla th, .tabla td { padding: 10px 8px; font-size: 0.8rem; }
+    .td-hashtags { display: none; }
+    header { padding: 24px 16px; }
+    .resumen { padding: 14px 16px; }
+  }
+  @media(max-width: 600px) {
+    .td-caption { display: none; }
+  }
+
+  footer { text-align: center; padding: 24px 20px; background: var(--terracota); color: rgba(255,248,240,0.7); font-size: 12px; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="header-marca">📋 Plan de contenido · Instagram</div>
+    <div class="header-titulo">El Rincón de María</div>
+    <div class="header-sub">Cocina tradicional española · Toledo</div>
+  </div>
+  <div class="header-right">
+    <div class="header-mes">🗓️ Julio 2026</div>
+    <div class="header-periodo">30 publicaciones planificadas</div>
+  </div>
+</header>
+
+<div class="resumen">
+  <span class="resumen-label">Este mes:</span>
+  <span class="chip chip-feed">📸 12 Feeds</span>
+  <span class="chip chip-story">💬 10 Stories</span>
+  <span class="chip chip-reel">🎬 8 Reels</span>
+  <span class="chip chip-total">🎯 30 publicaciones</span>
+  <span class="resumen-sep"></span>
+  <span class="resumen-tip">Frecuencia: 1 publicación al día (lunes a sábado) · Descanso los domingos</span>
+</div>
+
+<main>
+
+<!-- SEMANA 1 -->
+<div class="semana-header">
+  <span class="semana-num">Semana 1</span>
+  <span class="semana-line"></span>
+  <span class="semana-fechas">1 – 5 de julio</span>
+</div>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<br><span class="td-num">1 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Gazpacho de la abuela</td>
+      <td class="td-caption">Cuando el calor aprieta, solo hay una solución: el gazpacho de la abuela María, hecho con tomates de la huerta de Toledo. El secreto está en el tiempo: cuanto más frío, mejor. ¿Quieres la receta? 👇</td>
+      <td class="td-hashtags">#gazpacho #cocinatradicional #toledo #recetasespañolas #tomate #verano2026</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<br><span class="td-num">2 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Cómo hacemos el cocido madrileño (30 seg)</td>
+      <td class="td-caption">3 horas de cocción en 30 segundos. Así nace nuestro cocido madrileño cada semana. Los garbanzos, la pringá, el caldo dorado... Algunos platos no se pueden mejorar, solo respetar. 🫕</td>
+      <td class="td-hashtags">#cocidoMadrileño #cocinatradicional #recetasabuelas #gastroEspaña #restauranteToledo</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<br><span class="td-num">3 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">¿Sabes de dónde vienen nuestros productos?</td>
+      <td class="td-caption">Historia interactiva: encuesta "¿Qué es lo que más te gusta de El Rincón?" + sticker pregunta abierta para recoger ideas de nuevos platos.</td>
+      <td class="td-hashtags">— (Stories sin hashtags visibles)</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<br><span class="td-num">4 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Pisto manchego en plato de barro</td>
+      <td class="td-caption">El pisto manchego no es solo un plato de verduras. Es la historia de la Mancha en cada bocado. Pimiento, tomate, calabacín y cebolla de temporada, cocinados a fuego lento como se ha hecho siempre. Disponible en la carta de verano. 🌶️</td>
+      <td class="td-hashtags">#pistomanchego #cocinaMancha #vegetariano #toledo #restaurantetoledo #gastronomiaCLM</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<br><span class="td-num">5 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Nuestro equipo de cocina (BTS)</td>
+      <td class="td-caption">Detrás de cada plato, hay personas que lo dan todo. Este es el equipo que cada día pone el alma en vuestra mesa. 👨‍🍳👩‍🍳 Gracias por elegirnos. Que tengáis un gran fin de semana Toledo.</td>
+      <td class="td-hashtags">#equipococina #behindthescenes #restauranteToledo #chefs #viernes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 2 -->
+<div class="semana-header">
+  <span class="semana-num">Semana 2</span>
+  <span class="semana-line"></span>
+  <span class="semana-fechas">7 – 12 de julio</span>
+</div>
+<table class="tabla">
+  <thead>
+    <tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<br><span class="td-num">7 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Menú del día — semana nueva</td>
+      <td class="td-caption">Story con menú semanal en imagen: primero, segundo, postre y bebida incluida por 13€. Añadir sticker de "¿Reservas?" con link a WhatsApp.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<br><span class="td-num">8 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Carrilleras al vino tinto</td>
+      <td class="td-caption">Las carrilleras no perdonan la prisa. 4 horas en su propio jugo, con vino tinto de La Mancha y verduras de la huerta. El resultado habla solo. 🍷 Disponibles los martes y jueves. Reserva tu mesa por WhatsApp.</td>
+      <td class="td-hashtags">#carrilleras #vinotinto #gastronomiaEspaña #toledo #cocinatradicional #carneguisada</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<br><span class="td-num">9 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">De la plaza al plato — tomates de temporada</td>
+      <td class="td-caption">Esta mañana, María estuvo en el mercado de abastos eligiendo los tomates para el gazpacho de hoy. Así empieza cada día en El Rincón. 🍅 Del productor local a vuestra mesa.</td>
+      <td class="td-hashtags">#productoslocales #mercadoToledo #kilómetrocero #tomate #gastronomia</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<br><span class="td-num">10 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Tortilla española — receta clásica</td>
+      <td class="td-caption">La eterna pregunta: ¿con o sin cebolla? En El Rincón la hacemos con cebolla pochada lentamente, jugosa por dentro y dorada por fuera. Como la hacía la madre de María. 🥚¿Y tú de qué equipo eres? Cuéntanos abajo.</td>
+      <td class="td-hashtags">#tortillaespañola #debate #cocinaespañola #toledo #huevos #recetasabuelas</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<br><span class="td-num">11 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Reserva tu mesa para el fin de semana</td>
+      <td class="td-caption">Story de urgencia + sticker cuenta regresiva: "Solo quedan 4 mesas disponibles para el sábado. ¿Reservas?" + link WhatsApp.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<br><span class="td-num">12 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Mesa familiar — sábado en El Rincón</td>
+      <td class="td-caption">Los sábados en El Rincón huelen a cocido, a vino tinto y a reunión familiar. Gracias a todos los que esta semana habéis elegido compartir vuestra mesa con nosotros. Nos vemos el lunes. ❤️</td>
+      <td class="td-hashtags">#restauranteFamiliar #toledo #fin de semana #gracias #comidasabado</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 3 -->
+<div class="semana-header">
+  <span class="semana-num">Semana 3</span>
+  <span class="semana-line"></span>
+  <span class="semana-fechas">14 – 19 de julio</span>
+</div>
+<table class="tabla">
+  <thead>
+    <tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<br><span class="td-num">14 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Cómo emplatamos el bacalao al pil-pil</td>
+      <td class="td-caption">El emplatado del bacalao al pil-pil es un momento de silencio en la cocina. Hay que respetar la salsa, el color, la textura. 30 segundos para ver un plato que lleva 2 horas de cuidado. 🐟</td>
+      <td class="td-hashtags">#bacalaoalpilpil #emplatado #cocinatradicional #chef #gastronomiaToledo</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<br><span class="td-num">15 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Pregunta: ¿Qué plato te recuerda a tu abuela?</td>
+      <td class="td-caption">Caja de preguntas interactiva + responder las más bonitas en Stories. Conexión emocional + mucho engagement.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<br><span class="td-num">16 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Sopas de ajo castellanas</td>
+      <td class="td-caption">Un plato humilde con alma de rey. Las sopas de ajo nacieron en los campos castellanos para dar calor y energía. En El Rincón, las hacemos con pan moreno del día anterior, ajo de Chinchón y pimentón de La Vera. Sencillo y eterno. 🧄</td>
+      <td class="td-hashtags">#sopasDeAjo #castellana #pimentón #gastroespaña #toledo #recetaclásica</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<br><span class="td-num">17 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Detalle — la mesa puesta de El Rincón</td>
+      <td class="td-caption">Una mesa puesta con cariño es ya la mitad de una buena comida. Mantel de lino, flores silvestres y la luz de Toledo entrando por la ventana. Así empieza cada jornada. ☀️</td>
+      <td class="td-hashtags">#restauranteatmosphere #toledo #mesa #detalle #comidaconalma #interiores</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<br><span class="td-num">18 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Postre: leche frita en directo</td>
+      <td class="td-caption">La leche frita de El Rincón tiene lista de espera. Aquí os dejamos el proceso: crema, frío, corte, rebozado, fritura. 45 segundos de pura satisfacción. ¿Guardáis hueco para el postre? 😍</td>
+      <td class="td-hashtags">#lecheFrita #postre #cocinaespañola #dulce #recetatradicional #gastro</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<br><span class="td-num">19 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Repost reseña de cliente</td>
+      <td class="td-caption">Compartir una reseña real de Google o TripAdvisor con el texto del cliente + "¡Gracias por tu confianza! Nos alegra que volvieras. ❤️"</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SEMANA 4 -->
+<div class="semana-header">
+  <span class="semana-num">Semana 4</span>
+  <span class="semana-line"></span>
+  <span class="semana-fechas">21 – 26 de julio</span>
+</div>
+<table class="tabla">
+  <thead>
+    <tr><th>Día</th><th>Tipo</th><th>Tema</th><th>Caption</th><th>Hashtags</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-dia">Lunes<br><span class="td-num">21 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Migas manchegas — receta de temporada</td>
+      <td class="td-caption">Las migas no son solo un plato de invierno. Con sus tropezones de chorizo, uva fresca y melón de la Mancha, en El Rincón las servimos todo el año. Un contrapunto dulce-salado que siempre sorprende. 🍇</td>
+      <td class="td-hashtags">#migasMancha #chorizo #recetatradicional #toledo #uva #gastroEspaña</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Martes<br><span class="td-num">22 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Curiosidad: ¿sabes por qué se llama "pisto"?</td>
+      <td class="td-caption">Historia educativa sobre el origen del nombre "pisto" + trivia con encuesta. Contenido de valor que invita a guardar/compartir.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Miércoles<br><span class="td-num">23 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Nuestra bodega — vinos de la tierra</td>
+      <td class="td-caption">Solo servimos vinos de La Mancha. No por capricho, sino por convicción. Aquí os presentamos los tres que más pedís. Spoiler: el Tempranillo reserva lleva 3 años siendo el rey de la sala. 🍷</td>
+      <td class="td-hashtags">#vinosLaMancha #tempranillo #vino #bodega #restauranteToledo #maridaje</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Jueves<br><span class="td-num">24 jul</span></td>
+      <td><span class="tipo-badge tipo-feed">📸 Feed</span></td>
+      <td class="td-tema">Especial Santiago: menú degustación</td>
+      <td class="td-caption">Por el Día de Santiago, este fin de semana ofrecemos un menú degustación especial: 5 platos de la cocina más representativa de nuestra tierra, maridado con vinos de La Mancha. Plazas muy limitadas. Reserva ya. 🇪🇸</td>
+      <td class="td-hashtags">#diaSantiago #menuDegustacion #especial #toledo #gastronomiaCLM #reservas</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Viernes<br><span class="td-num">25 jul</span></td>
+      <td><span class="tipo-badge tipo-story">💬 Story</span></td>
+      <td class="td-tema">Última oportunidad reserva menú Santiago</td>
+      <td class="td-caption">Urgencia: "Solo quedan 2 mesas para el menú especial de Santiago. ¿Te lo pierdes?" + cuenta atrás + link directo.</td>
+      <td class="td-hashtags">—</td>
+    </tr>
+    <tr>
+      <td class="td-dia">Sábado<br><span class="td-num">26 jul</span></td>
+      <td><span class="tipo-badge tipo-reel">🎬 Reel</span></td>
+      <td class="td-tema">Cierre de mes — resumen julio en El Rincón</td>
+      <td class="td-caption">Un mes más lleno de buena comida, buena gente y mucho cariño. Os dejamos nuestros momentos favoritos de julio. Gracias por cada visita, cada reseña y cada mensaje. Hasta agosto, Toledo. ❤️🥘</td>
+      <td class="td-hashtags">#resumen #julio #gracias #restauranteToledo #ElRinconDeMaria #cocinatradicional</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="leyenda">
+  <span style="font-size:12px;font-weight:700;color:var(--gris);margin-right:8px;">LEYENDA:</span>
+  <div class="leyenda-item"><span class="tipo-badge tipo-feed">📸 Feed</span> — Foto principal en el perfil · Mayor permanencia</div>
+  <div class="leyenda-item"><span class="tipo-badge tipo-story">💬 Story</span> — 24h visibilidad · Engagement directo</div>
+  <div class="leyenda-item"><span class="tipo-badge tipo-reel">🎬 Reel</span> — Máximo alcance orgánico · Prioridad algoritmo</div>
+</div>
+
+</main>
+
+<footer>Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</footer>
+</body>
+</html>

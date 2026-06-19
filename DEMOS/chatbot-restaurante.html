@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistente Virtual — El Rincón de María</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Fraunces:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --terracotta: #C0392B;
+    --warm: #E67E22;
+    --warm-light: #F39C12;
+    --green-wa: #25D366;
+    --green-dark: #128C7E;
+    --bubble-bot: #FFFFFF;
+    --bubble-user: #DCF8C6;
+    --bg-chat: #E5DDD5;
+    --text: #111B21;
+    --muted: #667781;
+    --border: #E0E0E0;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: #F0F4F8; color: var(--text); min-height: 100vh; }
+
+  /* LAYOUT */
+  .wrapper {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 60px rgba(0,0,0,0.15);
+    background: white;
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    width: 40%;
+    min-width: 300px;
+    background: linear-gradient(160deg, #1a0a00 0%, var(--terracotta) 60%, var(--warm) 100%);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .left-panel::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .left-panel::after {
+    content: '';
+    position: absolute; bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .panel-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .brand-logo {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    backdrop-filter: blur(10px);
+  }
+  .brand-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .brand-sub { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+
+  .panel-title {
+    font-family: 'Fraunces', serif;
+    font-size: 32px; font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .panel-title span { color: var(--warm-light); }
+  .panel-desc { font-size: 15px; line-height: 1.7; opacity: 0.85; margin-bottom: 32px; }
+
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 36px; }
+  .stat-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+  }
+  .stat-chip .val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--warm-light); }
+  .stat-chip .lbl { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+  .capabilities h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: 12px; }
+  .cap-list { list-style: none; }
+  .cap-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .cap-list li:last-child { border-bottom: none; }
+  .cap-icon { font-size: 18px; width: 28px; text-align: center; }
+
+  /* RIGHT PANEL — CHAT */
+  .right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow: hidden;
+  }
+
+  /* CHAT HEADER */
+  .chat-header {
+    background: var(--green-dark);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+  }
+  .chat-avatar {
+    width: 44px; height: 44px;
+    background: var(--warm);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .chat-header-info h4 { font-size: 15px; font-weight: 600; }
+  .chat-header-info p { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+  .chat-header-icons { margin-left: auto; display: flex; gap: 20px; opacity: 0.8; font-size: 18px; }
+
+  /* CHAT BODY */
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8b8a2' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-color: var(--bg-chat);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .chat-body::-webkit-scrollbar { width: 4px; }
+  .chat-body::-webkit-scrollbar-track { background: transparent; }
+  .chat-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
+
+  /* DATE PILL */
+  .date-pill {
+    text-align: center;
+    margin: 8px 0;
+  }
+  .date-pill span {
+    background: rgba(255,255,255,0.85);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  /* MESSAGES */
+  .msg-wrap { display: flex; margin-bottom: 2px; }
+  .msg-wrap.user { justify-content: flex-end; }
+  .msg-wrap.bot { justify-content: flex-start; }
+
+  .bubble {
+    max-width: 72%;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+    word-break: break-word;
+    animation: popIn 0.2s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95) translateY(4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .bubble.bot {
+    background: var(--bubble-bot);
+    border-top-left-radius: 0;
+    color: var(--text);
+  }
+  .bubble.user {
+    background: var(--bubble-user);
+    border-top-right-radius: 0;
+    color: var(--text);
+  }
+  .bubble .time {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+  }
+  .bubble.user .time { color: #52799f; }
+  .tick { color: var(--green-dark); font-size: 13px; }
+
+  /* TYPING */
+  .typing-wrap { display: flex; margin-bottom: 4px; }
+  .typing-bubble {
+    background: white;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    padding: 12px 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    display: flex; gap: 4px; align-items: center;
+  }
+  .dot { width: 7px; height: 7px; background: #8696a0; border-radius: 50%; animation: bounce 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  /* QUICK REPLIES */
+  .quick-replies-label {
+    font-size: 12px; color: var(--muted);
+    text-align: center; margin: 16px 0 8px;
+    font-weight: 500;
+  }
+  .quick-replies {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center;
+    padding: 0 8px 8px;
+  }
+  .qr-btn {
+    background: white;
+    border: 1.5px solid var(--green-dark);
+    color: var(--green-dark);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .qr-btn:hover { background: var(--green-dark); color: white; }
+  .qr-btn:active { transform: scale(0.97); }
+
+  /* CHAT FOOTER */
+  .chat-footer {
+    background: #F0F2F5;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-top: 1px solid var(--border);
+  }
+  .chat-input-fake {
+    flex: 1;
+    background: white;
+    border-radius: 24px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #8696a0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .chat-send-btn {
+    width: 44px; height: 44px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: #1a0a00;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .wrapper { flex-direction: column; max-width: 100%; box-shadow: none; }
+    .left-panel { width: 100%; min-width: unset; padding: 32px 24px; }
+    .right-panel { min-height: 70vh; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .panel-title { font-size: 26px; }
+    .bubble { max-width: 85%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="panel-inner">
+      <div class="brand">
+        <div class="brand-logo">🍽️</div>
+        <div>
+          <div class="brand-name">El Rincón de María</div>
+          <div class="brand-sub">Toledo · Cocina casera</div>
+        </div>
+      </div>
+
+      <div class="panel-title">Asistente Virtual <span>24/7</span></div>
+      <p class="panel-desc">Tu restaurante, siempre disponible. El asistente responde al instante, gestiona reservas y resuelve dudas — sin que tengas que coger el teléfono.</p>
+
+      <div class="stats-grid">
+        <div class="stat-chip">
+          <div class="val">&lt;3s</div>
+          <div class="lbl">Tiempo de respuesta</div>
+        </div>
+        <div class="stat-chip">
+          <div class="val">24/7</div>
+          <div class="lbl">Disponible siempre</div>
+        </div>
+        <div class="stat-chip">
+          <div class="val">0</div>
+          <div class="lbl">Llamadas perdidas</div>
+        </div>
+        <div class="stat-chip">
+          <div class="val">∞</div>
+          <div class="lbl">Conversaciones</div>
+        </div>
+      </div>
+
+      <div class="capabilities">
+        <h3>Qué puede hacer</h3>
+        <ul class="cap-list">
+          <li><span class="cap-icon">🗓️</span> Gestionar reservas completas</li>
+          <li><span class="cap-icon">🍽️</span> Informar sobre el menú del día</li>
+          <li><span class="cap-icon">🕐</span> Horarios y días festivos</li>
+          <li><span class="cap-icon">📍</span> Indicaciones y aparcamiento</li>
+          <li><span class="cap-icon">🌿</span> Opciones vegetarianas y alérgenos</li>
+          <li><span class="cap-icon">🎉</span> Reservas para grupos y eventos</li>
+          <li><span class="cap-icon">👤</span> Derivar a persona real si lo pide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — CHAT -->
+  <div class="right-panel">
+    <div class="chat-header">
+      <div class="chat-avatar">🍽️</div>
+      <div class="chat-header-info">
+        <h4>El Rincón de María</h4>
+        <p>🟢 En línea · Asistente Virtual</p>
+      </div>
+      <div class="chat-header-icons">
+        <span>📞</span>
+        <span>⋮</span>
+      </div>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+      <div class="date-pill"><span>Hoy · 13:47</span></div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="chat-input-fake">Escribe un mensaje...</div>
+      <div class="chat-send-btn">➤</div>
+    </div>
+
+    <div class="site-footer">Demo · Agencia IA · Alejandro Horcajuelo · aecadro@gmail.com</div>
+  </div>
+
+</div>
+
+<script>
+const chatBody = document.getElementById('chatBody');
+
+const conversation = [
+  { from: 'user', text: 'Hola, ¿a qué hora abrís hoy?', time: '13:47' },
+  { from: 'bot', text: '¡Hola! 👋 Bienvenido a El Rincón de María. Hoy abrimos a las <strong>13:00h para comer</strong> y a las <strong>20:30h para cenar</strong>. ¿En qué más puedo ayudarte?', time: '13:47' },
+  { from: 'user', text: '¿Tenéis menú del día?', time: '13:48' },
+  { from: 'bot', text: 'Sí, nuestro menú del día cuesta <strong>12€</strong> e incluye:<br>🥗 Primer plato a elegir entre 3 opciones<br>🍖 Segundo plato a elegir entre 3 opciones<br>🍮 Postre o café<br>🍞 Pan incluido<br><br>Hoy de primero tenemos: <strong>ensalada mixta, gazpacho casero o crema de verduras</strong>. ¿Quieres que te cuente los segundos?', time: '13:48' },
+  { from: 'user', text: 'Sí, los segundos', time: '13:49' },
+  { from: 'bot', text: 'Para los segundos hoy tenemos:<br>🥩 Solomillo a la plancha<br>🐟 Merluza en salsa verde<br>🍗 Pollo al ajillo<br><br>¿Te gustaría hacer una reserva para hoy?', time: '13:49' },
+  { from: 'user', text: 'Sí, para 2 personas a las 14h', time: '13:50' },
+  { from: 'bot', text: 'Perfecto, voy a gestionar tu reserva 😊 ¿Me dices tu nombre y un teléfono de contacto por si necesitamos confirmarte algo?', time: '13:50' },
+  { from: 'user', text: 'María García, 655 123 456', time: '13:51' },
+  { from: 'bot', text: '✅ <strong>¡Reserva confirmada, María!</strong><br><br>📅 Hoy a las <strong>14:00h</strong><br>👥 2 personas<br>📍 El Rincón de María, Plaza del Carmen 8, Toledo<br><br>Recibirás un recordatorio por WhatsApp mañana a las 9:00h. ¡Hasta luego! 😊', time: '13:51' },
+  { from: 'user', text: '¿Tenéis aparcamiento cerca?', time: '13:52' },
+  { from: 'bot', text: 'Sí, hay dos opciones muy cómodas:<br>🅿️ <strong>Parking Plaza del Ayuntamiento</strong> (3 minutos a pie, primera hora gratuita)<br>🅿️ <strong>Parking Zocodover</strong> (5 minutos, tarifas normales)<br><br>¿Necesitas algo más?', time: '13:52' },
+];
+
+const quickReplies = [
+  { label: '🍽️ Ver la carta', response: 'Te mando la carta completa 🍽️<br><br><strong>Entradas:</strong> Croquetas caseras (8€), Pimientos de padrón (6€), Tabla de quesos (12€)<br><strong>Carnes:</strong> Solomillo (18€), Chuletón (24€), Perdiz estofada (16€)<br><strong>Pescados:</strong> Merluza (15€), Bacalao (16€), Dorada al horno (17€)<br><br>¿Quieres más detalles de algún plato?' },
+  { label: '📅 Hacer una reserva', response: '¡Claro! Para hacer la reserva necesito:<br>• 👤 Tu nombre<br>• 👥 Número de personas<br>• 📅 Día y hora que prefieres<br>• 📞 Teléfono de contacto<br><br>¿Cuándo quieres venir?' },
+  { label: '🕐 Horarios', response: 'Nuestros horarios son:<br>🍽️ <strong>Comidas:</strong> 13:00h – 16:00h<br>🌙 <strong>Cenas:</strong> 20:30h – 23:30h<br><br>🗓️ Abrimos de <strong>martes a domingo</strong>. Los lunes cerramos para descansar.' },
+  { label: '📍 ¿Dónde estáis?', response: '📍 Estamos en <strong>Plaza del Carmen 8, Toledo</strong>, en el casco histórico.<br><br>🚗 Aparcamiento más cercano: Parking Zocodover (5 min a pie)<br>🚶 Desde la Puerta de Bisagra: 10 minutos a pie<br><br>¿Necesitas más indicaciones?' },
+  { label: '👤 Hablar con una persona', response: 'Por supuesto 😊 Te paso con uno de nuestros compañeros ahora mismo. El horario de atención telefónica es de <strong>10:00h a 22:00h</strong>.<br><br>📞 También puedes llamarnos al <strong>925 123 456</strong>. ¡Hasta ahora!' },
+];
+
+let msgIndex = 0;
+let isTyping = false;
+let typingEl = null;
+
+function getTime() {
+  return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+}
+
+function scrollDown() {
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function createBubble(from, html, time) {
+  const wrap = document.createElement('div');
+  wrap.className = `msg-wrap ${from}`;
+  const bubble = document.createElement('div');
+  bubble.className = `bubble ${from}`;
+  const tick = from === 'user' ? `<span class="tick">✓✓</span>` : '';
+  bubble.innerHTML = `<div>${html}</div><div class="time">${time} ${tick}</div>`;
+  wrap.appendChild(bubble);
+  return wrap;
+}
+
+function showTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'typing-wrap';
+  wrap.innerHTML = `<div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+  chatBody.appendChild(wrap);
+  typingEl = wrap;
+  scrollDown();
+}
+
+function removeTyping() {
+  if (typingEl) { typingEl.remove(); typingEl = null; }
+}
+
+function showQuickReplies() {
+  const label = document.createElement('div');
+  label.className = 'quick-replies-label';
+  label.textContent = '💡 Elige una opción o escribe tu consulta:';
+
+  const qrWrap = document.createElement('div');
+  qrWrap.className = 'quick-replies';
+  qrWrap.id = 'quickReplies';
+
+  quickReplies.forEach(qr => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.textContent = qr.label;
+    btn.onclick = () => handleQuickReply(qr.label, qr.response);
+    qrWrap.appendChild(btn);
+  });
+
+  chatBody.appendChild(label);
+  chatBody.appendChild(qrWrap);
+  scrollDown();
+}
+
+function handleQuickReply(label, response) {
+  // remove quick replies
+  const qr = document.getElementById('quickReplies');
+  const lbl = qr?.previousElementSibling;
+  if (qr) qr.remove();
+  if (lbl && lbl.className === 'quick-replies-label') lbl.remove();
+
+  // user message
+  const t = getTime();
+  chatBody.appendChild(createBubble('user', label, t));
+  scrollDown();
+
+  // bot typing + response
+  setTimeout(() => {
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      chatBody.appendChild(createBubble('bot', response, getTime()));
+      scrollDown();
+      // show quick replies again after a moment
+      setTimeout(showQuickReplies, 800);
+    }, 1200);
+  }, 400);
+}
+
+function playConversation() {
+  if (msgIndex >= conversation.length) {
+    setTimeout(showQuickReplies, 600);
+    return;
+  }
+
+  const msg = conversation[msgIndex];
+  msgIndex++;
+
+  if (msg.from === 'user') {
+    chatBody.appendChild(createBubble('user', msg.text, msg.time));
+    scrollDown();
+    setTimeout(playConversation, 1000);
+  } else {
+    showTyping();
+    const typingDelay = 800 + msg.text.length * 5;
+    setTimeout(() => {
+      removeTyping();
+      chatBody.appendChild(createBubble('bot', msg.text, msg.time));
+      scrollDown();
+      setTimeout(playConversation, 900);
+    }, Math.min(typingDelay, 1800));
+  }
+}
+
+// Start
+setTimeout(playConversation, 800);
+</script>
+</body>
+</html>
