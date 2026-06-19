@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistente de Voz IA — Reservas por Llamada</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --amber: #D97706;
+  --amber-2: #F59E0B;
+  --amber-3: #FDE68A;
+  --dark: #18150F;
+  --dark-2: #2A2118;
+  --dark-3: #3D2E1A;
+  --phone-bg: #0D0D0D;
+  --phone-card: #1A1A1A;
+  --green-call: #22C55E;
+  --red-call: #EF4444;
+  --bubble-ai: #FEF3C7;
+  --bubble-ai-border: #FDE68A;
+  --bubble-user: #ECFDF5;
+  --bubble-user-border: #A7F3D0;
+  --bg-transcript: #FAF7F2;
+  --text: #1C1A17;
+  --muted: #78716C;
+  --border: #E7E0D6;
+}
+body { font-family: 'DM Sans', sans-serif; background: #F0EBE2; color: var(--text); min-height: 100vh; }
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 0 80px rgba(0,0,0,0.2);
+}
+
+/* ── LEFT PANEL ── */
+.left-panel {
+  width: 38%;
+  min-width: 280px;
+  background: linear-gradient(155deg, #18150F 0%, #2A1A08 45%, #3D2008 100%);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.left-panel::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(217,119,6,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.left-panel::after {
+  content: '';
+  position: absolute; bottom: -80px; left: -80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.panel-inner { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+.brand-logo {
+  width: 50px; height: 50px;
+  background: rgba(245,158,11,0.2);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+}
+.brand-name { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; line-height: 1.2; }
+.brand-sub { font-size: 11px; opacity: 0.6; margin-top: 2px; letter-spacing: 0.5px; }
+
+.panel-title {
+  font-family: 'Fraunces', serif;
+  font-size: 30px; font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.panel-title span { color: var(--amber-2); }
+.panel-desc { font-size: 14px; line-height: 1.75; opacity: 0.8; margin-bottom: 28px; }
+
+.stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+.stat-chip {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.stat-chip .val { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--amber-2); }
+.stat-chip .lbl { font-size: 11px; opacity: 0.65; margin-top: 3px; line-height: 1.4; }
+
+.section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.5; margin-bottom: 12px; }
+
+.flow-list { list-style: none; margin-bottom: 28px; }
+.flow-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 13px; line-height: 1.6; padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.flow-list li:last-child { border-bottom: none; }
+.flow-num {
+  width: 22px; height: 22px; min-width: 22px;
+  background: rgba(245,158,11,0.25);
+  border: 1px solid rgba(245,158,11,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--amber-2);
+  margin-top: 1px;
+}
+
+.caps-list { list-style: none; }
+.caps-list li { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 7px 0; opacity: 0.85; }
+.caps-list li::before { content: '✦'; color: var(--amber-2); font-size: 9px; }
+
+.reset-btn {
+  margin-top: auto; padding-top: 28px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 10px;
+  color: var(--amber-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.reset-btn:hover { background: rgba(245,158,11,0.25); }
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  overflow: hidden;
+}
+
+/* ── PHONE SCREEN ── */
+.phone-screen {
+  background: var(--phone-bg);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.phone-notch {
+  display: flex; justify-content: center;
+  padding: 10px 0 6px;
+}
+.notch-pill {
+  width: 80px; height: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+}
+
+.phone-status-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px 8px;
+  font-size: 11px; color: rgba(255,255,255,0.5);
+}
+.call-indicator {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--green-call); font-weight: 600;
+}
+.call-dot-anim {
+  width: 8px; height: 8px;
+  background: var(--green-call);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.phone-caller-section {
+  padding: 20px 28px 28px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+}
+.caller-avatar-wrap { position: relative; margin-bottom: 14px; }
+.caller-avatar {
+  width: 78px; height: 78px;
+  background: linear-gradient(135deg, var(--dark-3), var(--amber));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 0 0 4px rgba(217,119,6,0.2), 0 0 0 8px rgba(217,119,6,0.08);
+}
+.caller-ripple {
+  position: absolute; inset: -12px;
+  border: 1px solid rgba(217,119,6,0.3);
+  border-radius: 50%;
+  animation: ripple 2s ease-out infinite;
+}
+.caller-ripple-2 {
+  position: absolute; inset: -24px;
+  border: 1px solid rgba(217,119,6,0.15);
+  border-radius: 50%;
+  animation: ripple 2s ease-out infinite 0.6s;
+}
+@keyframes ripple {
+  0% { opacity: 1; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+
+.caller-name { font-size: 22px; font-weight: 700; color: white; margin-bottom: 4px; }
+.caller-number { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+.call-timer-display { font-size: 13px; color: var(--green-call); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Voice wave */
+.voice-wave {
+  display: flex; align-items: center; justify-content: center;
+  gap: 4px;
+  padding: 16px 28px 8px;
+  min-height: 60px;
+}
+.wave-bar {
+  width: 4px;
+  background: rgba(245,158,11,0.35);
+  border-radius: 2px;
+  height: 8px;
+  transition: background 0.3s;
+}
+.voice-wave.active .wave-bar {
+  background: var(--amber-2);
+  animation: wave-anim 0.8s ease-in-out infinite;
+}
+.wave-bar:nth-child(1) { animation-delay: 0s; }
+.wave-bar:nth-child(2) { animation-delay: 0.07s; }
+.wave-bar:nth-child(3) { animation-delay: 0.14s; }
+.wave-bar:nth-child(4) { animation-delay: 0.21s; }
+.wave-bar:nth-child(5) { animation-delay: 0.28s; }
+.wave-bar:nth-child(6) { animation-delay: 0.21s; }
+.wave-bar:nth-child(7) { animation-delay: 0.14s; }
+.wave-bar:nth-child(8) { animation-delay: 0.07s; }
+.wave-bar:nth-child(9) { animation-delay: 0s; }
+.wave-bar:nth-child(10) { animation-delay: 0.07s; }
+.wave-bar:nth-child(11) { animation-delay: 0.14s; }
+@keyframes wave-anim {
+  0%, 100% { height: 6px; }
+  50% { height: 30px; }
+}
+.voice-label {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  padding-bottom: 14px;
+  min-height: 20px;
+}
+
+/* Call action buttons */
+.call-buttons-row {
+  display: flex; justify-content: center; gap: 28px;
+  padding: 12px 28px 24px;
+}
+.call-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  border: none; background: none; color: white; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.call-btn-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  transition: transform 0.15s, opacity 0.15s;
+}
+.call-btn:hover .call-btn-circle { transform: scale(1.05); }
+.call-btn:active .call-btn-circle { transform: scale(0.95); }
+.call-btn-label { font-size: 11px; opacity: 0.6; }
+
+.btn-answer .call-btn-circle { background: var(--green-call); }
+.btn-reject .call-btn-circle { background: var(--red-call); }
+.btn-mute .call-btn-circle { background: rgba(255,255,255,0.15); }
+.btn-mute.active .call-btn-circle { background: rgba(255,255,255,0.3); }
+.btn-speaker .call-btn-circle { background: rgba(255,255,255,0.15); }
+.btn-hangup .call-btn-circle { background: var(--red-call); }
+
+/* Incoming screen */
+.incoming-screen { padding: 12px 0 0; }
+.active-screen { display: none; padding: 12px 0 0; }
+
+/* ── TRANSCRIPT ── */
+.transcript {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  background: var(--bg-transcript);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.transcript::-webkit-scrollbar { width: 4px; }
+.transcript::-webkit-scrollbar-track { background: transparent; }
+.transcript::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.msg { display: flex; gap: 10px; max-width: 90%; }
+.msg.ai { align-self: flex-start; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+.msg-avatar {
+  width: 32px; height: 32px; min-width: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.msg.ai .msg-avatar { background: var(--amber-3); }
+.msg.user .msg-avatar { background: #A7F3D0; }
+
+.msg-bubble {
+  padding: 11px 15px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.msg.ai .msg-bubble {
+  background: var(--bubble-ai);
+  border: 1px solid var(--bubble-ai-border);
+  border-top-left-radius: 4px;
+}
+.msg.user .msg-bubble {
+  background: var(--bubble-user);
+  border: 1px solid var(--bubble-user-border);
+  border-top-right-radius: 4px;
+}
+
+.msg-time { font-size: 10px; color: var(--muted); margin-top: 4px; text-align: right; }
+.msg.ai .msg-time { text-align: left; }
+
+.typing-indicator { display: flex; align-items: center; gap: 5px; padding: 14px 15px; }
+.typing-dot {
+  width: 7px; height: 7px;
+  background: var(--amber);
+  border-radius: 50%;
+  animation: typing 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+
+.empty-transcript {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0.4; gap: 8px; text-align: center;
+}
+.empty-transcript .big-icon { font-size: 40px; }
+.empty-transcript p { font-size: 13px; color: var(--muted); }
+
+/* ── QUICK REPLIES ── */
+.quick-replies {
+  padding: 12px 16px 0;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  background: white;
+  border-top: 1px solid var(--border);
+}
+.qr-btn {
+  padding: 7px 14px;
+  border: 1.5px solid var(--amber);
+  border-radius: 20px;
+  background: white;
+  color: var(--amber);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.qr-btn:hover { background: var(--amber); color: white; }
+
+/* ── INPUT AREA ── */
+.input-area {
+  padding: 12px 16px 16px;
+  display: flex; align-items: center; gap: 10px;
+  background: white;
+  border-top: 1px solid var(--border);
+}
+.input-area input {
+  flex: 1;
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 10px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg-transcript);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input-area input:focus { border-color: var(--amber); }
+.input-area input::placeholder { color: #B8A99A; }
+
+.btn-mic-input {
+  width: 42px; height: 42px; min-width: 42px;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg-transcript);
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-mic-input:hover { background: var(--amber-3); border-color: var(--amber); }
+.btn-mic-input.listening {
+  background: var(--red-call);
+  border-color: var(--red-call);
+  animation: mic-pulse 1s ease-in-out infinite;
+}
+@keyframes mic-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
+
+.btn-send-input {
+  width: 42px; height: 42px; min-width: 42px;
+  border: none;
+  border-radius: 50%;
+  background: var(--amber);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-send-input:hover { background: var(--dark-3); }
+.btn-send-input:active { transform: scale(0.92); }
+
+.no-speech-note { font-size: 11px; color: var(--muted); text-align: center; padding: 0 16px 8px; background: white; }
+
+/* ── CONFIRMATION CARD ── */
+.confirm-card {
+  margin: 0 24px 16px;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+  border-radius: 16px;
+  padding: 20px 22px;
+  color: white;
+}
+.confirm-card h4 { font-family: 'Fraunces', serif; font-size: 16px; color: var(--amber-2); margin-bottom: 12px; }
+.confirm-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.confirm-row:last-child { border-bottom: none; }
+.confirm-row .k { opacity: 0.55; }
+.confirm-row .v { font-weight: 600; }
+
+@media (max-width: 700px) {
+  .wrapper { flex-direction: column; }
+  .left-panel { width: 100%; min-width: unset; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="left-panel">
+    <div class="panel-inner">
+      <div class="brand">
+        <div class="brand-logo">🍺</div>
+        <div>
+          <div class="brand-name">Bar Las Tablas</div>
+          <div class="brand-sub">Toledo · Asistente de Voz IA</div>
+        </div>
+      </div>
+
+      <div class="panel-title">Reservas por<br><span>llamada con IA</span></div>
+      <p class="panel-desc">El cliente llama al bar. Una IA con voz natural responde, recoge los datos de la reserva y confirma. Sin esperas, disponible 24/7.</p>
+
+      <div class="stats-row">
+        <div class="stat-chip"><div class="val">24/7</div><div class="lbl">Disponibilidad total</div></div>
+        <div class="stat-chip"><div class="val">&lt;2s</div><div class="lbl">Tiempo respuesta</div></div>
+        <div class="stat-chip"><div class="val">0€</div><div class="lbl">Coste por llamada</div></div>
+        <div class="stat-chip"><div class="val">ES</div><div class="lbl">Voz en español</div></div>
+      </div>
+
+      <div class="section-label">Cómo funciona</div>
+      <ul class="flow-list">
+        <li><span class="flow-num">1</span><span>Cliente llama al número del bar</span></li>
+        <li><span class="flow-num">2</span><span>IA responde con voz natural en español</span></li>
+        <li><span class="flow-num">3</span><span>Extrae: personas, día, hora y nombre</span></li>
+        <li><span class="flow-num">4</span><span>Confirma la reserva y envía SMS</span></li>
+      </ul>
+
+      <div class="section-label">Capacidades</div>
+      <ul class="caps-list">
+        <li>Gestión de reservas completa</li>
+        <li>Información de horarios y carta</li>
+        <li>Maneja múltiples llamadas a la vez</li>
+        <li>Derivación a humano si es necesario</li>
+        <li>Registro automático en base de datos</li>
+      </ul>
+
+      <button class="reset-btn" onclick="resetDemo()">↺ &nbsp;Reiniciar demo</button>
+    </div>
+  </div>
+
+  <!-- ── RIGHT PANEL ── -->
+  <div class="right-panel">
+
+    <!-- PHONE SCREEN -->
+    <div class="phone-screen" id="phoneScreen">
+
+      <!-- INCOMING CALL -->
+      <div class="incoming-screen" id="incomingScreen">
+        <div class="phone-notch"><div class="notch-pill"></div></div>
+        <div class="phone-status-bar">
+          <span>Bar Las Tablas</span>
+          <span>📶 🔋</span>
+        </div>
+        <div class="phone-caller-section">
+          <div class="caller-avatar-wrap">
+            <div class="caller-ripple"></div>
+            <div class="caller-ripple-2"></div>
+            <div class="caller-avatar">🍺</div>
+          </div>
+          <div class="caller-name">Bar Las Tablas</div>
+          <div class="caller-number">+34 925 123 456</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.45); margin-top:6px;">Llamada entrante…</div>
+        </div>
+        <div class="call-buttons-row">
+          <button class="call-btn btn-reject" onclick="rejectCall()">
+            <div class="call-btn-circle">📵</div>
+            <span class="call-btn-label">Rechazar</span>
+          </button>
+          <button class="call-btn btn-answer" onclick="answerCall()">
+            <div class="call-btn-circle">📞</div>
+            <span class="call-btn-label">Contestar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ACTIVE CALL -->
+      <div class="active-screen" id="activeScreen">
+        <div class="phone-notch"><div class="notch-pill"></div></div>
+        <div class="phone-status-bar">
+          <div class="call-indicator"><div class="call-dot-anim"></div>Llamada activa</div>
+          <span id="timerDisplay" style="font-variant-numeric:tabular-nums; color:rgba(255,255,255,0.5);">00:00</span>
+        </div>
+        <div class="phone-caller-section">
+          <div class="caller-avatar-wrap">
+            <div class="caller-avatar">🍺</div>
+          </div>
+          <div class="caller-name">Bar Las Tablas</div>
+          <div class="caller-number">Asistente de Voz IA</div>
+        </div>
+        <div class="voice-wave" id="voiceWave">
+          <div class="wave-bar" style="height:6px"></div>
+          <div class="wave-bar" style="height:10px"></div>
+          <div class="wave-bar" style="height:18px"></div>
+          <div class="wave-bar" style="height:26px"></div>
+          <div class="wave-bar" style="height:20px"></div>
+          <div class="wave-bar" style="height:28px"></div>
+          <div class="wave-bar" style="height:22px"></div>
+          <div class="wave-bar" style="height:16px"></div>
+          <div class="wave-bar" style="height:24px"></div>
+          <div class="wave-bar" style="height:12px"></div>
+          <div class="wave-bar" style="height:8px"></div>
+        </div>
+        <div class="voice-label" id="voiceLabel">En espera</div>
+        <div class="call-buttons-row">
+          <button class="call-btn btn-mute" id="btnMute" onclick="toggleMute()">
+            <div class="call-btn-circle">🔇</div>
+            <span class="call-btn-label">Silenciar</span>
+          </button>
+          <button class="call-btn btn-hangup" onclick="hangupCall()">
+            <div class="call-btn-circle" style="transform:rotate(135deg)">📞</div>
+            <span class="call-btn-label">Colgar</span>
+          </button>
+          <button class="call-btn btn-speaker" id="btnSpeaker" onclick="toggleSpeaker()">
+            <div class="call-btn-circle">📢</div>
+            <span class="call-btn-label">Altavoz</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /phone-screen -->
+
+    <!-- TRANSCRIPT -->
+    <div class="transcript" id="transcript">
+      <div class="empty-transcript" id="emptyMsg">
+        <div class="big-icon">📞</div>
+        <p>Contesta la llamada para<br>iniciar la conversación</p>
+      </div>
+    </div>
+
+    <!-- CONFIRM CARD (hidden initially) -->
+    <div id="confirmCard" style="display:none;"></div>
+
+    <!-- QUICK REPLIES -->
+    <div class="quick-replies" id="quickReplies" style="display:none;"></div>
+
+    <!-- INPUT AREA -->
+    <div class="input-area" id="inputArea" style="display:none;">
+      <button class="btn-mic-input" id="btnMic" onclick="toggleListening()" title="Hablar">🎤</button>
+      <input type="text" id="userInput" placeholder="O escribe tu respuesta..." onkeypress="onKey(event)">
+      <button class="btn-send-input" onclick="sendUserMessage()">➤</button>
+    </div>
+    <div class="no-speech-note" id="speechNote" style="display:none;"></div>
+
+  </div><!-- /right-panel -->
+</div><!-- /wrapper -->
+
+<script>
+// ── STATE ──
+const STATE = {
+  step: 'idle',
+  persons: null,
+  day: null,
+  time: null,
+  name: null,
+  muted: false,
+  speakerOn: true,
+  listening: false,
+  timerInterval: null,
+  timerSeconds: 0,
+  recognition: null,
+  speechSupported: false,
+  currentUtterance: null
+};
+
+// ── SPEECH SYNTHESIS ──
+let voices = [];
+window.speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); };
+
+function getSpanishVoice() {
+  const all = window.speechSynthesis.getVoices();
+  return all.find(v => v.lang === 'es-ES' || v.lang === 'es-MX' || v.lang.startsWith('es')) || all[0] || null;
+}
+
+function speak(text, onEnd) {
+  if (!STATE.speakerOn) { if (onEnd) setTimeout(onEnd, 800); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-ES';
+  u.rate = 0.92;
+  u.pitch = 1.05;
+  u.volume = 1.0;
+  const v = getSpanishVoice();
+  if (v) u.voice = v;
+  u.onstart = () => setWave(true, 'Asistente hablando…');
+  u.onend = () => { setWave(false, 'En espera'); if (onEnd) onEnd(); };
+  u.onerror = () => { setWave(false, 'En espera'); if (onEnd) onEnd(); };
+  STATE.currentUtterance = u;
+  window.speechSynthesis.speak(u);
+}
+
+function setWave(active, label) {
+  document.getElementById('voiceWave').classList.toggle('active', active);
+  document.getElementById('voiceLabel').textContent = label || '';
+}
+
+// ── SPEECH RECOGNITION ──
+function initSpeechRecognition() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    document.getElementById('speechNote').style.display = 'block';
+    document.getElementById('speechNote').textContent = '⚠ Tu navegador no soporta reconocimiento de voz. Usa el teclado.';
+    document.getElementById('btnMic').style.display = 'none';
+    return;
+  }
+  STATE.speechSupported = true;
+  const rec = new SR();
+  rec.lang = 'es-ES';
+  rec.continuous = false;
+  rec.interimResults = false;
+  rec.onresult = (e) => {
+    const text = e.results[0][0].transcript;
+    stopListening();
+    addMessage('user', text);
+    setTimeout(() => processUserInput(text), 400);
+  };
+  rec.onerror = () => stopListening();
+  rec.onend = () => stopListening();
+  STATE.recognition = rec;
+}
+
+function toggleListening() {
+  if (STATE.listening) stopListening();
+  else startListening();
+}
+function startListening() {
+  if (!STATE.speechSupported || !STATE.recognition) return;
+  STATE.listening = true;
+  document.getElementById('btnMic').classList.add('listening');
+  setWave(true, 'Escuchando…');
+  STATE.recognition.start();
+}
+function stopListening() {
+  STATE.listening = false;
+  document.getElementById('btnMic').classList.remove('listening');
+  if (!window.speechSynthesis.speaking) setWave(false, 'En espera');
+  try { STATE.recognition && STATE.recognition.stop(); } catch(e){}
+}
+
+// ── TIMER ──
+function startTimer() {
+  STATE.timerSeconds = 0;
+  STATE.timerInterval = setInterval(() => {
+    STATE.timerSeconds++;
+    const m = String(Math.floor(STATE.timerSeconds / 60)).padStart(2,'0');
+    const s = String(STATE.timerSeconds % 60).padStart(2,'0');
+    document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+  }, 1000);
+}
+function stopTimer() {
+  clearInterval(STATE.timerInterval);
+}
+
+// ── CALL ACTIONS ──
+function answerCall() {
+  document.getElementById('incomingScreen').style.display = 'none';
+  document.getElementById('activeScreen').style.display = 'block';
+  document.getElementById('emptyMsg').style.display = 'none';
+  document.getElementById('inputArea').style.display = 'flex';
+  document.getElementById('speechNote').style.display = STATE.speechSupported ? 'none' : 'block';
+  startTimer();
+  initSpeechRecognition();
+  STATE.step = 'greeting';
+  setTimeout(() => {
+    const greeting = '¡Buenas tardes! Ha llamado a Bar Las Tablas en Toledo. Soy el asistente virtual. ¿En qué le puedo ayudar?';
+    addMessage('ai', greeting);
+    speak(greeting, () => {
+      STATE.step = 'intent';
+      showQuickReplies(['Hacer una reserva', 'Horarios del bar', 'Información y carta']);
+    });
+  }, 600);
+}
+
+function rejectCall() {
+  document.getElementById('incomingScreen').style.display = 'none';
+  document.getElementById('emptyMsg').innerHTML = '<div class="big-icon">📵</div><p>Llamada rechazada</p>';
+}
+
+function hangupCall() {
+  window.speechSynthesis.cancel();
+  stopTimer();
+  STATE.step = 'done';
+  hideUI();
+  document.getElementById('activeScreen').style.display = 'none';
+  document.getElementById('phoneScreen').style.background = '#1a1a1a';
+  setWave(false, '');
+  document.getElementById('timerDisplay').textContent = 'Llamada finalizada';
+  addMessage('ai', '— Llamada finalizada —');
+}
+
+function toggleMute() {
+  STATE.muted = !STATE.muted;
+  document.getElementById('btnMute').classList.toggle('active', STATE.muted);
+}
+function toggleSpeaker() {
+  STATE.speakerOn = !STATE.speakerOn;
+  document.getElementById('btnSpeaker').querySelector('.call-btn-circle').textContent = STATE.speakerOn ? '📢' : '🔈';
+}
+
+// ── TRANSCRIPT ──
+function addMessage(role, text) {
+  const t = document.getElementById('transcript');
+  const now = new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+  const isAi = role === 'ai';
+  const wrap = document.createElement('div');
+  wrap.className = `msg ${isAi ? 'ai' : 'user'}`;
+  wrap.innerHTML = `
+    <div class="msg-avatar">${isAi ? '🤖' : '👤'}</div>
+    <div>
+      <div class="msg-bubble">${escHtml(text)}</div>
+      <div class="msg-time">${now}</div>
+    </div>
+  `;
+  t.appendChild(wrap);
+  t.scrollTop = t.scrollHeight;
+}
+
+function showTyping() {
+  const t = document.getElementById('transcript');
+  const el = document.createElement('div');
+  el.className = 'msg ai'; el.id = 'typingMsg';
+  el.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  t.appendChild(el);
+  t.scrollTop = t.scrollHeight;
+}
+function hideTyping() { const el = document.getElementById('typingMsg'); if (el) el.remove(); }
+
+function escHtml(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── QUICK REPLIES ──
+function showQuickReplies(options) {
+  const el = document.getElementById('quickReplies');
+  el.style.display = 'flex';
+  el.innerHTML = options.map(o =>
+    `<button class="qr-btn" onclick="quickReply('${o.replace(/'/g,"\\'")}')">` + escHtml(o) + `</button>`
+  ).join('');
+}
+function hideQuickReplies() {
+  document.getElementById('quickReplies').style.display = 'none';
+  document.getElementById('quickReplies').innerHTML = '';
+}
+function hideUI() {
+  hideQuickReplies();
+  document.getElementById('inputArea').style.display = 'none';
+}
+
+function quickReply(text) {
+  hideQuickReplies();
+  addMessage('user', text);
+  setTimeout(() => processUserInput(text), 300);
+}
+
+// ── AI RESPONSE ──
+function aiRespond(text, afterCallback) {
+  showTyping();
+  const delay = Math.min(600 + text.length * 12, 1800);
+  setTimeout(() => {
+    hideTyping();
+    addMessage('ai', text);
+    speak(text, afterCallback);
+  }, delay);
+}
+
+// ── INPUT ──
+function onKey(e) { if (e.key === 'Enter') sendUserMessage(); }
+function sendUserMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  hideQuickReplies();
+  addMessage('user', text);
+  setTimeout(() => processUserInput(text), 300);
+}
+
+// ── CONVERSATION STATE MACHINE ──
+function processUserInput(raw) {
+  const text = raw.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  switch (STATE.step) {
+    case 'intent': return handleIntent(text, raw);
+    case 'persons': return handlePersons(text);
+    case 'day': return handleDay(text, raw);
+    case 'time': return handleTime(text, raw);
+    case 'name': return handleName(raw);
+    case 'confirm': return handleConfirm(text);
+    case 'done': return;
+    default:
+      aiRespond('Disculpe, no le he entendido bien. ¿Puede repetirlo?', () => {
+        showQuickReplies(['Hacer una reserva', 'Horarios del bar']);
+      });
+  }
+}
+
+function handleIntent(text, raw) {
+  if (/(reserva|mesa|comer|cenar|almorzar|cena|almuerzo|sentar)/.test(text)) {
+    STATE.step = 'persons';
+    aiRespond('¡Perfecto! Estaré encantado de gestionar su reserva. ¿Para cuántas personas sería?', () => {
+      showQuickReplies(['2 personas', '4 personas', '6 personas', '8 o más personas']);
+    });
+  } else if (/(horario|hora|cuando|abierto|abri|cierra|cierre)/.test(text)) {
+    aiRespond('Abrimos de lunes a viernes de 8:00 a 23:00 horas, y los sábados y domingos de 9:00 a 24:00 horas. La cocina cierra a las 22:30. ¿Desea hacer una reserva?', () => {
+      showQuickReplies(['Hacer una reserva', 'Otra pregunta']);
+    });
+  } else if (/(carta|menu|menú|plato|comida|bebida|precio|especialidad)/.test(text)) {
+    aiRespond('Ofrecemos cocina tradicional toledana: carcamusas, perdiz estofada, morteruelo y platos combinados. El menú del día son 11 euros. ¿Desea hacer una reserva?', () => {
+      showQuickReplies(['Hacer una reserva', 'Más información']);
+    });
+  } else {
+    aiRespond('Entendido. Puedo ayudarle con reservas de mesa, información sobre horarios o nuestra carta. ¿Qué necesita?', () => {
+      showQuickReplies(['Hacer una reserva', 'Horarios del bar', 'Información y carta']);
+    });
+  }
+}
+
+function handlePersons(text) {
+  const num = extractNumber(text);
+  if (num) {
+    STATE.persons = num;
+    STATE.step = 'day';
+    aiRespond(`Anotado, mesa para ${num} ${num === 1 ? 'persona' : 'personas'}. ¿Para qué día le gustaría?`, () => {
+      showQuickReplies(['Hoy mismo', 'Mañana', 'Este sábado', 'Este domingo']);
+    });
+  } else {
+    aiRespond('Disculpe, ¿cuántas personas serían? Por favor dígame el número.', () => {
+      showQuickReplies(['2 personas', '4 personas', '6 personas', '8 personas']);
+    });
+  }
+}
+
+function handleDay(text, raw) {
+  const day = extractDay(text);
+  if (day) {
+    STATE.day = day;
+    STATE.step = 'time';
+    aiRespond(`De acuerdo, para el ${day}. ¿A qué hora preferiría? Para almuerzo tenemos las 13:30 y las 15:00, y para cena las 21:00 y las 22:30.`, () => {
+      showQuickReplies(['13:30 almuerzo', '15:00 almuerzo', '21:00 cena', '22:30 cena']);
+    });
+  } else {
+    aiRespond('¿Para qué día le gustaría la reserva? Por ejemplo, mañana, el sábado, o dígame la fecha.', () => {
+      showQuickReplies(['Hoy mismo', 'Mañana', 'Este sábado', 'Este domingo']);
+    });
+  }
+}
+
+function handleTime(text, raw) {
+  const time = extractTime(text);
+  if (time) {
+    STATE.time = time;
+    STATE.step = 'name';
+    aiRespond(`Perfecto, a las ${time} horas. Para confirmar la reserva, ¿me podría decir su nombre completo y un número de teléfono de contacto?`, () => {
+      // no quick replies, free text input
+    });
+  } else {
+    aiRespond('¿A qué hora preferiría venir? Tenemos disponibilidad a las 13:30, 15:00, 21:00 y 22:30.', () => {
+      showQuickReplies(['13:30 almuerzo', '15:00 almuerzo', '21:00 cena', '22:30 cena']);
+    });
+  }
+}
+
+function handleName(raw) {
+  // Accept almost anything as a name
+  let name = raw.trim();
+  // Strip common prefixes
+  name = name.replace(/^(me llamo|soy|mi nombre es|llámame)\s+/i, '');
+  if (name.length < 2) {
+    aiRespond('¿Podría repetirme su nombre, por favor?');
+    return;
+  }
+  STATE.name = capitalize(name);
+  STATE.step = 'confirm';
+  const summary = `Confirmo la reserva: mesa para ${STATE.persons} ${STATE.persons === 1 ? 'persona' : 'personas'} el ${STATE.day} a las ${STATE.time} horas, a nombre de ${STATE.name}. ¿Todo correcto?`;
+  aiRespond(summary, () => {
+    showConfirmCard();
+    showQuickReplies(['Sí, perfecto', 'No, quiero cambiar algo']);
+  });
+}
+
+function handleConfirm(text) {
+  if (/(si|sí|correcto|perfecto|bien|vale|ok|confirma|adelante|exacto)/.test(text)) {
+    STATE.step = 'done';
+    const final = `¡Estupendo! Su reserva está confirmada. Mesa para ${STATE.persons} ${STATE.persons === 1 ? 'persona' : 'personas'} el ${STATE.day} a las ${STATE.time} en Bar Las Tablas Toledo, a nombre de ${STATE.name}. Le enviaremos la confirmación por SMS. ¡Muchas gracias y hasta pronto!`;
+    aiRespond(final, () => {
+      hideUI();
+      setTimeout(() => { setWave(false, '✓ Reserva confirmada'); }, 200);
+    });
+  } else if (/(no|cambiar|modificar|otra|mal|incorrecto|error)/.test(text)) {
+    STATE.step = 'intent';
+    STATE.persons = STATE.day = STATE.time = STATE.name = null;
+    document.getElementById('confirmCard').style.display = 'none';
+    aiRespond('De acuerdo, volvamos a empezar. ¿Cuántas personas serán?', () => {
+      STATE.step = 'persons';
+      showQuickReplies(['2 personas', '4 personas', '6 personas', '8 personas']);
+    });
+  } else {
+    aiRespond('¿Confirmo la reserva tal como he indicado?', () => {
+      showQuickReplies(['Sí, confirmar', 'No, cambiar']);
+    });
+  }
+}
+
+// ── CONFIRM CARD ──
+function showConfirmCard() {
+  const el = document.getElementById('confirmCard');
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="confirm-card">
+      <h4>📋 Resumen de reserva</h4>
+      <div class="confirm-row"><span class="k">Establecimiento</span><span class="v">Bar Las Tablas — Toledo</span></div>
+      <div class="confirm-row"><span class="k">Personas</span><span class="v">${STATE.persons}</span></div>
+      <div class="confirm-row"><span class="k">Día</span><span class="v">${STATE.day}</span></div>
+      <div class="confirm-row"><span class="k">Hora</span><span class="v">${STATE.time}</span></div>
+      <div class="confirm-row"><span class="k">Nombre</span><span class="v">${STATE.name}</span></div>
+    </div>
+  `;
+  const t = document.getElementById('transcript');
+  t.scrollTop = t.scrollHeight;
+}
+
+// ── EXTRACTORS ──
+function extractNumber(text) {
+  const words = {'uno':1,'una':1,'dos':2,'tres':3,'cuatro':4,'cinco':5,'seis':6,'siete':7,'ocho':8,'nueve':9,'diez':10,'once':11,'doce':12};
+  for (const [w,n] of Object.entries(words)) { if (text.includes(w)) return n; }
+  const match = text.match(/\b(\d+)\b/);
+  if (match) { const n = parseInt(match[1]); if (n >= 1 && n <= 50) return n; }
+  return null;
+}
+
+function extractDay(text) {
+  const days = {
+    'hoy': 'hoy',
+    'manana': 'mañana', 'mañana': 'mañana',
+    'lunes': 'el lunes', 'martes': 'el martes', 'miercoles': 'el miércoles',
+    'miércoles': 'el miércoles', 'jueves': 'el jueves', 'viernes': 'el viernes',
+    'sabado': 'el sábado', 'sábado': 'el sábado', 'domingo': 'el domingo'
+  };
+  for (const [k,v] of Object.entries(days)) { if (text.includes(k)) return v; }
+  const dateMatch = text.match(/\b(\d{1,2})[\/\-](\d{1,2})\b/);
+  if (dateMatch) return `el ${dateMatch[1]}/${dateMatch[2]}`;
+  return null;
+}
+
+function extractTime(text) {
+  // Named slots
+  if (/(13.?30|13h30|trece.?treinta|mediodia|mediodía|uno.?y.?media|almuerzo.?uno)/.test(text)) return '13:30';
+  if (/(15.?00|quince|tres.?tarde|15h|comida.?tres)/.test(text)) return '15:00';
+  if (/(21.?00|veintiuna?|nueve.?noche|21h)/.test(text)) return '21:00';
+  if (/(22.?30|veintidos|veintidós|22h|diez.?y.?media|cena.?tarde)/.test(text)) return '22:30';
+  // Generic time match
+  const m = text.match(/\b(1[0-9]|2[0-3]|[6-9]):?([0-5]\d)?\b/);
+  if (m) return m[0].includes(':') ? m[0] : m[0] + ':00';
+  return null;
+}
+
+function capitalize(str) {
+  return str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
+// ── RESET ──
+function resetDemo() {
+  window.speechSynthesis.cancel();
+  stopTimer();
+  STATE.step = 'idle'; STATE.persons = null; STATE.day = null; STATE.time = null;
+  STATE.name = null; STATE.muted = false; STATE.listening = false;
+  document.getElementById('incomingScreen').style.display = 'block';
+  document.getElementById('activeScreen').style.display = 'none';
+  document.getElementById('transcript').innerHTML = `<div class="empty-transcript" id="emptyMsg"><div class="big-icon">📞</div><p>Contesta la llamada para<br>iniciar la conversación</p></div>`;
+  document.getElementById('confirmCard').style.display = 'none';
+  document.getElementById('quickReplies').style.display = 'none';
+  document.getElementById('inputArea').style.display = 'none';
+  document.getElementById('speechNote').style.display = 'none';
+  document.getElementById('phoneScreen').style.background = '';
+  document.getElementById('timerDisplay').textContent = '00:00';
+  setWave(false, 'En espera');
+}
+</script>
+</body>
+</html>
