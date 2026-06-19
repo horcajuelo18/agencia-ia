@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistente Telegram IA — Tasca Can Morales</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --tg-bg:#17212B;--tg-side:#0E1621;--tg-bubble-bg:#182533;
+  --tg-bubble-out:#2B5278;--tg-bubble-out-t:#fff;
+  --tg-blue:#5BAAFF;--tg-blue2:#3E88C8;
+  --tg-header:#17212B;--tg-input:#0E1621;
+  --tg-border:rgba(255,255,255,.08);--tg-muted:rgba(255,255,255,.45);
+  --tg-text:#fff;--tg-sub:rgba(255,255,255,.55);
+  --tg-kbd:#242F3D;--tg-kbd-hover:#2B3E52;--tg-kbd-border:rgba(91,170,255,.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#0D1117;min-height:100vh;color:var(--tg-text)}
+.wrapper{display:flex;min-height:100vh;max-width:1280px;margin:0 auto;box-shadow:0 0 80px rgba(0,0,0,.5)}
+
+/* LEFT PANEL */
+.left{width:36%;min-width:280px;background:linear-gradient(160deg,#0A1520 0%,#0D1E30 50%,#0F2340 100%);padding:40px 32px;display:flex;flex-direction:column;color:#fff;position:relative;overflow:hidden}
+.left::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(91,170,255,.1) 0%,transparent 70%);border-radius:50%}
+.left::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(91,170,255,.05) 0%,transparent 70%);border-radius:50%}
+.l-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.brand-logo{width:46px;height:46px;background:linear-gradient(135deg,var(--tg-blue2),var(--tg-blue));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.brand-name{font-family:'Fraunces',serif;font-size:15px;font-weight:700;line-height:1.2}
+.brand-sub{font-size:10.5px;opacity:.5;margin-top:2px}
+.panel-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;line-height:1.25;margin-bottom:10px}
+.panel-title em{font-style:italic;color:var(--tg-blue)}
+.panel-desc{font-size:12.5px;line-height:1.75;opacity:.75;margin-bottom:22px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:22px}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 12px}
+.stat .val{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tg-blue)}
+.stat .lbl{font-size:10px;opacity:.5;margin-top:2px}
+.s-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.38;margin-bottom:8px}
+.caps-list{list-style:none;margin-bottom:auto}
+.caps-list li{display:flex;align-items:center;gap:8px;font-size:12px;padding:5px 0;opacity:.78;border-bottom:1px solid rgba(255,255,255,.05)}
+.caps-list li:last-child{border-bottom:none}
+.caps-list li::before{content:'›';color:var(--tg-blue);font-size:14px;font-weight:700;flex-shrink:0}
+.cmd-pill{display:inline-block;background:rgba(91,170,255,.12);border:1px solid rgba(91,170,255,.22);border-radius:5px;color:var(--tg-blue);font-family:monospace;font-size:11px;padding:1px 6px;margin:1px}
+.cmd-row{margin-bottom:12px;display:flex;flex-wrap:wrap;gap:3px}
+.reset-btn{margin-top:20px;background:rgba(91,170,255,.1);border:1px solid rgba(91,170,255,.22);border-radius:9px;color:var(--tg-blue);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:10px;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.reset-btn:hover{background:rgba(91,170,255,.2)}
+
+/* RIGHT: Telegram UI */
+.right{flex:1;display:flex;flex-direction:column;background:var(--tg-bg);overflow:hidden;position:relative}
+
+/* Chat wallpaper */
+.right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(91,170,255,.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+/* TG HEADER */
+.tg-header{background:var(--tg-header);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative;z-index:2;border-bottom:1px solid var(--tg-border)}
+.tg-back{color:var(--tg-blue);font-size:18px;cursor:pointer}
+.tg-avatar{width:40px;height:40px;min-width:40px;background:linear-gradient(135deg,var(--tg-blue2),var(--tg-blue));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 0 0 2px rgba(91,170,255,.3)}
+.tg-info{flex:1}
+.tg-name{font-size:15px;font-weight:600;color:var(--tg-text)}
+.tg-status{font-size:12px;color:var(--tg-blue)}
+.tg-icons{display:flex;gap:18px;color:var(--tg-muted);font-size:18px}
+
+/* CHAT AREA */
+.chat-area{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:4px;position:relative;z-index:1}
+.chat-area::-webkit-scrollbar{width:5px}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.chat-area::-webkit-scrollbar-track{background:transparent}
+
+/* Date chip */
+.date-chip{text-align:center;margin:8px 0}
+.date-chip span{background:rgba(0,0,0,.35);backdrop-filter:blur(6px);font-size:11.5px;color:rgba(255,255,255,.65);padding:4px 12px;border-radius:12px}
+
+/* Bubbles */
+.msg-wrap{display:flex;margin:1px 0}
+.msg-wrap.bot{justify-content:flex-start}
+.msg-wrap.user{justify-content:flex-end}
+.bubble{max-width:80%;padding:8px 10px 6px;border-radius:12px;font-size:13.5px;line-height:1.55;position:relative}
+.msg-wrap.bot .bubble{background:var(--tg-bubble-bg);border-top-left-radius:2px;color:var(--tg-text)}
+.msg-wrap.user .bubble{background:var(--tg-bubble-out);border-top-right-radius:2px;color:var(--tg-bubble-out-t)}
+.bubble-txt{word-break:break-word;white-space:pre-line}
+.bubble-txt b{font-weight:600}
+.bubble-txt code{background:rgba(255,255,255,.1);border-radius:4px;padding:1px 5px;font-family:monospace;font-size:12.5px;color:var(--tg-blue)}
+.bubble-meta{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:3px}
+.bubble-time{font-size:11px;color:rgba(255,255,255,.38)}
+.msg-wrap.user .bubble .bubble-time{color:rgba(255,255,255,.55)}
+.bubble-checks{font-size:12px;color:var(--tg-blue)}
+
+/* Typing */
+.typing-wrap{display:flex;justify-content:flex-start;margin:1px 0}
+.typing-bbl{background:var(--tg-bubble-bg);padding:9px 12px;border-radius:12px;border-top-left-radius:2px;display:flex;align-items:center;gap:4px}
+.td{width:6px;height:6px;background:rgba(255,255,255,.35);border-radius:50%;animation:tb 1.2s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes tb{0%,60%,100%{transform:scale(.7);opacity:.3}30%{transform:scale(1);opacity:.8}}
+
+/* Command hint */
+.cmd-hint{background:rgba(0,0,0,.5);border-top:1px solid var(--tg-border);padding:6px 12px;font-size:11.5px;color:var(--tg-muted);display:flex;gap:6px;flex-wrap:wrap;position:relative;z-index:2}
+.cmd-hint .ch{color:var(--tg-blue);cursor:pointer;font-family:monospace;font-weight:500}
+.cmd-hint .ch:hover{text-decoration:underline}
+
+/* Inline keyboards */
+.kbd-wrap{display:grid;gap:5px;padding:4px 0 6px}
+.kbd-wrap.cols-1{grid-template-columns:1fr}
+.kbd-wrap.cols-2{grid-template-columns:1fr 1fr}
+.kbd-wrap.cols-3{grid-template-columns:1fr 1fr 1fr}
+.kbd-btn{background:var(--tg-kbd);border:1px solid var(--tg-kbd-border);border-radius:8px;color:var(--tg-blue);font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:8px 10px;cursor:pointer;transition:background .15s,transform .1s;text-align:center;line-height:1.3}
+.kbd-btn:hover{background:var(--tg-kbd-hover)}
+.kbd-btn:active{transform:scale(.96)}
+
+/* TG INPUT */
+.tg-input-bar{background:var(--tg-input);padding:8px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative;z-index:2;border-top:1px solid var(--tg-border)}
+.tg-emoji{color:var(--tg-muted);font-size:20px;cursor:pointer;padding:3px}
+.tg-input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:13.5px;color:var(--tg-text);outline:none;transition:background .2s,border-color .2s}
+.tg-input::placeholder{color:rgba(255,255,255,.3)}
+.tg-input:focus{background:rgba(255,255,255,.1);border-color:rgba(91,170,255,.3)}
+.tg-send{width:40px;height:40px;background:var(--tg-blue2);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background .15s;flex-shrink:0;color:#fff}
+.tg-send:hover{background:var(--tg-blue)}
+.tg-send:active{transform:scale(.92)}
+
+@media(max-width:700px){.wrapper{flex-direction:column}.left{width:100%;min-width:unset}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- LEFT PANEL -->
+<div class="left">
+  <div class="l-inner">
+    <div class="brand">
+      <div class="brand-logo">🥘</div>
+      <div>
+        <div class="brand-name">Tasca Can Morales</div>
+        <div class="brand-sub">@CanMoralesBot · Telegram IA</div>
+      </div>
+    </div>
+    <div class="panel-title">Un bot que lo<br><em>gestiona todo</em></div>
+    <p class="panel-desc">Comandos instantáneos, teclado inline, menús navegables. Tu restaurante disponible en Telegram con la experiencia nativa que los usuarios esperan.</p>
+    <div class="stats">
+      <div class="stat"><div class="val">24/7</div><div class="lbl">Disponible</div></div>
+      <div class="stat"><div class="val">&lt;2s</div><div class="lbl">Respuesta</div></div>
+      <div class="stat"><div class="val">∞</div><div class="lbl">Usuarios</div></div>
+      <div class="stat"><div class="val">0€</div><div class="lbl">Por uso</div></div>
+    </div>
+    <div class="s-lbl">Comandos disponibles</div>
+    <div class="cmd-row">
+      <span class="cmd-pill">/start</span><span class="cmd-pill">/reservar</span>
+      <span class="cmd-pill">/menu</span><span class="cmd-pill">/carta</span>
+      <span class="cmd-pill">/pedido</span><span class="cmd-pill">/horarios</span>
+      <span class="cmd-pill">/ubicacion</span><span class="cmd-pill">/eventos</span>
+      <span class="cmd-pill">/puntos</span><span class="cmd-pill">/alergenos</span>
+      <span class="cmd-pill">/contacto</span><span class="cmd-pill">/ayuda</span>
+    </div>
+    <div class="s-lbl">El bot gestiona</div>
+    <ul class="caps-list">
+      <li>Reservas guiadas paso a paso</li>
+      <li>Carta completa con precios</li>
+      <li>Pedidos para llevar</li>
+      <li>Horarios y mapa interactivo</li>
+      <li>Eventos y grupos privados</li>
+      <li>Programa de fidelización</li>
+      <li>Alérgenos por plato</li>
+      <li>Contacto directo con el local</li>
+    </ul>
+    <button class="reset-btn" onclick="resetChat()">↺ &nbsp;Reiniciar bot</button>
+  </div>
+</div>
+
+<!-- RIGHT: Telegram -->
+<div class="right">
+
+  <!-- HEADER -->
+  <div class="tg-header">
+    <span class="tg-back">←</span>
+    <div class="tg-avatar">🥘</div>
+    <div class="tg-info">
+      <div class="tg-name">Tasca Can Morales</div>
+      <div class="tg-status" id="tg-status">bot · en línea</div>
+    </div>
+    <div class="tg-icons"><span>🔍</span><span>⋮</span></div>
+  </div>
+
+  <!-- CMD HINT -->
+  <div class="cmd-hint">
+    <span>Prueba:</span>
+    <span class="ch" onclick="runCmd('/start')">/start</span>
+    <span class="ch" onclick="runCmd('/reservar')">/reservar</span>
+    <span class="ch" onclick="runCmd('/carta')">/carta</span>
+    <span class="ch" onclick="runCmd('/pedido')">/pedido</span>
+    <span class="ch" onclick="runCmd('/puntos')">/puntos</span>
+    <span class="ch" onclick="runCmd('/ayuda')">/ayuda</span>
+  </div>
+
+  <!-- CHAT AREA -->
+  <div class="chat-area" id="chat">
+    <div class="date-chip"><span>Hoy</span></div>
+  </div>
+
+  <!-- INPUT BAR -->
+  <div class="tg-input-bar">
+    <span class="tg-emoji">😊</span>
+    <input class="tg-input" id="user-input" type="text" placeholder="Escribe un mensaje o /comando" onkeypress="onKey(event)" autocomplete="off">
+    <button class="tg-send" onclick="sendUser()" id="send-btn">➤</button>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ── UTILS ────────────────────────────────────────────────────────────────────
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+function fmtTime(){return new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}
+function scrollBottom(){const c=document.getElementById('chat');c.scrollTop=c.scrollHeight}
+let typingEl=null;
+
+function showTyping(){
+  if(typingEl)return;
+  const c=document.getElementById('chat');
+  const d=document.createElement('div');d.className='typing-wrap';d.id='typing-el';
+  d.innerHTML='<div class="typing-bbl"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  c.appendChild(d);typingEl=d;scrollBottom();
+  document.getElementById('tg-status').textContent='escribiendo…';
+}
+function hideTyping(){if(typingEl){typingEl.remove();typingEl=null}document.getElementById('tg-status').textContent='bot · en línea'}
+
+function addBot(text,kbd,cols){
+  hideTyping();
+  const c=document.getElementById('chat');
+  const d=document.createElement('div');d.className='msg-wrap bot';
+  const formatted=esc(text)
+    .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+    .replace(/\*(.*?)\*/g,'<b>$1</b>')
+    .replace(/`(.*?)`/g,'<code>$1</code>')
+    .replace(/_(.*?)_/g,'<i style="opacity:.85">$1</i>');
+  let html=`<div class="bubble"><div class="bubble-txt">${formatted}</div><div class="bubble-meta"><span class="bubble-time">${fmtTime()}</span></div>`;
+  html+='</div>';
+  d.innerHTML=html;
+  c.appendChild(d);
+  if(kbd&&kbd.length){
+    const kw=document.createElement('div');kw.className=`msg-wrap bot`;
+    const kg=document.createElement('div');kg.className=`kbd-wrap cols-${cols||Math.min(kbd[0].length,2)}`;
+    kbd.forEach(row=>{
+      if(Array.isArray(row)){
+        row.forEach(b=>{
+          const btn=document.createElement('button');btn.className='kbd-btn';btn.textContent=b.t;
+          btn.onclick=()=>{kg.closest('.msg-wrap').remove();kw.remove();sendBot(b.t,b)};
+          kg.appendChild(btn);
+        });
+      } else {
+        const btn=document.createElement('button');btn.className='kbd-btn';btn.textContent=row.t;
+        btn.onclick=()=>{kg.closest('.msg-wrap').remove();kw.remove();sendBot(row.t,row)};
+        kg.appendChild(btn);
+      }
+    });
+    kw.appendChild(kg);c.appendChild(kw);
+  }
+  scrollBottom();
+}
+
+function addUser(text){
+  const c=document.getElementById('chat');
+  const d=document.createElement('div');d.className='msg-wrap user';
+  d.innerHTML=`<div class="bubble"><div class="bubble-txt">${esc(text)}</div><div class="bubble-meta"><span class="bubble-time">${fmtTime()}</span><span class="bubble-checks">✓✓</span></div></div>`;
+  c.appendChild(d);scrollBottom();
+}
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+const R={day:null,time:null,persons:null,zone:null,name:null};
+const P={items:[],pickup:null};
+let currentStep=null;
+
+// ── BOT MESSAGING ─────────────────────────────────────────────────────────────
+function botMsg(text,kbd,cols,delay){
+  showTyping();
+  setTimeout(()=>addBot(text,kbd,cols),delay||Math.min(500+text.length*5,1600));
+}
+
+function botSeq(msgs){
+  let delay=0;
+  msgs.forEach((m,i)=>{
+    const d=Math.min(500+(m.text||m).length*5,1600);
+    setTimeout(()=>{
+      hideTyping();showTyping();
+      setTimeout(()=>addBot(m.text||m,m.kbd,m.cols),d);
+    },delay);
+    delay+=d+250;
+  });
+}
+
+// ── KEYBOARD HELPERS ──────────────────────────────────────────────────────────
+function kbdGrid(items,action,prefix,sv_key,cols){
+  return items.map(item=>({t:item.t,a:action,sv:sv_key?[sv_key,item.v||item.t]:null}));
+}
+
+// ── COMMANDS ─────────────────────────────────────────────────────────────────
+const CMDS = {
+  '/start'(){
+    currentStep=null;
+    botSeq([
+      {text:'👋 ¡Hola! Soy el asistente oficial de **Tasca Can Morales**, el restaurante de cocina mediterránea de toda la vida.\n\n🕐 Abierto todos los días de 13:00 a 23:30.\n📍 Plaza del Mercat 12, Barcelona.\n\n¿En qué puedo ayudarte hoy?',
+        kbd:[
+          {t:'🍽 Reservar mesa',a:'/reservar'},{t:'📋 Ver la carta',a:'/carta'},
+          {t:'🛵 Pedir para llevar',a:'/pedido'},{t:'🕐 Horarios',a:'/horarios'},
+          {t:'🎉 Eventos privados',a:'/eventos'},{t:'⭐ Mis puntos',a:'/puntos'},
+          {t:'🥜 Alérgenos',a:'/alergenos'},{t:'📞 Contactar',a:'/contacto'},
+        ],cols:2},
+    ]);
+  },
+  '/ayuda'(){
+    botMsg('📚 **Comandos disponibles:**\n\n`/start` — Menú principal\n`/reservar` — Reservar mesa\n`/carta` — Ver la carta\n`/pedido` — Pedir para llevar\n`/horarios` — Horarios y días\n`/ubicacion` — Cómo llegar\n`/eventos` — Sala privada y grupos\n`/puntos` — Programa fidelidad\n`/alergenos` — Información alérgenos\n`/contacto` — Hablar con el local\n`/menu` — Menú del día\n`/ayuda` — Esta ayuda',
+      [{t:'← Menú principal',a:'/start'}],1);
+  },
+  '/reservar'(){
+    currentStep='r_persons';
+    botMsg('🍽 ¡Vamos a hacer tu reserva! ¿Para cuántas personas?',
+      [{t:'1–2',a:'r_persons',sv:['persons','1–2']},{t:'3–4',a:'r_persons',sv:['persons','3–4']},{t:'5–6',a:'r_persons',sv:['persons','5–6']},{t:'7–10',a:'r_persons',sv:['persons','7–10']},{t:'Más de 10',a:'r_mas'}],2);
+  },
+  '/carta'(){
+    currentStep='carta';
+    botMsg('📋 **Carta de Tasca Can Morales**\n\nElegimos productos de mercado frescos cada mañana. ¿Qué sección te interesa?',
+      [{t:'🥗 Entrantes',a:'c_entrantes'},{t:'🐟 Pescados',a:'c_pescados'},{t:'🥩 Carnes',a:'c_carnes'},{t:'🍝 Arroces',a:'c_arroces'},{t:'🍰 Postres',a:'c_postres'},{t:'🍷 Bebidas',a:'c_bebidas'}],2);
+  },
+  '/menu'(){
+    botMsg('🍱 **Menú del día — 16€** _(L–V, solo almuerzo 13:00–16:00)_\n\n**Primeros:**\n• Crema de verduras de temporada\n• Ensalada mixta con atún\n• Croquetas caseras (4 ud)\n\n**Segundos:**\n• Merluza al vapor con patatas\n• Pollo asado con verduras\n• Arroz del día\n\n**Incluye:** Pan, postre y bebida _(agua, vino o cerveza)_\n\n_El menú del día cambia cada día. Hoy: lunes._',
+      [{t:'Reservar para almuerzo',a:'/reservar'},{t:'← Menú principal',a:'/start'}],2);
+  },
+  '/pedido'(){
+    currentStep='p_cat';
+    P.items=[];P.pickup=null;
+    botMsg('🛵 **Pedidos para llevar** _(12:00–23:00)_\n\nElige la categoría de lo que quieres pedir:',
+      [{t:'🥗 Entrantes',a:'p_entrante'},{t:'🐟 Pescados',a:'p_pescado'},{t:'🥩 Carnes',a:'p_carne'},{t:'🍝 Arroces',a:'p_arroz'},{t:'🍱 Pack completo 28€',a:'p_pack'}],2);
+  },
+  '/horarios'(){
+    botMsg('🕐 **Horarios de Tasca Can Morales:**\n\n**Lunes a jueves**\n• Almuerzo: 13:00 – 16:30\n• Cena: 20:30 – 23:30\n\n**Viernes y sábados**\n• Almuerzo: 13:00 – 17:00\n• Cena: 20:00 – 00:30\n\n**Domingos**\n• Almuerzo: 13:00 – 16:30\n• Cenas: cerrado\n\n_La cocina cierra 30 min antes._',
+      [{t:'📍 Cómo llegar',a:'/ubicacion'},{t:'🍽 Reservar',a:'/reservar'},{t:'← Inicio',a:'/start'}],2);
+  },
+  '/ubicacion'(){
+    botMsg('📍 **Cómo llegar:**\n\n🏠 Plaza del Mercat 12, Barcelona\n_(Barrio del Born, junto al Mercat de Santa Caterina)_\n\n🚇 Metro: Jaume I (L4), 3 min\n🚌 Bus: 17, 19 y 45\n🚲 Bicing a 50 metros\n🚗 Parking: Santa Caterina (5 min)\n\n_Hay terraza en la plaza abierta hasta las 23:30._',
+      [{t:'🗺 Ver en Google Maps',a:'maps_link'},{t:'🍽 Reservar mesa en terraza',a:'/reservar'},{t:'← Inicio',a:'/start'}],1);
+  },
+  '/eventos'(){
+    botMsg('🎉 **Sala privada "El Racó"**\n\n• Capacidad: hasta 35 personas sentadas\n• Ideal para: cumpleaños, cenas de empresa, bodas íntimas, comuniones\n• Menú desde 30€ por persona (mínimo 15 personas)\n• Menú personalizable con el chef\n• Proyector y equipo de sonido incluido\n• Acceso independiente\n\n¿Cuándo tienes pensado el evento?',
+      [{t:'En los próximos 30 días',a:'ev_pronto'},{t:'En 1–3 meses',a:'ev_medio'},{t:'Más adelante',a:'ev_largo'},{t:'Solo quiero información',a:'ev_info'}],2);
+  },
+  '/puntos'(){
+    botMsg('⭐ **Programa Can Morales Fidelitat:**\n\n• **1 punto** por cada euro en consumición\n• **100 puntos** = 10€ de descuento\n• Puntos extra los martes (×2)\n• Acceso VIP a eventos del chef\n• Tarta de cumpleaños gratis 🎂\n\n_Tu saldo actual: **0 puntos**_\n_Regístrate la próxima vez que visites el local o habla con un camarero._',
+      [{t:'🍽 Reservar y acumular puntos',a:'/reservar'},{t:'← Inicio',a:'/start'}],1);
+  },
+  '/alergenos'(){
+    botMsg('🥜 **Información de alérgenos:**\n\nAdaptamos todos los platos a tus necesidades. Los 14 alérgenos más comunes están identificados en nuestra carta impresa.\n\n⚠️ Avísanos siempre al reservar o pedir.\n\nGestionamos: gluten, lactosa, mariscos, frutos secos, huevo, soja, sésamo y más.\n\n_¿Tienes alguna alergia concreta?_',
+      [{t:'Gluten / celiaquía',a:'al_gluten'},{t:'Lactosa',a:'al_lactosa'},{t:'Mariscos',a:'al_mariscos'},{t:'Frutos secos',a:'al_nuts'},{t:'Otro',a:'al_otro'},{t:'← Inicio',a:'/start'}],2);
+  },
+  '/contacto'(){
+    botMsg('📞 **Contactar con Tasca Can Morales:**\n\n📱 WhatsApp / Tel: +34 931 234 567\n🌐 Web: canmorales.com\n📧 Email: hola@canmorales.com\n📸 Instagram: @TascaCanMorales\n\nO si prefieres, te pongo en contacto ahora mismo con el local:',
+      [{t:'💬 Hablar con el local ahora',a:'humano'},{t:'← Inicio',a:'/start'}],1);
+  },
+};
+
+// ── ACTION HANDLERS ───────────────────────────────────────────────────────────
+function handle(action,sv){
+  if(sv){
+    const k=sv[0];
+    if(k==='persons')R.persons=sv[1];
+    else if(k==='day')R.day=sv[1];
+    else if(k==='time')R.time=sv[1];
+    else if(k==='zone')R.zone=sv[1];
+    else if(k==='name')R.name=sv[1];
+    else if(k==='pickup')P.pickup=sv[1];
+  }
+
+  // Command
+  if(CMDS[action]){CMDS[action]();return}
+
+  // Reservation flow
+  if(action==='r_mas'){botMsg('Para grupos de más de 10 personas contáctanos directamente y te organizamos todo. ¿Cómo prefieres?',[{t:'📱 Llamar al local',a:'/contacto'},{t:'💬 Por aquí mismo',a:'humano'}],1);return}
+  if(action==='r_persons'){
+    botMsg(`Perfecto, mesa para *${R.persons}* personas. ¿Para qué día?`,
+      [{t:'Hoy',a:'r_day',sv:['day','hoy']},{t:'Mañana',a:'r_day',sv:['day','mañana']},{t:'Este sábado',a:'r_day',sv:['day','el sábado']},{t:'Este domingo',a:'r_day',sv:['day','el domingo']},{t:'Otro día',a:'r_otrodia'}],2);return;
+  }
+  if(action==='r_otrodia'){botMsg('Dime la fecha exacta escribiéndola en el chat (ej: _martes 24_).');return}
+  if(action==='r_day'){
+    botMsg(`Anotado para *${R.day}*. ¿A qué hora?`,
+      [{t:'Almuerzo 13:30',a:'r_time',sv:['time','13:30']},{t:'Almuerzo 15:00',a:'r_time',sv:['time','15:00']},{t:'Cena 21:00',a:'r_time',sv:['time','21:00']},{t:'Cena 22:30',a:'r_time',sv:['time','22:30']}],2);return;
+  }
+  if(action==='r_time'){
+    botMsg('¿Prefieres terraza exterior o sala interior?',
+      [{t:'🌿 Terraza (Plaza del Mercat)',a:'r_zone',sv:['zone','terraza exterior']},{t:'🏠 Sala interior',a:'r_zone',sv:['zone','sala interior']},{t:'Sin preferencia',a:'r_zone',sv:['zone','sin preferencia']}],1);return;
+  }
+  if(action==='r_zone'){
+    botMsg('¿A nombre de quién queda la reserva?',
+      [{t:'Jordi Puig',a:'r_name',sv:['name','Jordi Puig']},{t:'Marta Soler',a:'r_name',sv:['name','Marta Soler']},{t:'David Font',a:'r_name',sv:['name','David Font']},{t:'Clara Roca',a:'r_name',sv:['name','Clara Roca']}],2);return;
+  }
+  if(action==='r_name'){
+    const txt=`✅ **Resumen de reserva:**\n\n📅 Día: ${R.day}\n🕐 Hora: ${R.time}h\n👥 Personas: ${R.persons}\n📍 Zona: ${R.zone}\n👤 Nombre: ${R.name}\n\n¿Confirmo?`;
+    botMsg(txt,[{t:'✅ Confirmar reserva',a:'r_done'},{t:'✏️ Modificar',a:'/reservar'}],2);return;
+  }
+  if(action==='r_done'){
+    currentStep=null;
+    botSeq([
+      {text:`🎉 **¡Reserva confirmada!**\n\nTe esperamos el *${R.day} a las ${R.time}h*, mesa para *${R.persons}* en la *${R.zone}*, a nombre de *${R.name}*.\n\n_Recibirás confirmación por SMS. Para cancelar escríbenos con 1h de antelación._`},
+      {text:'¿Algo más en lo que pueda ayudarte?',kbd:[{t:'Ver la carta',a:'/carta'},{t:'Cómo llegar',a:'/ubicacion'},{t:'← Inicio',a:'/start'}],cols:1},
+    ]);return;
+  }
+
+  // Carta
+  if(action==='c_entrantes'){botMsg('🥗 **Entrantes:**\n\n• Pa amb tomàquet _(con jamón +3€)_ — 4€\n• Croquetas del chef (6 ud) — 10€\n• Ensalada de temporada — 10€\n• Escalivada con anchoas — 12€\n• Jamón ibérico de bellota — 20€\n• Boquerones frescos — 9€\n• Patatas bravas con alioli — 8€',[{t:'🐟 Pescados',a:'c_pescados'},{t:'🥩 Carnes',a:'c_carnes'},{t:'🍝 Arroces',a:'c_arroces'},{t:'🍽 Reservar',a:'/reservar'}],2);return}
+  if(action==='c_pescados'){botMsg('🐟 **Pescados:**\n\n• Bacallà a la llauna (especialidad) — 21€\n• Lubina salvaje al horno — 26€\n• Merluza con salsa verde — 20€\n• Dorada a la sal — 24€\n• Pulpo a la brasa — 20€\n• Gambas de la costa al ajillo — 18€',[{t:'🥩 Carnes',a:'c_carnes'},{t:'🍝 Arroces',a:'c_arroces'},{t:'🍽 Reservar',a:'/reservar'}],2);return}
+  if(action==='c_carnes'){botMsg('🥩 **Carnes:**\n\n• Chuletón de vaca vieja — 36€\n• Solomillo con salsa de trufa — 30€\n• Entrecot con patatas paja — 25€\n• Costilla ibérica lacada — 24€\n• Pollo de corral al ast — 18€',[{t:'🍝 Arroces',a:'c_arroces'},{t:'🍰 Postres',a:'c_postres'},{t:'🍽 Reservar',a:'/reservar'}],2);return}
+  if(action==='c_arroces'){botMsg('🍝 **Arroces** _(mín. 2 personas, 20 min)_:\n\n• Arroz negro con sepia y alioli — 21€/p\n• Arròs a banda _(especialidad)_ — 22€/p\n• Arroz caldoso de bogavante — 32€/p\n• Arroz de verduras y setas — 18€/p\n\n_Los arroces son la especialidad de la casa desde 1978._',[{t:'🐟 Pescados',a:'c_pescados'},{t:'🥩 Carnes',a:'c_carnes'},{t:'🍽 Reservar para arroces',a:'/reservar'}],2);return}
+  if(action==='c_postres'){botMsg('🍰 **Postres:**\n\n• Crema catalana flambeada — 7€\n• Mel i mató _(queso fresco y miel)_ — 6€\n• Tarta de chocolate del chef — 7€\n• Frutas de temporada — 6€\n• Helado artesano (3 sabores) — 6€',[{t:'🍷 Bebidas',a:'c_bebidas'},{t:'🍽 Reservar',a:'/reservar'},{t:'← Carta',a:'/carta'}],2);return}
+  if(action==='c_bebidas'){botMsg('🍷 **Bebidas y vinos:**\n\n**Vinos blancos**\n• Albariño Mar de Frades — 24€\n• Viña Sol Torres — 18€\n\n**Vinos tintos**\n• Priorat Clos Mogador — 42€\n• Rioja Crianza — 22€\n\n**Cava y champagne**\n• Cava Codorníu Brut — 20€\n\n_Carta completa con +120 referencias en el local._',[{t:'🍽 Reservar',a:'/reservar'},{t:'← Carta',a:'/carta'}],1);return}
+
+  // Pedido para llevar
+  if(action==='p_entrante'){P.items.push('Entrantes variados');botMsg('🥗 Entrantes anotados. ¿Añades algo más?',[{t:'🐟 Añadir pescado',a:'p_pescado'},{t:'🥩 Añadir carne',a:'p_carne'},{t:'🍝 Añadir arroz',a:'p_arroz'},{t:'✅ Terminar',a:'p_hora'}],2);return}
+  if(action==='p_pescado'){P.items.push('Pescado a la plancha');botMsg('🐟 Pescado anotado. ¿Añades algo más?',[{t:'🥗 Añadir entrante',a:'p_entrante'},{t:'🥩 Añadir carne',a:'p_carne'},{t:'✅ Terminar',a:'p_hora'}],2);return}
+  if(action==='p_carne'){P.items.push('Carne a la brasa');botMsg('🥩 Carne anotada. ¿Añades algo más?',[{t:'🥗 Añadir entrante',a:'p_entrante'},{t:'🐟 Añadir pescado',a:'p_pescado'},{t:'✅ Terminar',a:'p_hora'}],2);return}
+  if(action==='p_arroz'){P.items.push('Arroz del día');botMsg('🍝 Arroz anotado. ¿Añades algo más?',[{t:'🥗 Añadir entrante',a:'p_entrante'},{t:'🥩 Añadir carne',a:'p_carne'},{t:'✅ Terminar',a:'p_hora'}],2);return}
+  if(action==='p_pack'){P.items=['Pack completo (primer + segundo + postre)'];botMsg('🍱 Pack completo anotado. ¿A qué hora lo recoges?',[{t:'En 20 min',a:'p_confirm',sv:['pickup','en 20 minutos']},{t:'En 45 min',a:'p_confirm',sv:['pickup','en 45 minutos']},{t:'En 1 hora',a:'p_confirm',sv:['pickup','en 1 hora']}],3);return}
+  if(action==='p_hora'){botMsg('¿A qué hora pasas a recoger el pedido?',[{t:'En 20 min',a:'p_confirm',sv:['pickup','en 20 minutos']},{t:'En 45 min',a:'p_confirm',sv:['pickup','en 45 minutos']},{t:'En 1 hora',a:'p_confirm',sv:['pickup','en 1 hora']}],3);return}
+  if(action==='p_confirm'){
+    const items=P.items.join(', ');
+    botMsg(`🛵 **Resumen del pedido:**\n\n📦 ${items}\n⏰ Recogida: ${P.pickup}\n📍 Plaza del Mercat 12, Born\n\n¿Confirmo el pedido?`,[{t:'✅ Confirmar',a:'p_done'},{t:'✏️ Modificar',a:'/pedido'}],2);return;
+  }
+  if(action==='p_done'){
+    currentStep=null;
+    botMsg(`🎉 ¡Pedido confirmado! Estará listo *${P.pickup}*. Pasa a recogerlo en *Plaza del Mercat 12*. ¡Hasta ahora! 🍽`,[{t:'Hacer una reserva',a:'/reservar'},{t:'← Inicio',a:'/start'}],1);return;
+  }
+
+  // Eventos
+  if(action==='ev_pronto'||action==='ev_medio'||action==='ev_largo'){
+    botMsg('Nuestro responsable de sala te enviará toda la información del dossier y disponibilidad. ¿Cómo prefieres que te contactemos?',[{t:'Por aquí (Telegram)',a:'ev_tg'},{t:'Llamada telefónica',a:'ev_call'},{t:'Email',a:'ev_email'}],2);return;
+  }
+  if(action==='ev_info'){botMsg('Te enviamos el dossier de eventos con carta, sala, precios y disponibilidad. ¿Cuál es tu correo?',[{t:'Responde con tu email en el chat',a:'ev_email'},{t:'Prefiero llamada',a:'ev_call'}],1);return}
+  if(action==='ev_tg'){botMsg('Perfecto 👍 Nuestro equipo te escribirá por este Telegram en menos de 2 horas. ¿Algo más?',[{t:'← Inicio',a:'/start'}],1);return}
+  if(action==='ev_call'){botMsg('Genial, te llamamos antes de las 18:00. ¿Algo más?',[{t:'← Inicio',a:'/start'}],1);return}
+  if(action==='ev_email'){botMsg('Perfecto. Te enviamos el dossier en breve. ¿Algo más?',[{t:'← Inicio',a:'/start'}],1);return}
+
+  // Alérgenos
+  if(action==='al_gluten'){botMsg('🌾 Disponemos de **opciones sin gluten** en casi toda la carta. Los platos sin gluten están marcados con 🌾 en la carta física.\n\nNuestro arroz a banda, los pescados a la plancha y los postres de fruta son seguros. _Consulta siempre al camarero antes de pedir._',[{t:'Hacer reserva',a:'/reservar'},{t:'← Alérgenos',a:'/alergenos'}],1);return}
+  if(action==='al_lactosa'){botMsg('🥛 La mayoría de nuestros platos de carne y pescado no llevan lácteos. Las salsas pueden llevar nata — avísanos y adaptamos. _La crema catalana SÍ lleva lácteos._',[{t:'Hacer reserva',a:'/reservar'},{t:'← Alérgenos',a:'/alergenos'}],1);return}
+  if(action==='al_mariscos'){botMsg('🦐 Trabajamos con mariscos frescos diariamente. Las cocinas comparten espacio — **no podemos garantizar ausencia total de trazas**. Si tienes alergia grave, consúltalo directamente con el chef.',[{t:'📞 Contactar chef',a:'humano'},{t:'← Alérgenos',a:'/alergenos'}],1);return}
+  if(action==='al_nuts'){botMsg('🥜 Los postres pueden contener frutos secos. Los platos salados generalmente no. Avísanos al reservar y lo tenemos en cuenta desde cocina.',[{t:'Hacer reserva',a:'/reservar'},{t:'← Alérgenos',a:'/alergenos'}],1);return}
+  if(action==='al_otro'){botMsg('Dime qué alérgeno te preocupa escribiéndolo en el chat, y te lo confirmo.',[{t:'← Inicio',a:'/start'}],1);return}
+
+  // Other
+  if(action==='maps_link'){botMsg('📍 Abre Google Maps y busca **"Tasca Can Morales Barcelona"** o usa la dirección:\n\n_Plaza del Mercat 12, 08003 Barcelona_\n\n¡Hasta pronto! 👋',[{t:'🍽 Reservar mesa',a:'/reservar'},{t:'← Inicio',a:'/start'}],1);return}
+  if(action==='humano'){
+    showTyping();
+    setTimeout(()=>{addBot('Conectando con el local…⏳');showTyping();setTimeout(()=>{addBot('¡Hola! Soy en Pere, del equipo de Can Morales. Acabo de ver tu mensaje, ¿en qué te puedo ayudar? 😊')},2000)},800);return;
+  }
+  if(action==='c_volver'||action==='volver_carta'){CMDS['/carta']();return}
+
+  // Default free text handler
+  freeText(action);
+}
+
+// ── FREE TEXT ─────────────────────────────────────────────────────────────────
+function freeText(t){
+  const lower=(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  if(/^\//.test(lower)){
+    const cmd=lower.split(' ')[0];
+    if(CMDS[cmd]){CMDS[cmd]();return}
+    botMsg(`Comando \`${cmd}\` no reconocido. Prueba /ayuda para ver todos los comandos.`,[{t:'📚 Ver ayuda',a:'/ayuda'},{t:'← Inicio',a:'/start'}],1);return;
+  }
+  if(/(reserva|mesa|comer|cenar|sentar|apartar)/.test(lower)){CMDS['/reservar']();return}
+  if(/(carta|plato|comida|precio|cuanto|cuesta)/.test(lower)){CMDS['/carta']();return}
+  if(/(llevar|domicilio|recoger|encargo|pedido|takeaway)/.test(lower)){CMDS['/pedido']();return}
+  if(/(horario|abri|cierra|cuando|hora)/.test(lower)){CMDS['/horarios']();return}
+  if(/(donde|llegar|direccion|ubicacion|como ir|parking|metro)/.test(lower)){CMDS['/ubicacion']();return}
+  if(/(evento|celebracion|fiesta|boda|cumple|empresa|grupo)/.test(lower)){CMDS['/eventos']();return}
+  if(/(punto|fidelidad|descuento|tarjeta)/.test(lower)){CMDS['/puntos']();return}
+  if(/(alerg|celiaco|gluten|lactosa|vegetar|vegan)/.test(lower)){CMDS['/alergenos']();return}
+  if(/(hola|buenas|hey|hi|bon dia)/.test(lower)){CMDS['/start']();return}
+  if(/(gracias|ok|vale|perfecto|adios|fins aviat)/.test(lower)){botMsg('¡Un placer atenderte! 😊 Ya sabes que aquí estamos siempre. ¡Fins aviat!',[{t:'← Inicio',a:'/start'}],1);return}
+  if(/(vino|cerveza|cava|copa|bodega|carta vinos)/.test(lower)){handle('c_bebidas',null);return}
+  if(/(arroz|paella|a banda)/.test(lower)){handle('c_arroces',null);return}
+  if(/(menu|menú|dia)/.test(lower)){CMDS['/menu']();return}
+  if(/(contacto|telefono|llamar|humano|persona)/.test(lower)){CMDS['/contacto']();return}
+  botMsg('No te he entendido del todo 😅 Puedes usar un comando o decirme qué necesitas.',
+    [{t:'📚 Ver comandos',a:'/ayuda'},{t:'🍽 Reservar',a:'/reservar'},{t:'📋 Carta',a:'/carta'},{t:'⬆ Inicio',a:'/start'}],2);
+}
+
+// ── SEND ──────────────────────────────────────────────────────────────────────
+function sendBot(text,opt){addUser(text);setTimeout(()=>handle(opt.a,opt.sv),300)}
+function sendUser(){
+  const inp=document.getElementById('user-input');
+  const t=inp.value.trim();if(!t)return;
+  inp.value='';addUser(t);setTimeout(()=>freeText(t),350);
+}
+function onKey(e){if(e.key==='Enter')sendUser()}
+function runCmd(cmd){addUser(cmd);setTimeout(()=>handle(cmd,null),350)}
+
+// ── RESET ─────────────────────────────────────────────────────────────────────
+function resetChat(){
+  Object.assign(R,{day:null,time:null,persons:null,zone:null,name:null});
+  Object.assign(P,{items:[],pickup:null});
+  currentStep=null;
+  const c=document.getElementById('chat');
+  c.innerHTML='<div class="date-chip"><span>Hoy</span></div>';
+  CMDS['/start']();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+setTimeout(()=>CMDS['/start'](),700);
+</script>
+</body>
+</html>
