@@ -9,96 +9,95 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #F8F5F0;
-  --surface: #FDFCF9;
-  --ink: #1C1916;
-  --ink2: #5C5448;
-  --ink3: #9C9080;
-  --accent: #1B3A6B;
-  --accent2: #2752A0;
-  --green: #2D6B3A;
-  --amber: #946B00;
-  --border: rgba(28,25,22,0.10);
-  --shadow: 0 2px 8px rgba(28,25,22,0.05), 0 12px 32px rgba(28,25,22,0.06);
+  --bg: #0b0d14;
+  --surface: #0f1220;
+  --card: #141928;
+  --card-hover: #1a2138;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.16);
+  --ink: #dde4f4;
+  --ink2: #7a8ba6;
+  --ink3: #3c4a60;
+  --accent: #5B9BD5;
+  --accent2: #7AB5E8;
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,0.14);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251,191,36,0.13);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.13);
+  --border-accent: rgba(91,155,213,0.28);
+  --shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.7);
   --radius: 16px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; line-height: 1.65; font-size: 16px; }
 h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.15; }
+a { color: inherit; }
 
 /* ── HERO ── */
 .hero {
-  background: var(--accent);
-  color: #fff;
-  padding: 6rem 2rem 5rem;
+  background: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 7rem 2rem 6rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(27,58,107,0.5) 0%, transparent 70%);
+  pointer-events: none;
 }
 .hero .eyebrow {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-  margin-bottom: 1.2rem;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 1.4rem;
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
   color: #fff;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto 1.3rem;
-  letter-spacing: -.02em;
+  letter-spacing: -.025em;
+  font-style: italic;
 }
+.hero h1 em { font-style: normal; color: var(--accent2); }
 .hero .sub {
   font-size: 1.1rem;
-  color: rgba(255,255,255,.75);
+  color: rgba(255,255,255,.55);
   max-width: 520px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
+  margin: 0 auto 3.5rem;
+  line-height: 1.65;
 }
 .hero .stats {
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 4rem;
   flex-wrap: wrap;
+  margin-bottom: 3rem;
 }
-.hero .stat .n {
-  font-family: 'Fraunces', serif;
-  font-size: 2.6rem;
-  display: block;
-  color: #fff;
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-.hero .stat .t {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: rgba(255,255,255,.5);
-  text-transform: uppercase;
-  letter-spacing: .1em;
-}
-.hero-cta {
-  margin-top: 2.5rem;
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.hero-cta a {
-  padding: .85rem 2rem;
-  border-radius: 99px;
-  font-weight: 600;
-  font-size: .97rem;
-  text-decoration: none;
-  transition: .15s;
-}
-.hero-cta .btn-p { background: #fff; color: var(--accent); }
-.hero-cta .btn-p:hover { background: rgba(255,255,255,.88); }
-.hero-cta .btn-s { background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
-.hero-cta .btn-s:hover { background: rgba(255,255,255,.25); }
+.hero .stat .n { font-family: 'Fraunces', serif; font-size: 2.8rem; display: block; color: #fff; line-height: 1; margin-bottom: .3rem; }
+.hero .stat .t { font-family: 'DM Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .1em; }
+.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-cta a { padding: .9rem 2.2rem; border-radius: 99px; font-weight: 600; font-size: .97rem; text-decoration: none; transition: .15s; }
+.btn-p { background: var(--accent); color: #fff; }
+.btn-p:hover { background: var(--accent2); }
+.btn-s { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); border: 1.5px solid rgba(255,255,255,.2); }
+.btn-s:hover { background: rgba(255,255,255,.18); }
 
-/* ── TRUST BAR ── */
+/* ── TRUST ── */
 .trust {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -108,918 +107,1048 @@ h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.15
   justify-content: center;
   flex-wrap: wrap;
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--ink3);
+  font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: .09em;
 }
-.trust span { display: flex; align-items: center; gap: .5rem; }
+.trust span { display: flex; align-items: center; gap: .5rem; color: var(--ink2); }
 .trust span::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 13px; }
 
 /* ── FILTER ── */
 .filter-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  background: var(--bg);
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(11,13,20,0.92);
   border-bottom: 1px solid var(--border);
   padding: .9rem 2rem;
-  display: flex;
-  gap: .5rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  backdrop-filter: blur(8px);
+  display: flex; gap: .5rem;
+  overflow-x: auto; scrollbar-width: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .filter-wrap::-webkit-scrollbar { display: none; }
 .fbtn {
   font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: .09em;
-  padding: .45rem 1.1rem;
-  border-radius: 99px;
-  border: 1.5px solid var(--border);
-  background: none;
-  color: var(--ink2);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all .15s;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+  padding: .45rem 1.1rem; border-radius: 99px;
+  border: 1.5px solid var(--border2);
+  background: none; color: var(--ink2);
+  cursor: pointer; white-space: nowrap; transition: all .15s;
 }
 .fbtn:hover { border-color: var(--accent); color: var(--accent); }
 .fbtn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ── SECTION HEADER ── */
+.section-header { text-align: center; padding: 4rem 2rem 0; max-width: 1280px; margin: 0 auto; }
+.section-tag {
+  font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); background: rgba(91,155,213,0.12);
+  padding: .28rem .8rem; border-radius: 99px; display: inline-block; margin-bottom: .9rem;
+}
+.section-title { font-size: clamp(1.7rem, 3.5vw, 2.5rem); color: var(--ink); margin-bottom: .6rem; }
+.section-sub { color: var(--ink2); font-size: .97rem; max-width: 520px; margin: 0 auto; line-height: 1.6; }
 
 /* ── GRID ── */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
-  padding: 2.5rem 2rem 3rem;
-  max-width: 1280px;
-  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+  max-width: 1280px; margin: 0 auto;
+  align-items: start;
 }
 
-/* ── CARD ── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+/* ── FLIP CARD ── */
+.card { height: 460px; perspective: 1200px; cursor: pointer; }
+.card.hidden { display: none !important; }
+.card-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
   border-radius: var(--radius);
-  padding: 1.8rem 1.9rem 1.7rem;
+  background: var(--card); border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: transform .18s ease, box-shadow .18s ease;
+  padding: 1.8rem 1.9rem;
+  display: flex; flex-direction: column;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(28,25,22,0.08), 0 24px 52px rgba(28,25,22,0.1);
+.card-front { overflow: hidden; transition: border-color .2s; }
+.card-front:hover { border-color: var(--border-accent); }
+.card-back {
+  transform: rotateY(180deg);
+  overflow-y: auto;
+  background: var(--card-hover);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-lg);
 }
-.card.hidden { display: none; }
+.card-back::-webkit-scrollbar { width: 4px; }
+.card-back::-webkit-scrollbar-track { background: transparent; }
+.card-back::-webkit-scrollbar-thumb { background: var(--ink3); border-radius: 4px; }
 
+/* FRONT ELEMENTS */
 .card-cat {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  padding: .22rem .55rem;
-  border-radius: 5px;
-  display: inline-block;
-  margin-bottom: 1.1rem;
-  font-weight: 500;
+  font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .12em; padding: .22rem .6rem; border-radius: 5px;
+  display: inline-block; margin-bottom: 1.1rem; font-weight: 500; width: fit-content;
 }
-.cat-web      { background: rgba(27,58,107,.1);  color: var(--accent); }
-.cat-auto     { background: rgba(45,107,58,.12); color: var(--green); }
-.cat-mkt      { background: rgba(148,107,0,.14); color: var(--amber); }
-.cat-analisis { background: rgba(39,82,160,.12); color: var(--accent2); }
-.cat-otros    { background: rgba(92,84,72,.1);   color: var(--ink2); }
+.cat-web      { background: rgba(91,155,213,0.15); color: var(--accent); }
+.cat-auto     { background: var(--green-dim); color: var(--green); }
+.cat-mkt      { background: var(--amber-dim); color: var(--amber); }
+.cat-analisis { background: var(--purple-dim); color: var(--purple); }
+.cat-otros    { background: rgba(122,139,166,0.15); color: var(--ink2); }
 
-.card-icon { font-size: 2.4rem; margin-bottom: .7rem; line-height: 1; }
-.card h3 { font-size: 1.22rem; color: var(--ink); margin-bottom: .55rem; }
-.card .desc { font-size: .935rem; color: var(--ink2); margin-bottom: 1.1rem; line-height: 1.58; }
+.card-icon { font-size: 2.2rem; margin-bottom: .7rem; line-height: 1; }
+.card-front h3 { font-size: 1.2rem; color: var(--ink); margin-bottom: .55rem; }
+.card .desc { font-size: .92rem; color: var(--ink2); flex: 1; line-height: 1.6; margin-bottom: 1rem; }
+.card .price { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--accent); margin-bottom: .7rem; line-height: 1.2; }
+.card .price small { font-family: 'DM Sans', sans-serif; font-size: .74rem; color: var(--ink3); font-weight: 400; display: block; margin-top: .1rem; }
+.flip-hint { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--ink3); text-align: center; letter-spacing: .06em; transition: color .15s; }
+.card-front:hover .flip-hint { color: var(--accent); }
 
-.card .forwho {
-  font-size: .87rem;
-  color: var(--accent2);
-  background: rgba(39,82,160,.07);
-  border-left: 2.5px solid var(--accent2);
-  padding: .5rem .75rem;
-  border-radius: 0 7px 7px 0;
-  margin-bottom: 1.2rem;
-  line-height: 1.5;
+/* BACK ELEMENTS */
+.back-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-shrink: 0; }
+.back-title { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--ink); line-height: 1.2; }
+.back-close {
+  background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+  color: var(--ink2); border-radius: 99px; padding: .25rem .7rem;
+  font-size: .78rem; cursor: pointer; font-family: 'DM Mono', monospace;
+  flex-shrink: 0; transition: background .15s;
 }
-.card .forwho b { font-weight: 600; }
+.back-close:hover { background: rgba(255,255,255,0.18); color: var(--ink); }
+.forwho {
+  font-size: .83rem; color: var(--accent2);
+  background: rgba(91,155,213,0.1);
+  border-left: 2px solid var(--accent);
+  padding: .5rem .7rem; border-radius: 0 6px 6px 0;
+  margin-bottom: .9rem; line-height: 1.5; flex-shrink: 0;
+}
+.forwho b { font-weight: 600; }
+.card-back ul { list-style: none; margin-bottom: .9rem; }
+.card-back ul li { font-size: .87rem; color: var(--ink); padding: .3rem 0 .3rem 1.3rem; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.5; }
+.card-back ul li:last-child { border-bottom: none; }
+.card-back ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: .8rem; top: .35rem; }
+.demos-row { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .9rem; padding-top: .7rem; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+.demo-chip {
+  font-family: 'DM Mono', monospace; font-size: 9.5px; text-transform: uppercase;
+  letter-spacing: .07em; padding: .25rem .65rem; border-radius: 5px;
+  background: rgba(91,155,213,0.12); color: var(--accent2);
+  text-decoration: none; border: 1px solid rgba(91,155,213,0.2);
+  transition: background .12s; white-space: nowrap;
+}
+.demo-chip:hover { background: rgba(91,155,213,0.25); }
+.back-price { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--accent); margin-bottom: .7rem; flex-shrink: 0; }
+.back-price small { font-family: 'DM Sans', sans-serif; font-size: .72rem; color: var(--ink3); font-weight: 400; display: block; margin-top: .1rem; }
+.back-cta {
+  display: block; text-align: center;
+  background: var(--accent); color: #fff;
+  border-radius: 99px; padding: .75rem 1.2rem;
+  font-weight: 600; font-size: .88rem; text-decoration: none;
+  transition: background .15s; flex-shrink: 0; margin-top: auto;
+}
+.back-cta:hover { background: var(--accent2); }
 
-.card ul {
-  list-style: none;
-  margin-bottom: 1.4rem;
-  flex: 1;
+/* ── PACKS ── */
+.packs-section { background: var(--surface); border-top: 1px solid var(--border); padding: 5rem 2rem; }
+.packs-inner { max-width: 1280px; margin: 0 auto; }
+.packs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.3rem; margin-top: 3rem; }
+.pack-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.7rem 1.8rem;
+  box-shadow: var(--shadow); display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
 }
-.card ul li {
-  font-size: .91rem;
-  color: var(--ink);
-  padding: .35rem 0 .35rem 1.4rem;
-  position: relative;
-  border-bottom: 1px solid var(--border);
-  line-height: 1.5;
+.pack-card:hover { border-color: var(--border-accent); box-shadow: var(--shadow-lg); }
+.pack-card.featured {
+  border-color: rgba(91,155,213,0.4);
+  background: linear-gradient(160deg, #1a2540 0%, var(--card) 60%);
 }
-.card ul li:last-child { border-bottom: none; }
-.card ul li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--green);
-  font-weight: 700;
-  font-size: .85rem;
-  top: .4rem;
+.pack-card.featured::after {
+  content: 'Más popular';
+  position: absolute; top: 1.1rem; right: 1.1rem;
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: .1em;
+  padding: .22rem .6rem; border-radius: 4px;
+  background: var(--accent); color: #fff;
 }
+.pack-badge { font-family: 'DM Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .12em; padding: .2rem .55rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; width: fit-content; }
+.pb-size    { background: rgba(91,155,213,0.15); color: var(--accent); }
+.pb-special { background: var(--green-dim); color: var(--green); }
+.pb-sector  { background: var(--amber-dim); color: var(--amber); }
+.pb-audit   { background: var(--purple-dim); color: var(--purple); }
+.pack-card h3 { font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--ink); margin-bottom: .5rem; font-weight: 400; }
+.pack-desc { font-size: .88rem; color: var(--ink2); margin-bottom: 1.1rem; line-height: 1.55; }
+.pack-includes { list-style: none; margin-bottom: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: .8rem; flex: 1; }
+.pack-includes li { font-size: .84rem; color: var(--ink); padding: .28rem 0 .28rem 1.2rem; position: relative; line-height: 1.45; }
+.pack-includes li::before { content: '+'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: .85rem; }
+.pack-pricing { padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07); margin-top: auto; }
+.pack-save { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--green); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .3rem; }
+.pack-price { font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--ink); line-height: 1.1; margin-bottom: .25rem; }
+.pack-old { font-size: .82rem; color: var(--ink3); text-decoration: line-through; margin-bottom: .8rem; }
+.pack-cta { display: block; text-align: center; background: rgba(91,155,213,0.15); color: var(--accent); border: 1px solid rgba(91,155,213,0.3); border-radius: 99px; padding: .7rem 1.2rem; font-weight: 600; font-size: .88rem; text-decoration: none; transition: all .15s; margin-top: .9rem; }
+.pack-cta:hover, .pack-card.featured .pack-cta { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pack-card.featured .pack-cta:hover { background: var(--accent2); border-color: var(--accent2); }
 
-.card .price {
-  font-family: 'Fraunces', serif;
-  font-size: 1.55rem;
-  color: var(--accent);
-  margin-bottom: 1.1rem;
-  margin-top: .2rem;
-  line-height: 1.2;
-}
-.card .price small {
-  font-family: 'DM Sans', sans-serif;
-  font-size: .78rem;
-  color: var(--ink3);
-  font-weight: 400;
-  display: block;
-  margin-top: .15rem;
-}
-
-.card .cta {
-  display: block;
-  text-align: center;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  padding: .8rem 1.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: .93rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .15s;
-  letter-spacing: .01em;
-}
-.card .cta:hover { background: var(--accent2); }
-
-/* ── WHY ME ── */
-.why {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 4rem 2rem;
-  margin-top: 1rem;
-}
-.why .inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.why h2 {
-  font-size: 1.9rem;
-  margin-bottom: 2.5rem;
-  text-align: center;
-}
-.why .pills {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.2rem;
-}
-.why .pill {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.4rem 1.5rem;
-  display: flex;
-  gap: .85rem;
-  align-items: flex-start;
-}
-.why .pill .ico { font-size: 1.6rem; flex-shrink: 0; }
-.why .pill strong { display: block; font-family: 'Fraunces', serif; font-size: 1.05rem; margin-bottom: .25rem; }
-.why .pill p { font-size: .88rem; color: var(--ink2); line-height: 1.5; }
+/* ── WHY ── */
+.why { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 2rem; }
+.why-inner { max-width: 1280px; margin: 0 auto; }
+.why h2 { font-size: clamp(1.7rem,3vw,2.3rem); margin-bottom: 2.5rem; text-align: center; }
+.pills { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.pill { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; display: flex; gap: .85rem; align-items: flex-start; transition: border-color .15s; }
+.pill:hover { border-color: var(--border2); }
+.pill .ico { font-size: 1.5rem; flex-shrink: 0; }
+.pill strong { display: block; font-family: 'Fraunces', serif; font-size: 1.05rem; margin-bottom: .2rem; color: var(--ink); }
+.pill p { font-size: .86rem; color: var(--ink2); line-height: 1.5; }
 
 /* ── CONTACT ── */
 .contact {
-  background: var(--accent);
-  color: #fff;
-  text-align: center;
-  padding: 6rem 2rem 5rem;
+  background: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
+  border-top: 1px solid var(--border-accent);
+  color: #fff; text-align: center; padding: 7rem 2rem 6rem;
+  position: relative; overflow: hidden;
 }
-.contact h2 { font-size: 2.3rem; color: #fff; margin-bottom: .9rem; }
-.contact .sub { color: rgba(255,255,255,.75); font-size: 1.05rem; max-width: 480px; margin: 0 auto 2.2rem; }
+.contact::before {
+  content: ''; position: absolute; bottom: -10%; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 300px;
+  background: radial-gradient(ellipse, rgba(27,58,107,0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact h2 { font-size: clamp(2rem,4vw,2.8rem); color: #fff; margin-bottom: .9rem; }
+.contact .sub { color: rgba(255,255,255,.55); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.65; }
 .contact .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.contact .btn-w {
-  background: #25D366;
-  color: #fff;
-  padding: .9rem 2.2rem;
-  border-radius: 99px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: background .15s;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
+.contact .btn-w { background: #25D366; color: #fff; padding: .9rem 2.2rem; border-radius: 99px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: background .15s; display: flex; align-items: center; gap: .5rem; }
 .contact .btn-w:hover { background: #1fba58; }
-.contact .btn-e {
-  background: rgba(255,255,255,.12);
-  color: #fff;
-  padding: .9rem 2.2rem;
-  border-radius: 99px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  border: 1.5px solid rgba(255,255,255,.35);
-  transition: background .15s;
-}
-.contact .btn-e:hover { background: rgba(255,255,255,.22); }
-.contact .note {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: rgba(255,255,255,.4);
-  margin-top: 2.5rem;
-  letter-spacing: .06em;
-}
+.contact .btn-e { background: rgba(91,155,213,0.15); color: var(--accent2); padding: .9rem 2.2rem; border-radius: 99px; text-decoration: none; font-weight: 600; font-size: 1rem; border: 1.5px solid rgba(91,155,213,0.3); transition: all .15s; }
+.contact .btn-e:hover { background: rgba(91,155,213,0.25); }
+.contact .note { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,.25); margin-top: 2.5rem; letter-spacing: .06em; }
 
-/* ── FOOTER ── */
-footer {
-  padding: 1.4rem 2rem;
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  color: var(--ink3);
-  border-top: 1px solid var(--border);
-}
+footer { padding: 1.4rem 2rem; text-align: center; font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--ink3); border-top: 1px solid var(--border); background: var(--surface); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
-  .hero { padding: 4rem 1.25rem 3.5rem; }
+  .hero { padding: 4.5rem 1.25rem 4rem; }
   .hero .stats { gap: 2rem; }
-  .grid { grid-template-columns: 1fr; padding: 1.5rem 1rem 2rem; }
+  .grid { grid-template-columns: 1fr; padding: 1.5rem 1rem 2rem; gap: 1rem; }
+  .card { height: auto; min-height: 420px; }
   .filter-wrap { padding: .75rem 1rem; }
-  .why { padding: 3rem 1rem; }
-  .contact { padding: 4rem 1.25rem; }
+  .packs-section { padding: 3.5rem 1rem; }
+  .packs-grid { grid-template-columns: 1fr; }
+  .why { padding: 3.5rem 1rem; }
+  .contact { padding: 5rem 1.25rem; }
+  .section-header { padding: 3rem 1rem 0; }
 }
-
-/* ── DEMOS ── */
-.demos-section{padding:4rem 2rem;background:var(--bg)}
-.demos-inner{max-width:1280px;margin:0 auto}
-.demos-header{text-align:center;margin-bottom:2.5rem}
-.demos-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);background:rgba(39,82,160,.1);padding:.3rem .85rem;border-radius:99px;display:inline-block;margin-bottom:1rem}
-.demos-title{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.8rem;color:var(--ink)}
-.demos-sub{color:var(--ink2);font-size:.97rem;max-width:560px;margin:0 auto;line-height:1.6}
-.demos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-bottom:1.5rem}
-.demo-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
-.demo-card:hover{transform:translateY(-5px);box-shadow:0 8px 24px rgba(28,25,22,.1),0 28px 60px rgba(28,25,22,.12)}
-.demo-preview{width:100%;height:260px;overflow:hidden;position:relative;background:#080808;cursor:default}
-.demo-preview iframe{position:absolute;top:0;left:0;width:1280px;height:900px;transform:scale(0.46);transform-origin:top left;pointer-events:none;border:none}
-.demo-info{padding:1.5rem 1.6rem 1.6rem}
-.demo-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
-.demo-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .6rem;border-radius:5px;font-weight:500}
-.demo-badge-beauty{background:rgba(201,149,106,.15);color:#8B5E3C}
-.demo-badge-sport{background:rgba(212,175,55,.15);color:#7A5F00}
-.demo-handle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3)}
-.demo-name{font-size:1.3rem;margin-bottom:.5rem;color:var(--ink)}
-.demo-desc{font-size:.88rem;color:var(--ink2);line-height:1.6;margin-bottom:1rem}
-.demo-feats{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.2rem}
-.demo-feats span{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);background:var(--bg);border:1px solid var(--border);padding:.22rem .55rem;border-radius:5px}
-.demo-btn{display:inline-block;background:var(--accent);color:#fff;padding:.7rem 1.4rem;border-radius:99px;font-weight:600;font-size:.9rem;text-decoration:none;transition:background .15s}
-.demo-btn:hover{background:var(--accent2)}
-.demos-note{text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:.06em}
-.card-demos-link{display:block;font-size:.82rem;color:var(--accent2);text-decoration:none;padding:.9rem 0 .7rem;border-top:1px solid var(--border);transition:color .15s}
-.card-demos-link:hover{color:var(--accent)}
-
-/* ── DEMOS TABS ── */
-.demos-tabs{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;margin-bottom:2rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
-.demos-tabs::-webkit-scrollbar{display:none}
-.demos-tab{font-family:'DM Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;padding:.5rem 1.2rem;border-radius:99px;border:1.5px solid var(--border);background:none;color:var(--ink2);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
-.demos-tab:hover{border-color:var(--accent);color:var(--accent)}
-.demos-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.demos-panel{display:none}
-.demos-panel.active{display:block}
-.demo-group{margin-bottom:2.8rem}
-.demo-group-label{font-family:'DM Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
-.demo-group-label::before{content:'';display:block;width:3px;height:13px;background:var(--accent);border-radius:2px;flex-shrink:0}
-.demo-preview-static{height:220px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;position:relative;overflow:hidden}
-.stack-badges{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;padding:0 1rem}
-.stack-badge{background:rgba(255,255,255,.15);color:#fff;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase}
-.preview-label{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.12em;text-align:center;padding:0 1rem}
-
-/* ── PRINT ── */
 @media print {
-  .filter-wrap, .hero-cta, .contact, .card .cta, .trust { display: none; }
-  .hero { background: var(--accent); -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 3rem 2rem; }
-  .card { break-inside: avoid; box-shadow: none; page-break-inside: avoid; }
-  .card.hidden { display: flex !important; }
-  body { font-size: 12px; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .filter-wrap, .hero-cta, .contact, footer, .demos-row, .back-cta { display: none; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .card.hidden { display: block !important; }
+  .grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="eyebrow">Alejandro Horcajuelo · Desarrollo Web & Automatización IA</div>
-  <h1>Haz crecer tu negocio en el mundo digital</h1>
-  <p class="sub">Webs, automatizaciones, bots y estrategias de marketing pensadas para tu negocio — sin tecnicismos, con resultados medibles.</p>
+  <h1>Haz crecer tu negocio<br>en el mundo <em>digital</em></h1>
+  <p class="sub">Webs, bots, IA y estrategia digital para negocios locales — sin tecnicismos, con resultados medibles.</p>
   <div class="stats">
-    <div class="stat"><span class="n">17</span><span class="t">Servicios disponibles</span></div>
+    <div class="stat"><span class="n">18</span><span class="t">Servicios disponibles</span></div>
+    <div class="stat"><span class="n">8</span><span class="t">Packs con ahorro</span></div>
     <div class="stat"><span class="n">5–7</span><span class="t">Días entrega media</span></div>
     <div class="stat"><span class="n">100%</span><span class="t">Adaptado a ti</span></div>
   </div>
   <div class="hero-cta">
-    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20hablar%20sobre%20mis%20servicios%20digitales" class="btn-p">💬 Hablamos por WhatsApp</a>
+    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20servicios" class="btn-p">💬 Hablamos por WhatsApp</a>
     <a href="#servicios" class="btn-s">Ver todos los servicios ↓</a>
   </div>
 </header>
 
-<!-- TRUST BAR -->
 <div class="trust">
-  <span>Presupuesto en 24h sin compromiso</span>
-  <span>El código y los archivos son tuyos</span>
-  <span>Trabajo contigo directamente</span>
-  <span>Precio cerrado desde el inicio</span>
+  <span>Entrega en 5–7 días</span>
+  <span>Sin permanencias</span>
+  <span>Resultados medibles</span>
+  <span>Soporte incluido</span>
+  <span>Sin tecnicismos</span>
 </div>
 
-<!-- FILTER -->
-<div class="filter-wrap" id="filterBar">
-  <button class="fbtn active" data-cat="all">Todos</button>
-  <button class="fbtn" data-cat="web">Web y presencia</button>
-  <button class="fbtn" data-cat="auto">Automatización e IA</button>
-  <button class="fbtn" data-cat="mkt">Marketing</button>
-  <button class="fbtn" data-cat="analisis">Análisis</button>
-  <button class="fbtn" data-cat="otros">Otros servicios</button>
+<div class="filter-wrap">
+  <button class="fbtn active" data-filter="all">Todos</button>
+  <button class="fbtn" data-filter="web">Web y presencia</button>
+  <button class="fbtn" data-filter="auto">Auto & IA</button>
+  <button class="fbtn" data-filter="mkt">Marketing</button>
+  <button class="fbtn" data-filter="analisis">Análisis</button>
+  <button class="fbtn" data-filter="otros">Otros</button>
 </div>
 
-<!-- CARDS -->
-<div class="grid" id="servicios">
+<div class="section-header" id="servicios">
+  <span class="section-tag">Servicios</span>
+  <h2 class="section-title">18 servicios disponibles</h2>
+  <p class="section-sub">Toca cualquier card para ver el detalle, demos y precio exacto.</p>
+</div>
 
-  <!-- ──── WEB ──── -->
+<div class="grid">
 
-  <article class="card" data-cat="web">
-    <span class="card-cat cat-web">Web y presencia</span>
-    <div class="card-icon">🌐</div>
-    <h3>Página web profesional</h3>
-    <p class="desc">Una web de una página con animaciones y diseño premium adaptada a tu sector. Se publica online el mismo día que se entrega.</p>
-    <p class="forwho"><b>Para ti si</b> no tienes web, o la tuya se ve desactualizada y no genera clientes.</p>
-    <ul>
-      <li>Lista y publicada en 5–7 días hábiles</li>
-      <li>Adaptada a tu sector: restaurante, clínica, peluquería, tienda, estudio…</li>
-      <li>Formulario de contacto, mapa de ubicación y botón de WhatsApp</li>
-      <li>Funciona perfectamente en móvil, tablet y ordenador</li>
-    </ul>
-    <a href="#demos" data-demos-tab="web" class="card-demos-link">→ Ver demos: clínica dental, portfolio tatuajes</a>
-    <div class="price">350€ – 750€ <small>pago único · publicación incluida</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20P%C3%A1gina%20web%20profesional" class="cta">Me interesa →</a>
+  <!-- 1 -->
+  <article class="card" data-cat="web" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-web">Web y presencia</span>
+        <div class="card-icon">🌐</div>
+        <h3>Página web profesional</h3>
+        <p class="desc">Una web de una sola página con animaciones, diseño premium y adaptada al 100% a tu sector.</p>
+        <div class="price">€900<small>Pago único · publicación incluida</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Página web profesional</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> no tienes web o la que tienes se ve anticuada y no genera clientes.</div>
+        <ul>
+          <li>Diseño a medida para tu sector</li>
+          <li>Adaptada a móvil, tablet y escritorio</li>
+          <li>Botón WhatsApp + formulario de contacto</li>
+          <li>Publicación en tu dominio incluida</li>
+          <li>Entrega en 5–7 días laborables</li>
+        </ul>
+        <div class="demos-row">
+          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demos disponibles bajo petición</span>
+        </div>
+        <div class="back-price">€900<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Página web profesional" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="web">
-    <span class="card-cat cat-web">Web y presencia</span>
-    <div class="card-icon">📸</div>
-    <h3>Tu web desde Instagram</h3>
-    <p class="desc">Transformo tu perfil de Instagram en una web de marca personal. Para fotógrafos, coaches, creadores, nutricionistas y freelancers.</p>
-    <p class="forwho"><b>Para ti si</b> ya tienes seguidores en Instagram pero no tienes web propia a la que enviarlos.</p>
-    <ul>
-      <li>Usa tus fotos y bio de Instagram como base, sin empezar de cero</li>
-      <li>Galería de trabajos, contacto y formulario para colaboraciones</li>
-      <li>Enlace único para el bio de tu perfil (tipo Linktree, pero tuyo)</li>
-      <li>Diseño a juego con tu identidad visual en redes</li>
-    </ul>
-    <a href="#demos" data-demos-tab="web" class="card-demos-link">→ Ver demos: Kylie Jenner, Cristiano Ronaldo</a>
-    <div class="price">400€ – 800€ <small>pago único</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Web%20desde%20Instagram" class="cta">Me interesa →</a>
+  <!-- 2 -->
+  <article class="card" data-cat="web" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-web">Web y presencia</span>
+        <div class="card-icon">📸</div>
+        <h3>Tu web desde Instagram</h3>
+        <p class="desc">Convierto tu perfil de Instagram en una web de marca personal elegante y profesional.</p>
+        <div class="price">€750<small>Pago único · galería IG incluida</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Tu web desde Instagram</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> tienes seguidores en IG pero no tienes web propia donde centralizarlo todo.</div>
+        <ul>
+          <li>Fotos y contenido de Instagram como base visual</li>
+          <li>Galería automática con tus mejores posts</li>
+          <li>Identidad de marca coherente con tus redes</li>
+          <li>Enlace bio optimizado</li>
+          <li>SEO básico incluido</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/web-kyliejenner.html" target="_blank" class="demo-chip">Demo · Lifestyle →</a>
+          <a href="DEMOS/web-cristiano.html" target="_blank" class="demo-chip">Demo · Deportista →</a>
+        </div>
+        <div class="back-price">€750<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Tu web desde Instagram" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="web">
-    <span class="card-cat cat-web">Web y presencia</span>
-    <div class="card-icon">🎯</div>
-    <h3>Página de ventas</h3>
-    <p class="desc">Una página enfocada al 100% en vender: sin menú, sin distracciones. Un único mensaje, una única acción. Perfecta para campañas de anuncios.</p>
-    <p class="forwho"><b>Para ti si</b> vas a lanzar un producto o servicio y necesitas una página que convierta visitas en clientes.</p>
-    <ul>
-      <li>Estructura probada: problema → solución → testimonios → precio → acción</li>
-      <li>Carga en menos de 2 segundos en móvil (clave si usas anuncios)</li>
-      <li>Formulario de captura de contactos integrado</li>
-      <li>Compatible con píxeles de Meta y Google Ads para medir resultados</li>
-    </ul>
-    <a href="#demos" data-demos-tab="web" class="card-demos-link">→ Ver demos: curso cocina, programa fitness</a>
-    <div class="price">280€ – 650€ <small>pago único</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20P%C3%A1gina%20de%20ventas" class="cta">Me interesa →</a>
+  <!-- 3 -->
+  <article class="card" data-cat="web" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-web">Web y presencia</span>
+        <div class="card-icon">🎯</div>
+        <h3>Página de ventas</h3>
+        <p class="desc">Una página enfocada al 100% en convertir visitas en clientes, leads o ventas directas.</p>
+        <div class="price">€650<small>Pago único · píxeles incluidos</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Página de ventas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> vas a lanzar un producto, servicio o campaña y necesitas capturar leads o ventas.</div>
+        <ul>
+          <li>Estructura de conversión probada</li>
+          <li>Carga en menos de 2 segundos en móvil</li>
+          <li>Formulario de captura de leads integrado</li>
+          <li>Píxeles de Meta y Google configurados</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/landing-cocina.html" target="_blank" class="demo-chip">Demo · Academia cocina →</a>
+          <a href="DEMOS/landing-fitness.html" target="_blank" class="demo-chip">Demo · Fitness →</a>
+        </div>
+        <div class="back-price">€650<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Página de ventas" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <!-- ──── AUTOMATIZACIÓN ──── -->
-
-  <article class="card" data-cat="auto">
-    <span class="card-cat cat-auto">Automatización e IA</span>
-    <div class="card-icon">📅</div>
-    <h3>Sistema de citas automático</h3>
-    <p class="desc">Tus clientes reservan cita por WhatsApp o Telegram y el sistema confirma, recuerda y gestiona cancelaciones solo. Tú no tocas el teléfono.</p>
-    <p class="forwho"><b>Para ti si</b> gestionas citas por teléfono o WhatsApp y se te va demasiado tiempo en ello.</p>
-    <ul>
-      <li>El cliente reserva, confirma y cancela sin llamarte</li>
-      <li>Recordatorio automático 24h antes para reducir no-shows</li>
-      <li>Sincronizado con tu Google Calendar en tiempo real</li>
-      <li>Coste de funcionamiento: 0€ – 5€/mes</li>
-    </ul>
-    <a href="#demos" data-demos-tab="auto" class="card-demos-link">→ Ver demos: peluquería, psicólogo</a>
-    <div class="price">700€ – 1.800€ <small>sistema completo · pago único</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Sistema%20de%20citas" class="cta">Me interesa →</a>
+  <!-- 4 -->
+  <article class="card" data-cat="auto" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-auto">Auto & IA</span>
+        <div class="card-icon">📅</div>
+        <h3>Sistema de citas automático</h3>
+        <p class="desc">Tus clientes reservan por WhatsApp o Telegram — el sistema confirma, recuerda y gestiona solo.</p>
+        <div class="price">€1.200<small>Pago único · sin cuotas de plataforma</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Sistema de citas automático</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> gestionas citas por teléfono o WhatsApp manual y te lleva demasiado tiempo.</div>
+        <ul>
+          <li>Reserva, confirma y cancela sin llamar</li>
+          <li>Recordatorio automático 24h antes</li>
+          <li>Sincronización con Google Calendar</li>
+          <li>Clínicas, peluquerías, psicólogos, talleres…</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/citas-peluqueria.html" target="_blank" class="demo-chip">Demo · Peluquería →</a>
+          <a href="DEMOS/citas-psicologo.html" target="_blank" class="demo-chip">Demo · Psicólogo →</a>
+        </div>
+        <div class="back-price">€1.200<small>Pago único · sin cuotas</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Sistema de citas automático" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="auto">
-    <span class="card-cat cat-auto">Automatización e IA</span>
-    <div class="card-icon">💬</div>
-    <h3>Asistente virtual 24/7</h3>
-    <p class="desc">Un chatbot de inteligencia artificial que responde a tus clientes a cualquier hora. Conoce tu negocio, tu carta o catálogo, y sabe cuándo derivar a una persona real.</p>
-    <p class="forwho"><b>Para ti si</b> recibes mensajes fuera de horario o siempre te preguntan lo mismo.</p>
-    <ul>
-      <li>Disponible en WhatsApp, Telegram o en tu propia web</li>
-      <li>Responde con la información real de tu negocio, no respuestas genéricas</li>
-      <li>Captura automáticamente los datos de clientes interesados</li>
-      <li>Te avisa al instante cuando alguien necesita hablar contigo</li>
-    </ul>
-    <a href="#demos" data-demos-tab="auto" class="card-demos-link">→ Ver demos: WhatsApp, Telegram, reservas por voz IA</a>
-    <div class="price">350€ – 1.100€ <small>+ 70€–120€/mes mantenimiento</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Asistente%20virtual" class="cta">Me interesa →</a>
+  <!-- 5 -->
+  <article class="card" data-cat="auto" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-auto">Auto & IA</span>
+        <div class="card-icon">💬</div>
+        <h3>Asistente virtual 24/7</h3>
+        <p class="desc">Chatbot de IA que atiende mensajes a cualquier hora por WhatsApp, Telegram o tu web.</p>
+        <div class="price">€850<small>+ €90/mes mantenimiento</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Asistente virtual 24/7</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> recibes mensajes fuera de horario o siempre te preguntan las mismas cosas.</div>
+        <ul>
+          <li>Disponible en WhatsApp, Telegram o web</li>
+          <li>Entrenado con info real de tu negocio</li>
+          <li>Captura leads y datos de clientes automáticamente</li>
+          <li>Avisa si necesita intervención humana</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/chatbot-whatsapp-restaurante.html" target="_blank" class="demo-chip">Demo · WhatsApp →</a>
+          <a href="DEMOS/chatbot-telegram-restaurante.html" target="_blank" class="demo-chip">Demo · Telegram →</a>
+          <a href="DEMOS/chatbot-dental.html" target="_blank" class="demo-chip">Demo · Clínica →</a>
+        </div>
+        <div class="back-price">€850<small>+ €90/mes</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Asistente virtual 24/7" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="auto">
-    <span class="card-cat cat-auto">Automatización e IA</span>
-    <div class="card-icon">⚡</div>
-    <h3>Automatización de tareas</h3>
-    <p class="desc">Conecto tus herramientas y elimino las tareas manuales que te roban horas: leads a tu base de datos, confirmaciones, recordatorios, sincronización de pedidos, informes automáticos.</p>
-    <p class="forwho"><b>Para ti si</b> tienes tareas repetitivas en tu negocio que se podrían hacer solas.</p>
-    <ul>
-      <li>Conecta cualquier aplicación que ya usas: WhatsApp, Gmail, Sheets, CRM…</li>
-      <li>Flujos de trabajo completamente automáticos, sin intervención manual</li>
-      <li>Alertas inmediatas si algo falla, sin que te enteres por el cliente</li>
-      <li>Documentación de todo lo configurado para que siempre sepas qué hay</li>
-    </ul>
-    <div class="price">280€ – 1.000€ <small>según complejidad</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Automatizaci%C3%B3n%20de%20tareas" class="cta">Me interesa →</a>
+  <!-- 6 -->
+  <article class="card" data-cat="auto" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-auto">Auto & IA</span>
+        <div class="card-icon">🎙️</div>
+        <h3>Agente IA por voz</h3>
+        <p class="desc">La IA coge el teléfono de tu negocio: atiende llamadas, gestiona reservas y responde preguntas 24/7.</p>
+        <div class="price">€1.400<small>+ €80/mes operativo</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Agente IA por voz</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> el teléfono suena cuando estás ocupado y se pierden llamadas (restaurantes, clínicas, peluquerías…).</div>
+        <ul>
+          <li>Contesta llamadas en español con voz natural</li>
+          <li>Gestiona reservas y responde FAQs</li>
+          <li>Te llega resumen de cada llamada</li>
+          <li>Activo 24/7, incluso fuera de horario</li>
+          <li>Escala a persona real cuando es necesario</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/reservas-voz-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante Toledo →</a>
+        </div>
+        <div class="back-price">€1.400<small>+ €80/mes operativo</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Agente IA por voz" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <!-- ──── MARKETING ──── -->
-
-  <article class="card" data-cat="mkt">
-    <span class="card-cat cat-mkt">Marketing</span>
-    <div class="card-icon">📱</div>
-    <h3>Plan de redes sociales 30 días</h3>
-    <p class="desc">Estrategia y calendario de publicaciones completamente listo para ejecutar: ideas, texto completo, hashtags y plan mensual para Instagram, LinkedIn o TikTok.</p>
-    <p class="forwho"><b>Para ti si</b> no sabes qué publicar, cuándo hacerlo o cómo, y las redes se te atragantan.</p>
-    <ul>
-      <li>30 publicaciones con el texto listo para copiar y publicar</li>
-      <li>Adaptado al tono y sector de tu negocio — nada genérico</li>
-      <li>Guiones de Reels y TikToks incluidos</li>
-      <li>Plantillas de diseño para que solo rellenes con tu contenido</li>
-    </ul>
-    <a href="#demos" data-demos-tab="mkt" class="card-demos-link">→ Ver demos: restaurante, peluquería</a>
-    <div class="price">180€ – 450€ <small>+ opción de gestión mensual recurrente</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Plan%20de%20redes%20sociales" class="cta">Me interesa →</a>
+  <!-- 7 -->
+  <article class="card" data-cat="auto" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-auto">Auto & IA</span>
+        <div class="card-icon">⚙️</div>
+        <h3>Automatización de tareas</h3>
+        <p class="desc">Conecto tus herramientas y elimino tareas manuales repetitivas — sin que toques una línea de código.</p>
+        <div class="price">€600<small>Pago único por flujo</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Automatización de tareas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> tienes tareas repetitivas que podrían hacerse solas (enviar correos, actualizar sheets, notificaciones…).</div>
+        <ul>
+          <li>Integración WhatsApp, Gmail, Google Sheets y CRM</li>
+          <li>Flujos automáticos sin intervención manual</li>
+          <li>Alertas si algo falla</li>
+          <li>Documentación completa del flujo entregada</li>
+        </ul>
+        <div class="demos-row">
+          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demo bajo petición</span>
+        </div>
+        <div class="back-price">€600<small>Según complejidad</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Automatización de tareas" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="mkt">
-    <span class="card-cat cat-mkt">Marketing</span>
-    <div class="card-icon">✉️</div>
-    <h3>Emails automáticos de venta</h3>
-    <p class="desc">Secuencias de email que se envían solas: bienvenida a nuevos clientes, seguimiento de presupuestos, recuperación de carritos abandonados, reactivación de inactivos.</p>
-    <p class="forwho"><b>Para ti si</b> tienes una base de datos de clientes que no estás aprovechando.</p>
-    <ul>
-      <li>Texto completo de cada email — asunto, cuerpo y llamada a la acción</li>
-      <li>Optimizados para que los abran y hagan clic</li>
-      <li>Configurados en tu herramienta actual o la que recomendemos</li>
-      <li>Cumplimiento de la normativa de protección de datos (RGPD)</li>
-    </ul>
-    <a href="#demos" data-demos-tab="mkt" class="card-demos-link">→ Ver demos: cosmética natural, consultor</a>
-    <div class="price">250€ – 900€ <small>según número de emails</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Emails%20autom%C3%A1ticos" class="cta">Me interesa →</a>
+  <!-- 8 -->
+  <article class="card" data-cat="mkt" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-mkt">Marketing</span>
+        <div class="card-icon">📱</div>
+        <h3>Plan de redes 30 días</h3>
+        <p class="desc">Calendario de contenido completo: ideas, textos, hashtags y formatos listos para publicar.</p>
+        <div class="price">€300/mes<small>Entrega en 3 días</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Plan de redes 30 días</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> no sabes qué publicar, publicas poco o sin estrategia.</div>
+        <ul>
+          <li>30 ideas de contenido adaptadas a tu negocio</li>
+          <li>Textos listos para copiar y pegar</li>
+          <li>Hashtags relevantes por publicación</li>
+          <li>Mejor hora y formato por día</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/calendario-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
+          <a href="DEMOS/calendario-peluqueria.html" target="_blank" class="demo-chip">Demo · Peluquería →</a>
+        </div>
+        <div class="back-price">€300/mes<small>3 días entrega</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Plan de redes 30 días" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="mkt">
-    <span class="card-cat cat-mkt">Marketing</span>
-    <div class="card-icon">🎬</div>
-    <h3>Vídeo para tu negocio con IA</h3>
-    <p class="desc">Vídeos narrativos con guión, imágenes generadas por inteligencia artificial y estructura lista para montar. Sin equipo de vídeo ni presupuesto de producción.</p>
-    <p class="forwho"><b>Para ti si</b> quieres vídeo de calidad para tu negocio sin pagar una producción tradicional.</p>
-    <ul>
-      <li>Guión escena por escena adaptado a tu negocio y objetivo</li>
-      <li>Prompts listos para generar las imágenes con IA</li>
-      <li>Guía de voz en off y selección de música libre de derechos</li>
-      <li>Versión corta para Reels o TikTok incluida</li>
-    </ul>
-    <div class="price">350€ – 750€ <small>por vídeo</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20V%C3%ADdeo%20con%20IA" class="cta">Me interesa →</a>
+  <!-- 9 -->
+  <article class="card" data-cat="mkt" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-mkt">Marketing</span>
+        <div class="card-icon">✉️</div>
+        <h3>Emails automáticos de venta</h3>
+        <p class="desc">Secuencias de email que trabajan solas: bienvenida, seguimiento, recuperación y fidelización.</p>
+        <div class="price">€600<small>Pago único · plataforma no incluida</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Emails automáticos de venta</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> tienes contactos sin explotar o quieres automatizar la comunicación con clientes.</div>
+        <ul>
+          <li>Secuencia de bienvenida (3–5 emails)</li>
+          <li>Seguimiento tras inactividad automático</li>
+          <li>Compatible con Mailchimp, Brevo, ActiveCampaign</li>
+          <li>Tono adaptado a tu marca</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/emails-cosmetica.html" target="_blank" class="demo-chip">Demo · Cosmética →</a>
+          <a href="DEMOS/emails-consultor.html" target="_blank" class="demo-chip">Demo · Consultor →</a>
+        </div>
+        <div class="back-price">€600<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Emails automáticos de venta" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <!-- ──── ANÁLISIS ──── -->
-
-  <article class="card" data-cat="analisis">
-    <span class="card-cat cat-analisis">Análisis</span>
-    <div class="card-icon">🔍</div>
-    <h3>Diagnóstico digital completo</h3>
-    <p class="desc">Analizo toda tu presencia digital — web, redes, Google, competencia y reputación — y te entrego un informe con los problemas más urgentes y un plan de acción priorizado.</p>
-    <p class="forwho"><b>Para ti si</b> no sabes por qué tu negocio no crece en internet o no sabes por dónde empezar.</p>
-    <ul>
-      <li>Análisis completo de web, redes, Google Maps y reseñas</li>
-      <li>Comparativa con tus 3 competidores principales</li>
-      <li>Plan de acción: qué hacer esta semana, en 1–3 meses y en 6 meses</li>
-      <li>Recomendado como punto de partida antes de contratar cualquier servicio</li>
-    </ul>
-    <a href="#demos" data-demos-tab="analisis" class="card-demos-link">→ Ver demos: fontanero, yoga studio</a>
-    <div class="price">220€ – 550€</div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Diagn%C3%B3stico%20digital" class="cta">Me interesa →</a>
+  <!-- 10 -->
+  <article class="card" data-cat="mkt" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-mkt">Marketing</span>
+        <div class="card-icon">🎬</div>
+        <h3>Vídeo para tu negocio con IA</h3>
+        <p class="desc">Producción de vídeo con inteligencia artificial: presentación de producto, explicativo o publicitario.</p>
+        <div class="price">€500<small>Pago único · entrega en 5 días</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Vídeo para tu negocio con IA</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> necesitas contenido audiovisual profesional sin coste de producción tradicional.</div>
+        <ul>
+          <li>Guión, voz en off y edición incluidos</li>
+          <li>Subtítulos automáticos</li>
+          <li>Formato vertical (Reels) o horizontal (YouTube)</li>
+          <li>Presentación, tutorial o publicitario</li>
+        </ul>
+        <div class="demos-row">
+          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demo bajo petición</span>
+        </div>
+        <div class="back-price">€500<small>Entrega en 5 días</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Vídeo con IA para mi negocio" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="analisis">
-    <span class="card-cat cat-analisis">Análisis</span>
-    <div class="card-icon">📈</div>
-    <h3>Más visitas desde Google</h3>
-    <p class="desc">Analizo por qué tu web no aparece en Google y te entrego un informe con las correcciones prioritarias. En muchos casos las aplico directamente sobre tu web.</p>
-    <p class="forwho"><b>Para ti si</b> tienes web pero tus clientes no te encuentran al buscar en Google.</p>
-    <ul>
-      <li>Puntuación global de tu web en los factores que Google valora</li>
-      <li>Las 5 correcciones más urgentes con el código exacto para aplicarlas</li>
-      <li>Análisis de qué palabras clave trabajar según tu sector</li>
-      <li>Comparativa con tu competencia en buscadores</li>
-    </ul>
-    <a href="#demos" data-demos-tab="analisis" class="card-demos-link">→ Ver demos: restaurante italiano, veterinaria</a>
-    <div class="price">180€ – 450€</div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20SEO%20y%20posicionamiento" class="cta">Me interesa →</a>
+  <!-- 11 -->
+  <article class="card" data-cat="analisis" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-analisis">Análisis</span>
+        <div class="card-icon">🔍</div>
+        <h3>Diagnóstico digital completo</h3>
+        <p class="desc">Análisis exhaustivo de tu presencia online: web, redes, Google, reseñas y competencia.</p>
+        <div class="price">€350<small>Entrega en 48h · informe PDF</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Diagnóstico digital completo</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> tienes presencia online pero no sabes qué funciona, qué falta o por qué no llegas a más clientes.</div>
+        <ul>
+          <li>Análisis de web (velocidad, SEO, conversión)</li>
+          <li>Revisión de redes sociales y engagement</li>
+          <li>Estado de Google Business Profile</li>
+          <li>Comparativa con 3 competidores directos</li>
+          <li>Plan de mejora priorizado</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/diagnostico-fontaneria.html" target="_blank" class="demo-chip">Demo · Fontanería →</a>
+          <a href="DEMOS/diagnostico-yoga.html" target="_blank" class="demo-chip">Demo · Yoga →</a>
+        </div>
+        <div class="back-price">€350<small>Entrega en 48h · PDF</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Diagnóstico digital completo" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="analisis">
-    <span class="card-cat cat-analisis">Análisis</span>
-    <div class="card-icon">📊</div>
-    <h3>Mejora tus anuncios en Instagram y Facebook</h3>
-    <p class="desc">Analizo tus campañas de Meta Ads, detecto dónde se está yendo el dinero y te entrego 5 anuncios nuevos listos para lanzar con mayor rendimiento.</p>
-    <p class="forwho"><b>Para ti si</b> tienes anuncios en Meta pero el coste por cliente es demasiado alto.</p>
-    <ul>
-      <li>Análisis de todos tus anuncios activos y los de tu competencia</li>
-      <li>Identificación de dónde pierdes clientes entre el anuncio y la compra</li>
-      <li>5 anuncios nuevos con texto, imagen y público objetivo definido</li>
-      <li>Estimación de presupuesto y resultados proyectados</li>
-    </ul>
-    <a href="#demos" data-demos-tab="analisis" class="card-demos-link">→ Ver demos: tienda moda, gimnasio</a>
-    <div class="price">180€ – 400€</div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20An%C3%A1lisis%20Meta%20Ads" class="cta">Me interesa →</a>
+  <!-- 12 -->
+  <article class="card" data-cat="analisis" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-analisis">Análisis</span>
+        <div class="card-icon">📈</div>
+        <h3>Más visitas desde Google</h3>
+        <p class="desc">Optimización SEO para que tu negocio aparezca en los primeros resultados de tu ciudad.</p>
+        <div class="price">€450<small>Resultados en 4–8 semanas</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Más visitas desde Google (SEO)</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> no apareces en Google cuando buscan tu tipo de negocio en tu ciudad o barrio.</div>
+        <ul>
+          <li>Investigación de palabras clave locales</li>
+          <li>Optimización de Google Business Profile</li>
+          <li>Textos SEO para tu web incluidos</li>
+          <li>Estrategia de reseñas de Google</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/seo-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
+          <a href="DEMOS/seo-veterinaria.html" target="_blank" class="demo-chip">Demo · Veterinaria →</a>
+        </div>
+        <div class="back-price">€450<small>Resultados en 4–8 semanas</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: SEO y visibilidad Google" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="analisis">
-    <span class="card-cat cat-analisis">Análisis</span>
-    <div class="card-icon">💰</div>
-    <h3>Mejora tus anuncios en Google</h3>
-    <p class="desc">Analizo tu cuenta de Google Ads, identifico el presupuesto que se está desperdiciando en búsquedas irrelevantes y entrego 5 anuncios nuevos optimizados.</p>
-    <p class="forwho"><b>Para ti si</b> inviertes en Google Ads pero el retorno no justifica el gasto.</p>
-    <ul>
-      <li>Análisis de estructura, palabras clave y anuncios actuales</li>
-      <li>Lista de términos a bloquear para dejar de perder dinero</li>
-      <li>5 anuncios nuevos con los textos dentro de los límites de Google</li>
-      <li>Funciona incluso sin acceso directo a tu cuenta publicitaria</li>
-    </ul>
-    <a href="#demos" data-demos-tab="analisis" class="card-demos-link">→ Ver demos: bufete abogados, clínica dental</a>
-    <div class="price">180€ – 400€</div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20An%C3%A1lisis%20Google%20Ads" class="cta">Me interesa →</a>
+  <!-- 13 -->
+  <article class="card" data-cat="analisis" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-analisis">Análisis</span>
+        <div class="card-icon">📊</div>
+        <h3>Mejora tus anuncios en Meta</h3>
+        <p class="desc">Auditoría de tus campañas de Instagram y Facebook Ads para encontrar qué falla y cómo mejorarlo.</p>
+        <div class="price">€300<small>Entrega en 3 días · accionables incluidos</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Auditoría Meta Ads</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> inviertes en Meta Ads pero los resultados no justifican el gasto.</div>
+        <ul>
+          <li>Análisis de estructura de campañas y ad sets</li>
+          <li>Revisión de creatividades y copy</li>
+          <li>Segmentaciones y audiencias</li>
+          <li>Métricas clave: CPM, CTR, CPC, ROAS</li>
+          <li>Plan de mejora con pasos concretos</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/metaads-moda.html" target="_blank" class="demo-chip">Demo · Moda →</a>
+          <a href="DEMOS/metaads-gimnasio.html" target="_blank" class="demo-chip">Demo · Gimnasio →</a>
+        </div>
+        <div class="back-price">€300<small>Entrega en 3 días</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Auditoría Meta Ads" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <!-- ──── OTROS ──── -->
-
-  <article class="card" data-cat="otros">
-    <span class="card-cat cat-otros">Otros servicios</span>
-    <div class="card-icon">🔧</div>
-    <h3>Extensión de Chrome a medida</h3>
-    <p class="desc">Una herramienta personalizada dentro de tu navegador Chrome para automatizar tareas repetitivas, extraer información o añadir funciones que Chrome no trae por defecto.</p>
-    <p class="forwho"><b>Para ti si</b> repites las mismas acciones en el navegador cada día y eso te roba tiempo.</p>
-    <ul>
-      <li>Lista para instalar y usar en menos de 5 minutos</li>
-      <li>Puede distribuirse a todo tu equipo</li>
-      <li>También publicable en la Chrome Web Store para otros usuarios</li>
-      <li>Compatible con Firefox con el mismo código base</li>
-    </ul>
-    <div class="price">280€ – 750€ <small>a medida</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Extensi%C3%B3n%20de%20Chrome" class="cta">Me interesa →</a>
+  <!-- 14 -->
+  <article class="card" data-cat="analisis" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-analisis">Análisis</span>
+        <div class="card-icon">🔎</div>
+        <h3>Mejora tus anuncios en Google</h3>
+        <p class="desc">Auditoría de Google Ads para reducir el coste por clic y aumentar las conversiones reales.</p>
+        <div class="price">€300<small>Entrega en 3 días · accionables incluidos</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Auditoría Google Ads</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> usas Google Ads pero el coste es alto y las conversiones son bajas.</div>
+        <ul>
+          <li>Análisis de palabras clave activas y negativas</li>
+          <li>Quality Score y nivel de calidad</li>
+          <li>Revisión de extensiones de anuncio</li>
+          <li>Seguimiento de conversiones</li>
+          <li>Recomendaciones priorizadas por impacto</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/googleads-abogado.html" target="_blank" class="demo-chip">Demo · Abogado →</a>
+          <a href="DEMOS/googleads-dental.html" target="_blank" class="demo-chip">Demo · Dental →</a>
+        </div>
+        <div class="back-price">€300<small>Entrega en 3 días</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Auditoría Google Ads" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="otros">
-    <span class="card-cat cat-otros">Otros servicios</span>
-    <div class="card-icon">📋</div>
-    <h3>Panel de facturas y finanzas</h3>
-    <p class="desc">Leo tus facturas en PDF y genero un panel visual con tus ingresos, gastos, IVA por trimestre, clientes principales y alertas fiscales. Para autónomos y pequeñas empresas.</p>
-    <p class="forwho"><b>Para ti si</b> llevas tus facturas en carpetas o en Excel y no tienes claridad financiera real.</p>
-    <ul>
-      <li>Dashboard visual con toda tu facturación en un solo vistazo</li>
-      <li>IVA trimestral calculado y estimación de IRPF</li>
-      <li>Detección de facturas sin cobrar y posibles duplicados</li>
-      <li>Export a Excel listo para llevar a tu gestor</li>
-    </ul>
-    <a href="#demos" data-demos-tab="otros" class="card-demos-link">→ Ver demos: diseñadora gráfica, consultor</a>
-    <div class="price">150€ – 400€</div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Panel%20de%20facturas" class="cta">Me interesa →</a>
+  <!-- 15 -->
+  <article class="card" data-cat="otros" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-otros">Otros</span>
+        <div class="card-icon">🧩</div>
+        <h3>Extensión de Chrome a medida</h3>
+        <p class="desc">Herramienta interna para Chrome que automatiza tareas repetitivas directamente en el navegador.</p>
+        <div class="price">€700<small>Pago único · compatible Chrome y Edge</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Extensión de Chrome a medida</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> tu equipo repite tareas en el navegador que podrían automatizarse con un clic.</div>
+        <ul>
+          <li>Funciona sin instalar servidor — solo el navegador</li>
+          <li>Acceso instantáneo desde barra de Chrome</li>
+          <li>Compatible con Chrome y Edge</li>
+          <li>Scraping, auto-relleno, dashboards internos…</li>
+        </ul>
+        <div class="demos-row">
+          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demo bajo petición</span>
+        </div>
+        <div class="back-price">€700<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Extensión de Chrome a medida" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="otros">
-    <span class="card-cat cat-otros">Otros servicios</span>
-    <div class="card-icon">🔎</div>
-    <h3>Búsqueda de clientes potenciales</h3>
-    <p class="desc">Busco negocios en tu sector y zona que encajan con lo que ofreces, analizo su presencia digital y entrego una lista priorizada con mensajes de contacto personalizados para cada uno.</p>
-    <p class="forwho"><b>Para ti si</b> vendes a otras empresas y necesitas nuevos clientes pero no sabes cómo encontrarlos.</p>
-    <ul>
-      <li>Hasta 50 empresas analizadas y puntuadas según su necesidad</li>
-      <li>Contacto del responsable de decisión cuando es localizable</li>
-      <li>Mensajes de primer contacto personalizados para cada empresa</li>
-      <li>Informe exportable a tu hoja de seguimiento o CRM</li>
-    </ul>
-    <a href="#demos" data-demos-tab="otros" class="card-demos-link">→ Ver demos: empresa reformas, agencia digital</a>
-    <div class="price">180€ – 400€ <small>por campaña</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20B%C3%BAsqueda%20de%20clientes" class="cta">Me interesa →</a>
+  <!-- 16 -->
+  <article class="card" data-cat="otros" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-otros">Otros</span>
+        <div class="card-icon">💶</div>
+        <h3>Panel de facturas y finanzas</h3>
+        <p class="desc">Dashboard visual para autónomos: ingresos, gastos, impuestos y flujo de caja en tiempo real.</p>
+        <div class="price">€350<small>Pago único · datos en local o cloud</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Panel de facturas y finanzas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> llevas las cuentas en un Excel caótico o no tienes visibilidad de tus números en tiempo real.</div>
+        <ul>
+          <li>Registro de facturas emitidas y recibidas</li>
+          <li>Cálculo automático de IVA e IRPF</li>
+          <li>Gráficas de ingresos y gastos por mes</li>
+          <li>Alertas de impuestos trimestrales</li>
+          <li>Exportación a PDF y Excel</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/facturas-disenadora.html" target="_blank" class="demo-chip">Demo · Diseñadora →</a>
+          <a href="DEMOS/facturas-consultor.html" target="_blank" class="demo-chip">Demo · Consultor →</a>
+        </div>
+        <div class="back-price">€350<small>Pago único</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Panel de facturas y finanzas" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
-  <article class="card" data-cat="otros">
-    <span class="card-cat cat-otros">Otros servicios</span>
-    <div class="card-icon">📆</div>
-    <h3>Seguimiento mensual de resultados</h3>
-    <p class="desc">Si ya trabajamos juntos, cada mes te mando un informe visual con los resultados del mes — visitas, leads, ventas, qué se ha hecho — para que siempre sepas el impacto del trabajo.</p>
-    <p class="forwho"><b>Para ti si</b> tienes un servicio activo conmigo y quieres seguimiento y transparencia mensual.</p>
-    <ul>
-      <li>Informe visual con los indicadores clave de tu servicio</li>
-      <li>Comparativa con el mes anterior y desde el inicio del proyecto</li>
-      <li>Resumen de acciones realizadas y plan del mes siguiente</li>
-      <li>Disponible en PDF y resumen rápido por WhatsApp</li>
-    </ul>
-    <a href="#demos" data-demos-tab="otros" class="card-demos-link">→ Ver demos: bar Toledo, peluquería</a>
-    <div class="price">80€ – 150€ <small>/mes · incluido en contratos de mantenimiento</small></div>
-    <a href="mailto:aecadro@gmail.com?subject=Me%20interesa%3A%20Seguimiento%20mensual" class="cta">Me interesa →</a>
+  <!-- 17 -->
+  <article class="card" data-cat="otros" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-otros">Otros</span>
+        <div class="card-icon">🧲</div>
+        <h3>Búsqueda de clientes potenciales</h3>
+        <p class="desc">Lista curada de leads cualificados con datos de contacto, sector y puntuación de oportunidad.</p>
+        <div class="price">€300<small>Por campaña · entrega en 48h</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Búsqueda de clientes potenciales</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> necesitas una fuente constante de prospectos sin gastar horas buscando manualmente.</div>
+        <ul>
+          <li>Búsqueda en Google Maps, LinkedIn y directorios</li>
+          <li>Filtrado por sector, ciudad y tamaño</li>
+          <li>Email y teléfono verificados</li>
+          <li>Puntuación de oportunidad (1–10)</li>
+          <li>Entrega en Excel o Google Sheets</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/prospeccion-reformas.html" target="_blank" class="demo-chip">Demo · Reformas →</a>
+          <a href="DEMOS/prospeccion-marketing.html" target="_blank" class="demo-chip">Demo · Marketing →</a>
+        </div>
+        <div class="back-price">€300<small>48h entrega</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Búsqueda de clientes potenciales" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 18 -->
+  <article class="card" data-cat="otros" onclick="flipCard(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-cat cat-otros">Otros</span>
+        <div class="card-icon">📋</div>
+        <h3>Seguimiento mensual</h3>
+        <p class="desc">Informe mensual con métricas reales: visitas, leads, conversiones y comparativa respecto al mes anterior.</p>
+        <div class="price">€120/mes<small>Entrega el 1 de cada mes · PDF</small></div>
+        <div class="flip-hint">Toca para ver más →</div>
+      </div>
+      <div class="card-back">
+        <div class="back-header"><span class="back-title">Seguimiento mensual de resultados</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
+        <div class="forwho"><b>Para ti si</b> quieres saber qué está funcionando y tomar decisiones con datos reales cada mes.</div>
+        <ul>
+          <li>Métricas web: visitas, rebote, tiempo en página</li>
+          <li>Rendimiento de redes sociales</li>
+          <li>Estado de campañas activas</li>
+          <li>3 recomendaciones de mejora para el mes siguiente</li>
+        </ul>
+        <div class="demos-row">
+          <a href="DEMOS/informe-bar.html" target="_blank" class="demo-chip">Demo · Bar →</a>
+          <a href="DEMOS/informe-peluqueria.html" target="_blank" class="demo-chip">Demo · Peluquería →</a>
+        </div>
+        <div class="back-price">€120/mes<small>Entrega el 1 de cada mes</small></div>
+        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Seguimiento mensual de resultados" class="back-cta">Me interesa →</a>
+      </div>
+    </div>
   </article>
 
 </div>
 
-<!-- DEMOS -->
-<section class="demos-section" id="demos">
-  <div class="demos-inner">
-    <div class="demos-header">
-      <span class="demos-tag">31 demos reales · todos los servicios</span>
-      <h2 class="demos-title">Ve exactamente qué recibes antes de decidir</h2>
-      <p class="demos-sub">Selecciona una categoría y explora los resultados reales de cada servicio.</p>
-    </div>
+<!-- PACKS -->
+<section class="packs-section" id="packs">
+  <div class="packs-inner">
+    <div style="text-align:center;margin-bottom:.5rem"><span class="section-tag">Packs</span></div>
+    <h2 class="section-title" style="text-align:center">Combina servicios y ahorra</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto">8 packs con descuento para obtener más resultado desde el primer día.</p>
+    <div class="packs-grid">
 
-    <div class="demos-tabs" role="tablist">
-      <button class="demos-tab active" data-panel="web">🌐 Web y presencia</button>
-      <button class="demos-tab" data-panel="auto">⚡ Automatización e IA</button>
-      <button class="demos-tab" data-panel="mkt">📱 Marketing</button>
-      <button class="demos-tab" data-panel="analisis">🔍 Análisis</button>
-      <button class="demos-tab" data-panel="otros">🔧 Otros servicios</button>
-    </div>
+      <div class="pack-card">
+        <span class="pack-badge pb-size">Pequeño negocio</span>
+        <h3>Pack Inicio Digital</h3>
+        <p class="pack-desc">Para negocios que empiezan o que aún no tienen presencia digital básica.</p>
+        <ul class="pack-includes">
+          <li>Página web profesional</li>
+          <li>Plan de redes sociales 30 días</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €210 vs. contratar por separado</div>
+          <div class="pack-price">€990</div>
+          <div class="pack-old">Servicios por separado: €1.200</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Inicio Digital" class="pack-cta">Solicitar pack →</a>
+        </div>
+      </div>
 
-    <!-- WEB Y PRESENCIA -->
-    <div class="demos-panel active" data-panel="web">
-      <div class="demo-group">
-        <div class="demo-group-label">Tu web desde Instagram — Marca personal</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/web-kyliejenner.html" scrolling="no" title="Kylie" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge demo-badge-beauty">Beauty · Lifestyle</span><span class="demo-handle">@kyliejenner</span></div><h3 class="demo-name">Kylie Jenner</h3><p class="demo-desc">399M seguidores. Luxury editorial negro + rose gold. Tarjeta IG animada, 4 marcas, galería lightbox, formulario colaboración.</p><div class="demo-feats"><span>Tarjeta IG</span><span>Galería</span><span>Counters</span><span>Schema SEO</span></div><a href="DEMOS/web-kyliejenner.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/web-cristiano.html" scrolling="no" title="CR7" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge demo-badge-sport">Deporte · Marca</span><span class="demo-handle">@cristiano</span></div><h3 class="demo-name">Cristiano Ronaldo</h3><p class="demo-desc">635M seguidores. Elite sports brand negro + oro. Career stats, 4 marcas CR7, comunidad 1.1B, formulario patrocinio.</p><div class="demo-feats"><span>Tarjeta IG</span><span>Trophies</span><span>635M counter</span><span>4 redes</span></div><a href="DEMOS/web-cristiano.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
+      <div class="pack-card featured">
+        <span class="pack-badge pb-size">Negocio mediano</span>
+        <h3>Pack Presencia Completa</h3>
+        <p class="pack-desc">El pack más solicitado. Web, automatización de contacto, visibilidad y redes.</p>
+        <ul class="pack-includes">
+          <li>Página web profesional</li>
+          <li>Asistente virtual 24/7 (WhatsApp)</li>
+          <li>Diagnóstico digital + SEO local</li>
+          <li>Plan de redes sociales 30 días</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €510 vs. contratar por separado</div>
+          <div class="pack-price">€1.990</div>
+          <div class="pack-old">Servicios por separado: €2.500</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Presencia Completa" class="pack-cta">Solicitar pack →</a>
         </div>
       </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Página web profesional — Para negocios locales</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview demo-preview-static" style="background:linear-gradient(135deg,#0A1628,#0066CC)"><div class="preview-label">SmiLe Care · Clínica Dental · Madrid</div><div class="stack-badges"><span class="stack-badge">React 19</span><span class="stack-badge">GSAP</span><span class="stack-badge">Framer Motion</span><span class="stack-badge">TypeScript</span></div></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(0,102,204,.12);color:#0066CC">Clínica Dental</span><span class="demo-handle">Madrid</span></div><h3 class="demo-name">SmiLe Care Clínica Dental</h3><p class="demo-desc">Web premium para clínica boutique. GSAP ScrollTrigger, animaciones de entrada, formulario con validación, diseño médico de lujo.</p><div class="demo-feats"><span>GSAP</span><span>Framer Motion</span><span>RHF+Zod</span><span>TypeScript</span></div><a href="https://web-cl-nica-dental-9xtgcfedq-aecadro-5330s-projects.vercel.app/" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview demo-preview-static" style="background:linear-gradient(135deg,#0A0A0A,#1a0a2e)"><div class="preview-label">nurr.ink · Portfolio Tatuajes</div><div class="stack-badges"><span class="stack-badge">React 18</span><span class="stack-badge">Three.js</span><span class="stack-badge">Recharts</span><span class="stack-badge">Dashboard</span></div></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(168,85,247,.12);color:#7c3aed">Portfolio</span><span class="demo-handle">nurr.ink</span></div><h3 class="demo-name">nurr.ink — Portfolio Tatuajes</h3><p class="demo-desc">Hero 3D con Three.js, 4 galerías con lightbox, formulario citas en 5 fases, dashboard privado con gráficas.</p><div class="demo-feats"><span>Three.js 3D</span><span>Dashboard</span><span>5 fases</span><span>Recharts</span></div><a href="https://web-tatuajes.vercel.app/" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Página de ventas — Sin distracciones, 100% conversión</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/landing-cocina.html" scrolling="no" title="Landing cocina" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(139,26,26,.12);color:#8B1A1A">Curso online</span><span class="demo-handle">La Cucina di Marco</span></div><h3 class="demo-name">Curso de Cocina Italiana</h3><p class="demo-desc">Landing oscura con countdown timer real, 6 módulos, testimonios, FAQ acordeón. Rojo vino, Playfair Display.</p><div class="demo-feats"><span>Countdown</span><span>FAQ acordeón</span><span>Testimonios</span><span>CTA único</span></div><a href="DEMOS/landing-cocina.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/landing-fitness.html" scrolling="no" title="Landing fitness" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(255,107,0,.12);color:#CC5500">Programa fitness</span><span class="demo-handle">TransFit 90</span></div><h3 class="demo-name">TransFit 90 — Programa Fitness</h3><p class="demo-desc">Landing negra, naranja energético. Video thumbnail con play, resultados con porcentajes, garantía 30 días.</p><div class="demo-feats"><span>Video hero</span><span>Resultados %</span><span>Garantía</span><span>FAQ</span></div><a href="DEMOS/landing-fitness.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- AUTOMATIZACIÓN -->
-    <div class="demos-panel" data-panel="auto">
-      <div class="demo-group">
-        <div class="demo-group-label">Asistente virtual 24/7 — Chatbot WhatsApp con IA · Lo gestiona todo</div>
-        <div class="demos-grid" style="grid-template-columns:1fr;max-width:760px">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/chatbot-whatsapp-restaurante.html" scrolling="no" title="Chatbot WhatsApp" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(37,211,102,.12);color:#128C7E">WhatsApp IA</span><span class="demo-handle">La Taberna del Puerto</span></div><h3 class="demo-name">Chatbot WhatsApp · Restaurante completo</h3><p class="demo-desc">Reservas mesa (6 pasos), carta completa con precios, pedidos para llevar, horarios, eventos privados, programa de puntos, alérgenos, derivación a humano. Escribe libremente o usa los quick replies.</p><div class="demo-feats"><span>Reservas</span><span>Carta y precios</span><span>Pedidos</span><span>Eventos</span><span>Puntos</span><span>Alérgenos</span></div><a href="DEMOS/chatbot-whatsapp-restaurante.html" target="_blank" class="demo-btn">Probar demo ↗</a></div></div>
+      <div class="pack-card">
+        <span class="pack-badge pb-size">Negocio grande</span>
+        <h3>Pack Transformación Digital</h3>
+        <p class="pack-desc">Para negocios consolidados que quieren digitalizar todas sus operaciones de golpe.</p>
+        <ul class="pack-includes">
+          <li>Página web profesional</li>
+          <li>Agente IA por voz</li>
+          <li>Asistente virtual 24/7 (WhatsApp)</li>
+          <li>Automatización de tareas (1 flujo)</li>
+          <li>SEO + Diagnóstico digital</li>
+          <li>Plan de redes 30 días</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €1.010 vs. contratar por separado</div>
+          <div class="pack-price">€3.490</div>
+          <div class="pack-old">Servicios por separado: €4.500</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Transformación Digital" class="pack-cta">Solicitar pack →</a>
         </div>
       </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Asistente virtual 24/7 — Bot Telegram con IA · Comandos + teclados inline</div>
-        <div class="demos-grid" style="grid-template-columns:1fr;max-width:760px">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/chatbot-telegram-restaurante.html" scrolling="no" title="Chatbot Telegram" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(91,170,255,.12);color:#3E88C8">Telegram IA</span><span class="demo-handle">@CanMoralesBot · Tasca Can Morales</span></div><h3 class="demo-name">Bot Telegram · Restaurante completo</h3><p class="demo-desc">Comandos nativos (/reservar, /carta, /pedido, /horarios, /eventos, /puntos, /alergenos…), teclados inline, navegación fluida. Escribe libremente o prueba los comandos del panel lateral.</p><div class="demo-feats"><span>/reservar</span><span>/carta</span><span>/pedido</span><span>Inline keyboards</span><span>Alérgenos</span><span>Fidelización</span></div><a href="DEMOS/chatbot-telegram-restaurante.html" target="_blank" class="demo-btn">Probar demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Sistema de citas automático — Reserva por WhatsApp</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/citas-peluqueria.html" scrolling="no" title="Citas peluquería" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(184,134,11,.12);color:#B8860B">Peluquería</span><span class="demo-handle">Corte & Arte</span></div><h3 class="demo-name">Citas · Peluquería</h3><p class="demo-desc">Frame de smartphone. Flujo completo: servicio → estilista → día → hora → nombre → confirmación. Totalmente interactivo.</p><div class="demo-feats"><span>Frame móvil</span><span>6 pasos</span><span>Interactivo</span><span>Confirmación</span></div><a href="DEMOS/citas-peluqueria.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/citas-psicologo.html" scrolling="no" title="Citas psicólogo" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(107,79,160,.12);color:#6B4FA0">Psicología</span><span class="demo-handle">Dr. Martínez</span></div><h3 class="demo-name">Citas · Psicólogo</h3><p class="demo-desc">Flujo empático: presencial/online, tipo consulta, día, hora. Si es online genera enlace videollamada. Nota de confidencialidad.</p><div class="demo-feats"><span>Online/presencial</span><span>Videollamada</span><span>Empático</span><span>Confidencialidad</span></div><a href="DEMOS/citas-psicologo.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Reservas por llamada con voz IA — La IA atiende el teléfono y gestiona la reserva</div>
-        <div class="demos-grid" style="grid-template-columns:1fr;max-width:600px">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/reservas-voz-restaurante.html" scrolling="no" title="Reservas voz IA" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(217,119,6,.12);color:#B45309">Bar · Restaurante</span><span class="demo-handle">Bar Las Tablas · Toledo</span></div><h3 class="demo-name">Reservas por Voz IA · Bar</h3><p class="demo-desc">El cliente llama al bar. La IA contesta con voz natural en español, recoge personas, día, hora y nombre, y confirma la reserva. Sin esperas, disponible 24/7. Haz clic en "Contestar" para probarlo.</p><div class="demo-feats"><span>Voz IA real</span><span>Llamada entrante</span><span>Flujo completo</span><span>24/7</span></div><a href="DEMOS/reservas-voz-restaurante.html" target="_blank" class="demo-btn">Probar demo ↗</a></div></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- MARKETING -->
-    <div class="demos-panel" data-panel="mkt">
-      <div class="demo-group">
-        <div class="demo-group-label">Plan de redes sociales — 30 días listos para publicar</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/calendario-restaurante.html" scrolling="no" title="Calendario restaurante" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(199,91,42,.12);color:#C75B2A">Restaurante</span><span class="demo-handle">El Rincón de María</span></div><h3 class="demo-name">Calendario · Restaurante</h3><p class="demo-desc">30 publicaciones: 12 Feeds, 10 Stories, 8 Reels. Caption listo para copiar, hashtags, color-coded por tipo de contenido.</p><div class="demo-feats"><span>30 posts</span><span>Captions reales</span><span>Hashtags</span><span>Color-coded</span></div><a href="DEMOS/calendario-restaurante.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/calendario-peluqueria.html" scrolling="no" title="Calendario peluquería" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(184,134,11,.12);color:#B8860B">Peluquería</span><span class="demo-handle">Corte & Arte</span></div><h3 class="demo-name">Calendario · Peluquería</h3><p class="demo-desc">30 publicaciones: transformaciones, tutoriales, behind-the-scenes, promociones. Tips de estrategia incluidos.</p><div class="demo-feats"><span>30 posts</span><span>Transformaciones</span><span>Tutoriales</span><span>Estrategia</span></div><a href="DEMOS/calendario-peluqueria.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
+      <div class="pack-card">
+        <span class="pack-badge pb-special">Atención al cliente</span>
+        <h3>Pack Atención 24/7</h3>
+        <p class="pack-desc">Para negocios que pierden clientes por no poder atender llamadas y mensajes a tiempo.</p>
+        <ul class="pack-includes">
+          <li>Agente IA por voz (coge el teléfono)</li>
+          <li>Asistente virtual 24/7 (WhatsApp/Telegram)</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €460 vs. contratar por separado</div>
+          <div class="pack-price">€1.790</div>
+          <div class="pack-old">Servicios por separado: €2.250</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Atención 24/7" class="pack-cta">Solicitar pack →</a>
         </div>
       </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Emails automáticos de venta — Secuencias que venden mientras duermes</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/emails-cosmetica.html" scrolling="no" title="Emails cosmética" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(124,179,66,.12);color:#558B2F">E-commerce</span><span class="demo-handle">Piel Viva</span></div><h3 class="demo-name">Emails · Cosmética Natural</h3><p class="demo-desc">5 emails días 0-14: bienvenida+cupón, guía uso, tips rutina, reseña+descuento, oferta flash. HTML real renderizado.</p><div class="demo-feats"><span>5 emails</span><span>Días 0-14</span><span>HTML real</span><span>Timeline</span></div><a href="DEMOS/emails-cosmetica.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/emails-consultor.html" scrolling="no" title="Emails consultor" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(39,82,160,.12);color:#2752A0">Consultoría</span><span class="demo-handle">Carlos Martín</span></div><h3 class="demo-name">Emails · Consultor de Negocios</h3><p class="demo-desc">5 emails de captación días 0-10: lead magnet, caso de éxito con métricas, educativo, llamada gratuita, urgencia de cierre.</p><div class="demo-feats"><span>5 emails</span><span>Días 0-10</span><span>Casos reales</span><span>CTA llamada</span></div><a href="DEMOS/emails-consultor.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ANÁLISIS -->
-    <div class="demos-panel" data-panel="analisis">
-      <div class="demo-group">
-        <div class="demo-group-label">Diagnóstico digital completo — Radiografía de tu presencia online</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/diagnostico-fontaneria.html" scrolling="no" title="Diagnóstico fontanería" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(27,58,107,.12);color:#1B3A6B">Fontanería</span><span class="demo-handle">López e Hijos</span></div><h3 class="demo-name">Diagnóstico · Fontanero</h3><p class="demo-desc">38/100. Puntuaciones por área, tabla competidores, plan de acción priorizado. Caso sin web ni estrategia digital.</p><div class="demo-feats"><span>5 áreas</span><span>Semáforos</span><span>Competencia</span><span>Plan acción</span></div><a href="DEMOS/diagnostico-fontaneria.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/diagnostico-yoga.html" scrolling="no" title="Diagnóstico yoga" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(107,79,160,.12);color:#6B4FA0">Yoga Studio</span><span class="demo-handle">Prana</span></div><h3 class="demo-name">Diagnóstico · Yoga Studio</h3><p class="demo-desc">61/100. Negocio con presencia parcial. Quick wins 30 días, potencial viral de Reels, plan a 6 meses.</p><div class="demo-feats"><span>Quick wins</span><span>Plan 6 meses</span><span>Redes</span><span>SEO local</span></div><a href="DEMOS/diagnostico-yoga.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
+      <div class="pack-card">
+        <span class="pack-badge pb-audit">Auditoría</span>
+        <h3>Pack Auditoría Completa</h3>
+        <p class="pack-desc">Para negocios con presencia online que no saben qué no está funcionando.</p>
+        <ul class="pack-includes">
+          <li>Diagnóstico digital completo</li>
+          <li>Auditoría SEO local</li>
+          <li>Auditoría Meta Ads</li>
+          <li>Auditoría Google Ads</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €310 vs. contratar por separado</div>
+          <div class="pack-price">€1.090</div>
+          <div class="pack-old">Servicios por separado: €1.400</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Auditoría Completa" class="pack-cta">Solicitar pack →</a>
         </div>
       </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Más visitas desde Google — Informe SEO con correcciones listas</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/seo-restaurante.html" scrolling="no" title="SEO restaurante" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(192,57,43,.12);color:#C0392B">Restaurante</span><span class="demo-handle">Da Vinci Ristorante</span></div><h3 class="demo-name">SEO · Restaurante Italiano</h3><p class="demo-desc">42/100. Core Web Vitals, 10 keywords con volumen, análisis competidores, 5 correcciones urgentes con código exacto listo.</p><div class="demo-feats"><span>Core Web Vitals</span><span>Keywords</span><span>Código listo</span><span>Competidores</span></div><a href="DEMOS/seo-restaurante.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/seo-veterinaria.html" scrolling="no" title="SEO veterinaria" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(46,125,50,.12);color:#2E7D32">Veterinaria</span><span class="demo-handle">Clínica San Isidro</span></div><h3 class="demo-name">SEO · Clínica Veterinaria</h3><p class="demo-desc">58/100. Reseñas Google Maps como factor SEO local. Keywords urgencias veterinarias y servicios específicos.</p><div class="demo-feats"><span>SEO local</span><span>Google Maps</span><span>Keywords</span><span>Urgencias</span></div><a href="DEMOS/seo-veterinaria.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Mejora tus anuncios en Instagram y Facebook — Meta Ads</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/metaads-moda.html" scrolling="no" title="Meta Ads moda" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(225,48,108,.12);color:#C2185B">Moda</span><span class="demo-handle">ModaSur Sevilla</span></div><h3 class="demo-name">Meta Ads · Tienda de Moda</h3><p class="demo-desc">1.847€ gastados, ROAS 1.4x. KPIs vs benchmark sector, 3 anuncios evaluados, 5 propuestos. ROAS proyectado: 2.8x.</p><div class="demo-feats"><span>KPIs benchmark</span><span>Anuncios actuales</span><span>5 propuestos</span><span>Proyección</span></div><a href="DEMOS/metaads-moda.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/metaads-gimnasio.html" scrolling="no" title="Meta Ads gimnasio" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(255,107,0,.12);color:#CC5500">Gimnasio</span><span class="demo-handle">FitLife Valencia</span></div><h3 class="demo-name">Meta Ads · Gimnasio Boutique</h3><p class="demo-desc">920€ gastados. Estrategia estacional enero/septiembre, 5 anuncios con copy completo para cada pico de demanda.</p><div class="demo-feats"><span>Estacional</span><span>Picos demanda</span><span>5 anuncios</span><span>Copy completo</span></div><a href="DEMOS/metaads-gimnasio.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Mejora tus anuncios en Google — Google Ads</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/googleads-abogado.html" scrolling="no" title="Google Ads abogado" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(27,58,107,.12);color:#1B3A6B">Abogados</span><span class="demo-handle">Bufete Pérez</span></div><h3 class="demo-name">Google Ads · Bufete de Abogados</h3><p class="demo-desc">2.340€/mes, coste por consulta 467€. 15 negativos identificados, 5 anuncios en formato real. CPA proyectado: 95€.</p><div class="demo-feats"><span>15 negativos</span><span>Formato Ads real</span><span>467→95€ CPA</span><span>Keywords</span></div><a href="DEMOS/googleads-abogado.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/googleads-dental.html" scrolling="no" title="Google Ads dental" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(0,102,204,.12);color:#0066CC">Dental</span><span class="demo-handle">Smile Plus</span></div><h3 class="demo-name">Google Ads · Clínica Dental</h3><p class="demo-desc">1.680€/mes. Keywords genéricas vs alto valor. Análisis 3 competidores, 5 anuncios ortodoncia invisible propuestos.</p><div class="demo-feats"><span>Competidores</span><span>Alto valor</span><span>Ortodoncia</span><span>5 anuncios</span></div><a href="DEMOS/googleads-dental.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- OTROS -->
-    <div class="demos-panel" data-panel="otros">
-      <div class="demo-group">
-        <div class="demo-group-label">Panel de facturas y finanzas — Dashboard visual para autónomos</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/facturas-disenadora.html" scrolling="no" title="Facturas diseñadora" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(155,89,182,.12);color:#8E44AD">Diseñadora</span><span class="demo-handle">Sara Ruiz</span></div><h3 class="demo-name">Facturas · Diseñadora Gráfica</h3><p class="demo-desc">34.800€ YTD. Dashboard dark morado/rosa, gráfica barras CSS, top 5 clientes, 10 facturas con estados, alertas impago, resumen fiscal.</p><div class="demo-feats"><span>Gráfica barras</span><span>Estados</span><span>Fiscal</span><span>Alertas</span></div><a href="DEMOS/facturas-disenadora.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/facturas-consultor.html" scrolling="no" title="Facturas consultor" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(212,175,55,.12);color:#7A5F00">Consultoría</span><span class="demo-handle">Carlos Martín</span></div><h3 class="demo-name">Facturas · Consultor</h3><p class="demo-desc">127.400€ YTD. Donut SVG distribución por servicio (consultoría/formación/auditoría), top 6 clientes con logos.</p><div class="demo-feats"><span>Donut SVG</span><span>127K YTD</span><span>Por servicio</span><span>Top clientes</span></div><a href="DEMOS/facturas-consultor.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
+      <div class="pack-card">
+        <span class="pack-badge pb-special">Captación de leads</span>
+        <h3>Pack Captación</h3>
+        <p class="pack-desc">Para lanzamientos o negocios que necesitan generar leads de forma activa e inmediata.</p>
+        <ul class="pack-includes">
+          <li>Landing page de ventas</li>
+          <li>Emails automáticos de seguimiento</li>
+          <li>Plan de redes sociales 30 días</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €300 vs. contratar por separado</div>
+          <div class="pack-price">€1.250</div>
+          <div class="pack-old">Servicios por separado: €1.550</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Captación" class="pack-cta">Solicitar pack →</a>
         </div>
       </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Búsqueda de clientes potenciales — Lista priorizada con mensajes listos</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/prospeccion-reformas.html" scrolling="no" title="Prospección reformas" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(230,81,0,.12);color:#E65100">Reformas</span><span class="demo-handle">Reformas Castellano</span></div><h3 class="demo-name">Prospección · Empresa de Reformas</h3><p class="demo-desc">47 analizados → 8 priorizados. Restaurantes y bares de Toledo, score 1-10, contacto directo, mensaje personalizado por negocio.</p><div class="demo-feats"><span>47 analizados</span><span>Score prioridad</span><span>Mensajes listos</span><span>ROI estimado</span></div><a href="DEMOS/prospeccion-reformas.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/prospeccion-marketing.html" scrolling="no" title="Prospección marketing" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(0,212,255,.1);color:#0099BB">Agencia IA</span><span class="demo-handle">Alejandro Horcajuelo</span></div><h3 class="demo-name">Prospección · Agencia Digital</h3><p class="demo-desc">10 negocios locales Toledo sin presencia digital. Chips por tipo de carencia, mensajes de contacto específicos.</p><div class="demo-feats"><span>10 prospectos</span><span>Por carencia</span><span>Mensajes</span><span>Priorizado</span></div><a href="DEMOS/prospeccion-marketing.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-      <div class="demo-group">
-        <div class="demo-group-label">Seguimiento mensual — Informe visual para el cliente</div>
-        <div class="demos-grid">
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/informe-bar.html" scrolling="no" title="Informe bar" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(139,69,19,.12);color:#8B4513">Bar</span><span class="demo-handle">Bar Las Tablas · Toledo</span></div><h3 class="demo-name">Informe mensual · Bar</h3><p class="demo-desc">Mayo 2026. 4 KPI cards, gráfica SVG visitas semanales, Instagram 12 posts / 8.400 alcance, Google Maps reseñas.</p><div class="demo-feats"><span>KPI cards</span><span>Gráfica SVG</span><span>Instagram</span><span>Google Maps</span></div><a href="DEMOS/informe-bar.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-          <div class="demo-card"><div class="demo-preview"><iframe src="DEMOS/informe-peluqueria.html" scrolling="no" title="Informe peluquería" loading="lazy"></iframe></div><div class="demo-info"><div class="demo-meta"><span class="demo-badge" style="background:rgba(184,134,11,.12);color:#B8860B">Peluquería</span><span class="demo-handle">Corte & Arte</span></div><h3 class="demo-name">Informe mensual · Peluquería</h3><p class="demo-desc">Mayo 2026. Reservas por día de semana, servicios con ingresos, Instagram con post viral, email marketing 41% apertura.</p><div class="demo-feats"><span>Reservas</span><span>Por servicio</span><span>Email stats</span><span>Post viral</span></div><a href="DEMOS/informe-peluqueria.html" target="_blank" class="demo-btn">Ver demo ↗</a></div></div>
-        </div>
-      </div>
-    </div>
 
-    <p class="demos-note">31 demos con datos públicos o ficticios · Tu entregable real usa tu contenido, tu identidad y tus datos reales</p>
+      <div class="pack-card">
+        <span class="pack-badge pb-sector">Hostelería</span>
+        <h3>Pack Restaurante</h3>
+        <p class="pack-desc">Diseñado para restaurantes y bares: web, voz, WhatsApp y redes en un solo pack.</p>
+        <ul class="pack-includes">
+          <li>Web con carta digital y fotos</li>
+          <li>Agente IA por voz (reservas telefónicas)</li>
+          <li>Bot WhatsApp (consultas y precios)</li>
+          <li>Plan de redes 30 días</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €660 vs. contratar por separado</div>
+          <div class="pack-price">€2.790</div>
+          <div class="pack-old">Servicios por separado: €3.450</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Restaurante" class="pack-cta">Solicitar pack →</a>
+        </div>
+      </div>
+
+      <div class="pack-card">
+        <span class="pack-badge pb-sector">Profesionales</span>
+        <h3>Pack Profesionales</h3>
+        <p class="pack-desc">Para clínicas, psicólogos, abogados y profesionales con servicio de citas o consultas.</p>
+        <ul class="pack-includes">
+          <li>Web profesional con sección de servicios</li>
+          <li>Sistema de citas automático</li>
+          <li>Asistente virtual 24/7 (consultas)</li>
+          <li>SEO local especializado</li>
+        </ul>
+        <div class="pack-pricing">
+          <div class="pack-save">Ahorra €710 vs. contratar por separado</div>
+          <div class="pack-price">€2.690</div>
+          <div class="pack-old">Servicios por separado: €3.400</div>
+          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Profesionales" class="pack-cta">Solicitar pack →</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<!-- WHY ME -->
+<!-- WHY -->
 <section class="why">
-  <div class="inner">
+  <div class="why-inner">
     <h2>¿Por qué trabajar conmigo?</h2>
     <div class="pills">
-      <div class="pill">
-        <span class="ico">🤝</span>
-        <div>
-          <strong>Sin intermediarios</strong>
-          <p>Trabajas directamente conmigo en todo el proceso — no hay cuentas ni equipos de por medio.</p>
-        </div>
-      </div>
-      <div class="pill">
-        <span class="ico">📁</span>
-        <div>
-          <strong>Todo es tuyo desde el primer día</strong>
-          <p>El código, los archivos y todo lo entregado son tuyos. Sin dependencias ni ataduras.</p>
-        </div>
-      </div>
-      <div class="pill">
-        <span class="ico">💬</span>
-        <div>
-          <strong>Lenguaje claro, sin tecnicismos</strong>
-          <p>Te explico exactamente qué hay, por qué y qué va a conseguir — sin jerga técnica.</p>
-        </div>
-      </div>
-      <div class="pill">
-        <span class="ico">⏱️</span>
-        <div>
-          <strong>Presupuesto en 24 horas</strong>
-          <p>Sin reuniones previas si no las necesitas. Cuéntame qué necesitas y recibo propuesta al día siguiente.</p>
-        </div>
-      </div>
-      <div class="pill">
-        <span class="ico">🔒</span>
-        <div>
-          <strong>Precio cerrado, sin sorpresas</strong>
-          <p>El precio acordado es el precio final. Si algo cambia de alcance, lo hablamos antes de ejecutar.</p>
-        </div>
-      </div>
-      <div class="pill">
-        <span class="ico">🚀</span>
-        <div>
-          <strong>Orientado a resultados reales</strong>
-          <p>No entrego código bonito — entrego herramientas que generan clientes, ahorran tiempo o aumentan ventas.</p>
-        </div>
-      </div>
+      <div class="pill"><div class="ico">⚡</div><div><strong>Entrega rápida</strong><p>La mayoría de proyectos en 5–7 días. Sin meses de espera ni presupuestos eternos.</p></div></div>
+      <div class="pill"><div class="ico">🤝</div><div><strong>Trato directo</strong><p>Hablas con quien hace el trabajo. Sin intermediarios, sin sorpresas, sin letra pequeña.</p></div></div>
+      <div class="pill"><div class="ico">📐</div><div><strong>Hecho a medida</strong><p>Cada proyecto parte de tu negocio real. No plantillas genéricas.</p></div></div>
+      <div class="pill"><div class="ico">🔍</div><div><strong>Resultados medibles</strong><p>Cada servicio tiene métricas claras. Si no se puede medir, no te lo vendo.</p></div></div>
+      <div class="pill"><div class="ico">🤖</div><div><strong>IA de última generación</strong><p>Las herramientas más avanzadas del mercado para darte lo mejor al mejor precio.</p></div></div>
+      <div class="pill"><div class="ico">🔒</div><div><strong>Sin permanencias</strong><p>Pago único en la mayoría de servicios. Sin contratos de 12 meses.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact">
-  <h2>¿No sabes cuál necesitas?</h2>
-  <p class="sub">Empezamos con una llamada o mensaje de 15 minutos. Sin compromiso. Te digo qué tiene más impacto en tu negocio ahora mismo.</p>
+<section class="contact" id="contacto">
+  <h2>¿Empezamos?</h2>
+  <p class="sub">Sin compromiso. Cuéntame tu negocio y en menos de 24 horas te digo exactamente qué haría para ayudarte.</p>
   <div class="btns">
-    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20hablar%20sobre%20mis%20servicios%20digitales" class="btn-w">💬 Escribir por WhatsApp</a>
-    <a href="mailto:aecadro@gmail.com?subject=Consulta%20sobre%20servicios%20digitales" class="btn-e">✉️ Enviar email</a>
+    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20servicios" class="btn-w">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="mailto:aecadro@gmail.com?subject=Consulta servicios digitales" class="btn-e">✉ Email</a>
   </div>
-  <p class="note">Alejandro Horcajuelo · Desarrollo Web & Automatización IA · aecadro@gmail.com</p>
+  <p class="note">aecadro@gmail.com · +34 647 471 991 · Toledo, España</p>
 </section>
 
 <footer>
-  Alejandro Horcajuelo · aecadro@gmail.com · Precios orientativos sin IVA · Consulta disponibilidad y plazos antes de contratar
+  Alejandro Horcajuelo · Desarrollo Web & Automatización IA · Toledo ·
+  <a href="https://github.com/horcajuelo18" target="_blank" style="color:inherit;text-decoration:none">GitHub</a>
 </footer>
 
 <script>
-(function(){
-  const btns = document.querySelectorAll('.fbtn');
-  const cards = document.querySelectorAll('.card');
-
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.getAttribute('data-cat');
-      cards.forEach(card => {
-        const show = cat === 'all' || card.getAttribute('data-cat') === cat;
-        card.classList.toggle('hidden', !show);
-      });
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+      const show = f === 'all' || card.dataset.cat === f;
+      card.classList.toggle('hidden', !show);
+      if (!show) card.classList.remove('flipped');
     });
   });
-})();
+});
 
-// Tabs de demos
-(function(){
-  const tabs = document.querySelectorAll('.demos-tab');
-  const panels = document.querySelectorAll('.demos-panel');
+function flipCard(card) { card.classList.toggle('flipped'); }
 
-  function activateTab(panel) {
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panel));
-    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === panel));
-  }
+function flipBack(e, btn) {
+  e.stopPropagation();
+  btn.closest('.card').classList.remove('flipped');
+}
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => activateTab(tab.dataset.panel));
-  });
-
-  // Card-demos-link: activa tab correcto y hace scroll
-  document.querySelectorAll('.card-demos-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-      const tab = this.dataset.demosTab;
-      if (tab) {
-        e.preventDefault();
-        activateTab(tab);
-        const demos = document.getElementById('demos');
-        if (demos) demos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-})();
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.card.flipped').forEach(c => c.classList.remove('flipped'));
+});
 </script>
 </body>
 </html>
