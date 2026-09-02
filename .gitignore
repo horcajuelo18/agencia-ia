@@ -26,6 +26,9 @@ PORTFOLIO/
 CLIENTES/**/facturas/*.pdf
 CLIENTES/**/datos/*.local.json
 
+# Instrucciones locales de Claude — este repo es publico
+CLAUDE.md
+
 # Temporales
 *.log
 *.tmp
