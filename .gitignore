@@ -1,3 +1,33 @@
+# SO
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Credenciales — nunca versionar
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Dependencias y compilados
+node_modules/
+dist/
+build/
+.vercel/
+
+# Proyectos con repositorio propio
+dashboard/
+PORTFOLIO/
+
+# Datos de cliente sensibles
+CLIENTES/**/facturas/*.pdf
+CLIENTES/**/datos/*.local.json
+
+# Temporales
+*.log
+*.tmp
+_preparadas/
+qa-resultado/
