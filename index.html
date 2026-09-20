@@ -3,10 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Servicios Digitales · Alejandro Horcajuelo</title>
+<title>Recepcionista IA para ortodoncia invisible · FastSolutions</title>
+<meta name="description" content="El paciente de ortodoncia contrata en la primera clínica que le responde. Sistema de IA que contesta, cualifica y agenda por ti. Auditoría gratis.">
+<link rel="canonical" href="https://fastsolutionsia.es/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0b0d14">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="FastSolutions IA">
+<meta property="og:url" content="https://fastsolutionsia.es/">
+<meta property="og:title" content="El paciente de ortodoncia no espera. Contesta la primera clínica.">
+<meta property="og:description" content="Sistema de respuesta y seguimiento con IA para clínicas dentales que ofrecen ortodoncia invisible. Auditoría gratuita de tu tiempo de respuesta real.">
+<meta property="og:image" content="https://fastsolutionsia.es/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FastSolutions IA — IA que responde por tu clínica">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El paciente de ortodoncia no espera. Contesta la primera clínica.">
+<meta name="twitter:description" content="Sistema de respuesta y seguimiento con IA para clínicas de ortodoncia invisible.">
+<meta name="twitter:image" content="https://fastsolutionsia.es/og-image.png">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "FastSolutions IA",
+  "description": "Sistemas de captación, respuesta y seguimiento con inteligencia artificial para clínicas dentales que ofrecen ortodoncia invisible.",
+  "url": "https://fastsolutionsia.es/",
+  "telephone": "+34647471991",
+  "email": "aecadro@gmail.com",
+  "founder": { "@type": "Person", "name": "Alejandro Horcajuelo" },
+  "areaServed": { "@type": "Country", "name": "España" },
+  "serviceType": "Automatización con IA para clínicas dentales",
+  "audience": { "@type": "Audience", "audienceType": "Clínicas dentales y de ortodoncia" }
+}
+</script>
+
 <style>
 :root {
   --bg: #0b0d14;
@@ -16,1121 +57,1164 @@
   --border: rgba(255,255,255,0.08);
   --border2: rgba(255,255,255,0.16);
   --ink: #dde4f4;
-  --ink2: #7a8ba6;
-  --ink3: #3c4a60;
+  --ink2: #8a9bb6;
+  --ink3: #76879f;   /* minimo para AA en texto pequeno sobre --card (4,5:1) */
   --accent: #5B9BD5;
   --accent2: #7AB5E8;
   --green: #4ade80;
   --green-dim: rgba(74,222,128,0.14);
   --amber: #fbbf24;
   --amber-dim: rgba(251,191,36,0.13);
-  --purple: #a78bfa;
-  --purple-dim: rgba(167,139,250,0.13);
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,0.12);
+  --whats: #25D366;
   --border-accent: rgba(91,155,213,0.28);
   --shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.7);
   --radius: 16px;
+  --max: 1160px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; line-height: 1.65; font-size: 16px; }
+body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; line-height: 1.65; font-size: 16px; -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.15; }
 a { color: inherit; }
+img { max-width: 100%; }
+::selection { background: rgba(91,155,213,0.32); }
+:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; border-radius: 4px; }
 
-/* ── HERO ── */
-.hero {
-  background: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 7rem 2rem 6rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(27,58,107,0.5) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero .eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.4);
-  margin-bottom: 1.4rem;
-}
-.hero h1 {
-  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-  color: #fff;
-  max-width: 760px;
-  margin: 0 auto 1.3rem;
-  letter-spacing: -.025em;
-  font-style: italic;
-}
-.hero h1 em { font-style: normal; color: var(--accent2); }
-.hero .sub {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,.55);
-  max-width: 520px;
-  margin: 0 auto 3.5rem;
-  line-height: 1.65;
-}
-.hero .stats {
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-}
-.hero .stat .n { font-family: 'Fraunces', serif; font-size: 2.8rem; display: block; color: #fff; line-height: 1; margin-bottom: .3rem; }
-.hero .stat .t { font-family: 'DM Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .1em; }
-.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.hero-cta a { padding: .9rem 2.2rem; border-radius: 99px; font-weight: 600; font-size: .97rem; text-decoration: none; transition: .15s; }
-.btn-p { background: var(--accent); color: #fff; }
-.btn-p:hover { background: var(--accent2); }
-.btn-s { background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); border: 1.5px solid rgba(255,255,255,.2); }
-.btn-s:hover { background: rgba(255,255,255,.18); }
-
-/* ── TRUST ── */
-.trust {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 1.1rem 2rem;
-  display: flex;
-  gap: 2.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: .09em;
-}
-.trust span { display: flex; align-items: center; gap: .5rem; color: var(--ink2); }
-.trust span::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 13px; }
-
-/* ── FILTER ── */
-.filter-wrap {
-  position: sticky; top: 0; z-index: 30;
-  background: rgba(11,13,20,0.92);
-  border-bottom: 1px solid var(--border);
-  padding: .9rem 2rem;
-  display: flex; gap: .5rem;
-  overflow-x: auto; scrollbar-width: none;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.filter-wrap::-webkit-scrollbar { display: none; }
-.fbtn {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
-  padding: .45rem 1.1rem; border-radius: 99px;
-  border: 1.5px solid var(--border2);
-  background: none; color: var(--ink2);
-  cursor: pointer; white-space: nowrap; transition: all .15s;
-}
-.fbtn:hover { border-color: var(--accent); color: var(--accent); }
-.fbtn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-/* ── SECTION HEADER ── */
-.section-header { text-align: center; padding: 4rem 2rem 0; max-width: 1280px; margin: 0 auto; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5.5rem 0; }
 .section-tag {
   font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--accent); background: rgba(91,155,213,0.12);
   padding: .28rem .8rem; border-radius: 99px; display: inline-block; margin-bottom: .9rem;
 }
-.section-title { font-size: clamp(1.7rem, 3.5vw, 2.5rem); color: var(--ink); margin-bottom: .6rem; }
-.section-sub { color: var(--ink2); font-size: .97rem; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+.section-title { font-size: clamp(1.75rem, 3.6vw, 2.5rem); color: var(--ink); margin-bottom: .7rem; letter-spacing: -.02em; }
+.section-title em { font-style: italic; color: var(--accent2); }
+.section-sub { color: var(--ink2); font-size: 1rem; max-width: 560px; line-height: 1.65; }
+.center { text-align: center; }
+.center .section-sub { margin-left: auto; margin-right: auto; }
 
-/* ── GRID ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  padding: 2.5rem 2rem 4rem;
-  max-width: 1280px; margin: 0 auto;
-  align-items: start;
-}
+/* ── Marca ── */
+.mark { display: flex; flex-direction: column; gap: 2.5px; flex: none; }
+.mark i { display: block; height: 2.5px; border-radius: 2px; background: var(--ink2); }
+.mark i:nth-child(1) { width: 20px; opacity: .42; }
+.mark i:nth-child(2) { width: 13px; opacity: .62; }
+.mark i:nth-child(3) { width: 6px; background: var(--accent); opacity: 1; }
 
-/* ── FLIP CARD ── */
-.card { height: 460px; perspective: 1200px; cursor: pointer; }
-.card.hidden { display: none !important; }
-.card-inner {
-  position: relative; width: 100%; height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(11,13,20,0.82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
 }
-.card.flipped .card-inner { transform: rotateY(180deg); }
+.nav-in { display: flex; align-items: center; gap: 1.6rem; height: 62px; max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+.brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; font-weight: 600; letter-spacing: -.01em; font-size: .97rem; }
+.brand b { font-weight: 600; color: #fff; }
+.brand span { color: var(--accent2); font-weight: 600; }
+.nav-links { display: flex; gap: 1.5rem; margin-left: auto; font-size: .89rem; }
+.nav-links a { color: var(--ink2); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--accent); color: #fff; text-decoration: none;
+  padding: .5rem 1.15rem; border-radius: 99px; font-size: .86rem; font-weight: 600;
+  transition: background .15s; white-space: nowrap;
+}
+.nav-cta:hover { background: var(--accent2); }
 
-.card-front, .card-back {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  border-radius: var(--radius);
-  background: var(--card); border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 1.8rem 1.9rem;
-  display: flex; flex-direction: column;
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 5.5rem 0 4.5rem; position: relative; overflow: hidden;
 }
-.card-front { overflow: hidden; transition: border-color .2s; }
-.card-front:hover { border-color: var(--border-accent); }
-.card-back {
-  transform: rotateY(180deg);
-  overflow-y: auto;
-  background: var(--card-hover);
-  border-color: var(--border-accent);
-  box-shadow: var(--shadow-lg);
-}
-.card-back::-webkit-scrollbar { width: 4px; }
-.card-back::-webkit-scrollbar-track { background: transparent; }
-.card-back::-webkit-scrollbar-thumb { background: var(--ink3); border-radius: 4px; }
-
-/* FRONT ELEMENTS */
-.card-cat {
-  font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase;
-  letter-spacing: .12em; padding: .22rem .6rem; border-radius: 5px;
-  display: inline-block; margin-bottom: 1.1rem; font-weight: 500; width: fit-content;
-}
-.cat-web      { background: rgba(91,155,213,0.15); color: var(--accent); }
-.cat-auto     { background: var(--green-dim); color: var(--green); }
-.cat-mkt      { background: var(--amber-dim); color: var(--amber); }
-.cat-analisis { background: var(--purple-dim); color: var(--purple); }
-.cat-otros    { background: rgba(122,139,166,0.15); color: var(--ink2); }
-
-.card-icon { font-size: 2.2rem; margin-bottom: .7rem; line-height: 1; }
-.card-front h3 { font-size: 1.2rem; color: var(--ink); margin-bottom: .55rem; }
-.card .desc { font-size: .92rem; color: var(--ink2); flex: 1; line-height: 1.6; margin-bottom: 1rem; }
-.card .price { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--accent); margin-bottom: .7rem; line-height: 1.2; }
-.card .price small { font-family: 'DM Sans', sans-serif; font-size: .74rem; color: var(--ink3); font-weight: 400; display: block; margin-top: .1rem; }
-.flip-hint { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--ink3); text-align: center; letter-spacing: .06em; transition: color .15s; }
-.card-front:hover .flip-hint { color: var(--accent); }
-
-/* BACK ELEMENTS */
-.back-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-shrink: 0; }
-.back-title { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--ink); line-height: 1.2; }
-.back-close {
-  background: rgba(255,255,255,0.08); border: 1px solid var(--border);
-  color: var(--ink2); border-radius: 99px; padding: .25rem .7rem;
-  font-size: .78rem; cursor: pointer; font-family: 'DM Mono', monospace;
-  flex-shrink: 0; transition: background .15s;
-}
-.back-close:hover { background: rgba(255,255,255,0.18); color: var(--ink); }
-.forwho {
-  font-size: .83rem; color: var(--accent2);
-  background: rgba(91,155,213,0.1);
-  border-left: 2px solid var(--accent);
-  padding: .5rem .7rem; border-radius: 0 6px 6px 0;
-  margin-bottom: .9rem; line-height: 1.5; flex-shrink: 0;
-}
-.forwho b { font-weight: 600; }
-.card-back ul { list-style: none; margin-bottom: .9rem; }
-.card-back ul li { font-size: .87rem; color: var(--ink); padding: .3rem 0 .3rem 1.3rem; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.5; }
-.card-back ul li:last-child { border-bottom: none; }
-.card-back ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: .8rem; top: .35rem; }
-.demos-row { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .9rem; padding-top: .7rem; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
-.demo-chip {
-  font-family: 'DM Mono', monospace; font-size: 9.5px; text-transform: uppercase;
-  letter-spacing: .07em; padding: .25rem .65rem; border-radius: 5px;
-  background: rgba(91,155,213,0.12); color: var(--accent2);
-  text-decoration: none; border: 1px solid rgba(91,155,213,0.2);
-  transition: background .12s; white-space: nowrap;
-}
-.demo-chip:hover { background: rgba(91,155,213,0.25); }
-.back-price { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--accent); margin-bottom: .7rem; flex-shrink: 0; }
-.back-price small { font-family: 'DM Sans', sans-serif; font-size: .72rem; color: var(--ink3); font-weight: 400; display: block; margin-top: .1rem; }
-.back-cta {
-  display: block; text-align: center;
-  background: var(--accent); color: #fff;
-  border-radius: 99px; padding: .75rem 1.2rem;
-  font-weight: 600; font-size: .88rem; text-decoration: none;
-  transition: background .15s; flex-shrink: 0; margin-top: auto;
-}
-.back-cta:hover { background: var(--accent2); }
-
-/* ── PACKS ── */
-.packs-section { background: var(--surface); border-top: 1px solid var(--border); padding: 5rem 2rem; }
-.packs-inner { max-width: 1280px; margin: 0 auto; }
-.packs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.3rem; margin-top: 3rem; }
-.pack-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 1.7rem 1.8rem;
-  box-shadow: var(--shadow); display: flex; flex-direction: column;
-  position: relative; overflow: hidden;
-  transition: border-color .2s, box-shadow .2s;
-}
-.pack-card:hover { border-color: var(--border-accent); box-shadow: var(--shadow-lg); }
-.pack-card.featured {
-  border-color: rgba(91,155,213,0.4);
-  background: linear-gradient(160deg, #1a2540 0%, var(--card) 60%);
-}
-.pack-card.featured::after {
-  content: 'Más popular';
-  position: absolute; top: 1.1rem; right: 1.1rem;
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  text-transform: uppercase; letter-spacing: .1em;
-  padding: .22rem .6rem; border-radius: 4px;
-  background: var(--accent); color: #fff;
-}
-.pack-badge { font-family: 'DM Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .12em; padding: .2rem .55rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; width: fit-content; }
-.pb-size    { background: rgba(91,155,213,0.15); color: var(--accent); }
-.pb-special { background: var(--green-dim); color: var(--green); }
-.pb-sector  { background: var(--amber-dim); color: var(--amber); }
-.pb-audit   { background: var(--purple-dim); color: var(--purple); }
-.pack-card h3 { font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--ink); margin-bottom: .5rem; font-weight: 400; }
-.pack-desc { font-size: .88rem; color: var(--ink2); margin-bottom: 1.1rem; line-height: 1.55; }
-.pack-includes { list-style: none; margin-bottom: 1.2rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: .8rem; flex: 1; }
-.pack-includes li { font-size: .84rem; color: var(--ink); padding: .28rem 0 .28rem 1.2rem; position: relative; line-height: 1.45; }
-.pack-includes li::before { content: '+'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: .85rem; }
-.pack-pricing { padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07); margin-top: auto; }
-.pack-save { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--green); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .3rem; }
-.pack-price { font-family: 'Fraunces', serif; font-size: 1.6rem; color: var(--ink); line-height: 1.1; margin-bottom: .25rem; }
-.pack-old { font-size: .82rem; color: var(--ink3); text-decoration: line-through; margin-bottom: .8rem; }
-.pack-cta { display: block; text-align: center; background: rgba(91,155,213,0.15); color: var(--accent); border: 1px solid rgba(91,155,213,0.3); border-radius: 99px; padding: .7rem 1.2rem; font-weight: 600; font-size: .88rem; text-decoration: none; transition: all .15s; margin-top: .9rem; }
-.pack-cta:hover, .pack-card.featured .pack-cta { background: var(--accent); color: #fff; border-color: var(--accent); }
-.pack-card.featured .pack-cta:hover { background: var(--accent2); border-color: var(--accent2); }
-
-/* ── WHY ── */
-.why { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 2rem; }
-.why-inner { max-width: 1280px; margin: 0 auto; }
-.why h2 { font-size: clamp(1.7rem,3vw,2.3rem); margin-bottom: 2.5rem; text-align: center; }
-.pills { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-.pill { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; display: flex; gap: .85rem; align-items: flex-start; transition: border-color .15s; }
-.pill:hover { border-color: var(--border2); }
-.pill .ico { font-size: 1.5rem; flex-shrink: 0; }
-.pill strong { display: block; font-family: 'Fraunces', serif; font-size: 1.05rem; margin-bottom: .2rem; color: var(--ink); }
-.pill p { font-size: .86rem; color: var(--ink2); line-height: 1.5; }
-
-/* ── CONTACT ── */
-.contact {
-  background: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
-  border-top: 1px solid var(--border-accent);
-  color: #fff; text-align: center; padding: 7rem 2rem 6rem;
-  position: relative; overflow: hidden;
-}
-.contact::before {
-  content: ''; position: absolute; bottom: -10%; left: 50%; transform: translateX(-50%);
-  width: 700px; height: 300px;
-  background: radial-gradient(ellipse, rgba(27,58,107,0.4) 0%, transparent 70%);
+.hero::before {
+  content: ''; position: absolute; top: -32%; left: 50%; transform: translateX(-50%);
+  width: 780px; height: 460px;
+  background: radial-gradient(ellipse, rgba(27,58,107,0.5) 0%, transparent 70%);
   pointer-events: none;
 }
-.contact h2 { font-size: clamp(2rem,4vw,2.8rem); color: #fff; margin-bottom: .9rem; }
-.contact .sub { color: rgba(255,255,255,.55); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.65; }
-.contact .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.contact .btn-w { background: #25D366; color: #fff; padding: .9rem 2.2rem; border-radius: 99px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: background .15s; display: flex; align-items: center; gap: .5rem; }
-.contact .btn-w:hover { background: #1fba58; }
-.contact .btn-e { background: rgba(91,155,213,0.15); color: var(--accent2); padding: .9rem 2.2rem; border-radius: 99px; text-decoration: none; font-weight: 600; font-size: 1rem; border: 1.5px solid rgba(91,155,213,0.3); transition: all .15s; }
-.contact .btn-e:hover { background: rgba(91,155,213,0.25); }
-.contact .note { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,.25); margin-top: 2.5rem; letter-spacing: .06em; }
+.hero .wrap { position: relative; }
+.eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent2); margin-bottom: 1.4rem;
+  display: inline-flex; align-items: center; gap: .6rem;
+}
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); display: block; }
+.hero h1 {
+  font-size: clamp(2.2rem, 5.2vw, 3.9rem); color: #fff;
+  max-width: 860px; margin-bottom: 1.4rem; letter-spacing: -.028em;
+}
+.hero h1 em { font-style: italic; color: var(--accent2); }
+.hero .lead { font-size: 1.12rem; color: rgba(255,255,255,.62); max-width: 580px; margin-bottom: 2.4rem; }
+.hero .lead b { color: #fff; font-weight: 500; }
+.btn-row { display: flex; gap: .9rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  padding: .92rem 1.9rem; border-radius: 99px; font-weight: 600; font-size: .96rem;
+  text-decoration: none; transition: all .15s; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-p { background: var(--accent); color: #fff; }
+.btn-p:hover { background: var(--accent2); }
+.btn-s { background: rgba(255,255,255,.07); color: rgba(255,255,255,.88); border: 1.5px solid rgba(255,255,255,.18); }
+.btn-s:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
+.btn-w { background: var(--whats); color: #062d15; font-weight: 700; }
+.btn-w:hover { background: #33e07a; }
+.btn svg { width: 17px; height: 17px; flex: none; }
 
-footer { padding: 1.4rem 2rem; text-align: center; font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--ink3); border-top: 1px solid var(--border); background: var(--surface); }
+.aval {
+  display: flex; align-items: center; gap: .85rem; margin-top: 2.6rem;
+  padding-top: 1.7rem; border-top: 1px solid var(--border); max-width: 520px;
+}
+.aval-foto {
+  width: 46px; height: 46px; border-radius: 99px; flex: none;
+  background: linear-gradient(145deg, #1e3358, #101728);
+  border: 1px solid var(--border-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--accent2);
+  object-fit: cover;
+}
+.aval-txt { font-size: .86rem; color: var(--ink2); line-height: 1.5; }
+.aval-txt b { display: block; color: var(--ink); font-weight: 600; font-size: .93rem; }
+
+/* ── CIFRAS ── */
+.cifras { background: var(--surface); border-bottom: 1px solid var(--border); padding: 3.2rem 0 2.6rem; }
+.cifras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.cifra { text-align: center; padding: 0 .5rem; }
+.cifra .n { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 2.9rem); color: #fff; line-height: 1; display: block; margin-bottom: .55rem; }
+.cifra .n span { color: var(--accent2); }
+.cifra .t { font-size: .87rem; color: var(--ink2); line-height: 1.45; }
+.fuentes { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .76rem; color: var(--ink3); line-height: 1.6; }
+.fuentes a { color: var(--ink2); }
+
+/* ── SÍNTOMAS ── */
+.sintomas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 2.8rem; }
+.sintoma {
+  background: var(--card); border: 1px solid var(--border); border-left: 2px solid var(--red);
+  border-radius: 4px var(--radius) var(--radius) 4px; padding: 1.4rem 1.5rem;
+  transition: border-color .18s, transform .18s;
+}
+.sintoma:hover { border-color: var(--border2); border-left-color: var(--red); transform: translateX(3px); }
+.sintoma .h { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: .6rem; }
+.sintoma p { font-size: .94rem; color: var(--ink); line-height: 1.6; }
+.sintoma p b { color: #fff; font-weight: 600; }
+
+/* ── SISTEMA ── */
+.piezas { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.2rem; margin-top: 2.8rem; }
+.pieza {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.7rem 1.6rem; box-shadow: var(--shadow); position: relative;
+  transition: border-color .18s, box-shadow .18s;
+}
+.pieza:hover { border-color: var(--border-accent); box-shadow: var(--shadow-lg); }
+.pieza .num {
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em;
+  color: var(--accent); background: rgba(91,155,213,0.12);
+  padding: .22rem .6rem; border-radius: 5px; display: inline-block; margin-bottom: 1rem;
+}
+.pieza h3 { font-size: 1.12rem; color: var(--ink); margin-bottom: .5rem; }
+.pieza p { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
+
+/* ── DEMO CHAT ── */
+.demo-zona { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.demo-grid { display: grid; grid-template-columns: 1fr 380px; gap: 3rem; align-items: center; }
+.demo-txt .lista { list-style: none; margin-top: 1.8rem; }
+.demo-txt .lista li { font-size: .93rem; color: var(--ink); padding: .5rem 0 .5rem 1.6rem; position: relative; }
+.demo-txt .lista li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.demo-nota { margin-top: 1.8rem; font-size: .84rem; color: var(--ink3); font-family: 'DM Mono', monospace; line-height: 1.6; }
+
+.movil {
+  background: #0a1014; border: 1px solid var(--border2); border-radius: 26px;
+  padding: 9px; box-shadow: var(--shadow-lg); max-width: 380px; margin: 0 auto; width: 100%;
+}
+.movil-top {
+  background: #1f2c33; border-radius: 18px 18px 0 0; padding: .7rem .9rem;
+  display: flex; align-items: center; gap: .65rem;
+}
+.movil-top .av {
+  width: 32px; height: 32px; border-radius: 99px; flex: none;
+  background: linear-gradient(145deg, #2d5c8a, #17304d);
+  display: flex; align-items: center; justify-content: center; font-size: .78rem; color: #cfe3f5; font-weight: 600;
+}
+.movil-top .nm { font-size: .84rem; color: #e9edef; font-weight: 600; line-height: 1.3; }
+.movil-top .st { font-size: .68rem; color: #8fa4ae; font-family: 'DM Mono', monospace; }
+.chat {
+  background: #0d1418; height: 428px; overflow-y: auto; padding: .9rem .8rem;
+  display: flex; flex-direction: column; gap: .45rem; scrollbar-width: thin;
+}
+.chat::-webkit-scrollbar { width: 4px; }
+.chat::-webkit-scrollbar-thumb { background: #2a3942; border-radius: 4px; }
+.burbuja {
+  max-width: 82%; padding: .5rem .7rem .95rem; border-radius: 9px; font-size: .82rem;
+  line-height: 1.5; position: relative; animation: aparece .22s ease-out; word-wrap: break-word;
+}
+@keyframes aparece { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.burbuja.bot { background: #1f2c33; color: #e9edef; align-self: flex-start; border-top-left-radius: 2px; }
+.burbuja.user { background: #144d37; color: #e9edef; align-self: flex-end; border-top-right-radius: 2px; }
+.burbuja .hora { position: absolute; right: .6rem; bottom: .3rem; font-size: 9.5px; color: rgba(233,237,239,.45); font-family: 'DM Mono', monospace; }
+.burbuja b { font-weight: 600; }
+.burbuja .chip-precio { display: block; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(255,255,255,.1); font-family: 'DM Mono', monospace; font-size: .78rem; color: #8fd0a3; }
+.escribiendo { background: #1f2c33; align-self: flex-start; border-radius: 9px; border-top-left-radius: 2px; padding: .7rem .8rem; display: flex; gap: 3.5px; }
+.escribiendo i { width: 6px; height: 6px; border-radius: 99px; background: #8fa4ae; display: block; animation: bota 1.1s infinite; }
+.escribiendo i:nth-child(2) { animation-delay: .16s; }
+.escribiendo i:nth-child(3) { animation-delay: .32s; }
+@keyframes bota { 0%,60%,100% { transform: none; opacity: .45; } 30% { transform: translateY(-4px); opacity: 1; } }
+.rapidas { display: flex; flex-wrap: wrap; gap: .35rem; align-self: flex-end; justify-content: flex-end; margin-top: .2rem; }
+.rapida {
+  background: none; border: 1px solid #2a5f78; color: #7fc4e0; border-radius: 99px;
+  padding: .32rem .75rem; font-size: .76rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .14s;
+}
+.rapida:hover { background: #144d37; border-color: #144d37; color: #e9edef; }
+.movil-pie {
+  background: #1f2c33; border-radius: 0 0 18px 18px; padding: .6rem .8rem;
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+}
+.movil-pie .campo { flex: 1; background: #2a3942; border-radius: 99px; padding: .42rem .8rem; font-size: .76rem; color: #6b7d87; }
+.rebobina {
+  background: none; border: 1px solid #2a3942; color: #8fa4ae; border-radius: 99px;
+  width: 30px; height: 30px; flex: none; cursor: pointer; font-size: .8rem; transition: all .14s;
+}
+.rebobina:hover { border-color: var(--accent); color: var(--accent); }
+
+.resultado { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.4rem; justify-content: center; }
+.resultado span {
+  font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.22);
+  padding: .3rem .7rem; border-radius: 99px;
+}
+
+/* ── CALCULADORA ── */
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2.8rem; align-items: start; }
+.calc-campos { display: flex; flex-direction: column; gap: 1.3rem; }
+.campo-l { display: block; font-size: .88rem; color: var(--ink); margin-bottom: .5rem; font-weight: 500; }
+.campo-l small { display: block; color: var(--ink3); font-size: .76rem; font-weight: 400; margin-top: .1rem; }
+.calc input[type=number], .calc input[type=range] { width: 100%; }
+.calc input[type=number] {
+  background: var(--card); border: 1px solid var(--border2); border-radius: 10px;
+  padding: .7rem .9rem; color: var(--ink); font-size: 1rem; font-family: 'DM Mono', monospace;
+}
+.calc input[type=number]:focus { border-color: var(--accent); outline: none; }
+.calc input[type=range] { accent-color: var(--accent); height: 26px; }
+.rango-val { font-family: 'DM Mono', monospace; font-size: .88rem; color: var(--accent2); }
+.calc-out {
+  background: linear-gradient(160deg, #16213a 0%, var(--card) 65%);
+  border: 1px solid var(--border-accent); border-radius: var(--radius);
+  padding: 1.9rem 1.8rem; box-shadow: var(--shadow);
+}
+.calc-linea { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--border); font-size: .9rem; color: var(--ink2); }
+.calc-linea b { font-family: 'DM Mono', monospace; color: var(--ink); font-size: 1rem; font-weight: 500; white-space: nowrap; }
+.calc-total { padding-top: 1.3rem; }
+.calc-total .et { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); margin-bottom: .4rem; }
+.calc-total .v { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: #fff; line-height: 1.1; }
+.calc-aviso { font-size: .78rem; color: var(--ink3); line-height: 1.6; margin-top: 1.1rem; }
+
+/* ── TONO / LISTA ICONOS ── */
+.tono { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.1rem; margin-top: 2.8rem; }
+.tono-it { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; }
+.tono-it .ic { font-size: 1.3rem; margin-bottom: .6rem; display: block; }
+.tono-it strong { display: block; font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.05rem; color: var(--ink); margin-bottom: .35rem; }
+.tono-it p { font-size: .88rem; color: var(--ink2); line-height: 1.55; }
+
+/* ── PLAZOS ── */
+.plazos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.1rem; margin-top: 2.8rem; counter-reset: paso; }
+.plazo { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1.4rem; position: relative; }
+.plazo .d { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .7rem; }
+.plazo h3 { font-size: 1.02rem; margin-bottom: .4rem; }
+.plazo p { font-size: .87rem; color: var(--ink2); line-height: 1.55; }
+
+/* ── GARANTÍA ── */
+.garantia {
+  background: linear-gradient(150deg, #10231c 0%, var(--card) 70%);
+  border: 1px solid rgba(74,222,128,0.25); border-radius: var(--radius);
+  padding: 2.4rem 2.2rem; display: flex; gap: 1.6rem; align-items: flex-start; margin-top: 2.5rem;
+}
+.garantia .sello {
+  width: 54px; height: 54px; border-radius: 99px; flex: none;
+  background: var(--green-dim); border: 1px solid rgba(74,222,128,0.35);
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+}
+.garantia h3 { font-size: 1.3rem; color: #fff; margin-bottom: .6rem; }
+.garantia p { color: var(--ink2); font-size: .95rem; line-height: 1.65; }
+.garantia p b { color: var(--ink); font-weight: 600; }
+
+/* ── MUESTRAS ── */
+.muestras { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 2.8rem; }
+.muestra {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.6rem 1.6rem; text-decoration: none; display: block;
+  transition: border-color .18s, transform .18s;
+}
+.muestra:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+.muestra .et {
+  font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--amber-dim); color: var(--amber); padding: .2rem .55rem; border-radius: 4px;
+  display: inline-block; margin-bottom: .9rem;
+}
+.muestra h3 { font-size: 1.08rem; margin-bottom: .4rem; }
+.muestra p { font-size: .88rem; color: var(--ink2); line-height: 1.55; margin-bottom: .8rem; }
+.muestra .ir { font-family: 'DM Mono', monospace; font-size: .8rem; color: var(--accent2); }
+
+/* ── FILTRO SÍ/NO ── */
+.filtro { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.8rem; }
+.col { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.7rem 1.7rem; }
+.col.si { border-color: rgba(74,222,128,0.22); }
+.col h3 { font-size: 1.1rem; margin-bottom: 1.1rem; }
+.col ul { list-style: none; }
+.col li { font-size: .91rem; color: var(--ink); padding: .5rem 0 .5rem 1.6rem; position: relative; line-height: 1.55; border-bottom: 1px solid rgba(255,255,255,.05); }
+.col li:last-child { border-bottom: none; }
+.col.si li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.col.no li::before { content: '✕'; position: absolute; left: 0; color: var(--ink3); font-weight: 700; }
+.col.no li { color: var(--ink2); }
+
+/* ── FAQ ── */
+.faq { max-width: 780px; margin: 2.8rem auto 0; }
+.faq-it { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+  padding: 1.25rem 2.5rem 1.25rem 0; position: relative;
+  font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--ink); line-height: 1.35;
+}
+.faq-q::after {
+  content: '+'; position: absolute; right: .4rem; top: 50%; transform: translateY(-50%);
+  font-family: 'DM Mono', monospace; font-size: 1.25rem; color: var(--accent); transition: transform .2s;
+}
+.faq-it.abierta .faq-q::after { transform: translateY(-50%) rotate(45deg); }
+.faq-q:hover { color: var(--accent2); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
+.faq-a div { padding: 0 2.5rem 1.35rem 0; color: var(--ink2); font-size: .94rem; line-height: 1.7; }
+.faq-a b { color: var(--ink); font-weight: 600; }
+
+/* ── AUDITORÍA / FORM ── */
+.auditoria {
+  background: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
+  border-top: 1px solid var(--border-accent); position: relative; overflow: hidden;
+}
+.auditoria::before {
+  content: ''; position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%);
+  width: 820px; height: 380px;
+  background: radial-gradient(ellipse, rgba(27,58,107,0.4) 0%, transparent 70%); pointer-events: none;
+}
+.auditoria .wrap { position: relative; }
+.aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.aud-pasos { list-style: none; margin-top: 1.8rem; }
+.aud-pasos li { font-size: .94rem; color: var(--ink); padding: .55rem 0 .55rem 2.1rem; position: relative; counter-increment: ap; }
+.aud-pasos { counter-reset: ap; }
+.aud-pasos li::before {
+  content: counter(ap); position: absolute; left: 0; top: .6rem;
+  width: 20px; height: 20px; border-radius: 99px; background: rgba(91,155,213,0.15);
+  color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.otras-vias { margin-top: 2.2rem; padding-top: 1.6rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: .8rem; }
+.otras-vias .t { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); }
+
+form.form {
+  background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius);
+  padding: 1.9rem 1.8rem; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 1rem;
+}
+.form label { font-size: .84rem; color: var(--ink2); display: block; margin-bottom: .35rem; }
+.form input, .form select {
+  width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: 10px;
+  padding: .72rem .9rem; color: var(--ink); font-size: .94rem; font-family: 'DM Sans', sans-serif;
+}
+.form input:focus, .form select:focus { border-color: var(--accent); outline: none; }
+.form select { cursor: pointer; }
+.hp { position: absolute !important; left: -9999px !important; opacity: 0; height: 0; }
+.rgpd { display: flex; gap: .6rem; align-items: flex-start; font-size: .79rem; color: var(--ink3); line-height: 1.55; }
+.rgpd input { width: auto; margin-top: .2rem; flex: none; accent-color: var(--accent); }
+.rgpd a { color: var(--ink2); }
+.form-msg { font-size: .88rem; padding: .7rem .9rem; border-radius: 10px; display: none; line-height: 1.5; }
+.form-msg.ok { display: block; background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.form-msg.ko { display: block; background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+
+/* ── FOOTER ── */
+footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2.6rem 0 2rem; }
+.foot-grid { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+.foot-marca { display: flex; align-items: center; gap: .7rem; margin-bottom: .7rem; }
+.foot p { font-size: .85rem; color: var(--ink2); line-height: 1.6; max-width: 320px; }
+.foot-links { display: flex; flex-direction: column; gap: .45rem; font-size: .85rem; }
+.foot-links a { color: var(--ink2); text-decoration: none; }
+.foot-links a:hover { color: var(--ink); }
+.foot-legal {
+  margin-top: 2.2rem; padding-top: 1.3rem; border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--ink3);
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+
+/* ── WHATSAPP FLOTANTE ── */
+.flota {
+  position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60;
+  width: 54px; height: 54px; border-radius: 99px; background: var(--whats);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 22px rgba(0,0,0,.5); transition: transform .16s;
+}
+.flota:hover { transform: scale(1.06); }
+.flota svg { width: 27px; height: 27px; fill: #062d15; }
+
+/* ── REVEAL ── */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+.rv.visible { opacity: 1; transform: none; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .hero { padding: 4rem 1.25rem 3.5rem; }
-  .hero h1 { font-size: clamp(2rem, 7.5vw, 2.8rem); }
-  .hero .sub { font-size: .97rem; margin-bottom: 2.5rem; }
-  .hero .stats { gap: 1.5rem; }
-  .hero .stat .n { font-size: 2.2rem; }
-  .hero-cta { flex-direction: column; align-items: center; }
-  .hero-cta a { width: 100%; max-width: 320px; text-align: center; }
-  .trust { gap: 1rem; padding: 1rem 1.25rem; font-size: 11px; }
-  .filter-wrap { padding: .7rem 1rem; gap: .4rem; }
-  .section-header { padding: 2.5rem 1rem 0; }
-  .grid { grid-template-columns: 1fr; padding: 1.5rem 1rem 2rem; gap: 1rem; }
-
-  /* Mobile cards: expand-in-place en vez de flip 3D */
-  .card { height: auto; perspective: none; }
-  .card-inner { height: auto; transform-style: flat; transition: none; display: flex; flex-direction: column; }
-  .card.flipped .card-inner { transform: none; }
-  .card-front, .card-back {
-    position: relative; top: auto; left: auto;
-    width: 100%; height: auto;
-    backface-visibility: visible; -webkit-backface-visibility: visible;
-  }
-  .card-front { border-radius: var(--radius); }
-  .card.flipped .card-front {
-    border-radius: var(--radius) var(--radius) 0 0;
-    border-bottom: 1px solid var(--border-accent);
-  }
-  .card-back {
-    display: none; transform: none;
-    border-radius: 0 0 var(--radius) var(--radius);
-    border-top: none; overflow-y: visible; box-shadow: none;
-  }
-  .card.flipped .card-back { display: flex; }
-  .back-close { min-height: 40px; padding: .45rem 1rem; font-size: .82rem; }
-
-  .packs-section { padding: 3.5rem 1rem; }
-  .packs-grid { grid-template-columns: 1fr; }
-  .why { padding: 3.5rem 1rem; }
-  .pills { grid-template-columns: 1fr; }
-  .contact { padding: 4.5rem 1.25rem; }
-  .contact .btns { flex-direction: column; align-items: center; }
-  .contact .btn-w, .contact .btn-e { width: 100%; max-width: 300px; justify-content: center; }
+@media (max-width: 900px) {
+  .demo-grid, .calc, .aud-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .cifras-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+  .filtro { grid-template-columns: 1fr; }
 }
-@media (max-width: 420px) {
-  .hero .stats { gap: 1rem; }
-  .hero .stat .n { font-size: 1.9rem; }
+@media (max-width: 768px) {
+  .section { padding: 3.8rem 0; }
+  .wrap { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+  .nav-in { gap: 1rem; }
+  .nav-cta { margin-left: auto; }
+  .hero { padding: 3.5rem 0 3rem; }
+  .hero .lead { font-size: 1rem; }
+  .btn-row .btn { width: 100%; }
+  .garantia { flex-direction: column; gap: 1.1rem; padding: 1.8rem 1.5rem; }
+  .movil { max-width: 100%; }
+  .chat { height: 380px; }
+  .flota { width: 50px; height: 50px; right: .9rem; bottom: .9rem; }
+  .foot-grid { flex-direction: column; gap: 1.6rem; }
+  /* Objetivos tactiles de 44px: en movil se pulsa con el pulgar, no con un raton */
+  .nav-cta { padding: .72rem 1.25rem; }
+  .brand { padding: .6rem 0; }
+  .foot-links { gap: 0; }
+  .foot-links a { padding: .7rem 0; }
+  .calc input[type=range] { height: 44px; }
+  .rebobina { width: 44px; height: 44px; }
+  .rapida { min-height: 44px; padding: .5rem .95rem; }
+  .muestra { padding: 1.6rem 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; }
 }
 @media print {
-  .filter-wrap, .hero-cta, .contact, footer, .demos-row, .back-cta { display: none; }
-  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .card.hidden { display: block !important; }
-  .grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  .nav, .flota, .movil-pie, .rapidas, .btn-row, form.form { display: none; }
+  body { background: #fff; color: #111; }
+  .rv { opacity: 1; transform: none; }
 }
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="eyebrow">Alejandro Horcajuelo · Desarrollo Web & Automatización IA</div>
-  <h1>Haz crecer tu negocio<br>en el mundo <em>digital</em></h1>
-  <p class="sub">Webs, bots, IA y estrategia digital para negocios locales — sin tecnicismos, con resultados medibles.</p>
-  <div class="stats">
-    <div class="stat"><span class="n">16</span><span class="t">Servicios disponibles</span></div>
-    <div class="stat"><span class="n">8</span><span class="t">Packs con ahorro</span></div>
-    <div class="stat"><span class="n">5–7</span><span class="t">Días entrega media</span></div>
-    <div class="stat"><span class="n">100%</span><span class="t">Adaptado a ti</span></div>
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <b>FastSolutions<span>IA</span></b>
+    </a>
+    <div class="nav-links">
+      <a href="#fuga">La fuga</a>
+      <a href="#sistema">El sistema</a>
+      <a href="#demo">Demo</a>
+      <a href="#faq">Preguntas</a>
+    </div>
+    <a class="nav-cta" href="#auditoria">Auditoría gratis</a>
   </div>
-  <div class="hero-cta">
-    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20servicios" class="btn-p">💬 Hablamos por WhatsApp</a>
-    <a href="#servicios" class="btn-s">Ver todos los servicios ↓</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Para clínicas dentales con ortodoncia invisible</div>
+    <h1>Tu próximo caso de ortodoncia <em>escribió anoche</em>. Nadie le contestó.</h1>
+    <p class="lead">El paciente de alineadores pide precio en tres o cuatro clínicas y se queda en la primera que le responde. <b>No en la mejor: en la primera.</b> Montamos el sistema que contesta en segundos, cualifica y deja la cita puesta en tu agenda — sin que tu recepción toque nada.</p>
+    <div class="btn-row">
+      <a class="btn btn-p" href="#auditoria">Auditar mi clínica gratis</a>
+      <a class="btn btn-s" href="#" data-cal>Reservar llamada de 20 min</a>
+    </div>
+    <div class="aval">
+      <div class="aval-foto" aria-hidden="true">AH</div>
+      <div class="aval-txt">
+        <b>Alejandro Horcajuelo</b>
+        Detrás de FastSolutions IA hay una persona con teléfono: <a href="tel:+34647471991" style="color:var(--accent2);text-decoration:none;white-space:nowrap;">647 471 991</a>
+      </div>
+    </div>
   </div>
 </header>
 
-<div class="trust">
-  <span>Entrega en 5–7 días</span>
-  <span>Sin permanencias</span>
-  <span>Resultados medibles</span>
-  <span>Soporte incluido</span>
-  <span>Sin tecnicismos</span>
-</div>
-
-<div class="filter-wrap">
-  <button class="fbtn active" data-filter="all">Todos</button>
-  <button class="fbtn" data-filter="web">Web y presencia</button>
-  <button class="fbtn" data-filter="auto">Auto & IA</button>
-  <button class="fbtn" data-filter="mkt">Marketing</button>
-  <button class="fbtn" data-filter="analisis">Análisis</button>
-  <button class="fbtn" data-filter="otros">Otros</button>
-</div>
-
-<div class="section-header" id="servicios">
-  <span class="section-tag">Servicios</span>
-  <h2 class="section-title">16 servicios disponibles</h2>
-  <p class="section-sub">Toca cualquier card para ver el detalle, demos y precio exacto.</p>
-</div>
-
-<div class="grid">
-
-  <!-- 1 -->
-  <article class="card" data-cat="web" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-web">Web y presencia</span>
-        <div class="card-icon">🌐</div>
-        <h3>Página web profesional</h3>
-        <p class="desc">Una web de una sola página con animaciones, diseño premium y adaptada al 100% a tu sector.</p>
-        <div class="price">€900<small>Pago único · publicación incluida</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
+<section class="cifras" id="fuga">
+  <div class="wrap">
+    <div class="cifras-grid">
+      <div class="cifra rv">
+        <span class="n" data-contador="42" data-sufijo=" h"><span>0 h</span></span>
+        <span class="t">tarda de media una empresa en responder a una solicitud web</span>
       </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Página web profesional</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> no tienes web o la que tienes se ve anticuada y no genera clientes.</div>
-        <ul>
-          <li>Diseño a medida para tu sector</li>
-          <li>Adaptada a móvil, tablet y escritorio</li>
-          <li>Botón WhatsApp + formulario de contacto</li>
-          <li>Publicación en tu dominio incluida</li>
-          <li>Entrega en 5–7 días laborables</li>
-        </ul>
-        <div class="demos-row">
-          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demos disponibles bajo petición</span>
-        </div>
-        <div class="back-price">€900<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Página web profesional" class="back-cta">Me interesa →</a>
+      <div class="cifra rv">
+        <span class="n" data-contador="23" data-sufijo=" %"><span>0 %</span></span>
+        <span class="t">no responde jamás a quien ha pedido información</span>
+      </div>
+      <div class="cifra rv">
+        <span class="n" data-contador="21" data-prefijo="×"><span>×0</span></span>
+        <span class="t">más opciones de cualificar contestando en 5 minutos que en 30</span>
+      </div>
+      <div class="cifra rv">
+        <span class="n" data-contador="25" data-sufijo=" %"><span>0 %</span></span>
+        <span class="t">de ausencias en primeras visitas dentales en España</span>
       </div>
     </div>
-  </article>
+    <p class="fuentes">
+      Las tres primeras cifras salen de dos estudios sobre tiempo de respuesta a leads: la auditoría de 2.241 empresas publicada en <a href="https://hbr.org/2011/03/the-short-life-of-online-sales-leads" target="_blank" rel="noopener">Harvard Business Review (2011)</a> —de donde vienen las 42 horas de media y el 23 % que no contesta nunca— y el estudio de respuesta a leads dirigido por James Oldroyd (MIT / InsideSales), origen del multiplicador de los cinco primeros minutos.
+      La cuarta es una <b>estimación del sector dental español</b> publicada por proveedores de software de gestión de clínicas, no un estudio académico: la damos como orden de magnitud, no como dato cerrado.
+    </p>
+  </div>
+</section>
 
-  <!-- 2 -->
-  <article class="card" data-cat="web" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-web">Web y presencia</span>
-        <div class="card-icon">📸</div>
-        <h3>Tu web desde Instagram</h3>
-        <p class="desc">Convierto tu perfil de Instagram en una web de marca personal elegante y profesional.</p>
-        <div class="price">€750<small>Pago único · galería IG incluida</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
+<section class="section">
+  <div class="wrap">
+    <span class="section-tag">Lo que pasa de verdad</span>
+    <h2 class="section-title">Esto ha pasado en tu clínica <em>esta semana</em></h2>
+    <p class="section-sub">Ninguno de estos cinco escenarios necesita un fallo de nadie. Pasan con un equipo bueno, cargado de trabajo y haciendo lo que puede.</p>
+    <div class="sintomas">
+      <div class="sintoma rv">
+        <div class="h">Domingo 23:41</div>
+        <p>Entra una consulta de alineadores por Instagram. Recepción la ve el lunes a las 9:40. <b>El paciente ya ha pedido precio en tres clínicas más</b> y tiene dos respuestas.</p>
       </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Tu web desde Instagram</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> tienes seguidores en IG pero no tienes web propia donde centralizarlo todo.</div>
-        <ul>
-          <li>Fotos y contenido de Instagram como base visual</li>
-          <li>Galería automática con tus mejores posts</li>
-          <li>Identidad de marca coherente con tus redes</li>
-          <li>Enlace bio optimizado</li>
-          <li>SEO básico incluido</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/web-kyliejenner.html" target="_blank" class="demo-chip">Demo · Lifestyle →</a>
-          <a href="DEMOS/web-cristiano.html" target="_blank" class="demo-chip">Demo · Deportista →</a>
-        </div>
-        <div class="back-price">€750<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Tu web desde Instagram" class="back-cta">Me interesa →</a>
+      <div class="sintoma rv">
+        <div class="h">El lead caro</div>
+        <p>Rellena el formulario, no coge el teléfono a la primera, nadie insiste y acaba marcado como «no interesado». <b>Ese clic ya lo habías pagado.</b></p>
       </div>
-    </div>
-  </article>
-
-  <!-- 3 -->
-  <article class="card" data-cat="web" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-web">Web y presencia</span>
-        <div class="card-icon">🎯</div>
-        <h3>Página de ventas</h3>
-        <p class="desc">Una página enfocada al 100% en convertir visitas en clientes, leads o ventas directas.</p>
-        <div class="price">€650<small>Pago único · píxeles incluidos</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
+      <div class="sintoma rv">
+        <div class="h">La misma pregunta, otra vez</div>
+        <p>Media mañana de recepción explicando cuánto dura el tratamiento, si se nota y si se puede quitar para comer. <b>Por vigésima vez este mes.</b></p>
       </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Página de ventas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> vas a lanzar un producto, servicio o campaña y necesitas capturar leads o ventas.</div>
-        <ul>
-          <li>Estructura de conversión probada</li>
-          <li>Carga en menos de 2 segundos en móvil</li>
-          <li>Formulario de captura de leads integrado</li>
-          <li>Píxeles de Meta y Google configurados</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/landing-cocina.html" target="_blank" class="demo-chip">Demo · Academia cocina →</a>
-          <a href="DEMOS/landing-fitness.html" target="_blank" class="demo-chip">Demo · Fitness →</a>
-        </div>
-        <div class="back-price">€650<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Página de ventas" class="back-cta">Me interesa →</a>
+      <div class="sintoma rv">
+        <div class="h">El hueco quemado</div>
+        <p>Primera visita gratuita reservada. No aparece y no avisa. <b>Una hora de sillón y de doctor que ya no se recupera.</b></p>
       </div>
-    </div>
-  </article>
-
-  <!-- 4 -->
-  <article class="card" data-cat="auto" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-auto">Auto & IA</span>
-        <div class="card-icon">💬</div>
-        <h3>Chatbot IA</h3>
-        <p class="desc">IA que atiende por WhatsApp, Telegram o tu web: responde, reserva citas y captura clientes 24/7.</p>
-        <div class="price">€950<small>+ €90/mes mantenimiento</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
+      <div class="sintoma rv">
+        <div class="h">El presupuesto dormido</div>
+        <p>Entregaste un tratamiento de cuatro cifras hace tres semanas. El paciente dijo «me lo pienso». <b>Nadie ha vuelto a llamar.</b></p>
       </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Chatbot IA</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> recibes mensajes fuera de horario, gestionas citas por WhatsApp manual o siempre te preguntan las mismas cosas.</div>
-        <ul>
-          <li>Disponible en WhatsApp, Telegram o web</li>
-          <li>Gestiona reservas y citas automáticamente</li>
-          <li>Entrenado con la info real de tu negocio</li>
-          <li>Recordatorios automáticos antes de cada cita</li>
-          <li>Captura leads y avisa si necesita intervención humana</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/chatbot-whatsapp-kim-bbq.html" target="_blank" class="demo-chip">Demo · Kim BBQ Sushi →</a>
-          <a href="DEMOS/chatbot-dental.html" target="_blank" class="demo-chip">Demo · Clínica →</a>
-          <a href="DEMOS/chatbot-whatsapp-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
-        </div>
-        <div class="back-price">€950<small>+ €90/mes</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Chatbot IA" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 6 -->
-  <article class="card" data-cat="auto" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-auto">Auto & IA</span>
-        <div class="card-icon">🎙️</div>
-        <h3>Agente IA por voz</h3>
-        <p class="desc">La IA coge el teléfono de tu negocio: atiende llamadas, gestiona reservas y responde preguntas 24/7.</p>
-        <div class="price">€1.400<small>+ €80/mes operativo</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Agente IA por voz</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> el teléfono suena cuando estás ocupado y se pierden llamadas (restaurantes, clínicas, peluquerías…).</div>
-        <ul>
-          <li>Contesta llamadas en español con voz natural</li>
-          <li>Gestiona reservas y responde FAQs</li>
-          <li>Te llega resumen de cada llamada</li>
-          <li>Activo 24/7, incluso fuera de horario</li>
-          <li>Escala a persona real cuando es necesario</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/voz-kim-bbq.html" target="_blank" class="demo-chip">Demo · Kim BBQ Sushi →</a>
-          <a href="DEMOS/reservas-voz-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
-        </div>
-        <div class="back-price">€1.400<small>+ €80/mes operativo</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Agente IA por voz" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 7 -->
-  <article class="card" data-cat="otros" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-otros">Otros</span>
-        <div class="card-icon">⚙️</div>
-        <h3>Automatización de tareas</h3>
-        <p class="desc">Conecto tus herramientas y elimino tareas manuales repetitivas — sin que toques una línea de código.</p>
-        <div class="price">€600<small>Pago único por flujo</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Automatización de tareas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> tienes tareas repetitivas que podrían hacerse solas (enviar correos, actualizar sheets, notificaciones…).</div>
-        <ul>
-          <li>Integración WhatsApp, Gmail, Google Sheets y CRM</li>
-          <li>Flujos automáticos sin intervención manual</li>
-          <li>Alertas si algo falla</li>
-          <li>Documentación completa del flujo entregada</li>
-        </ul>
-        <div class="demos-row">
-          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demo bajo petición</span>
-        </div>
-        <div class="back-price">€600<small>Según complejidad</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Automatización de tareas" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 8 -->
-  <article class="card" data-cat="mkt" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-mkt">Marketing</span>
-        <div class="card-icon">📱</div>
-        <h3>Plan de redes 30 días</h3>
-        <p class="desc">Calendario de contenido completo: ideas, textos, hashtags y formatos listos para publicar.</p>
-        <div class="price">€300/mes<small>Entrega en 3 días</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Plan de redes 30 días</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> no sabes qué publicar, publicas poco o sin estrategia.</div>
-        <ul>
-          <li>30 ideas de contenido adaptadas a tu negocio</li>
-          <li>Textos listos para copiar y pegar</li>
-          <li>Hashtags relevantes por publicación</li>
-          <li>Mejor hora y formato por día</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/calendario-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
-          <a href="DEMOS/calendario-peluqueria.html" target="_blank" class="demo-chip">Demo · Peluquería →</a>
-        </div>
-        <div class="back-price">€300/mes<small>3 días entrega</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Plan de redes 30 días" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 9 -->
-  <article class="card" data-cat="mkt" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-mkt">Marketing</span>
-        <div class="card-icon">✉️</div>
-        <h3>Emails automáticos de venta</h3>
-        <p class="desc">Secuencias de email que trabajan solas: bienvenida, seguimiento, recuperación y fidelización.</p>
-        <div class="price">€600<small>Pago único · plataforma no incluida</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Emails automáticos de venta</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> tienes contactos sin explotar o quieres automatizar la comunicación con clientes.</div>
-        <ul>
-          <li>Secuencia de bienvenida (3–5 emails)</li>
-          <li>Seguimiento tras inactividad automático</li>
-          <li>Compatible con Mailchimp, Brevo, ActiveCampaign</li>
-          <li>Tono adaptado a tu marca</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/emails-cosmetica.html" target="_blank" class="demo-chip">Demo · Cosmética →</a>
-          <a href="DEMOS/emails-consultor.html" target="_blank" class="demo-chip">Demo · Consultor →</a>
-        </div>
-        <div class="back-price">€600<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Emails automáticos de venta" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 11 -->
-  <article class="card" data-cat="analisis" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-analisis">Análisis</span>
-        <div class="card-icon">🔍</div>
-        <h3>Diagnóstico digital completo</h3>
-        <p class="desc">Análisis exhaustivo de tu presencia online: web, redes, Google, reseñas y competencia.</p>
-        <div class="price">€350<small>Entrega en 48h · informe PDF</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Diagnóstico digital completo</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> tienes presencia online pero no sabes qué funciona, qué falta o por qué no llegas a más clientes.</div>
-        <ul>
-          <li>Análisis de web (velocidad, SEO, conversión)</li>
-          <li>Revisión de redes sociales y engagement</li>
-          <li>Estado de Google Business Profile</li>
-          <li>Comparativa con 3 competidores directos</li>
-          <li>Plan de mejora priorizado</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/diagnostico-fontaneria.html" target="_blank" class="demo-chip">Demo · Fontanería →</a>
-          <a href="DEMOS/diagnostico-yoga.html" target="_blank" class="demo-chip">Demo · Yoga →</a>
-        </div>
-        <div class="back-price">€350<small>Entrega en 48h · PDF</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Diagnóstico digital completo" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 12 -->
-  <article class="card" data-cat="analisis" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-analisis">Análisis</span>
-        <div class="card-icon">📈</div>
-        <h3>Más visitas desde Google</h3>
-        <p class="desc">Optimización SEO para que tu negocio aparezca en los primeros resultados de tu ciudad.</p>
-        <div class="price">€450<small>Resultados en 4–8 semanas</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Más visitas desde Google (SEO)</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> no apareces en Google cuando buscan tu tipo de negocio en tu ciudad o barrio.</div>
-        <ul>
-          <li>Investigación de palabras clave locales</li>
-          <li>Optimización de Google Business Profile</li>
-          <li>Textos SEO para tu web incluidos</li>
-          <li>Estrategia de reseñas de Google</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/seo-restaurante.html" target="_blank" class="demo-chip">Demo · Restaurante →</a>
-          <a href="DEMOS/seo-veterinaria.html" target="_blank" class="demo-chip">Demo · Veterinaria →</a>
-        </div>
-        <div class="back-price">€450<small>Resultados en 4–8 semanas</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: SEO y visibilidad Google" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 13 -->
-  <article class="card" data-cat="analisis" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-analisis">Análisis</span>
-        <div class="card-icon">📊</div>
-        <h3>Mejora tus anuncios en Meta</h3>
-        <p class="desc">Auditoría de tus campañas de Instagram y Facebook Ads para encontrar qué falla y cómo mejorarlo.</p>
-        <div class="price">€300<small>Entrega en 3 días · accionables incluidos</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Auditoría Meta Ads</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> inviertes en Meta Ads pero los resultados no justifican el gasto.</div>
-        <ul>
-          <li>Análisis de estructura de campañas y ad sets</li>
-          <li>Revisión de creatividades y copy</li>
-          <li>Segmentaciones y audiencias</li>
-          <li>Métricas clave: CPM, CTR, CPC, ROAS</li>
-          <li>Plan de mejora con pasos concretos</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/metaads-moda.html" target="_blank" class="demo-chip">Demo · Moda →</a>
-          <a href="DEMOS/metaads-gimnasio.html" target="_blank" class="demo-chip">Demo · Gimnasio →</a>
-        </div>
-        <div class="back-price">€300<small>Entrega en 3 días</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Auditoría Meta Ads" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 14 -->
-  <article class="card" data-cat="analisis" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-analisis">Análisis</span>
-        <div class="card-icon">🔎</div>
-        <h3>Mejora tus anuncios en Google</h3>
-        <p class="desc">Auditoría de Google Ads para reducir el coste por clic y aumentar las conversiones reales.</p>
-        <div class="price">€300<small>Entrega en 3 días · accionables incluidos</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Auditoría Google Ads</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> usas Google Ads pero el coste es alto y las conversiones son bajas.</div>
-        <ul>
-          <li>Análisis de palabras clave activas y negativas</li>
-          <li>Quality Score y nivel de calidad</li>
-          <li>Revisión de extensiones de anuncio</li>
-          <li>Seguimiento de conversiones</li>
-          <li>Recomendaciones priorizadas por impacto</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/googleads-abogado.html" target="_blank" class="demo-chip">Demo · Abogado →</a>
-          <a href="DEMOS/googleads-dental.html" target="_blank" class="demo-chip">Demo · Dental →</a>
-        </div>
-        <div class="back-price">€300<small>Entrega en 3 días</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Auditoría Google Ads" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 15 -->
-  <article class="card" data-cat="otros" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-otros">Otros</span>
-        <div class="card-icon">🧩</div>
-        <h3>Extensión de Chrome a medida</h3>
-        <p class="desc">Herramienta interna para Chrome que automatiza tareas repetitivas directamente en el navegador.</p>
-        <div class="price">€700<small>Pago único · compatible Chrome y Edge</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Extensión de Chrome a medida</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> tu equipo repite tareas en el navegador que podrían automatizarse con un clic.</div>
-        <ul>
-          <li>Funciona sin instalar servidor — solo el navegador</li>
-          <li>Acceso instantáneo desde barra de Chrome</li>
-          <li>Compatible con Chrome y Edge</li>
-          <li>Scraping, auto-relleno, dashboards internos…</li>
-        </ul>
-        <div class="demos-row">
-          <span class="demo-chip" style="opacity:.45;cursor:default;pointer-events:none">Demo bajo petición</span>
-        </div>
-        <div class="back-price">€700<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Extensión de Chrome a medida" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 16 -->
-  <article class="card" data-cat="otros" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-otros">Otros</span>
-        <div class="card-icon">💶</div>
-        <h3>Panel de facturas y finanzas</h3>
-        <p class="desc">Dashboard visual para autónomos: ingresos, gastos, impuestos y flujo de caja en tiempo real.</p>
-        <div class="price">€350<small>Pago único · datos en local o cloud</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Panel de facturas y finanzas</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> llevas las cuentas en un Excel caótico o no tienes visibilidad de tus números en tiempo real.</div>
-        <ul>
-          <li>Registro de facturas emitidas y recibidas</li>
-          <li>Cálculo automático de IVA e IRPF</li>
-          <li>Gráficas de ingresos y gastos por mes</li>
-          <li>Alertas de impuestos trimestrales</li>
-          <li>Exportación a PDF y Excel</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/facturas-disenadora.html" target="_blank" class="demo-chip">Demo · Diseñadora →</a>
-          <a href="DEMOS/facturas-consultor.html" target="_blank" class="demo-chip">Demo · Consultor →</a>
-        </div>
-        <div class="back-price">€350<small>Pago único</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Panel de facturas y finanzas" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 17 -->
-  <article class="card" data-cat="otros" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-otros">Otros</span>
-        <div class="card-icon">🧲</div>
-        <h3>Búsqueda de clientes potenciales</h3>
-        <p class="desc">Lista curada de leads cualificados con datos de contacto, sector y puntuación de oportunidad.</p>
-        <div class="price">€300<small>Por campaña · entrega en 48h</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Búsqueda de clientes potenciales</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> necesitas una fuente constante de prospectos sin gastar horas buscando manualmente.</div>
-        <ul>
-          <li>Búsqueda en Google Maps, LinkedIn y directorios</li>
-          <li>Filtrado por sector, ciudad y tamaño</li>
-          <li>Email y teléfono verificados</li>
-          <li>Puntuación de oportunidad (1–10)</li>
-          <li>Entrega en Excel o Google Sheets</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/prospeccion-reformas.html" target="_blank" class="demo-chip">Demo · Reformas →</a>
-          <a href="DEMOS/prospeccion-marketing.html" target="_blank" class="demo-chip">Demo · Marketing →</a>
-        </div>
-        <div class="back-price">€300<small>48h entrega</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Búsqueda de clientes potenciales" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-  <!-- 18 -->
-  <article class="card" data-cat="otros" onclick="flipCard(this)">
-    <div class="card-inner">
-      <div class="card-front">
-        <span class="card-cat cat-otros">Otros</span>
-        <div class="card-icon">📋</div>
-        <h3>Seguimiento mensual</h3>
-        <p class="desc">Informe mensual con métricas reales: visitas, leads, conversiones y comparativa respecto al mes anterior.</p>
-        <div class="price">€120/mes<small>Entrega el 1 de cada mes · PDF</small></div>
-        <div class="flip-hint">Toca para ver más →</div>
-      </div>
-      <div class="card-back">
-        <div class="back-header"><span class="back-title">Seguimiento mensual de resultados</span><button class="back-close" onclick="flipBack(event,this)">← Volver</button></div>
-        <div class="forwho"><b>Para ti si</b> quieres saber qué está funcionando y tomar decisiones con datos reales cada mes.</div>
-        <ul>
-          <li>Métricas web: visitas, rebote, tiempo en página</li>
-          <li>Rendimiento de redes sociales</li>
-          <li>Estado de campañas activas</li>
-          <li>3 recomendaciones de mejora para el mes siguiente</li>
-        </ul>
-        <div class="demos-row">
-          <a href="DEMOS/informe-bar.html" target="_blank" class="demo-chip">Demo · Bar →</a>
-          <a href="DEMOS/informe-peluqueria.html" target="_blank" class="demo-chip">Demo · Peluquería →</a>
-        </div>
-        <div class="back-price">€120/mes<small>Entrega el 1 de cada mes</small></div>
-        <a href="mailto:aecadro@gmail.com?subject=Me interesa: Seguimiento mensual de resultados" class="back-cta">Me interesa →</a>
-      </div>
-    </div>
-  </article>
-
-</div>
-
-<!-- PACKS -->
-<section class="packs-section" id="packs">
-  <div class="packs-inner">
-    <div style="text-align:center;margin-bottom:.5rem"><span class="section-tag">Packs</span></div>
-    <h2 class="section-title" style="text-align:center">Combina servicios y ahorra</h2>
-    <p class="section-sub" style="text-align:center;margin:0 auto">8 packs con descuento para obtener más resultado desde el primer día.</p>
-    <div class="packs-grid">
-
-      <div class="pack-card">
-        <span class="pack-badge pb-size">Pequeño negocio</span>
-        <h3>Pack Inicio Digital</h3>
-        <p class="pack-desc">Para negocios que empiezan o que aún no tienen presencia digital básica.</p>
-        <ul class="pack-includes">
-          <li>Página web profesional</li>
-          <li>Plan de redes sociales 30 días</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €210 vs. contratar por separado</div>
-          <div class="pack-price">€990</div>
-          <div class="pack-old">Servicios por separado: €1.200</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Inicio Digital" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card featured">
-        <span class="pack-badge pb-size">Negocio mediano</span>
-        <h3>Pack Presencia Completa</h3>
-        <p class="pack-desc">El pack más solicitado. Web, automatización de contacto, visibilidad y redes.</p>
-        <ul class="pack-includes">
-          <li>Página web profesional</li>
-          <li>Asistente virtual 24/7 (WhatsApp)</li>
-          <li>Diagnóstico digital + SEO local</li>
-          <li>Plan de redes sociales 30 días</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €510 vs. contratar por separado</div>
-          <div class="pack-price">€1.990</div>
-          <div class="pack-old">Servicios por separado: €2.500</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Presencia Completa" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-size">Negocio grande</span>
-        <h3>Pack Transformación Digital</h3>
-        <p class="pack-desc">Para negocios consolidados que quieren digitalizar todas sus operaciones de golpe.</p>
-        <ul class="pack-includes">
-          <li>Página web profesional</li>
-          <li>Agente IA por voz</li>
-          <li>Asistente virtual 24/7 (WhatsApp)</li>
-          <li>Automatización de tareas (1 flujo)</li>
-          <li>SEO + Diagnóstico digital</li>
-          <li>Plan de redes 30 días</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €1.010 vs. contratar por separado</div>
-          <div class="pack-price">€3.490</div>
-          <div class="pack-old">Servicios por separado: €4.500</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Transformación Digital" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-special">Atención al cliente</span>
-        <h3>Pack Atención 24/7</h3>
-        <p class="pack-desc">Para negocios que pierden clientes por no poder atender llamadas y mensajes a tiempo.</p>
-        <ul class="pack-includes">
-          <li>Agente IA por voz (coge el teléfono)</li>
-          <li>Asistente virtual 24/7 (WhatsApp/Telegram)</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €460 vs. contratar por separado</div>
-          <div class="pack-price">€1.790</div>
-          <div class="pack-old">Servicios por separado: €2.250</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Atención 24/7" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-audit">Auditoría</span>
-        <h3>Pack Auditoría Completa</h3>
-        <p class="pack-desc">Para negocios con presencia online que no saben qué no está funcionando.</p>
-        <ul class="pack-includes">
-          <li>Diagnóstico digital completo</li>
-          <li>Auditoría SEO local</li>
-          <li>Auditoría Meta Ads</li>
-          <li>Auditoría Google Ads</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €310 vs. contratar por separado</div>
-          <div class="pack-price">€1.090</div>
-          <div class="pack-old">Servicios por separado: €1.400</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Auditoría Completa" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-special">Captación de leads</span>
-        <h3>Pack Captación</h3>
-        <p class="pack-desc">Para lanzamientos o negocios que necesitan generar leads de forma activa e inmediata.</p>
-        <ul class="pack-includes">
-          <li>Landing page de ventas</li>
-          <li>Emails automáticos de seguimiento</li>
-          <li>Plan de redes sociales 30 días</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €300 vs. contratar por separado</div>
-          <div class="pack-price">€1.250</div>
-          <div class="pack-old">Servicios por separado: €1.550</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Captación" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-sector">Hostelería</span>
-        <h3>Pack Restaurante</h3>
-        <p class="pack-desc">Diseñado para restaurantes y bares: web, voz, WhatsApp y redes en un solo pack.</p>
-        <ul class="pack-includes">
-          <li>Web con carta digital y fotos</li>
-          <li>Agente IA por voz (reservas telefónicas)</li>
-          <li>Bot WhatsApp (consultas y precios)</li>
-          <li>Plan de redes 30 días</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €660 vs. contratar por separado</div>
-          <div class="pack-price">€2.790</div>
-          <div class="pack-old">Servicios por separado: €3.450</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Restaurante" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
-      <div class="pack-card">
-        <span class="pack-badge pb-sector">Profesionales</span>
-        <h3>Pack Profesionales</h3>
-        <p class="pack-desc">Para clínicas, psicólogos, abogados y profesionales con servicio de citas o consultas.</p>
-        <ul class="pack-includes">
-          <li>Web profesional con sección de servicios</li>
-          <li>Chatbot IA con gestión de citas</li>
-          <li>Asistente virtual 24/7 (consultas)</li>
-          <li>SEO local especializado</li>
-        </ul>
-        <div class="pack-pricing">
-          <div class="pack-save">Ahorra €710 vs. contratar por separado</div>
-          <div class="pack-price">€2.690</div>
-          <div class="pack-old">Servicios por separado: €3.400</div>
-          <a href="mailto:aecadro@gmail.com?subject=Me interesa el Pack Profesionales" class="pack-cta">Solicitar pack →</a>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="why">
-  <div class="why-inner">
-    <h2>¿Por qué trabajar conmigo?</h2>
-    <div class="pills">
-      <div class="pill"><div class="ico">⚡</div><div><strong>Entrega rápida</strong><p>La mayoría de proyectos en 5–7 días. Sin meses de espera ni presupuestos eternos.</p></div></div>
-      <div class="pill"><div class="ico">🤝</div><div><strong>Trato directo</strong><p>Hablas con quien hace el trabajo. Sin intermediarios, sin sorpresas, sin letra pequeña.</p></div></div>
-      <div class="pill"><div class="ico">📐</div><div><strong>Hecho a medida</strong><p>Cada proyecto parte de tu negocio real. No plantillas genéricas.</p></div></div>
-      <div class="pill"><div class="ico">🔍</div><div><strong>Resultados medibles</strong><p>Cada servicio tiene métricas claras. Si no se puede medir, no te lo vendo.</p></div></div>
-      <div class="pill"><div class="ico">🤖</div><div><strong>IA de última generación</strong><p>Las herramientas más avanzadas del mercado para darte lo mejor al mejor precio.</p></div></div>
-      <div class="pill"><div class="ico">🔒</div><div><strong>Sin permanencias</strong><p>Pago único en la mayoría de servicios. Sin contratos de 12 meses.</p></div></div>
+<section class="section" id="sistema" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <span class="section-tag">El sistema</span>
+    <h2 class="section-title">Cuatro piezas que trabajan mientras tú estás <em>en el sillón</em></h2>
+    <p class="section-sub">No es «poner un bot». Es cerrar el circuito completo desde que alguien se interesa hasta que se sienta en tu silla.</p>
+    <div class="piezas">
+      <div class="pieza rv">
+        <span class="num">01</span>
+        <h3>Una web que transmite lo que cobras</h3>
+        <p>Si vendes ortodoncia invisible de cuatro cifras, la web no puede parecer la de la clínica de al lado. Página específica de alineadores, pensada para que el paciente pida cita, no para ganar premios.</p>
+      </div>
+      <div class="pieza rv">
+        <span class="num">02</span>
+        <h3>Captación que filtra</h3>
+        <p>Campañas y formularios que separan al paciente con intención real del que solo compara precios. Menos volumen, más gente que se sienta.</p>
+      </div>
+      <div class="pieza rv">
+        <span class="num">03</span>
+        <h3>Recepcionista IA 24/7</h3>
+        <p>Responde en segundos por WhatsApp a cualquier hora, resuelve las dudas de siempre, cualifica y ofrece hueco real de tu agenda. Tu recepción deja de apagar fuegos.</p>
+      </div>
+      <div class="pieza rv">
+        <span class="num">04</span>
+        <h3>Seguimiento que no se olvida</h3>
+        <p>Recordatorio antes de la cita para bajar las ausencias, y recuperación del presupuesto entregado que se quedó en «me lo pienso». Sin que nadie tenga que acordarse.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contacto">
-  <h2>¿Empezamos?</h2>
-  <p class="sub">Sin compromiso. Cuéntame tu negocio y en menos de 24 horas te digo exactamente qué haría para ayudarte.</p>
-  <div class="btns">
-    <a href="https://wa.me/34647471991?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20tus%20servicios" class="btn-w">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp
-    </a>
-    <a href="mailto:aecadro@gmail.com?subject=Consulta servicios digitales" class="btn-e">✉ Email</a>
+<section class="section demo-zona" id="demo">
+  <div class="wrap">
+    <div class="demo-grid">
+      <div class="demo-txt">
+        <span class="section-tag">Demo en vivo</span>
+        <h2 class="section-title">Esto es lo que ve tu paciente <em>a las 23:41</em></h2>
+        <p class="section-sub">No te lo contamos: pruébalo. Pulsa los botones de respuesta como si fueras el paciente y mira hasta dónde llega la conversación sin que nadie de tu equipo esté despierto.</p>
+        <ul class="lista">
+          <li>Contesta en segundos, no en horas</li>
+          <li>Pregunta antes de dar precio: cualifica</li>
+          <li>Ofrece huecos reales de tu agenda</li>
+          <li>Confirma, recuerda y avisa a tu equipo</li>
+        </ul>
+        <p class="demo-nota">Guion de ejemplo. En tu clínica lo escribimos con tus tratamientos, tus precios y tu forma de hablar — y lo apruebas tú antes de que hable con un solo paciente.</p>
+      </div>
+
+      <div>
+        <div class="movil">
+          <div class="movil-top">
+            <div class="av">CL</div>
+            <div>
+              <div class="nm">Clínica · Ortodoncia</div>
+              <div class="st">en línea</div>
+            </div>
+          </div>
+          <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Demostración de conversación con el asistente"></div>
+          <div class="movil-pie">
+            <div class="campo">Escribe un mensaje</div>
+            <button class="rebobina" id="rebobinar" title="Volver a empezar la demostración" aria-label="Volver a empezar la demostración">↺</button>
+          </div>
+        </div>
+        <div class="resultado">
+          <span>Respondido en 9 s</span>
+          <span>Paciente cualificado</span>
+          <span>Cita en agenda</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <p class="note">aecadro@gmail.com · +34 647 471 991 · Toledo, España</p>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="section-tag">Calculadora</span>
+    <h2 class="section-title">Cuánto se te está quedando <em>encima de la mesa</em></h2>
+    <p class="section-sub">Con tus números, no con los nuestros. Mueve los tres campos y mira el resultado.</p>
+    <div class="calc">
+      <div class="calc-campos">
+        <div>
+          <label class="campo-l" for="c-leads">Consultas de ortodoncia al mes
+            <small>Formularios, WhatsApp, mensajes de Instagram y llamadas de gente nueva</small>
+          </label>
+          <input type="number" id="c-leads" value="30" min="1" max="500" step="1" inputmode="numeric">
+        </div>
+        <div>
+          <label class="campo-l" for="c-tasa">De esas, cuántas acaban sentándose en tu silla
+            <small>Si no lo sabes con certeza, la media del sector ronda el 30 %</small>
+          </label>
+          <input type="range" id="c-tasa" value="30" min="5" max="90" step="1">
+          <div class="rango-val"><span id="c-tasa-v">30</span> %</div>
+        </div>
+        <div>
+          <label class="campo-l" for="c-ticket">Precio medio de un tratamiento completo
+            <small>Alineadores, revisiones y retenedores incluidos</small>
+          </label>
+          <input type="number" id="c-ticket" value="3500" min="500" max="15000" step="100" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="calc-out">
+        <div class="calc-linea"><span>Consultas al año</span><b id="o-anual">360</b></div>
+        <div class="calc-linea"><span>Que no llegan a primera visita</span><b id="o-perdidos">252</b></div>
+        <div class="calc-linea"><span>Si recuperas solo 1 de cada 5</span><b id="o-recup">50</b></div>
+        <div class="calc-total">
+          <div class="et">Tratamientos que hoy se escapan</div>
+          <div class="v" id="o-euros">176.400 €</div>
+        </div>
+        <p class="calc-aviso">Cuenta deliberadamente conservadora: asume recuperar <b>uno de cada cinco</b> pacientes que hoy se pierden, no todos. No es una promesa de resultado, es el tamaño del agujero que estamos mirando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <span class="section-tag">La objeción de siempre</span>
+    <h2 class="section-title">«No quiero una IA que suene a robot y me espante a los pacientes»</h2>
+    <p class="section-sub">Es la preocupación correcta. Un paciente que va a dejarse cuatro mil euros nota el robot a la primera frase. Por eso el sistema se monta así:</p>
+    <div class="tono">
+      <div class="tono-it rv">
+        <span class="ic">✍️</span>
+        <strong>Tú firmas cada palabra</strong>
+        <p>El guion se escribe con tu equipo y lo apruebas antes de que hable con nadie. Si una frase no suena a tu clínica, no entra.</p>
+      </div>
+      <div class="tono-it rv">
+        <span class="ic">🤝</span>
+        <strong>Pasa a persona cuando toca</strong>
+        <p>En cuanto detecta intención real de tratamiento, duda clínica o cabreo, avisa a tu equipo y se aparta. No pelea por quedarse la conversación.</p>
+      </div>
+      <div class="tono-it rv">
+        <span class="ic">🩺</span>
+        <strong>Nunca diagnostica</strong>
+        <p>No dice si eres candidato a alineadores, no promete resultados y no interpreta una foto. Acompaña hasta la silla; el criterio es del doctor.</p>
+      </div>
+      <div class="tono-it rv">
+        <span class="ic">🔒</span>
+        <strong>Datos tratados como lo que son</strong>
+        <p>Consentimiento explícito, datos alojados en la UE y nada de historiales en el chat. En salud esto no es un extra, es el mínimo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="section-tag">Implantación</span>
+    <h2 class="section-title">Catorce días. Dos reuniones de media hora. <em>Cero trabajo</em> para tu equipo.</h2>
+    <p class="section-sub">Sabemos que no tienes tiempo de supervisar una implantación de software. Por eso está diseñada para que no tengas que hacerlo.</p>
+    <div class="plazos">
+      <div class="plazo rv">
+        <div class="d">Días 1-2</div>
+        <h3>Escucha</h3>
+        <p>Media hora contigo. Cómo entra hoy un paciente, qué precios manejas, qué responde tu equipo y qué no quieres que se diga jamás.</p>
+      </div>
+      <div class="plazo rv">
+        <div class="d">Días 3-8</div>
+        <h3>Construcción</h3>
+        <p>Montamos web, captación, asistente y seguimiento. Aquí tú no haces nada: sigues con tus pacientes.</p>
+      </div>
+      <div class="plazo rv">
+        <div class="d">Días 9-11</div>
+        <h3>Tu revisión</h3>
+        <p>Segunda media hora. Lees los guiones, tachas lo que no te gusta y lo corregimos. Nada sale sin tu visto bueno.</p>
+      </div>
+      <div class="plazo rv">
+        <div class="d">Días 12-14</div>
+        <h3>En marcha</h3>
+        <p>Se conecta a tu WhatsApp y tu agenda, se prueba con casos reales y se queda funcionando. Con soporte, no con un manual en PDF.</p>
+      </div>
+    </div>
+
+    <div class="garantia rv">
+      <div class="sello" aria-hidden="true">🛠</div>
+      <div>
+        <h3>Garantía de reimplantación</h3>
+        <p>Si a los <b>30 días</b> el sistema no responde como acordamos en la revisión, <b>lo reescribo entero sin coste</b> hasta que lo haga. No te garantizo cuántos pacientes te va a traer tu mercado —eso no lo controla nadie honesto—, te garantizo que lo que montamos funciona como quedamos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <span class="section-tag">Trabajos de muestra</span>
+    <h2 class="section-title">Todavía no enseño clientes. <em>Enseño trabajo.</em></h2>
+    <p class="section-sub">Prefiero decirlo de frente: estos son proyectos propios de demostración, no clínicas reales. El día que tenga casos de clientes, estarán aquí con su nombre y su permiso — y ni un minuto antes.</p>
+    <div class="muestras">
+      <a class="muestra rv" href="/DEMOS/recepcionista-ortodoncia.html">
+        <span class="et">Demostración propia</span>
+        <h3>Recepcionista de ortodoncia</h3>
+        <p>La conversación entera, con el panel de lo que tu equipo se encuentra hecho por la mañana: ficha, cita y recordatorio.</p>
+        <span class="ir">Abrir la demo completa →</span>
+      </a>
+      <a class="muestra rv" href="/DEMOS/chatbot-dental.html">
+        <span class="et">Demostración propia</span>
+        <h3>Asistente de clínica dental</h3>
+        <p>Versión general: precios, urgencias, seguros y agenda. La base sobre la que se especializa cada clínica.</p>
+        <span class="ir">Ver la demo →</span>
+      </a>
+      <a class="muestra rv" href="#auditoria">
+        <span class="et">Sobre tu clínica</span>
+        <h3>Auditoría de respuesta</h3>
+        <p>La prueba que de verdad importa no es la mía: es cuánto tarda hoy tu clínica en contestar. Te la mido gratis.</p>
+        <span class="ir">Pedirla ↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="section-tag">Sinceridad</span>
+    <h2 class="section-title">No le sirve a todas las clínicas</h2>
+    <div class="filtro">
+      <div class="col si">
+        <h3>Tiene sentido si…</h3>
+        <ul>
+          <li>La ortodoncia invisible es tu tratamiento estrella, o quieres que lo sea</li>
+          <li>Ya inviertes en publicidad y te duele ver leads sin contestar</li>
+          <li>Tu recepción va cargada y se le caen los seguimientos</li>
+          <li>El paciente que buscas valora el trato, no el precio más bajo</li>
+          <li>Quieres decidir tú lo que se dice en tu nombre</li>
+        </ul>
+      </div>
+      <div class="col no">
+        <h3>No te lo vendo si…</h3>
+        <ul>
+          <li>Buscas el chatbot de treinta euros al mes que se instala solo</li>
+          <li>Quieres que la IA sustituya a tu equipo. No va de eso</li>
+          <li>No tienes agenda que llenar ni presupuestos parados</li>
+          <li>Esperas que te firme por escrito cuántos pacientes vas a cerrar</li>
+          <li>Quieres montarlo y no mirarlo nunca más</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap center">
+    <span class="section-tag">Preguntas</span>
+    <h2 class="section-title">Lo que me preguntan <em>siempre</em></h2>
+  </div>
+  <div class="wrap">
+    <div class="faq">
+      <div class="faq-it">
+        <button class="faq-q">¿Cuánto cuesta y por qué no lo pones en la web?</button>
+        <div class="faq-a"><div>Porque el precio depende de cuántas consultas recibes, de si hay que hacer la web entera o solo el asistente, y de cuántas integraciones tiene tu software de gestión. Poner una cifra a ciegas es engañarte o cobrarte de más. <b>En la llamada te doy el número exacto, en los primeros diez minutos y sin rodeos.</b> Lo que sí te adelanto: hay un pago de puesta en marcha y una cuota mensual de mantenimiento, y no trabajo por debajo de cierto suelo porque el trabajo bien hecho cuesta lo que cuesta.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q">¿Qué pasa con el RGPD? Son datos de salud.</button>
+        <div class="faq-a"><div>Por eso el asistente <b>no pregunta ni almacena información clínica</b>: nombre, contacto, qué tratamiento le interesa y cuándo puede venir. Nada más. Consentimiento explícito antes de guardar nada, datos alojados en la Unión Europea, y el encargado del tratamiento firmado contigo. Si tu gestor legal quiere revisarlo, encantado.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q">¿Me ata a una permanencia?</button>
+        <div class="faq-a"><div>No. La cuota mensual se cancela avisando con <b>treinta días</b>. Si el sistema funciona, te quedas porque te compensa; si no, no quiero retenerte con un contrato. Lo que se ha construido para tu clínica es tuyo.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q">¿Y si el paciente quiere hablar con una persona?</button>
+        <div class="faq-a"><div>Se le pasa. En cuanto lo pide —o en cuanto el asistente detecta una duda clínica, una urgencia o un paciente molesto— la conversación salta a tu equipo con todo el contexto ya recogido. <b>El objetivo no es que tu equipo hable menos, es que hable con los pacientes que importan</b> en vez de repetir el horario cuarenta veces al día.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q">¿Se integra con mi software de gestión?</button>
+        <div class="faq-a"><div>Depende de cuál uses. Con los que tienen API o sincronización de calendario, sí, directamente. Con los cerrados, el asistente trabaja sobre un calendario paralelo y tu recepción vuelca la cita en un clic. <b>En la llamada te lo digo con tu software concreto en la mano</b>, sin prometerte una integración que después no existe.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q">¿Quién escribe lo que dice el asistente?</button>
+        <div class="faq-a"><div>Lo escribo yo con tu equipo y lo firmas tú. Ni una frase sale a producción sin que la hayas leído. Si más adelante quieres cambiar el tono, un precio o una respuesta, se cambia — está dentro del mantenimiento.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section auditoria" id="auditoria">
+  <div class="wrap">
+    <div class="aud-grid">
+      <div>
+        <span class="section-tag">Gratis y sin compromiso</span>
+        <h2 class="section-title">Antes de venderte nada, <em>te mido el problema</em></h2>
+        <p class="section-sub">Te hago de paciente misterioso: escribo a tu clínica interesándome por ortodoncia invisible, cronometro lo que se tarda en contestar y te mando un informe de una página con lo que ha pasado. Si resulta que respondéis en cuatro minutos y de maravilla, te lo diré y no tendré nada que venderte.</p>
+        <ol class="aud-pasos">
+          <li>Rellenas el formulario. Treinta segundos.</li>
+          <li>Escribo a tu clínica como lo haría un paciente real.</li>
+          <li>Cronometro respuesta, seguimiento y si alguien vuelve a insistir.</li>
+          <li>Recibes el informe en 48 h. Sin llamada de seguimiento si no la pides.</li>
+        </ol>
+        <div class="otras-vias">
+          <div class="t">Si prefieres saltarte el formulario</div>
+          <div class="btn-row">
+            <a class="btn btn-w" href="https://wa.me/34647471991?text=Hola%20Alejandro%2C%20soy%20de%20una%20cl%C3%ADnica%20dental%20y%20quiero%20la%20auditor%C3%ADa%20de%20respuesta">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 13.99c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.56c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn btn-s" href="#" data-cal>Reservar llamada</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="form-auditoria">
+        <input type="hidden" name="access_key" id="w3f-key">
+        <input type="hidden" name="subject" value="Auditoría de respuesta — clínica dental">
+        <input type="hidden" name="from_name" value="fastsolutionsia.es">
+        <label class="hp" for="f-botcheck">No rellenes este campo</label>
+        <input type="text" id="f-botcheck" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+        <div>
+          <label for="f-nombre">Tu nombre</label>
+          <input type="text" id="f-nombre" name="nombre" required autocomplete="name" placeholder="Dra. Elena Valls">
+        </div>
+        <div>
+          <label for="f-clinica">Clínica</label>
+          <input type="text" id="f-clinica" name="clinica" required autocomplete="organization" placeholder="Nombre y ciudad">
+        </div>
+        <div>
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" name="email" required autocomplete="email" placeholder="tu@clinica.es">
+        </div>
+        <div>
+          <label for="f-tel">Teléfono o WhatsApp</label>
+          <input type="tel" id="f-tel" name="telefono" required autocomplete="tel" placeholder="600 000 000">
+        </div>
+        <div>
+          <label for="f-vol">Consultas de ortodoncia que os llegan al mes</label>
+          <select id="f-vol" name="volumen" required>
+            <option value="">Elige una opción</option>
+            <option>Menos de 10</option>
+            <option>Entre 10 y 30</option>
+            <option>Entre 30 y 60</option>
+            <option>Más de 60</option>
+            <option>No lo sabemos con certeza</option>
+          </select>
+        </div>
+        <label class="rgpd">
+          <input type="checkbox" name="consentimiento" required>
+          <span>Acepto que FastSolutions IA trate mis datos para responder a esta solicitud, según la <a href="/legal" target="_blank" rel="noopener">política de privacidad</a>. No se ceden a terceros y puedo pedir su borrado cuando quiera.</span>
+        </label>
+        <button type="submit" class="btn btn-p" id="form-btn">Quiero la auditoría gratuita</button>
+        <div class="form-msg" id="form-msg" role="status"></div>
+      </form>
+    </div>
+  </div>
 </section>
 
 <footer>
-  Alejandro Horcajuelo · Desarrollo Web & Automatización IA · Toledo ·
-  <a href="https://github.com/horcajuelo18" target="_blank" style="color:inherit;text-decoration:none">GitHub</a>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot">
+        <div class="foot-marca">
+          <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b style="font-weight:600;color:#fff;">FastSolutions<span style="color:var(--accent2)">IA</span></b>
+        </div>
+        <p>Sistemas de captación, respuesta y seguimiento con IA para clínicas dentales que ofrecen ortodoncia invisible. Alejandro Horcajuelo, España.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#fuga">La fuga</a>
+        <a href="#sistema">El sistema</a>
+        <a href="#demo">Demo</a>
+        <a href="#faq">Preguntas</a>
+        <a href="#auditoria">Auditoría gratuita</a>
+      </div>
+      <div class="foot-links">
+        <a href="tel:+34647471991">647 471 991</a>
+        <a href="https://wa.me/34647471991">WhatsApp</a>
+        <a href="mailto:aecadro@gmail.com">aecadro@gmail.com</a>
+        <a href="/legal">Aviso legal y privacidad</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="anyo">2026</span> FastSolutions IA · Alejandro Horcajuelo</span>
+      <span>fastsolutionsia.es</span>
+    </div>
+  </div>
 </footer>
 
+<a class="flota" href="https://wa.me/34647471991?text=Hola%20Alejandro%2C%20te%20escribo%20desde%20fastsolutionsia.es" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 13.99c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.56c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+</a>
+
 <script>
-document.querySelectorAll('.fbtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.card').forEach(card => {
-      const show = f === 'all' || card.dataset.cat === f;
-      card.classList.toggle('hidden', !show);
-      if (!show) card.classList.remove('flipped');
+/* ─────────────────────────────────────────────────────────────
+   CONFIGURACIÓN — los dos únicos valores que hay que rellenar
+   ───────────────────────────────────────────────────────────── */
+const CONFIG = {
+  // 1) Tu enlace de Cal.com, p. ej. 'https://cal.com/alejandro-horcajuelo/20min'
+  CAL_URL: '',
+  // 2) Tu access key de Web3Forms (https://web3forms.com — gratis con tu correo)
+  WEB3FORMS_KEY: ''
+};
+
+/* ── Enlaces de calendario ── */
+document.querySelectorAll('[data-cal]').forEach(a => {
+  if (CONFIG.CAL_URL) {
+    a.href = CONFIG.CAL_URL;
+    a.target = '_blank';
+    a.rel = 'noopener';
+  } else {
+    a.href = 'https://wa.me/34647471991?text=Hola%20Alejandro%2C%20quiero%20reservar%20una%20llamada';
+  }
+});
+document.getElementById('w3f-key').value = CONFIG.WEB3FORMS_KEY;
+document.getElementById('anyo').textContent = new Date().getFullYear();
+
+/* ── Reveal al entrar en pantalla ── */
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach((e, i) => {
+    if (!e.isIntersecting) return;
+    setTimeout(() => e.target.classList.add('visible'), i * 110);
+    observador.unobserve(e.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv').forEach(el => observador.observe(el));
+
+/* ── Contadores ── */
+const formatea = (n) => n.toLocaleString('es-ES');
+const contadores = new IntersectionObserver((entradas) => {
+  entradas.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    contadores.unobserve(el);
+    const fin = parseInt(el.dataset.contador, 10);
+    const pre = el.dataset.prefijo || '';
+    const suf = el.dataset.sufijo || '';
+    let paso = 0;
+    const total = 60;
+    const tic = setInterval(() => {
+      paso++;
+      const valor = Math.round(fin * (paso / total));
+      el.innerHTML = '<span>' + pre + formatea(valor) + suf + '</span>';
+      if (paso >= total) clearInterval(tic);
+    }, 16);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-contador]').forEach(el => contadores.observe(el));
+
+/* ── Calculadora de fuga ── */
+const RECUPERACION = 0.20;  // conservador a propósito: 1 de cada 5
+const campos = {
+  leads: document.getElementById('c-leads'),
+  tasa: document.getElementById('c-tasa'),
+  ticket: document.getElementById('c-ticket')
+};
+const euros = (n) => Math.round(n).toLocaleString('es-ES') + ' €';
+
+function calcula() {
+  const leads = Math.max(1, Number(campos.leads.value) || 0);
+  const tasa = Number(campos.tasa.value) / 100;
+  const ticket = Math.max(0, Number(campos.ticket.value) || 0);
+  const anual = leads * 12;
+  const perdidos = anual * (1 - tasa);
+  const recuperados = perdidos * RECUPERACION;
+
+  document.getElementById('c-tasa-v').textContent = campos.tasa.value;
+  document.getElementById('o-anual').textContent = formatea(anual);
+  document.getElementById('o-perdidos').textContent = formatea(Math.round(perdidos));
+  document.getElementById('o-recup').textContent = formatea(Math.round(recuperados));
+  document.getElementById('o-euros').textContent = euros(recuperados * ticket);
+}
+Object.values(campos).forEach(c => c.addEventListener('input', calcula));
+calcula();
+
+/* ── FAQ ── */
+document.querySelectorAll('.faq-q').forEach(boton => {
+  boton.addEventListener('click', () => {
+    const item = boton.parentElement;
+    const panel = item.querySelector('.faq-a');
+    const abierta = item.classList.contains('abierta');
+    document.querySelectorAll('.faq-it.abierta').forEach(otra => {
+      otra.classList.remove('abierta');
+      otra.querySelector('.faq-a').style.maxHeight = null;
     });
+    if (!abierta) {
+      item.classList.add('abierta');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
   });
 });
 
-function flipCard(card) {
-  card.classList.toggle('flipped');
-  if (window.matchMedia('(max-width: 768px)').matches && card.classList.contains('flipped')) {
-    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+/* ── Demo de conversación ──
+   El guion completo: el paciente escribe de madrugada, el asistente cualifica
+   antes de dar precio, ofrece hueco real y cierra la cita. Las respuestas del
+   paciente las elige quien visita la web. */
+const chat = document.getElementById('chat');
+const GUION = [
+  { de: 'user', txt: 'Buenas, quería información sobre la ortodoncia invisible 🙂 ¿Cuánto cuesta más o menos?', hora: '23:41' },
+  { de: 'bot', txt: 'Hola, buenas noches. Soy el asistente de la clínica — te leo aunque sea tarde. Te lo cuento ahora mismo y sin compromiso.', hora: '23:41' },
+  { de: 'bot', txt: 'Para darte un precio real y no una horquilla inútil, dos preguntas rápidas. ¿Es la primera vez que te planteas ortodoncia?', hora: '23:41',
+    opciones: ['Sí, la primera', 'Ya llevé brackets de pequeña'] },
+  { de: 'bot', txt: 'Perfecto. ¿Y qué es lo que más te gustaría corregir?', hora: '23:42',
+    opciones: ['Los dientes de delante torcidos', 'La mordida', 'Solo un retoque estético'] },
+  { de: 'bot', txt: 'Entendido. Con ese perfil el tratamiento completo con alineadores en la clínica suele ir de <b>2.900 € a 4.200 €</b>, según cuántos alineadores necesites, e incluye revisiones y retenedores.<span class="chip-precio">Financiable en 24 meses sin intereses</span>', hora: '23:42' },
+  { de: 'bot', txt: 'El número exacto sale del escáner 3D, que es <b>gratuito y sin compromiso</b>: se ve tu caso en pantalla y el resultado final antes de empezar nada.', hora: '23:42' },
+  { de: 'bot', txt: 'Esta semana quedan dos huecos para el estudio. ¿Cuál te viene mejor?', hora: '23:43',
+    opciones: ['Jueves 18:30', 'Viernes 10:00'] },
+  { de: 'bot', txt: 'Hecho ✅ Te he reservado el hueco. Te llega confirmación al móvil y un recordatorio el día antes; si te surge algo, me escribes por aquí y lo movemos sin problema.', hora: '23:43' },
+  { de: 'bot', txt: 'Un apunte para que no haya sorpresas: yo solo te acompaño hasta la consulta. <b>Quién es candidato a alineadores lo decide la doctora</b> viendo tu boca, nunca yo.', hora: '23:43' }
+];
+
+let paso = 0;
+let temporizadores = [];
+
+function burbuja(de, html, hora) {
+  const b = document.createElement('div');
+  b.className = 'burbuja ' + de;
+  b.innerHTML = html + '<span class="hora">' + hora + '</span>';
+  chat.appendChild(b);
+  abajo();
+  return b;
+}
+function abajo() { chat.scrollTop = chat.scrollHeight; }
+function escribiendo() {
+  const e = document.createElement('div');
+  e.className = 'escribiendo';
+  e.innerHTML = '<i></i><i></i><i></i>';
+  chat.appendChild(e);
+  abajo();
+  return e;
+}
+function espera(ms, fn) { temporizadores.push(setTimeout(fn, ms)); }
+
+function opciones(lista, hora) {
+  const caja = document.createElement('div');
+  caja.className = 'rapidas';
+  lista.forEach(texto => {
+    const b = document.createElement('button');
+    b.className = 'rapida';
+    b.type = 'button';
+    b.textContent = texto;
+    b.addEventListener('click', () => {
+      caja.remove();
+      burbuja('user', texto, hora);
+      paso++;
+      espera(420, siguiente);
+    });
+    caja.appendChild(b);
+  });
+  chat.appendChild(caja);
+  abajo();
+}
+
+function siguiente() {
+  if (paso >= GUION.length) return;
+  const m = GUION[paso];
+
+  if (m.de === 'user') {
+    burbuja('user', m.txt, m.hora);
+    paso++;
+    espera(600, siguiente);
+    return;
   }
+
+  const punto = escribiendo();
+  const demora = Math.min(700 + m.txt.length * 4, 1700);
+  espera(demora, () => {
+    punto.remove();
+    burbuja('bot', m.txt, m.hora);
+    if (m.opciones) {
+      espera(320, () => opciones(m.opciones, m.hora));
+    } else {
+      paso++;
+      espera(520, siguiente);
+    }
+  });
 }
 
-function flipBack(e, btn) {
-  e.stopPropagation();
-  btn.closest('.card').classList.remove('flipped');
+function reinicia() {
+  temporizadores.forEach(clearTimeout);
+  temporizadores = [];
+  chat.innerHTML = '';
+  paso = 0;
+  siguiente();
 }
+document.getElementById('rebobinar').addEventListener('click', reinicia);
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.querySelectorAll('.card.flipped').forEach(c => c.classList.remove('flipped'));
+/* Arranca sola cuando el móvil entra en pantalla, no antes */
+const arranque = new IntersectionObserver((entradas) => {
+  entradas.forEach(e => {
+    if (!e.isIntersecting) return;
+    arranque.disconnect();
+    espera(400, siguiente);
+  });
+}, { threshold: 0.35 });
+arranque.observe(chat);
+
+/* ── Formulario ── */
+const formulario = document.getElementById('form-auditoria');
+const aviso = document.getElementById('form-msg');
+const boton = document.getElementById('form-btn');
+
+formulario.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  aviso.className = 'form-msg';
+
+  if (!CONFIG.WEB3FORMS_KEY) {
+    aviso.className = 'form-msg ko';
+    aviso.textContent = 'El formulario todavía no está conectado. Escríbeme por WhatsApp al 647 471 991 y te hago la auditoría igual.';
+    return;
+  }
+
+  boton.disabled = true;
+  boton.textContent = 'Enviando…';
+
+  try {
+    const respuesta = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(formulario)
+    });
+    const datos = await respuesta.json();
+    if (!datos.success) throw new Error(datos.message || 'error');
+
+    formulario.reset();
+    aviso.className = 'form-msg ok';
+    aviso.textContent = 'Recibido. Escribo a tu clínica como paciente en las próximas horas y tienes el informe en 48 h.';
+  } catch (err) {
+    aviso.className = 'form-msg ko';
+    aviso.textContent = 'No ha salido el envío. Escríbeme por WhatsApp al 647 471 991 y lo resolvemos al momento.';
+  } finally {
+    boton.disabled = false;
+    boton.textContent = 'Quiero la auditoría gratuita';
+  }
 });
 </script>
 </body>

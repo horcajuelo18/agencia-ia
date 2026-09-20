@@ -29,8 +29,20 @@ CLIENTES/**/datos/*.local.json
 # Instrucciones locales de Claude — este repo es publico
 CLAUDE.md
 
+# Generacion de la tarjeta de visita: scripts y previsualizacion, no web publica
+tarjetas/
+
+# Material de venta interno: guion de visita, auditorias e informes de clinicas
+VENTA/
+
 # Temporales
 *.log
 *.tmp
 _preparadas/
 qa-resultado/
+
+# Lista de tareas personal
+PENDIENTES.md
+
+# Documentacion del registrador de dominio (PDFs con datos de contrato)
+IONOS/
