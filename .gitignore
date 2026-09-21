@@ -46,3 +46,6 @@ PENDIENTES.md
 
 # Documentacion del registrador de dominio (PDFs con datos de contrato)
 IONOS/
+
+# Servidor local para probar cleanUrls antes de publicar
+vista-previa.py

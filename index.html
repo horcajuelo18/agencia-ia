@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recepcionista IA para ortodoncia invisible · FastSolutions</title>
-<meta name="description" content="El paciente de ortodoncia contrata en la primera clínica que le responde. Sistema de IA que contesta, cualifica y agenda por ti. Auditoría gratis.">
+<title>Recepcionista IA para clínicas dentales · FastSolutions IA</title>
+<meta name="description" content="El paciente contrata en la primera clínica que le responde. Sistema de IA que contesta, cualifica y agenda por ti. Auditoría gratis.">
 <link rel="canonical" href="https://fastsolutionsia.es/">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#0b0d14">
+<meta name="theme-color" content="#dde4f0">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:site_name" content="FastSolutions IA">
 <meta property="og:url" content="https://fastsolutionsia.es/">
-<meta property="og:title" content="El paciente de ortodoncia no espera. Contesta la primera clínica.">
-<meta property="og:description" content="Sistema de respuesta y seguimiento con IA para clínicas dentales que ofrecen ortodoncia invisible. Auditoría gratuita de tu tiempo de respuesta real.">
+<meta property="og:title" content="El paciente no espera. Contesta la primera clínica.">
+<meta property="og:description" content="Sistema de respuesta y seguimiento con IA para clínicas dentales. Auditoría gratuita de tu tiempo de respuesta real.">
 <meta property="og:image" content="https://fastsolutionsia.es/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="FastSolutions IA — IA que responde por tu clínica">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="El paciente de ortodoncia no espera. Contesta la primera clínica.">
-<meta name="twitter:description" content="Sistema de respuesta y seguimiento con IA para clínicas de ortodoncia invisible.">
+<meta name="twitter:title" content="El paciente no espera. Contesta la primera clínica.">
+<meta name="twitter:description" content="Sistema de respuesta y seguimiento con IA para clínicas dentales.">
 <meta name="twitter:image" content="https://fastsolutionsia.es/og-image.png">
 
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -37,19 +37,72 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "FastSolutions IA",
-  "description": "Sistemas de captación, respuesta y seguimiento con inteligencia artificial para clínicas dentales que ofrecen ortodoncia invisible.",
+  "description": "Sistemas de captación, respuesta y seguimiento con inteligencia artificial para clínicas dentales.",
   "url": "https://fastsolutionsia.es/",
   "telephone": "+34647471991",
-  "email": "aecadro@gmail.com",
+  "email": "fastsolutionsia@gmail.com",
   "founder": { "@type": "Person", "name": "Alejandro Horcajuelo" },
   "areaServed": { "@type": "Country", "name": "España" },
   "serviceType": "Automatización con IA para clínicas dentales",
-  "audience": { "@type": "Audience", "audienceType": "Clínicas dentales y de ortodoncia" }
+  "audience": { "@type": "Audience", "audienceType": "Clínicas dentales" }
 }
 </script>
 
+<script>
+/* Tema: claro por defecto. Solo pasa a oscuro si el visitante lo eligió antes. */
+(function () { try { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+</script>
+
 <style>
+/* Tema claro por defecto. El oscuro es la clase .dark en <html> (clave localStorage: theme). */
 :root {
+  color-scheme: light;
+  --bg: #dde4f0;
+  --surface: #d3dbeb;
+  --card: #e6ebf5;
+  --card-hover: #edf1f9;
+  --border: rgba(15,23,41,0.10);
+  --border2: rgba(15,23,41,0.20);
+  --ink: #0f1729;
+  --ink2: #44536b;
+  --ink3: #4d5c74;   /* minimo para AA en texto pequeno sobre --surface (4,5:1) */
+  --strong: #0a1224;
+  --lead: #33425a;
+  --accent: #205893;
+  --accent2: #1a4f86;
+  --accent-dim: rgba(32,88,147,0.12);
+  --on-accent: #fff;
+  --green: #166534;
+  --green-dim: rgba(22,101,52,0.12);
+  --green-bd: rgba(22,101,52,0.30);
+  --amber: #92400e;
+  --amber-dim: rgba(146,64,14,0.12);
+  --red: #a61717;
+  --red-dim: rgba(166,23,23,0.10);
+  --red-bd: rgba(166,23,23,0.28);
+  --whats: #25D366;
+  --border-accent: rgba(36,95,154,0.34);
+  --shadow: 0 4px 20px rgba(15,23,41,0.10), 0 1px 3px rgba(15,23,41,0.08);
+  --shadow-lg: 0 10px 36px rgba(15,23,41,0.16);
+  --nav-bg: rgba(221,228,240,0.86);
+  --hero-bg: linear-gradient(155deg, #dde4f0 0%, #d5ddee 55%, #cfd9ec 100%);
+  --hero-glow: rgba(36,95,154,0.16);
+  --aud-bg: linear-gradient(155deg, #d3dcee 0%, #dde4f0 60%);
+  --aud-glow: rgba(36,95,154,0.14);
+  --calc-bg: linear-gradient(160deg, #cbd7ec 0%, var(--card) 65%);
+  --gar-bg: linear-gradient(150deg, #cfe3d8 0%, var(--card) 70%);
+  --aval-bg: linear-gradient(145deg, #c3d3ea, #aebfdc);
+  --sel: rgba(36,95,154,0.25);
+  --btn-s-bg: rgba(15,23,41,0.05);
+  --btn-s-fg: #0f1729;
+  --btn-s-bd: rgba(15,23,41,0.28);
+  --btn-s-bg-h: rgba(15,23,41,0.10);
+  --btn-s-bd-h: rgba(15,23,41,0.45);
+  --radius: 16px;
+  --max: 1160px;
+}
+html.dark {
+  color-scheme: dark;
   --bg: #0b0d14;
   --surface: #0f1220;
   --card: #141928;
@@ -59,20 +112,37 @@
   --ink: #dde4f4;
   --ink2: #8a9bb6;
   --ink3: #76879f;   /* minimo para AA en texto pequeno sobre --card (4,5:1) */
+  --strong: #fff;
+  --lead: rgba(255,255,255,.62);
   --accent: #5B9BD5;
   --accent2: #7AB5E8;
+  --accent-dim: rgba(91,155,213,0.12);
+  --on-accent: #06121f;
   --green: #4ade80;
   --green-dim: rgba(74,222,128,0.14);
+  --green-bd: rgba(74,222,128,0.25);
   --amber: #fbbf24;
   --amber-dim: rgba(251,191,36,0.13);
   --red: #f87171;
   --red-dim: rgba(248,113,113,0.12);
-  --whats: #25D366;
+  --red-bd: rgba(248,113,113,0.25);
   --border-accent: rgba(91,155,213,0.28);
   --shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.7);
-  --radius: 16px;
-  --max: 1160px;
+  --nav-bg: rgba(11,13,20,0.82);
+  --hero-bg: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
+  --hero-glow: rgba(27,58,107,0.5);
+  --aud-bg: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
+  --aud-glow: rgba(27,58,107,0.4);
+  --calc-bg: linear-gradient(160deg, #16213a 0%, var(--card) 65%);
+  --gar-bg: linear-gradient(150deg, #10231c 0%, var(--card) 70%);
+  --aval-bg: linear-gradient(145deg, #1e3358, #101728);
+  --sel: rgba(91,155,213,0.32);
+  --btn-s-bg: rgba(255,255,255,.07);
+  --btn-s-fg: rgba(255,255,255,.88);
+  --btn-s-bd: rgba(255,255,255,.18);
+  --btn-s-bg-h: rgba(255,255,255,.14);
+  --btn-s-bd-h: rgba(255,255,255,.3);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -80,14 +150,14 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-se
 h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.15; }
 a { color: inherit; }
 img { max-width: 100%; }
-::selection { background: rgba(91,155,213,0.32); }
+::selection { background: var(--sel); }
 :focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; border-radius: 4px; }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
 .section { padding: 5.5rem 0; }
 .section-tag {
   font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--accent); background: rgba(91,155,213,0.12);
+  color: var(--accent); background: var(--accent-dim);
   padding: .28rem .8rem; border-radius: 99px; display: inline-block; margin-bottom: .9rem;
 }
 .section-title { font-size: clamp(1.75rem, 3.6vw, 2.5rem); color: var(--ink); margin-bottom: .7rem; letter-spacing: -.02em; }
@@ -95,6 +165,15 @@ img { max-width: 100%; }
 .section-sub { color: var(--ink2); font-size: 1rem; max-width: 560px; line-height: 1.65; }
 .center { text-align: center; }
 .center .section-sub { margin-left: auto; margin-right: auto; }
+
+/* ── Iconos (sprite SVG en linea, cero peticiones) ── */
+svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ico {
+  width: 42px; height: 42px; border-radius: 11px; flex: none;
+  background: var(--accent-dim); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+}
+.ico.r { background: var(--red-dim); color: var(--red); }
 
 /* ── Marca ── */
 .mark { display: flex; flex-direction: column; gap: 2.5px; flex: none; }
@@ -106,34 +185,45 @@ img { max-width: 100%; }
 /* ── NAV ── */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(11,13,20,0.82);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
 .nav-in { display: flex; align-items: center; gap: 1.6rem; height: 62px; max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
 .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; font-weight: 600; letter-spacing: -.01em; font-size: .97rem; }
-.brand b { font-weight: 600; color: #fff; }
+.brand b { font-weight: 600; color: var(--strong); }
 .brand span { color: var(--accent2); font-weight: 600; }
 .nav-links { display: flex; gap: 1.5rem; margin-left: auto; font-size: .89rem; }
 .nav-links a { color: var(--ink2); text-decoration: none; transition: color .15s; }
 .nav-links a:hover { color: var(--ink); }
 .nav-cta {
-  background: var(--accent); color: #fff; text-decoration: none;
+  background: var(--accent); color: var(--on-accent); text-decoration: none;
   padding: .5rem 1.15rem; border-radius: 99px; font-size: .86rem; font-weight: 600;
   transition: background .15s; white-space: nowrap;
 }
 .nav-cta:hover { background: var(--accent2); }
+.tema {
+  width: 40px; height: 40px; border-radius: 99px; flex: none; cursor: pointer;
+  background: var(--btn-s-bg); border: 1.5px solid var(--btn-s-bd); color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .15s, border-color .15s;
+}
+.tema:hover { background: var(--btn-s-bg-h); border-color: var(--btn-s-bd-h); }
+.tema svg.i { width: 19px; height: 19px; }
+.tema .i-sol { display: none; }
+html.dark .tema .i-sol { display: block; }
+html.dark .tema .i-luna { display: none; }
 
 /* ── HERO ── */
 .hero {
-  background: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
+  background: var(--hero-bg);
   border-bottom: 1px solid var(--border);
   padding: 5.5rem 0 4.5rem; position: relative; overflow: hidden;
 }
 .hero::before {
   content: ''; position: absolute; top: -32%; left: 50%; transform: translateX(-50%);
   width: 780px; height: 460px;
-  background: radial-gradient(ellipse, rgba(27,58,107,0.5) 0%, transparent 70%);
+  background: radial-gradient(ellipse, var(--hero-glow) 0%, transparent 70%);
   pointer-events: none;
 }
 .hero .wrap { position: relative; }
@@ -144,12 +234,12 @@ img { max-width: 100%; }
 }
 .eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); display: block; }
 .hero h1 {
-  font-size: clamp(2.2rem, 5.2vw, 3.9rem); color: #fff;
+  font-size: clamp(2.2rem, 5.2vw, 3.9rem); color: var(--strong);
   max-width: 860px; margin-bottom: 1.4rem; letter-spacing: -.028em;
 }
 .hero h1 em { font-style: italic; color: var(--accent2); }
-.hero .lead { font-size: 1.12rem; color: rgba(255,255,255,.62); max-width: 580px; margin-bottom: 2.4rem; }
-.hero .lead b { color: #fff; font-weight: 500; }
+.hero .lead { font-size: 1.12rem; color: var(--lead); max-width: 580px; margin-bottom: 2.4rem; }
+.hero .lead b { color: var(--strong); font-weight: 500; }
 .btn-row { display: flex; gap: .9rem; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
@@ -157,10 +247,10 @@ img { max-width: 100%; }
   text-decoration: none; transition: all .15s; border: none; cursor: pointer;
   font-family: 'DM Sans', sans-serif;
 }
-.btn-p { background: var(--accent); color: #fff; }
+.btn-p { background: var(--accent); color: var(--on-accent); }
 .btn-p:hover { background: var(--accent2); }
-.btn-s { background: rgba(255,255,255,.07); color: rgba(255,255,255,.88); border: 1.5px solid rgba(255,255,255,.18); }
-.btn-s:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
+.btn-s { background: var(--btn-s-bg); color: var(--btn-s-fg); border: 1.5px solid var(--btn-s-bd); }
+.btn-s:hover { background: var(--btn-s-bg-h); border-color: var(--btn-s-bd-h); }
 .btn-w { background: var(--whats); color: #062d15; font-weight: 700; }
 .btn-w:hover { background: #33e07a; }
 .btn svg { width: 17px; height: 17px; flex: none; }
@@ -171,7 +261,7 @@ img { max-width: 100%; }
 }
 .aval-foto {
   width: 46px; height: 46px; border-radius: 99px; flex: none;
-  background: linear-gradient(145deg, #1e3358, #101728);
+  background: var(--aval-bg);
   border: 1px solid var(--border-accent);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--accent2);
@@ -184,7 +274,8 @@ img { max-width: 100%; }
 .cifras { background: var(--surface); border-bottom: 1px solid var(--border); padding: 3.2rem 0 2.6rem; }
 .cifras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
 .cifra { text-align: center; padding: 0 .5rem; }
-.cifra .n { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 2.9rem); color: #fff; line-height: 1; display: block; margin-bottom: .55rem; }
+.cifra .ico { margin: 0 auto .9rem; }
+.cifra .n { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 2.9rem); color: var(--strong); line-height: 1; display: block; margin-bottom: .55rem; }
 .cifra .n span { color: var(--accent2); }
 .cifra .t { font-size: .87rem; color: var(--ink2); line-height: 1.45; }
 .fuentes { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .76rem; color: var(--ink3); line-height: 1.6; }
@@ -195,12 +286,13 @@ img { max-width: 100%; }
 .sintoma {
   background: var(--card); border: 1px solid var(--border); border-left: 2px solid var(--red);
   border-radius: 4px var(--radius) var(--radius) 4px; padding: 1.4rem 1.5rem;
+  display: flex; gap: 1rem; align-items: flex-start;
   transition: border-color .18s, transform .18s;
 }
 .sintoma:hover { border-color: var(--border2); border-left-color: var(--red); transform: translateX(3px); }
 .sintoma .h { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: .6rem; }
 .sintoma p { font-size: .94rem; color: var(--ink); line-height: 1.6; }
-.sintoma p b { color: #fff; font-weight: 600; }
+.sintoma p b { color: var(--strong); font-weight: 600; }
 
 /* ── SISTEMA ── */
 .piezas { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.2rem; margin-top: 2.8rem; }
@@ -210,12 +302,20 @@ img { max-width: 100%; }
   transition: border-color .18s, box-shadow .18s;
 }
 .pieza:hover { border-color: var(--border-accent); box-shadow: var(--shadow-lg); }
+.pieza-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
 .pieza .num {
   font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em;
-  color: var(--accent); background: rgba(91,155,213,0.12);
-  padding: .22rem .6rem; border-radius: 5px; display: inline-block; margin-bottom: 1rem;
+  color: var(--accent); background: var(--accent-dim);
+  padding: .22rem .6rem; border-radius: 5px; display: inline-block;
 }
 .pieza h3 { font-size: 1.12rem; color: var(--ink); margin-bottom: .5rem; }
+.agentes { display: flex; gap: .5rem; margin-top: 1rem; flex-wrap: wrap; }
+.agente {
+  display: inline-flex; align-items: center; gap: .4rem; font-family: 'DM Mono', monospace;
+  font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--accent-dim); color: var(--accent); padding: .32rem .7rem; border-radius: 99px;
+}
+.agente svg.i { width: 13px; height: 13px; stroke-width: 2.1; }
 .pieza p { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
 
 /* ── DEMO CHAT ── */
@@ -226,8 +326,9 @@ img { max-width: 100%; }
 .demo-txt .lista li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
 .demo-nota { margin-top: 1.8rem; font-size: .84rem; color: var(--ink3); font-family: 'DM Mono', monospace; line-height: 1.6; }
 
+/* El movil es un dispositivo: conserva su pantalla oscura en los dos temas */
 .movil {
-  background: #0a1014; border: 1px solid var(--border2); border-radius: 26px;
+  background: #0a1014; border: 1px solid rgba(255,255,255,.16); border-radius: 26px;
   padding: 9px; box-shadow: var(--shadow-lg); max-width: 380px; margin: 0 auto; width: 100%;
 }
 .movil-top {
@@ -256,7 +357,6 @@ img { max-width: 100%; }
 .burbuja.user { background: #144d37; color: #e9edef; align-self: flex-end; border-top-right-radius: 2px; }
 .burbuja .hora { position: absolute; right: .6rem; bottom: .3rem; font-size: 9.5px; color: rgba(233,237,239,.45); font-family: 'DM Mono', monospace; }
 .burbuja b { font-weight: 600; }
-.burbuja .chip-precio { display: block; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(255,255,255,.1); font-family: 'DM Mono', monospace; font-size: .78rem; color: #8fd0a3; }
 .escribiendo { background: #1f2c33; align-self: flex-start; border-radius: 9px; border-top-left-radius: 2px; padding: .7rem .8rem; display: flex; gap: 3.5px; }
 .escribiendo i { width: 6px; height: 6px; border-radius: 99px; background: #8fa4ae; display: block; animation: bota 1.1s infinite; }
 .escribiendo i:nth-child(2) { animation-delay: .16s; }
@@ -273,17 +373,17 @@ img { max-width: 100%; }
   background: #1f2c33; border-radius: 0 0 18px 18px; padding: .6rem .8rem;
   display: flex; align-items: center; justify-content: space-between; gap: .6rem;
 }
-.movil-pie .campo { flex: 1; background: #2a3942; border-radius: 99px; padding: .42rem .8rem; font-size: .76rem; color: #6b7d87; }
+.movil-pie .campo { flex: 1; background: #2a3942; border-radius: 99px; padding: .42rem .8rem; font-size: .76rem; color: #93a5ae; }
 .rebobina {
   background: none; border: 1px solid #2a3942; color: #8fa4ae; border-radius: 99px;
   width: 30px; height: 30px; flex: none; cursor: pointer; font-size: .8rem; transition: all .14s;
 }
-.rebobina:hover { border-color: var(--accent); color: var(--accent); }
+.rebobina:hover { border-color: #7fc4e0; color: #7fc4e0; }
 
 .resultado { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.4rem; justify-content: center; }
 .resultado span {
   font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
-  background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.22);
+  background: var(--green-dim); color: var(--green); border: 1px solid var(--green-bd);
   padding: .3rem .7rem; border-radius: 99px;
 }
 
@@ -301,7 +401,7 @@ img { max-width: 100%; }
 .calc input[type=range] { accent-color: var(--accent); height: 26px; }
 .rango-val { font-family: 'DM Mono', monospace; font-size: .88rem; color: var(--accent2); }
 .calc-out {
-  background: linear-gradient(160deg, #16213a 0%, var(--card) 65%);
+  background: var(--calc-bg);
   border: 1px solid var(--border-accent); border-radius: var(--radius);
   padding: 1.9rem 1.8rem; box-shadow: var(--shadow);
 }
@@ -309,35 +409,53 @@ img { max-width: 100%; }
 .calc-linea b { font-family: 'DM Mono', monospace; color: var(--ink); font-size: 1rem; font-weight: 500; white-space: nowrap; }
 .calc-total { padding-top: 1.3rem; }
 .calc-total .et { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); margin-bottom: .4rem; }
-.calc-total .v { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: #fff; line-height: 1.1; }
+.calc-total .v { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: var(--strong); line-height: 1.1; }
 .calc-aviso { font-size: .78rem; color: var(--ink3); line-height: 1.6; margin-top: 1.1rem; }
 
-/* ── TONO / LISTA ICONOS ── */
-.tono { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.1rem; margin-top: 2.8rem; }
+/* ── TONO ── */
+.tono { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 1.1rem; margin-top: 2.8rem; }
 .tono-it { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; }
-.tono-it .ic { font-size: 1.3rem; margin-bottom: .6rem; display: block; }
+.tono-it .ico { margin-bottom: .85rem; }
 .tono-it strong { display: block; font-family: 'Fraunces', serif; font-weight: 400; font-size: 1.05rem; color: var(--ink); margin-bottom: .35rem; }
 .tono-it p { font-size: .88rem; color: var(--ink2); line-height: 1.55; }
 
-/* ── PLAZOS ── */
-.plazos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.1rem; margin-top: 2.8rem; counter-reset: paso; }
-.plazo { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1.4rem; position: relative; }
-.plazo .d { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .7rem; }
-.plazo h3 { font-size: 1.02rem; margin-bottom: .4rem; }
-.plazo p { font-size: .87rem; color: var(--ink2); line-height: 1.55; }
+/* ── IMPLANTACIÓN: línea de tiempo vertical ──
+   Cada paso dibuja su tramo de línea hasta el nodo siguiente; el relleno lo
+   gobierna --f (0..1), que el script calcula al hacer scroll. */
+.linea { list-style: none; margin-top: 2.8rem; max-width: 760px; }
+.paso { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 1.2rem; padding-bottom: 1.4rem; }
+.paso:last-child { padding-bottom: 0; }
+.paso::before, .paso::after {
+  content: ''; position: absolute; left: 21px; top: 44px; bottom: 0; width: 2px; border-radius: 2px;
+}
+.paso::before { background: var(--border2); }
+.paso::after { background: var(--accent); transform: scaleY(var(--f, 0)); transform-origin: top; transition: transform .12s linear; }
+.paso:last-child::before, .paso:last-child::after { display: none; }
+.nodo {
+  width: 44px; height: 44px; border-radius: 99px; position: relative; z-index: 1;
+  background: var(--bg); border: 2px solid var(--border2); color: var(--ink3);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.paso.hecho .nodo { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.paso-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
+.paso-card .d { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; }
+.paso-card h3 { font-size: 1.1rem; margin-bottom: .4rem; }
+.paso-card p { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
 
 /* ── GARANTÍA ── */
 .garantia {
-  background: linear-gradient(150deg, #10231c 0%, var(--card) 70%);
-  border: 1px solid rgba(74,222,128,0.25); border-radius: var(--radius);
+  background: var(--gar-bg);
+  border: 1px solid var(--green-bd); border-radius: var(--radius);
   padding: 2.4rem 2.2rem; display: flex; gap: 1.6rem; align-items: flex-start; margin-top: 2.5rem;
 }
 .garantia .sello {
   width: 54px; height: 54px; border-radius: 99px; flex: none;
-  background: var(--green-dim); border: 1px solid rgba(74,222,128,0.35);
-  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  background: var(--green-dim); border: 1px solid var(--green-bd); color: var(--green);
+  display: flex; align-items: center; justify-content: center;
 }
-.garantia h3 { font-size: 1.3rem; color: #fff; margin-bottom: .6rem; }
+.garantia .sello svg.i { width: 27px; height: 27px; }
+.garantia h3 { font-size: 1.3rem; color: var(--strong); margin-bottom: .6rem; }
 .garantia p { color: var(--ink2); font-size: .95rem; line-height: 1.65; }
 .garantia p b { color: var(--ink); font-weight: 600; }
 
@@ -361,10 +479,10 @@ img { max-width: 100%; }
 /* ── FILTRO SÍ/NO ── */
 .filtro { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.8rem; }
 .col { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.7rem 1.7rem; }
-.col.si { border-color: rgba(74,222,128,0.22); }
+.col.si { border-color: var(--green-bd); }
 .col h3 { font-size: 1.1rem; margin-bottom: 1.1rem; }
 .col ul { list-style: none; }
-.col li { font-size: .91rem; color: var(--ink); padding: .5rem 0 .5rem 1.6rem; position: relative; line-height: 1.55; border-bottom: 1px solid rgba(255,255,255,.05); }
+.col li { font-size: .91rem; color: var(--ink); padding: .5rem 0 .5rem 1.6rem; position: relative; line-height: 1.55; border-bottom: 1px solid var(--border); }
 .col li:last-child { border-bottom: none; }
 .col.si li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
 .col.no li::before { content: '✕'; position: absolute; left: 0; color: var(--ink3); font-weight: 700; }
@@ -390,13 +508,13 @@ img { max-width: 100%; }
 
 /* ── AUDITORÍA / FORM ── */
 .auditoria {
-  background: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
+  background: var(--aud-bg);
   border-top: 1px solid var(--border-accent); position: relative; overflow: hidden;
 }
 .auditoria::before {
   content: ''; position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%);
   width: 820px; height: 380px;
-  background: radial-gradient(ellipse, rgba(27,58,107,0.4) 0%, transparent 70%); pointer-events: none;
+  background: radial-gradient(ellipse, var(--aud-glow) 0%, transparent 70%); pointer-events: none;
 }
 .auditoria .wrap { position: relative; }
 .aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -405,7 +523,7 @@ img { max-width: 100%; }
 .aud-pasos { counter-reset: ap; }
 .aud-pasos li::before {
   content: counter(ap); position: absolute; left: 0; top: .6rem;
-  width: 20px; height: 20px; border-radius: 99px; background: rgba(91,155,213,0.15);
+  width: 20px; height: 20px; border-radius: 99px; background: var(--accent-dim);
   color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 10px;
   display: flex; align-items: center; justify-content: center;
 }
@@ -428,13 +546,15 @@ form.form {
 .rgpd input { width: auto; margin-top: .2rem; flex: none; accent-color: var(--accent); }
 .rgpd a { color: var(--ink2); }
 .form-msg { font-size: .88rem; padding: .7rem .9rem; border-radius: 10px; display: none; line-height: 1.5; }
-.form-msg.ok { display: block; background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
-.form-msg.ko { display: block; background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.form-msg.ok { display: block; background: var(--green-dim); color: var(--green); border: 1px solid var(--green-bd); }
+.form-msg.ko { display: block; background: var(--red-dim); color: var(--red); border: 1px solid var(--red-bd); }
 
 /* ── FOOTER ── */
 footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2.6rem 0 2rem; }
 .foot-grid { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
 .foot-marca { display: flex; align-items: center; gap: .7rem; margin-bottom: .7rem; }
+.foot-marca b { font-weight: 600; color: var(--strong); }
+.foot-marca b span { color: var(--accent2); }
 .foot p { font-size: .85rem; color: var(--ink2); line-height: 1.6; max-width: 320px; }
 .foot-links { display: flex; flex-direction: column; gap: .45rem; font-size: .85rem; }
 .foot-links a { color: var(--ink2); text-decoration: none; }
@@ -450,7 +570,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60;
   width: 54px; height: 54px; border-radius: 99px; background: var(--whats);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 22px rgba(0,0,0,.5); transition: transform .16s;
+  box-shadow: 0 6px 22px rgba(0,0,0,.35); transition: transform .16s;
 }
 .flota:hover { transform: scale(1.06); }
 .flota svg { width: 27px; height: 27px; fill: #062d15; }
@@ -469,7 +589,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   .section { padding: 3.8rem 0; }
   .wrap { padding: 0 1.2rem; }
   .nav-links { display: none; }
-  .nav-in { gap: 1rem; }
+  .nav-in { gap: .8rem; }
   .nav-cta { margin-left: auto; }
   .hero { padding: 3.5rem 0 3rem; }
   .hero .lead { font-size: 1rem; }
@@ -479,15 +599,28 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   .chat { height: 380px; }
   .flota { width: 50px; height: 50px; right: .9rem; bottom: .9rem; }
   .foot-grid { flex-direction: column; gap: 1.6rem; }
+  .paso { gap: 1rem; }
+  .paso-card { padding: 1.25rem 1.2rem; }
   /* Objetivos tactiles de 44px: en movil se pulsa con el pulgar, no con un raton */
   .nav-cta { padding: .72rem 1.25rem; }
-  .brand { padding: .6rem 0; }
+  .tema { width: 44px; height: 44px; }
+  .brand { padding: .6rem 0; min-height: 44px; }
   .foot-links { gap: 0; }
   .foot-links a { padding: .7rem 0; }
   .calc input[type=range] { height: 44px; }
   .rebobina { width: 44px; height: 44px; }
   .rapida { min-height: 44px; padding: .5rem .95rem; }
   .muestra { padding: 1.6rem 1.4rem; }
+}
+@media (max-width: 420px) {
+  .nav-in { gap: .6rem; }
+  .brand { gap: .5rem; font-size: .92rem; }
+  .nav-cta .mas { display: none; }
+}
+@media (max-width: 340px) {
+  .wrap, .nav-in { padding-left: .9rem; padding-right: .9rem; }
+  .brand { font-size: .85rem; }
+  .nav-cta { padding: .72rem .9rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -503,6 +636,32 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-web" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h6M7 16.5h9"/></symbol>
+  <symbol id="i-embudo" viewBox="0 0 24 24"><path d="M3 5h18l-7 8.5V20l-4-2v-4.5z"/></symbol>
+  <symbol id="i-robot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5.2M2 13v3M22 13v3M9.5 17.3h5"/><circle cx="12" cy="3.9" r="1.3"/><circle cx="9" cy="13" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-telefono" viewBox="0 0 24 24"><path d="M4.7 3.5h3.8l1.6 4-2 1.7a13.2 13.2 0 0 0 6.4 6.4l1.7-2 4 1.6v3.8a1.8 1.8 0 0 1-2 1.8C9.9 20.1 3.9 14.1 3 5.5a1.8 1.8 0 0 1 1.7-2z"/></symbol>
+  <symbol id="i-cal-ok" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 10h18M8 2.5v4M16 2.5v4M9 15.5l2.2 2.2 4.3-4.4"/></symbol>
+  <symbol id="i-cal-x" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 10h18M8 2.5v4M16 2.5v4M10 13.5l4 4M14 13.5l-4 4"/></symbol>
+  <symbol id="i-luna" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+  <symbol id="i-euro" viewBox="0 0 24 24"><path d="M4 10h12M4 14h9M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/></symbol>
+  <symbol id="i-repetir" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-archivo" viewBox="0 0 24 24"><path d="M14 2.5H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7.5zM14 2.5v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-buzon" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  <symbol id="i-crono" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.5M9.5 2.5h5M12 6V2.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-llave" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-ojo" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 2.5l8 3v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-pluma" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-usuarios" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></symbol>
+  <symbol id="i-pulso" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/><path d="M3.2 12h6.3l.5-1 2 4.5 2-7 1.5 3.5h5.3"/></symbol>
+  <symbol id="i-candado" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5v-3a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
 <nav class="nav">
   <div class="nav-in">
     <a class="brand" href="#top">
@@ -515,21 +674,22 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <a href="#demo">Demo</a>
       <a href="#faq">Preguntas</a>
     </div>
-    <a class="nav-cta" href="#auditoria">Auditoría gratis</a>
+    <a class="nav-cta" href="#auditoria">Auditoría<span class="mas"> gratis</span></a>
+    <button class="tema" id="tema" type="button" aria-label="Cambiar a modo oscuro"><svg class="i i-luna" aria-hidden="true"><use href="#i-luna"/></svg><svg class="i i-sol" aria-hidden="true"><use href="#i-sol"/></svg></button>
   </div>
 </nav>
 
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="eyebrow">Para clínicas dentales con ortodoncia invisible</div>
-    <h1>Tu próximo caso de ortodoncia <em>escribió anoche</em>. Nadie le contestó.</h1>
-    <p class="lead">El paciente de alineadores pide precio en tres o cuatro clínicas y se queda en la primera que le responde. <b>No en la mejor: en la primera.</b> Montamos el sistema que contesta en segundos, cualifica y deja la cita puesta en tu agenda — sin que tu recepción toque nada.</p>
+    <div class="eyebrow">Para clínicas dentales</div>
+    <h1>Tu próximo paciente <em>escribió anoche</em>. Nadie le contestó.</h1>
+    <p class="lead">El paciente pide precio en tres o cuatro clínicas y se queda en la primera que le responde. <b>No en la mejor: en la primera.</b> Montamos el sistema que contesta en segundos, cualifica y deja la cita puesta en tu agenda — sin que tu recepción toque nada.</p>
     <div class="btn-row">
       <a class="btn btn-p" href="#auditoria">Auditar mi clínica gratis</a>
       <a class="btn btn-s" href="#" data-cal>Reservar llamada de 20 min</a>
     </div>
     <div class="aval">
-      <div class="aval-foto" aria-hidden="true">AH</div>
+      <img class="aval-foto" src="alejandro.webp" width="46" height="46" alt="Alejandro Horcajuelo">
       <div class="aval-txt">
         <b>Alejandro Horcajuelo</b>
         Detrás de FastSolutions IA hay una persona con teléfono: <a href="tel:+34647471991" style="color:var(--accent2);text-decoration:none;white-space:nowrap;">647 471 991</a>
@@ -542,18 +702,22 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   <div class="wrap">
     <div class="cifras-grid">
       <div class="cifra rv">
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-reloj"/></svg></span>
         <span class="n" data-contador="42" data-sufijo=" h"><span>0 h</span></span>
         <span class="t">tarda de media una empresa en responder a una solicitud web</span>
       </div>
       <div class="cifra rv">
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-buzon"/></svg></span>
         <span class="n" data-contador="23" data-sufijo=" %"><span>0 %</span></span>
         <span class="t">no responde jamás a quien ha pedido información</span>
       </div>
       <div class="cifra rv">
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-crono"/></svg></span>
         <span class="n" data-contador="21" data-prefijo="×"><span>×0</span></span>
         <span class="t">más opciones de cualificar contestando en 5 minutos que en 30</span>
       </div>
       <div class="cifra rv">
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-cal-x"/></svg></span>
         <span class="n" data-contador="25" data-sufijo=" %"><span>0 %</span></span>
         <span class="t">de ausencias en primeras visitas dentales en España</span>
       </div>
@@ -572,24 +736,39 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <p class="section-sub">Ninguno de estos cinco escenarios necesita un fallo de nadie. Pasan con un equipo bueno, cargado de trabajo y haciendo lo que puede.</p>
     <div class="sintomas">
       <div class="sintoma rv">
-        <div class="h">Domingo 23:41</div>
-        <p>Entra una consulta de alineadores por Instagram. Recepción la ve el lunes a las 9:40. <b>El paciente ya ha pedido precio en tres clínicas más</b> y tiene dos respuestas.</p>
+        <span class="ico r" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-luna"/></svg></span>
+        <div>
+          <div class="h">Domingo 23:41</div>
+          <p>Entra una consulta por Instagram. Recepción la ve el lunes a las 9:40. <b>El paciente ya ha pedido precio en tres clínicas más</b> y tiene dos respuestas.</p>
+        </div>
       </div>
       <div class="sintoma rv">
-        <div class="h">El lead caro</div>
-        <p>Rellena el formulario, no coge el teléfono a la primera, nadie insiste y acaba marcado como «no interesado». <b>Ese clic ya lo habías pagado.</b></p>
+        <span class="ico r" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-euro"/></svg></span>
+        <div>
+          <div class="h">El lead caro</div>
+          <p>Rellena el formulario, no coge el teléfono a la primera, nadie insiste y acaba marcado como «no interesado». <b>Ese clic ya lo habías pagado.</b></p>
+        </div>
       </div>
       <div class="sintoma rv">
-        <div class="h">La misma pregunta, otra vez</div>
-        <p>Media mañana de recepción explicando cuánto dura el tratamiento, si se nota y si se puede quitar para comer. <b>Por vigésima vez este mes.</b></p>
+        <span class="ico r" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-repetir"/></svg></span>
+        <div>
+          <div class="h">La misma pregunta, otra vez</div>
+          <p>Media mañana de recepción explicando horarios, cuánto dura un tratamiento y si el seguro lo cubre. <b>Por vigésima vez este mes.</b></p>
+        </div>
       </div>
       <div class="sintoma rv">
-        <div class="h">El hueco quemado</div>
-        <p>Primera visita gratuita reservada. No aparece y no avisa. <b>Una hora de sillón y de doctor que ya no se recupera.</b></p>
+        <span class="ico r" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-cal-x"/></svg></span>
+        <div>
+          <div class="h">El hueco quemado</div>
+          <p>Primera visita gratuita reservada. No aparece y no avisa. <b>Una hora de sillón y de doctor que ya no se recupera.</b></p>
+        </div>
       </div>
       <div class="sintoma rv">
-        <div class="h">El presupuesto dormido</div>
-        <p>Entregaste un tratamiento de cuatro cifras hace tres semanas. El paciente dijo «me lo pienso». <b>Nadie ha vuelto a llamar.</b></p>
+        <span class="ico r" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-archivo"/></svg></span>
+        <div>
+          <div class="h">El presupuesto dormido</div>
+          <p>Entregaste un presupuesto de cuatro cifras hace tres semanas. El paciente dijo «me lo pienso». <b>Nadie ha vuelto a llamar.</b></p>
+        </div>
       </div>
     </div>
   </div>
@@ -602,22 +781,26 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <p class="section-sub">No es «poner un bot». Es cerrar el circuito completo desde que alguien se interesa hasta que se sienta en tu silla.</p>
     <div class="piezas">
       <div class="pieza rv">
-        <span class="num">01</span>
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-web"/></svg></span><span class="num">01</span></div>
         <h3>Una web que transmite lo que cobras</h3>
-        <p>Si vendes ortodoncia invisible de cuatro cifras, la web no puede parecer la de la clínica de al lado. Página específica de alineadores, pensada para que el paciente pida cita, no para ganar premios.</p>
+        <p>Si tu clínica cobra bien, la web no puede parecerse a la de al lado. Páginas pensadas para que el paciente pida cita, no para ganar premios.</p>
       </div>
       <div class="pieza rv">
-        <span class="num">02</span>
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-embudo"/></svg></span><span class="num">02</span></div>
         <h3>Captación que filtra</h3>
         <p>Campañas y formularios que separan al paciente con intención real del que solo compara precios. Menos volumen, más gente que se sienta.</p>
       </div>
       <div class="pieza rv">
-        <span class="num">03</span>
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-robot"/></svg></span><span class="num">03</span></div>
         <h3>Recepcionista IA 24/7</h3>
-        <p>Responde en segundos por WhatsApp a cualquier hora, resuelve las dudas de siempre, cualifica y ofrece hueco real de tu agenda. Tu recepción deja de apagar fuegos.</p>
+        <p>Dos formas de no dejar a nadie sin respuesta: <b>agente de chat</b> por WhatsApp y web, y <b>agente de voz</b> que descuelga el teléfono con un tono natural. Cualifican, resuelven las dudas de siempre y ofrecen hueco real de tu agenda. Tu recepción deja de apagar fuegos.</p>
+        <div class="agentes">
+          <span class="agente"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Chat</span>
+          <span class="agente"><svg class="i" aria-hidden="true"><use href="#i-telefono"/></svg>Voz</span>
+        </div>
       </div>
       <div class="pieza rv">
-        <span class="num">04</span>
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-cal-ok"/></svg></span><span class="num">04</span></div>
         <h3>Seguimiento que no se olvida</h3>
         <p>Recordatorio antes de la cita para bajar las ausencias, y recuperación del presupuesto entregado que se quedó en «me lo pienso». Sin que nadie tenga que acordarse.</p>
       </div>
@@ -638,7 +821,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <li>Ofrece huecos reales de tu agenda</li>
           <li>Confirma, recuerda y avisa a tu equipo</li>
         </ul>
-        <p class="demo-nota">Guion de ejemplo. En tu clínica lo escribimos con tus tratamientos, tus precios y tu forma de hablar — y lo apruebas tú antes de que hable con un solo paciente.</p>
+        <p class="demo-nota">Guion de ejemplo. En tu clínica lo escribimos con tus tratamientos, tus precios y tu forma de hablar — y lo apruebas tú antes de que hable con un solo paciente. Si un paciente pregunta si habla con una máquina, contesta con la verdad.</p>
       </div>
 
       <div>
@@ -646,11 +829,11 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <div class="movil-top">
             <div class="av">CL</div>
             <div>
-              <div class="nm">Clínica · Ortodoncia</div>
+              <div class="nm">Clínica dental</div>
               <div class="st">en línea</div>
             </div>
           </div>
-          <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Demostración de conversación con el asistente"></div>
+          <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Demostración de conversación con la clínica"></div>
           <div class="movil-pie">
             <div class="campo">Escribe un mensaje</div>
             <button class="rebobina" id="rebobinar" title="Volver a empezar la demostración" aria-label="Volver a empezar la demostración">↺</button>
@@ -674,23 +857,23 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <div class="calc">
       <div class="calc-campos">
         <div>
-          <label class="campo-l" for="c-leads">Consultas de ortodoncia al mes
+          <label class="campo-l" for="c-leads">Consultas nuevas al mes
             <small>Formularios, WhatsApp, mensajes de Instagram y llamadas de gente nueva</small>
           </label>
           <input type="number" id="c-leads" value="30" min="1" max="500" step="1" inputmode="numeric">
         </div>
         <div>
           <label class="campo-l" for="c-tasa">De esas, cuántas acaban sentándose en tu silla
-            <small>Si no lo sabes con certeza, la media del sector ronda el 30 %</small>
+            <small>Si no lo sabes con certeza, pon una estimación prudente: lo que salga aquí es tu número, no el nuestro</small>
           </label>
           <input type="range" id="c-tasa" value="30" min="5" max="90" step="1">
           <div class="rango-val"><span id="c-tasa-v">30</span> %</div>
         </div>
         <div>
-          <label class="campo-l" for="c-ticket">Precio medio de un tratamiento completo
-            <small>Alineadores, revisiones y retenedores incluidos</small>
+          <label class="campo-l" for="c-ticket">Valor medio de un paciente nuevo
+            <small>Lo que suele dejar en la clínica entre primera visita y tratamiento. 900 € es solo un ejemplo: pon el tuyo</small>
           </label>
-          <input type="number" id="c-ticket" value="3500" min="500" max="15000" step="100" inputmode="numeric">
+          <input type="number" id="c-ticket" value="900" min="50" max="20000" step="50" inputmode="numeric">
         </div>
       </div>
 
@@ -699,8 +882,8 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         <div class="calc-linea"><span>Que no llegan a primera visita</span><b id="o-perdidos">252</b></div>
         <div class="calc-linea"><span>Si recuperas solo 1 de cada 5</span><b id="o-recup">50</b></div>
         <div class="calc-total">
-          <div class="et">Tratamientos que hoy se escapan</div>
-          <div class="v" id="o-euros">176.400 €</div>
+          <div class="et">Ingresos que hoy se escapan</div>
+          <div class="v" id="o-euros">45.360 €</div>
         </div>
         <p class="calc-aviso">Cuenta deliberadamente conservadora: asume recuperar <b>uno de cada cinco</b> pacientes que hoy se pierden, no todos. No es una promesa de resultado, es el tamaño del agujero que estamos mirando.</p>
       </div>
@@ -712,25 +895,25 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   <div class="wrap">
     <span class="section-tag">La objeción de siempre</span>
     <h2 class="section-title">«No quiero una IA que suene a robot y me espante a los pacientes»</h2>
-    <p class="section-sub">Es la preocupación correcta. Un paciente que va a dejarse cuatro mil euros nota el robot a la primera frase. Por eso el sistema se monta así:</p>
+    <p class="section-sub">Es la preocupación correcta. Un paciente que va a confiarte su boca nota el robot a la primera frase, sea por chat o por teléfono. Por eso el sistema se monta así:</p>
     <div class="tono">
       <div class="tono-it rv">
-        <span class="ic">✍️</span>
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-pluma"/></svg></span>
         <strong>Tú firmas cada palabra</strong>
         <p>El guion se escribe con tu equipo y lo apruebas antes de que hable con nadie. Si una frase no suena a tu clínica, no entra.</p>
       </div>
       <div class="tono-it rv">
-        <span class="ic">🤝</span>
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-usuarios"/></svg></span>
         <strong>Pasa a persona cuando toca</strong>
         <p>En cuanto detecta intención real de tratamiento, duda clínica o cabreo, avisa a tu equipo y se aparta. No pelea por quedarse la conversación.</p>
       </div>
       <div class="tono-it rv">
-        <span class="ic">🩺</span>
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-pulso"/></svg></span>
         <strong>Nunca diagnostica</strong>
-        <p>No dice si eres candidato a alineadores, no promete resultados y no interpreta una foto. Acompaña hasta la silla; el criterio es del doctor.</p>
+        <p>No dice qué tratamiento necesitas, no promete resultados y no interpreta una foto ni una radiografía. Acompaña hasta la silla; el criterio es del doctor.</p>
       </div>
       <div class="tono-it rv">
-        <span class="ic">🔒</span>
+        <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-candado"/></svg></span>
         <strong>Datos tratados como lo que son</strong>
         <p>Consentimiento explícito, datos alojados en la UE y nada de historiales en el chat. En salud esto no es un extra, es el mínimo.</p>
       </div>
@@ -743,31 +926,43 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <span class="section-tag">Implantación</span>
     <h2 class="section-title">Catorce días. Dos reuniones de media hora. <em>Cero trabajo</em> para tu equipo.</h2>
     <p class="section-sub">Sabemos que no tienes tiempo de supervisar una implantación de software. Por eso está diseñada para que no tengas que hacerlo.</p>
-    <div class="plazos">
-      <div class="plazo rv">
-        <div class="d">Días 1-2</div>
-        <h3>Escucha</h3>
-        <p>Media hora contigo. Cómo entra hoy un paciente, qué precios manejas, qué responde tu equipo y qué no quieres que se diga jamás.</p>
-      </div>
-      <div class="plazo rv">
-        <div class="d">Días 3-8</div>
-        <h3>Construcción</h3>
-        <p>Montamos web, captación, asistente y seguimiento. Aquí tú no haces nada: sigues con tus pacientes.</p>
-      </div>
-      <div class="plazo rv">
-        <div class="d">Días 9-11</div>
-        <h3>Tu revisión</h3>
-        <p>Segunda media hora. Lees los guiones, tachas lo que no te gusta y lo corregimos. Nada sale sin tu visto bueno.</p>
-      </div>
-      <div class="plazo rv">
-        <div class="d">Días 12-14</div>
-        <h3>En marcha</h3>
-        <p>Se conecta a tu WhatsApp y tu agenda, se prueba con casos reales y se queda funcionando. Con soporte, no con un manual en PDF.</p>
-      </div>
-    </div>
+    <ol class="linea" id="linea">
+      <li class="paso rv">
+        <span class="nodo" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <div class="paso-card">
+          <div class="d">Días 1-2</div>
+          <h3>Escucha</h3>
+          <p>Media hora contigo. Cómo entra hoy un paciente, qué precios manejas, qué responde tu equipo y qué no quieres que se diga jamás.</p>
+        </div>
+      </li>
+      <li class="paso rv">
+        <span class="nodo" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-llave"/></svg></span>
+        <div class="paso-card">
+          <div class="d">Días 3-8</div>
+          <h3>Construcción</h3>
+          <p>Montamos web, captación, asistente —chat y voz— y seguimiento. Aquí tú no haces nada: sigues con tus pacientes.</p>
+        </div>
+      </li>
+      <li class="paso rv">
+        <span class="nodo" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-ojo"/></svg></span>
+        <div class="paso-card">
+          <div class="d">Días 9-11</div>
+          <h3>Tu revisión</h3>
+          <p>Segunda media hora. Lees los guiones, tachas lo que no te gusta y lo corregimos. Nada sale sin tu visto bueno.</p>
+        </div>
+      </li>
+      <li class="paso rv">
+        <span class="nodo" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg></span>
+        <div class="paso-card">
+          <div class="d">Días 12-14</div>
+          <h3>En marcha</h3>
+          <p>Se conecta a tu WhatsApp y tu agenda, se prueba con casos reales y se queda funcionando. Con soporte, no con un manual en PDF.</p>
+        </div>
+      </li>
+    </ol>
 
     <div class="garantia rv">
-      <div class="sello" aria-hidden="true">🛠</div>
+      <div class="sello" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-escudo"/></svg></div>
       <div>
         <h3>Garantía de reimplantación</h3>
         <p>Si a los <b>30 días</b> el sistema no responde como acordamos en la revisión, <b>lo reescribo entero sin coste</b> hasta que lo haga. No te garantizo cuántos pacientes te va a traer tu mercado —eso no lo controla nadie honesto—, te garantizo que lo que montamos funciona como quedamos.</p>
@@ -779,15 +974,9 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 <section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
   <div class="wrap">
     <span class="section-tag">Trabajos de muestra</span>
-    <h2 class="section-title">Todavía no enseño clientes. <em>Enseño trabajo.</em></h2>
-    <p class="section-sub">Prefiero decirlo de frente: estos son proyectos propios de demostración, no clínicas reales. El día que tenga casos de clientes, estarán aquí con su nombre y su permiso — y ni un minuto antes.</p>
+    <h2 class="section-title">Así es como trabajo. <em>Pruébalo tú mismo.</em></h2>
+    <p class="section-sub">Dos piezas para que te hagas una idea real de cómo se ve y se siente el sistema antes de hablar de tu clínica.</p>
     <div class="muestras">
-      <a class="muestra rv" href="/DEMOS/recepcionista-ortodoncia.html">
-        <span class="et">Demostración propia</span>
-        <h3>Recepcionista de ortodoncia</h3>
-        <p>La conversación entera, con el panel de lo que tu equipo se encuentra hecho por la mañana: ficha, cita y recordatorio.</p>
-        <span class="ir">Abrir la demo completa →</span>
-      </a>
       <a class="muestra rv" href="/DEMOS/chatbot-dental.html">
         <span class="et">Demostración propia</span>
         <h3>Asistente de clínica dental</h3>
@@ -812,7 +1001,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="col si">
         <h3>Tiene sentido si…</h3>
         <ul>
-          <li>La ortodoncia invisible es tu tratamiento estrella, o quieres que lo sea</li>
+          <li>Tienes tratamientos de ticket alto que quieres vender más</li>
           <li>Ya inviertes en publicidad y te duele ver leads sin contestar</li>
           <li>Tu recepción va cargada y se le caen los seguimientos</li>
           <li>El paciente que buscas valora el trato, no el precio más bajo</li>
@@ -845,6 +1034,10 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         <div class="faq-a"><div>Porque el precio depende de cuántas consultas recibes, de si hay que hacer la web entera o solo el asistente, y de cuántas integraciones tiene tu software de gestión. Poner una cifra a ciegas es engañarte o cobrarte de más. <b>En la llamada te doy el número exacto, en los primeros diez minutos y sin rodeos.</b> Lo que sí te adelanto: hay un pago de puesta en marcha y una cuota mensual de mantenimiento, y no trabajo por debajo de cierto suelo porque el trabajo bien hecho cuesta lo que cuesta.</div></div>
       </div>
       <div class="faq-it">
+        <button class="faq-q">¿Contesta solo por WhatsApp o también por teléfono?</button>
+        <div class="faq-a"><div>Las dos cosas. El <b>agente de chat</b> cubre WhatsApp, Instagram y el formulario de la web; el <b>agente de voz</b> descuelga el teléfono con un tono natural, en español de España, cuando nadie de tu equipo puede coger la llamada. Se contratan juntos o por separado, según por dónde se te escapa hoy el paciente.</div></div>
+      </div>
+      <div class="faq-it">
         <button class="faq-q">¿Qué pasa con el RGPD? Son datos de salud.</button>
         <div class="faq-a"><div>Por eso el asistente <b>no pregunta ni almacena información clínica</b>: nombre, contacto, qué tratamiento le interesa y cuándo puede venir. Nada más. Consentimiento explícito antes de guardar nada, datos alojados en la Unión Europea, y el encargado del tratamiento firmado contigo. Si tu gestor legal quiere revisarlo, encantado.</div></div>
       </div>
@@ -874,7 +1067,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div>
         <span class="section-tag">Gratis y sin compromiso</span>
         <h2 class="section-title">Antes de venderte nada, <em>te mido el problema</em></h2>
-        <p class="section-sub">Te hago de paciente misterioso: escribo a tu clínica interesándome por ortodoncia invisible, cronometro lo que se tarda en contestar y te mando un informe de una página con lo que ha pasado. Si resulta que respondéis en cuatro minutos y de maravilla, te lo diré y no tendré nada que venderte.</p>
+        <p class="section-sub">Te hago de paciente misterioso: escribo a tu clínica interesándome por un tratamiento, cronometro lo que se tarda en contestar y te mando un informe de una página con lo que ha pasado. Si resulta que respondéis en cuatro minutos y de maravilla, te lo diré y no tendré nada que venderte.</p>
         <ol class="aud-pasos">
           <li>Rellenas el formulario. Treinta segundos.</li>
           <li>Escribo a tu clínica como lo haría un paciente real.</li>
@@ -917,7 +1110,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <input type="tel" id="f-tel" name="telefono" required autocomplete="tel" placeholder="600 000 000">
         </div>
         <div>
-          <label for="f-vol">Consultas de ortodoncia que os llegan al mes</label>
+          <label for="f-vol">Consultas nuevas que os llegan al mes</label>
           <select id="f-vol" name="volumen" required>
             <option value="">Elige una opción</option>
             <option>Menos de 10</option>
@@ -944,9 +1137,9 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="foot">
         <div class="foot-marca">
           <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <b style="font-weight:600;color:#fff;">FastSolutions<span style="color:var(--accent2)">IA</span></b>
+          <b>FastSolutions<span>IA</span></b>
         </div>
-        <p>Sistemas de captación, respuesta y seguimiento con IA para clínicas dentales que ofrecen ortodoncia invisible. Alejandro Horcajuelo, España.</p>
+        <p>Sistemas de captación, respuesta y seguimiento con IA para clínicas dentales. Alejandro Horcajuelo, España.</p>
       </div>
       <div class="foot-links">
         <a href="#fuga">La fuga</a>
@@ -958,7 +1151,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="foot-links">
         <a href="tel:+34647471991">647 471 991</a>
         <a href="https://wa.me/34647471991">WhatsApp</a>
-        <a href="mailto:aecadro@gmail.com">aecadro@gmail.com</a>
+        <a href="mailto:fastsolutionsia@gmail.com">fastsolutionsia@gmail.com</a>
         <a href="/legal">Aviso legal y privacidad</a>
       </div>
     </div>
@@ -979,10 +1172,26 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
    ───────────────────────────────────────────────────────────── */
 const CONFIG = {
   // 1) Tu enlace de Cal.com, p. ej. 'https://cal.com/alejandro-horcajuelo/20min'
-  CAL_URL: '',
+  CAL_URL: 'https://cal.com/fastsolutionsia-5fogir/llamada-20-min',
   // 2) Tu access key de Web3Forms (https://web3forms.com — gratis con tu correo)
-  WEB3FORMS_KEY: ''
+  WEB3FORMS_KEY: 'bf244512-1547-481f-9a15-bc347e1d9877'
 };
+
+/* ── Tema claro / oscuro ── */
+const raiz = document.documentElement;
+const botonTema = document.getElementById('tema');
+const metaTema = document.querySelector('meta[name="theme-color"]');
+function pintaTema() {
+  const oscuro = raiz.classList.contains('dark');
+  botonTema.setAttribute('aria-label', oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  metaTema.setAttribute('content', oscuro ? '#0b0d14' : '#dde4f0');
+}
+botonTema.addEventListener('click', () => {
+  raiz.classList.toggle('dark');
+  try { localStorage.setItem('theme', raiz.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+  pintaTema();
+});
+pintaTema();
 
 /* ── Enlaces de calendario ── */
 document.querySelectorAll('[data-cal]').forEach(a => {
@@ -1072,33 +1281,54 @@ document.querySelectorAll('.faq-q').forEach(boton => {
   });
 });
 
+/* ── Línea de tiempo: la línea se rellena a medida que lees ── */
+const pasosLinea = Array.from(document.querySelectorAll('.paso'));
+let lineaPendiente = false;
+function pintaLinea() {
+  lineaPendiente = false;
+  const lectura = window.innerHeight * 0.62;
+  pasosLinea.forEach(p => {
+    const r = p.getBoundingClientRect();
+    p.classList.toggle('hecho', lectura >= r.top + 22);
+    const relleno = (lectura - (r.top + 44)) / Math.max(1, r.height - 44);
+    p.style.setProperty('--f', Math.min(1, Math.max(0, relleno)).toFixed(3));
+  });
+}
+function pidePintaLinea() {
+  if (lineaPendiente) return;
+  lineaPendiente = true;
+  requestAnimationFrame(pintaLinea);
+}
+window.addEventListener('scroll', pidePintaLinea, { passive: true });
+window.addEventListener('resize', pidePintaLinea);
+pintaLinea();
+
 /* ── Demo de conversación ──
    El guion completo: el paciente escribe de madrugada, el asistente cualifica
    antes de dar precio, ofrece hueco real y cierra la cita. Las respuestas del
    paciente las elige quien visita la web. */
 const chat = document.getElementById('chat');
 const GUION = [
-  { de: 'user', txt: 'Buenas, quería información sobre la ortodoncia invisible 🙂 ¿Cuánto cuesta más o menos?', hora: '23:41' },
-  { de: 'bot', txt: 'Hola, buenas noches. Soy el asistente de la clínica — te leo aunque sea tarde. Te lo cuento ahora mismo y sin compromiso.', hora: '23:41' },
-  { de: 'bot', txt: 'Para darte un precio real y no una horquilla inútil, dos preguntas rápidas. ¿Es la primera vez que te planteas ortodoncia?', hora: '23:41',
-    opciones: ['Sí, la primera', 'Ya llevé brackets de pequeña'] },
-  { de: 'bot', txt: 'Perfecto. ¿Y qué es lo que más te gustaría corregir?', hora: '23:42',
-    opciones: ['Los dientes de delante torcidos', 'La mordida', 'Solo un retoque estético'] },
-  { de: 'bot', txt: 'Entendido. Con ese perfil el tratamiento completo con alineadores en la clínica suele ir de <b>2.900 € a 4.200 €</b>, según cuántos alineadores necesites, e incluye revisiones y retenedores.<span class="chip-precio">Financiable en 24 meses sin intereses</span>', hora: '23:42' },
-  { de: 'bot', txt: 'El número exacto sale del escáner 3D, que es <b>gratuito y sin compromiso</b>: se ve tu caso en pantalla y el resultado final antes de empezar nada.', hora: '23:42' },
-  { de: 'bot', txt: 'Esta semana quedan dos huecos para el estudio. ¿Cuál te viene mejor?', hora: '23:43',
-    opciones: ['Jueves 18:30', 'Viernes 10:00'] },
-  { de: 'bot', txt: 'Hecho ✅ Te he reservado el hueco. Te llega confirmación al móvil y un recordatorio el día antes; si te surge algo, me escribes por aquí y lo movemos sin problema.', hora: '23:43' },
-  { de: 'bot', txt: 'Un apunte para que no haya sorpresas: yo solo te acompaño hasta la consulta. <b>Quién es candidato a alineadores lo decide la doctora</b> viendo tu boca, nunca yo.', hora: '23:43' }
+  { de: 'user', txt: 'Buenas, quería pedir cita en la clínica. ¿Tenéis hueco esta semana?', hora: '23:41' },
+  { de: 'bot', txt: 'Hola, buenas noches 🙂 Soy Lucía. Te leo aunque sea tarde: cuéntame un poco y te lo dejo listo ahora mismo.', hora: '23:41' },
+  { de: 'bot', txt: 'Para darte el hueco que mejor te encaja, dos preguntas rápidas. ¿Qué es lo que te trae por aquí?', hora: '23:41',
+    opciones: ['Una revisión y limpieza', 'Valorar un tratamiento'] },
+  { de: 'bot', txt: 'Perfecto. ¿Es tu primera vez en la clínica?', hora: '23:42',
+    opciones: ['Sí, es la primera', 'Ya he venido antes'] },
+  { de: 'bot', txt: 'Anotado. Esta semana quedan dos huecos para tu cita. ¿Cuál te viene mejor?', hora: '23:42',
+    opciones: [{ t: 'Jueves 18:30', v: 'el jueves a las 18:30' }, { t: 'Viernes 10:00', v: 'el viernes a las 10:00' }] },
+  { de: 'bot', txt: 'Hecho ✅ Te he reservado {CITA}. Te llega la confirmación al móvil y un recordatorio el día antes; si te surge algo, me escribes por aquí y lo movemos sin problema.', hora: '23:43' },
+  { de: 'bot', txt: 'Un apunte para que no haya sorpresas: yo te acompaño hasta la consulta, pero <b>lo que necesites a nivel clínico lo valora el doctor</b> viendo tu caso.', hora: '23:43' }
 ];
 
 let paso = 0;
+let cita = '';   // el hueco que elige el visitante; el cierre lo repite para que cuadre
 let temporizadores = [];
 
 function burbuja(de, html, hora) {
   const b = document.createElement('div');
   b.className = 'burbuja ' + de;
-  b.innerHTML = html + '<span class="hora">' + hora + '</span>';
+  b.innerHTML = html.replace('{CITA}', cita || 'tu hueco') + '<span class="hora">' + hora + '</span>';
   chat.appendChild(b);
   abajo();
   return b;
@@ -1117,12 +1347,14 @@ function espera(ms, fn) { temporizadores.push(setTimeout(fn, ms)); }
 function opciones(lista, hora) {
   const caja = document.createElement('div');
   caja.className = 'rapidas';
-  lista.forEach(texto => {
+  lista.forEach(op => {
+    const texto = typeof op === 'string' ? op : op.t;
     const b = document.createElement('button');
     b.className = 'rapida';
     b.type = 'button';
     b.textContent = texto;
     b.addEventListener('click', () => {
+      if (op.v) cita = op.v;
       caja.remove();
       burbuja('user', texto, hora);
       paso++;
@@ -1164,6 +1396,7 @@ function reinicia() {
   temporizadores = [];
   chat.innerHTML = '';
   paso = 0;
+  cita = '';
   siguiente();
 }
 document.getElementById('rebobinar').addEventListener('click', reinicia);
