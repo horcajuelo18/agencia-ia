@@ -543,7 +543,7 @@ form.form {
 .form select { cursor: pointer; }
 .hp { position: absolute !important; left: -9999px !important; opacity: 0; height: 0; }
 .rgpd { display: flex; gap: .6rem; align-items: flex-start; font-size: .79rem; color: var(--ink3); line-height: 1.55; }
-.rgpd input { width: auto; margin-top: .2rem; flex: none; accent-color: var(--accent); }
+.rgpd input { width: 24px; height: 24px; margin: 0; flex: none; accent-color: var(--accent); cursor: pointer; } /* ≥ 24 px: WCAG 2.2 AA (2.5.8) */
 .rgpd a { color: var(--ink2); }
 .form-msg { font-size: .88rem; padding: .7rem .9rem; border-radius: 10px; display: none; line-height: 1.5; }
 .form-msg.ok { display: block; background: var(--green-dim); color: var(--green); border: 1px solid var(--green-bd); }
