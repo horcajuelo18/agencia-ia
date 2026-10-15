@@ -49,3 +49,6 @@ IONOS/
 
 # Servidor local para probar cleanUrls antes de publicar
 vista-previa.py
+
+# Planes internos de trabajo (estrategia y precios): no se publican
+planes/

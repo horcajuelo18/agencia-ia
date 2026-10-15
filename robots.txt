@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /DEMOS/recepcionista-ortodoncia
+
+Sitemap: https://fastsolutionsia.es/sitemap.xml

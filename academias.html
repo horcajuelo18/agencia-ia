@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión con IA para academias y escuelas · FastSolutions IA</title>
+<meta name="description" content="Clases, horarios, alumnos, cuotas y avisos en un panel sencillo para tu academia. Solo los módulos que uses. Baile, música, idiomas, refuerzo, deporte y colegios.">
+<link rel="canonical" href="https://fastsolutionsia.es/academias">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#dde4f0">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="FastSolutions IA">
+<meta property="og:url" content="https://fastsolutionsia.es/academias">
+<meta property="og:title" content="Menos tiempo con horarios y cuotas. Más tiempo dando clase.">
+<meta property="og:description" content="Clases, alumnos, cuotas y avisos de tu academia en un panel sencillo. Solo lo que uses.">
+<meta property="og:image" content="https://fastsolutionsia.es/og-academias.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FastSolutions IA — IA para academias y escuelas">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Menos tiempo con horarios y cuotas. Más tiempo dando clase.">
+<meta name="twitter:description" content="Clases, alumnos, cuotas y avisos de tu academia en un panel sencillo.">
+<meta name="twitter:image" content="https://fastsolutionsia.es/og-academias.png">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "FastSolutions IA",
+  "description": "Gestión de clases, alumnos, cuotas y avisos, y agentes de IA para academias y escuelas.",
+  "url": "https://fastsolutionsia.es/academias",
+  "telephone": "+34647471991",
+  "email": "fastsolutionsia@gmail.com",
+  "founder": { "@type": "Person", "name": "Alejandro Horcajuelo" },
+  "areaServed": { "@type": "Country", "name": "España" },
+  "serviceType": "Gestión y automatización con IA para academias y escuelas",
+  "audience": { "@type": "Audience", "audienceType": "Academias y escuelas" }
+}
+</script>
+
+<script>
+/* Tema: claro por defecto. Solo pasa a oscuro si el visitante lo eligió antes. */
+(function () { try { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {} })();
+</script>
+
+<style>
+/* Paleta de la casa: las mismas variables que la portada y /clinicas-dentales. */
+:root {
+  color-scheme: light;
+  --bg: #dde4f0; --surface: #d3dbeb; --card: #e6ebf5; --card-hover: #edf1f9;
+  --border: rgba(15,23,41,0.10); --border2: rgba(15,23,41,0.20);
+  --ink: #0f1729; --ink2: #44536b; --ink3: #4d5c74; --strong: #0a1224; --lead: #33425a;
+  --accent: #205893; --accent2: #1a4f86; --accent-dim: rgba(32,88,147,0.12); --on-accent: #fff;
+  --green: #166534; --green-dim: rgba(22,101,52,0.12); --green-bd: rgba(22,101,52,0.30);
+  --amber: #92400e; --amber-dim: rgba(146,64,14,0.12);
+  --red: #a61717; --red-dim: rgba(166,23,23,0.10); --red-bd: rgba(166,23,23,0.28);
+  --whats: #25D366;
+  --border-accent: rgba(36,95,154,0.34);
+  --shadow: 0 4px 20px rgba(15,23,41,0.10), 0 1px 3px rgba(15,23,41,0.08);
+  --shadow-lg: 0 10px 36px rgba(15,23,41,0.16);
+  --nav-bg: rgba(221,228,240,0.86);
+  --hero-bg: linear-gradient(155deg, #dde4f0 0%, #d5ddee 55%, #cfd9ec 100%);
+  --hero-glow: rgba(36,95,154,0.16);
+  --aud-bg: linear-gradient(155deg, #d3dcee 0%, #dde4f0 60%);
+  --aud-glow: rgba(36,95,154,0.14);
+  --aval-bg: linear-gradient(145deg, #c3d3ea, #aebfdc);
+  --sel: rgba(36,95,154,0.25);
+  --btn-s-bg: rgba(15,23,41,0.05); --btn-s-fg: #0f1729; --btn-s-bd: rgba(15,23,41,0.28);
+  --btn-s-bg-h: rgba(15,23,41,0.10); --btn-s-bd-h: rgba(15,23,41,0.45);
+  --panel-bg: #eef2f9; --switch-off: #b4c0d4;
+  --radius: 16px; --max: 1160px;
+}
+html.dark {
+  color-scheme: dark;
+  --bg: #0b0d14; --surface: #0f1220; --card: #141928; --card-hover: #1a2138;
+  --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.16);
+  --ink: #dde4f4; --ink2: #8a9bb6; --ink3: #76879f; --strong: #fff; --lead: rgba(255,255,255,.62);
+  --accent: #5B9BD5; --accent2: #7AB5E8; --accent-dim: rgba(91,155,213,0.12); --on-accent: #06121f;
+  --green: #4ade80; --green-dim: rgba(74,222,128,0.14); --green-bd: rgba(74,222,128,0.25);
+  --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.13);
+  --red: #f87171; --red-dim: rgba(248,113,113,0.12); --red-bd: rgba(248,113,113,0.25);
+  --border-accent: rgba(91,155,213,0.28);
+  --shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.7);
+  --nav-bg: rgba(11,13,20,0.82);
+  --hero-bg: linear-gradient(155deg, #111a2e 0%, #0b0d14 55%, #0d1421 100%);
+  --hero-glow: rgba(27,58,107,0.5);
+  --aud-bg: linear-gradient(155deg, #0f1a30 0%, #0c0e18 60%);
+  --aud-glow: rgba(27,58,107,0.4);
+  --aval-bg: linear-gradient(145deg, #1e3358, #101728);
+  --sel: rgba(91,155,213,0.32);
+  --btn-s-bg: rgba(255,255,255,.07); --btn-s-fg: rgba(255,255,255,.88); --btn-s-bd: rgba(255,255,255,.18);
+  --btn-s-bg-h: rgba(255,255,255,.14); --btn-s-bd-h: rgba(255,255,255,.3);
+  --panel-bg: #10141f; --switch-off: #3a4560;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; line-height: 1.65; font-size: 16px; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.15; }
+a { color: inherit; }
+img { max-width: 100%; }
+::selection { background: var(--sel); }
+:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5.5rem 0; }
+.section-tag { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); padding: .28rem .8rem; border-radius: 99px; display: inline-block; margin-bottom: .9rem; }
+.section-title { font-size: clamp(1.75rem, 3.6vw, 2.5rem); color: var(--ink); margin-bottom: .7rem; letter-spacing: -.02em; }
+.section-title em { font-style: italic; color: var(--accent2); }
+.section-sub { color: var(--ink2); font-size: 1rem; max-width: 580px; line-height: 1.65; }
+.center { text-align: center; }
+.center .section-sub { margin-left: auto; margin-right: auto; }
+.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ico { width: 42px; height: 42px; border-radius: 11px; flex: none; background: var(--accent-dim); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+.ico.r { background: var(--red-dim); color: var(--red); }
+
+.mark { display: flex; flex-direction: column; gap: 2.5px; flex: none; }
+.mark i { display: block; height: 2.5px; border-radius: 2px; background: var(--ink2); }
+.mark i:nth-child(1) { width: 20px; opacity: .42; }
+.mark i:nth-child(2) { width: 13px; opacity: .62; }
+.mark i:nth-child(3) { width: 6px; background: var(--accent); opacity: 1; }
+
+/* ── NAV ── */
+.nav { position: sticky; top: 0; z-index: 50; background: var(--nav-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.nav-in { display: flex; align-items: center; gap: 1.6rem; height: 62px; max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+.brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; font-weight: 600; letter-spacing: -.01em; font-size: .97rem; }
+.brand b { font-weight: 600; color: var(--strong); }
+.brand span { color: var(--accent2); font-weight: 600; }
+.nav-links { display: flex; gap: 1.5rem; margin-left: auto; font-size: .89rem; }
+.nav-links a { color: var(--ink2); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--accent); color: var(--on-accent); text-decoration: none; padding: .5rem 1.15rem; border-radius: 99px; font-size: .86rem; font-weight: 600; transition: background .15s; white-space: nowrap; }
+.nav-cta:hover { background: var(--accent2); }
+.tema { width: 40px; height: 40px; border-radius: 99px; flex: none; cursor: pointer; background: var(--btn-s-bg); border: 1.5px solid var(--btn-s-bd); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s; }
+.tema:hover { background: var(--btn-s-bg-h); border-color: var(--btn-s-bd-h); }
+.tema svg.i { width: 19px; height: 19px; }
+.tema .i-sol { display: none; }
+html.dark .tema .i-sol { display: block; }
+html.dark .tema .i-luna { display: none; }
+
+/* ── HERO ── */
+.hero { background: var(--hero-bg); border-bottom: 1px solid var(--border); padding: 5.5rem 0 4.5rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -32%; left: 50%; transform: translateX(-50%); width: 780px; height: 460px; background: radial-gradient(ellipse, var(--hero-glow) 0%, transparent 70%); pointer-events: none; }
+.hero .wrap { position: relative; }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.4rem; display: inline-flex; align-items: center; gap: .6rem; }
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); display: block; }
+.hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.9rem); color: var(--strong); max-width: 880px; margin-bottom: 1.4rem; letter-spacing: -.028em; }
+.hero h1 em { font-style: italic; color: var(--accent2); }
+.hero .lead { font-size: 1.12rem; color: var(--lead); max-width: 600px; margin-bottom: 2.4rem; }
+.hero .lead b { color: var(--strong); font-weight: 500; }
+.btn-row { display: flex; gap: .9rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; padding: .92rem 1.9rem; border-radius: 99px; font-weight: 600; font-size: .96rem; text-decoration: none; transition: all .15s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-p { background: var(--accent); color: var(--on-accent); }
+.btn-p:hover { background: var(--accent2); }
+.btn-s { background: var(--btn-s-bg); color: var(--btn-s-fg); border: 1.5px solid var(--btn-s-bd); }
+.btn-s:hover { background: var(--btn-s-bg-h); border-color: var(--btn-s-bd-h); }
+.btn-w { background: var(--whats); color: #062d15; font-weight: 700; }
+.btn-w:hover { background: #33e07a; }
+.btn svg { width: 17px; height: 17px; flex: none; }
+.aval { display: flex; align-items: center; gap: .85rem; margin-top: 2.6rem; padding-top: 1.7rem; border-top: 1px solid var(--border); max-width: 520px; }
+.aval-foto { width: 46px; height: 46px; border-radius: 99px; flex: none; background: var(--aval-bg); border: 1px solid var(--border-accent); object-fit: cover; }
+.aval-txt { font-size: .86rem; color: var(--ink2); line-height: 1.5; }
+.aval-txt b { display: block; color: var(--ink); font-weight: 600; font-size: .93rem; }
+.aval-txt a { color: var(--accent2); text-decoration: none; white-space: nowrap; }
+
+/* ── PROBLEMA ── */
+.sintomas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 2.8rem; }
+.sintoma { background: var(--card); border: 1px solid var(--border); border-left: 2px solid var(--red); border-radius: 4px var(--radius) var(--radius) 4px; padding: 1.4rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+.sintoma .h { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: .6rem; }
+.sintoma p { font-size: .94rem; color: var(--ink); line-height: 1.6; }
+.sintoma p b { color: var(--strong); font-weight: 600; }
+
+/* ── MÓDULOS ── */
+.piezas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.8rem; }
+.pieza { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.7rem 1.6rem; box-shadow: var(--shadow); transition: border-color .18s, box-shadow .18s; }
+.pieza:hover { border-color: var(--border-accent); box-shadow: var(--shadow-lg); }
+.pieza-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
+.pieza .opc { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); padding: .22rem .6rem; border-radius: 5px; }
+.pieza h3 { font-size: 1.12rem; color: var(--ink); margin-bottom: .5rem; }
+.pieza p { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
+.nota-mod { margin-top: 2rem; text-align: center; font-size: .95rem; color: var(--ink2); }
+.nota-mod b { color: var(--ink); font-weight: 600; }
+
+/* ── PANEL (vista previa con interruptores) ── */
+.panel-grid { display: grid; grid-template-columns: 340px 1fr; gap: 2.2rem; margin-top: 2.8rem; align-items: start; }
+.roles { list-style: none; margin-top: 1.4rem; }
+.roles li { font-size: .92rem; color: var(--ink2); padding: .55rem 0 .55rem 1.6rem; position: relative; border-bottom: 1px solid var(--border); line-height: 1.5; }
+.roles li:last-child { border-bottom: none; }
+.roles li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.roles li b { color: var(--ink); font-weight: 600; }
+.mandos { background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius); padding: .6rem; display: flex; flex-direction: column; }
+.mandos .t { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); padding: .7rem .8rem .5rem; }
+.mando { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 48px; padding: .55rem .8rem; background: none; border: none; border-radius: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: .93rem; color: var(--ink); text-align: left; }
+.mando:hover { background: var(--btn-s-bg); }
+.sw { width: 40px; height: 23px; border-radius: 99px; background: var(--switch-off); position: relative; flex: none; transition: background .18s; }
+.sw::after { content: ''; position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; border-radius: 99px; background: #fff; transition: transform .18s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.mando[aria-checked="true"] .sw { background: var(--accent); }
+.mando[aria-checked="true"] .sw::after { transform: translateX(17px); }
+.ventana { background: var(--panel-bg); border: 1px solid var(--border2); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; }
+.ventana-bar { display: flex; align-items: center; gap: .7rem; padding: .8rem 1.1rem; border-bottom: 1px solid var(--border); background: var(--card); }
+.ventana-bar .logo { width: 26px; height: 26px; border-radius: 7px; background: var(--accent); color: var(--on-accent); font-family: 'Fraunces', serif; font-size: .9rem; display: flex; align-items: center; justify-content: center; flex: none; }
+.ventana-bar b { font-size: .92rem; font-weight: 600; color: var(--ink); }
+.ventana-bar .demo { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); background: var(--amber-dim); padding: .2rem .55rem; border-radius: 4px; }
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .9rem; padding: 1.1rem; min-height: 240px; align-content: start; }
+.tj { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.05rem; animation: entra .3s ease; }
+.tj[hidden] { display: none; }
+@keyframes entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.tj .k { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .55rem; }
+.tj ul { list-style: none; }
+.tj li { font-size: .84rem; color: var(--ink2); padding: .22rem 0; line-height: 1.45; }
+.tj li b { color: var(--ink); font-weight: 600; }
+.tj .ok { color: var(--green); font-weight: 600; }
+.vacio { grid-column: 1 / -1; text-align: center; color: var(--ink3); font-size: .9rem; padding: 3rem 1rem; }
+.leyenda { font-size: .78rem; color: var(--ink3); margin-top: .8rem; text-align: center; }
+
+/* ── CÓMO TRABAJO ── */
+.pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.8rem; }
+.pasoc { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem 1.5rem; }
+.pasoc .num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--accent); background: var(--accent-dim); padding: .22rem .6rem; border-radius: 5px; display: inline-block; margin-bottom: 1rem; }
+.pasoc h3 { font-size: 1.06rem; color: var(--ink); margin-bottom: .5rem; }
+.pasoc p { font-size: .89rem; color: var(--ink2); line-height: 1.6; }
+
+/* ── PARA QUIÉN ── */
+.tipos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.8rem; }
+.tipo { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem 1.4rem; }
+.tipo h3 { font-size: 1.02rem; color: var(--ink); margin: .9rem 0 .4rem; }
+.tipo p { font-size: .87rem; color: var(--ink2); line-height: 1.55; }
+
+/* ── FAQ ── */
+.faq { max-width: 780px; margin: 2.8rem auto 0; }
+.faq-it { border-bottom: 1px solid var(--border); }
+.faq-q { width: 100%; background: none; border: none; cursor: pointer; text-align: left; padding: 1.25rem 2.5rem 1.25rem 0; position: relative; font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--ink); line-height: 1.35; }
+.faq-q::after { content: '+'; position: absolute; right: .4rem; top: 50%; transform: translateY(-50%); font-family: 'DM Mono', monospace; font-size: 1.25rem; color: var(--accent); transition: transform .2s; }
+.faq-it.abierta .faq-q::after { transform: translateY(-50%) rotate(45deg); }
+.faq-q:hover { color: var(--accent2); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
+.faq-a div { padding: 0 2.5rem 1.35rem 0; color: var(--ink2); font-size: .94rem; line-height: 1.7; }
+.faq-a b { color: var(--ink); font-weight: 600; }
+
+/* ── CONTACTO / FORM ── */
+.contacto { background: var(--aud-bg); border-top: 1px solid var(--border-accent); position: relative; overflow: hidden; }
+.contacto::before { content: ''; position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%); width: 820px; height: 380px; background: radial-gradient(ellipse, var(--aud-glow) 0%, transparent 70%); pointer-events: none; }
+.contacto .wrap { position: relative; }
+.aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.aud-pasos { list-style: none; margin-top: 1.8rem; counter-reset: ap; }
+.aud-pasos li { font-size: .94rem; color: var(--ink); padding: .55rem 0 .55rem 2.1rem; position: relative; counter-increment: ap; }
+.aud-pasos li::before { content: counter(ap); position: absolute; left: 0; top: .6rem; width: 20px; height: 20px; border-radius: 99px; background: var(--accent-dim); color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+.otras-vias { margin-top: 2.2rem; padding-top: 1.6rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: .8rem; }
+.otras-vias .t { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); }
+form.form { background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius); padding: 1.9rem 1.8rem; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 1rem; }
+.form label { font-size: .84rem; color: var(--ink2); display: block; margin-bottom: .35rem; }
+.form input, .form select, .form textarea { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: .72rem .9rem; color: var(--ink); font-size: .94rem; font-family: 'DM Sans', sans-serif; }
+.form textarea { resize: vertical; min-height: 84px; }
+.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--accent); outline: none; }
+.form select { cursor: pointer; }
+.form .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.hp { position: absolute !important; left: -9999px !important; opacity: 0; height: 0; }
+.rgpd { display: flex; gap: .6rem; align-items: flex-start; font-size: .79rem; color: var(--ink3); line-height: 1.55; }
+.rgpd input { width: 24px; height: 24px; margin: 0; flex: none; accent-color: var(--accent); cursor: pointer; } /* ≥ 24 px: WCAG 2.2 AA (2.5.8) */
+.rgpd a { color: var(--ink2); }
+.form-msg { font-size: .88rem; padding: .7rem .9rem; border-radius: 10px; display: none; line-height: 1.5; }
+.form-msg.ok { display: block; background: var(--green-dim); color: var(--green); border: 1px solid var(--green-bd); }
+.form-msg.ko { display: block; background: var(--red-dim); color: var(--red); border: 1px solid var(--red-bd); }
+
+/* ── FOOTER ── */
+footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2.6rem 0 2rem; }
+.foot-grid { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+.foot-marca { display: flex; align-items: center; gap: .7rem; margin-bottom: .7rem; }
+.foot-marca b { font-weight: 600; color: var(--strong); }
+.foot-marca b span { color: var(--accent2); }
+.foot p { font-size: .85rem; color: var(--ink2); line-height: 1.6; max-width: 320px; }
+.foot-links { display: flex; flex-direction: column; gap: .45rem; font-size: .85rem; }
+.foot-links a { color: var(--ink2); text-decoration: none; }
+.foot-links a:hover { color: var(--ink); }
+.foot-legal { margin-top: 2.2rem; padding-top: 1.3rem; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--ink3); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.flota { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60; width: 54px; height: 54px; border-radius: 99px; background: var(--whats); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 22px rgba(0,0,0,.35); transition: transform .16s; }
+.flota:hover { transform: scale(1.06); }
+.flota svg { width: 27px; height: 27px; fill: #062d15; }
+
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+.rv.visible { opacity: 1; transform: none; }
+
+@media (max-width: 1000px) {
+  .piezas { grid-template-columns: repeat(2, 1fr); }
+  .pasos, .tipos { grid-template-columns: repeat(2, 1fr); }
+  .panel-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .aud-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+}
+@media (max-width: 768px) {
+  .section { padding: 3.8rem 0; }
+  .wrap { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+  .nav-in { gap: .8rem; }
+  .nav-cta { margin-left: auto; padding: .72rem 1.25rem; }
+  .tema { width: 44px; height: 44px; }
+  .brand { padding: .6rem 0; min-height: 44px; }
+  .hero { padding: 3.5rem 0 3rem; }
+  .hero .lead { font-size: 1rem; }
+  .btn-row .btn { width: 100%; }
+  .piezas, .pasos, .tipos { grid-template-columns: 1fr; }
+  .form .dos { grid-template-columns: 1fr; }
+  .flota { width: 50px; height: 50px; right: .9rem; bottom: .9rem; }
+  .foot-grid { flex-direction: column; gap: 1.6rem; }
+  .foot-links { gap: 0; }
+  .foot-links a { padding: .7rem 0; }
+}
+@media (max-width: 420px) {
+  .nav-in { gap: .6rem; }
+  .brand { gap: .5rem; font-size: .92rem; }
+  .nav-cta .mas { display: none; }
+}
+@media (max-width: 340px) {
+  .wrap, .nav-in { padding-left: .9rem; padding-right: .9rem; }
+  .brand { font-size: .85rem; }
+  .nav-cta { padding: .72rem .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; }
+}
+@media print {
+  .nav, .flota, .btn-row, form.form, .mandos { display: none; }
+  body { background: #fff; color: #111; }
+  .rv { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-luna" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+  <symbol id="i-tabla" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M9 4v16M15 4v16"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-euro" viewBox="0 0 24 24"><path d="M4 10h12M4 14h9M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/></symbol>
+  <symbol id="i-buzon" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 10h18M8 2.5v4M16 2.5v4"/></symbol>
+  <symbol id="i-usuarios" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></symbol>
+  <symbol id="i-megafono" viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10zM16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-robot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5.2M2 13v3M22 13v3M9.5 17.3h5"/><circle cx="12" cy="3.9" r="1.3"/><circle cx="9" cy="13" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-web" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h6M7 16.5h9"/></symbol>
+  <symbol id="i-nota" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-libro" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+  <symbol id="i-pesa" viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></symbol>
+  <symbol id="i-escuela" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-5h4v5"/></symbol>
+</svg>
+
+<nav class="nav" aria-label="Principal">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="FastSolutions IA · inicio">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <b>FastSolutions<span>IA</span></b>
+    </a>
+    <div class="nav-links">
+      <a href="#problema">El problema</a>
+      <a href="#modulos">Módulos</a>
+      <a href="#panel">El panel</a>
+      <a href="#faq">Preguntas</a>
+    </div>
+    <a class="nav-cta" href="#contacto">Cuéntame<span class="mas"> tu academia</span></a>
+    <button class="tema" id="tema" type="button" aria-label="Cambiar a modo oscuro"><svg class="i i-luna" aria-hidden="true"><use href="#i-luna"/></svg><svg class="i i-sol" aria-hidden="true"><use href="#i-sol"/></svg></button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Para academias y escuelas</div>
+    <h1>Menos tiempo con <em>horarios y cuotas</em>.<br>Más tiempo dando clase.</h1>
+    <p class="lead">Clases, alumnos, cuotas y avisos en un panel sencillo. <b>Y solo lo que uses:</b> si hoy solo necesitas ordenar los horarios, empiezas por ahí y activas el resto cuando quieras.</p>
+    <div class="btn-row">
+      <a class="btn btn-p" href="#contacto">Cuéntame tu academia</a>
+      <a class="btn btn-s" href="#" data-cal>Reservar llamada de 20 min</a>
+    </div>
+    <div class="aval">
+      <img class="aval-foto" src="alejandro.webp" width="46" height="46" alt="Alejandro Horcajuelo">
+      <div class="aval-txt">
+        <b>Alejandro Horcajuelo</b>
+        Detrás de FastSolutions IA hay una persona con teléfono: <a href="tel:+34647471991">647 471 991</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="problema">
+  <div class="wrap">
+    <span class="section-tag">Te suena</span>
+    <h2 class="section-title">Das clase por la tarde. <em>La gestión te come la mañana.</em></h2>
+    <p class="section-sub">No es falta de orden: es que papel, Excel y WhatsApp no se hablan entre sí, y todo pasa por la misma persona.</p>
+    <div class="sintomas">
+      <div class="sintoma rv">
+        <span class="ico r" aria-hidden="true"><svg class="i"><use href="#i-tabla"/></svg></span>
+        <div><div class="h">El horario</div><p>Vive en un Excel que <b>solo entiende una persona</b>. Si esa persona falta, nadie sabe qué sala está libre.</p></div>
+      </div>
+      <div class="sintoma rv">
+        <span class="ico r" aria-hidden="true"><svg class="i"><use href="#i-chat"/></svg></span>
+        <div><div class="h">Los avisos</div><p>Cada cambio de clase es un mensaje uno a uno, o <b>un grupo de WhatsApp de ochenta personas</b> donde el aviso se pierde entre audios.</p></div>
+      </div>
+      <div class="sintoma rv">
+        <span class="ico r" aria-hidden="true"><svg class="i"><use href="#i-euro"/></svg></span>
+        <div><div class="h">Las cuotas</div><p>A final de mes, repasar quién ha pagado <b>es una tarde entera</b>, y reclamar un impago siempre resulta incómodo.</p></div>
+      </div>
+      <div class="sintoma rv">
+        <span class="ico r" aria-hidden="true"><svg class="i"><use href="#i-buzon"/></svg></span>
+        <div><div class="h">Las preguntas de siempre</div><p>Precios, horarios, si queda plaza… Llegan a cualquier hora, y <b>las inscripciones nuevas se pierden</b> entre capturas y notas de voz.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="modulos">
+  <div class="wrap">
+    <div class="center">
+      <span class="section-tag">Módulos</span>
+      <h2 class="section-title">Piezas que se activan. <em>Solo pagas las que usas.</em></h2>
+      <p class="section-sub">Nada de un programa enorme con cien botones. Cada pieza se enciende cuando la necesitas, y las que no usas no aparecen.</p>
+    </div>
+    <div class="piezas">
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-cal"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Clases y horarios</h3>
+        <p>Cuadrante semanal con grupos, niveles, profesores y salas. Si una clase cambia, se avisa solo a quien le afecta.</p>
+      </div>
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-usuarios"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Alumnos y matrículas</h3>
+        <p>Fichas, altas, bajas y grupos de cada alumno. El profesor pasa lista desde el móvil en un par de toques.</p>
+      </div>
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-euro"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Cuotas</h3>
+        <p>Quién ha pagado el mes y quién no, de un vistazo. El recordatorio sale solo, sin que tengas que perseguir a nadie.</p>
+      </div>
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-megafono"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Avisos y familias</h3>
+        <p>Un aviso a un grupo o a toda la academia. Cada familia ve su horario, sus avisos y si está al día, sin tener que preguntarte.</p>
+      </div>
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-robot"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Asistente de WhatsApp</h3>
+        <p>Contesta precios, horarios y plazas a cualquier hora, y apunta las inscripciones nuevas para que las encuentres hechas.</p>
+      </div>
+      <div class="pieza rv">
+        <div class="pieza-top"><span class="ico" aria-hidden="true"><svg class="i"><use href="#i-web"/></svg></span><span class="opc">Activable</span></div>
+        <h3>Web de la academia</h3>
+        <p>Una página clara con tus clases, horarios y una forma fácil de pedir una clase de prueba.</p>
+      </div>
+    </div>
+    <p class="nota-mod"><b>Empiezas con una pieza.</b> Activas las demás el día que las necesites, sin cambiar de sistema.</p>
+  </div>
+</section>
+
+<section class="section" id="panel">
+  <div class="wrap">
+    <span class="section-tag">El panel</span>
+    <h2 class="section-title">Todo en un sitio, <em>con tu logo y tus colores</em></h2>
+    <p class="section-sub">Cada academia tiene su panel. Se usa desde el móvil o el ordenador, sin instalar nada, y cada persona ve solo lo suyo.</p>
+
+    <div class="panel-grid">
+      <div>
+        <ul class="roles">
+          <li><b>Dirección</b> lo ve todo: clases, alumnos, cuotas y lo que ha contestado el asistente.</li>
+          <li><b>Profesores</b> ven sus grupos y pasan lista. Nada de cuotas ni de datos que no les tocan.</li>
+          <li><b>Familias</b> ven su horario, los avisos y si tienen la cuota al día.</li>
+        </ul>
+        <div class="mandos" role="group" aria-label="Módulos del panel de ejemplo" style="margin-top:1.6rem">
+          <div class="t">Prueba: enciende y apaga módulos</div>
+          <button class="mando" type="button" role="switch" aria-checked="true" data-mod="clases">Clases y horarios <span class="sw" aria-hidden="true"></span></button>
+          <button class="mando" type="button" role="switch" aria-checked="true" data-mod="alumnos">Alumnos y asistencia <span class="sw" aria-hidden="true"></span></button>
+          <button class="mando" type="button" role="switch" aria-checked="true" data-mod="cuotas">Cuotas <span class="sw" aria-hidden="true"></span></button>
+          <button class="mando" type="button" role="switch" aria-checked="false" data-mod="avisos">Avisos y familias <span class="sw" aria-hidden="true"></span></button>
+          <button class="mando" type="button" role="switch" aria-checked="false" data-mod="agente">Asistente de WhatsApp <span class="sw" aria-hidden="true"></span></button>
+          <button class="mando" type="button" role="switch" aria-checked="false" data-mod="web">Web de la academia <span class="sw" aria-hidden="true"></span></button>
+        </div>
+      </div>
+
+      <div>
+        <div class="ventana" aria-live="polite">
+          <div class="ventana-bar">
+            <span class="logo" aria-hidden="true">A</span>
+            <b>Academia de ejemplo</b>
+            <span class="demo">Ejemplo ilustrativo</span>
+          </div>
+          <div class="tarjetas">
+            <div class="tj" data-tj="clases">
+              <div class="k">Hoy · clases</div>
+              <ul>
+                <li><b>17:00</b> Ballet infantil · Sala 1</li>
+                <li><b>18:30</b> Contemporáneo · Sala 2</li>
+                <li><b>20:00</b> Salsa iniciación · Sala 1</li>
+              </ul>
+            </div>
+            <div class="tj" data-tj="alumnos">
+              <div class="k">Asistencia</div>
+              <ul>
+                <li>Ballet infantil: <b>11 de 12</b></li>
+                <li>Contemporáneo: <span class="ok">lista pasada</span></li>
+                <li>Altas este mes: <b>3</b></li>
+              </ul>
+            </div>
+            <div class="tj" data-tj="cuotas">
+              <div class="k">Cuotas del mes</div>
+              <ul>
+                <li><b>7</b> pendientes</li>
+                <li>Recordatorio <span class="ok">enviado el día 5</span></li>
+                <li>Siguiente aviso: día 10</li>
+              </ul>
+            </div>
+            <div class="tj" data-tj="avisos" hidden>
+              <div class="k">Último aviso</div>
+              <ul>
+                <li>«El jueves no hay clase de salsa»</li>
+                <li>Enviado a: <b>Salsa iniciación</b></li>
+                <li>Leído por <b>14 familias</b></li>
+              </ul>
+            </div>
+            <div class="tj" data-tj="agente" hidden>
+              <div class="k">Asistente · anoche</div>
+              <ul>
+                <li><b>5</b> consultas contestadas</li>
+                <li><b>1</b> inscripción apuntada</li>
+                <li>Estado: <span class="ok">activo</span></li>
+              </ul>
+            </div>
+            <div class="tj" data-tj="web" hidden>
+              <div class="k">Web</div>
+              <ul>
+                <li>Estado: <span class="ok">en línea</span></li>
+                <li><b>2</b> clases de prueba pedidas</li>
+                <li>Esta semana</li>
+              </ul>
+            </div>
+            <p class="vacio" hidden>Sin módulos activos. Enciende alguno a la izquierda.</p>
+          </div>
+        </div>
+        <p class="leyenda">Academia y datos ficticios, para que veas cómo cambia el panel. La demo completa te la enseño en una llamada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="como">
+  <div class="wrap">
+    <div class="center">
+      <span class="section-tag">Cómo trabajo</span>
+      <h2 class="section-title">Sin cambiar tu forma de dar clase. <em>Sin papeleo para ti.</em></h2>
+    </div>
+    <div class="pasos">
+      <div class="pasoc rv">
+        <span class="num">01</span>
+        <h3>Llamada de 20 minutos</h3>
+        <p>Me cuentas cómo funciona tu academia y qué te quita más tiempo. Es para escuchar, no para venderte nada.</p>
+      </div>
+      <div class="pasoc rv">
+        <span class="num">02</span>
+        <h3>Propuesta con solo lo útil</h3>
+        <p>Las piezas que tienen sentido para ti, con un precio cerrado y un plazo concreto. Nada que no vayas a usar.</p>
+      </div>
+      <div class="pasoc rv">
+        <span class="num">03</span>
+        <h3>Te lo dejo cargado</h3>
+        <p>Paso yo tus alumnos, grupos y horarios desde el Excel o el papel. Tú no tecleas una lista entera.</p>
+      </div>
+      <div class="pasoc rv">
+        <span class="num">04</span>
+        <h3>Media hora y a funcionar</h3>
+        <p>Una sesión corta contigo y tu equipo para enseñaros el panel. Y soporte cuando haga falta, no un manual en PDF.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="para-quien">
+  <div class="wrap">
+    <div class="center">
+      <span class="section-tag">Para quién</span>
+      <h2 class="section-title">Para centros donde <em>se enseña en grupo</em></h2>
+      <p class="section-sub">Cambian las disciplinas, pero el día a día se parece mucho: grupos, horarios, cuotas y familias que preguntan.</p>
+    </div>
+    <div class="tipos">
+      <div class="tipo rv">
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-nota"/></svg></span>
+        <h3>Baile, música y teatro</h3>
+        <p>Grupos por nivel, cuotas mensuales y avisos de ensayos y festivales.</p>
+      </div>
+      <div class="tipo rv">
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-libro"/></svg></span>
+        <h3>Idiomas y refuerzo escolar</h3>
+        <p>Niveles, horarios de tarde y mucha comunicación con las familias.</p>
+      </div>
+      <div class="tipo rv">
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-pesa"/></svg></span>
+        <h3>Deporte</h3>
+        <p>Artes marciales, yoga o pilates: bonos, asistencia y plazas por clase.</p>
+      </div>
+      <div class="tipo rv">
+        <span class="ico" aria-hidden="true"><svg class="i"><use href="#i-escuela"/></svg></span>
+        <h3>Colegios y centros reglados</h3>
+        <p>Comunicación con familias, actividades extraescolares y avisos por grupo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="faq">
+  <div class="wrap">
+    <div class="center">
+      <span class="section-tag">Preguntas</span>
+      <h2 class="section-title">Lo que suelen preguntarme</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-it">
+        <button class="faq-q" type="button">¿Tengo que usar todos los módulos?</button>
+        <div class="faq-a"><div>No. Es justo al revés: empiezas con lo que te resuelve el problema de hoy, aunque sea solo ordenar los horarios, y activas el resto cuando lo necesites. <b>Lo que no usas no aparece en tu panel ni en tu factura.</b></div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q" type="button">¿Tengo que dejar WhatsApp?</button>
+        <div class="faq-a"><div>No. Tus alumnos y familias van a seguir escribiéndote por WhatsApp, y eso está bien. Lo que cambia es que los avisos salen ordenados a quien toca y, si activas el asistente, las preguntas de siempre se contestan solas.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q" type="button">¿Qué pasa con mis alumnos y sus datos? Muchos son menores.</button>
+        <div class="faq-a"><div>Se tratan con el mínimo imprescindible: nombre, contacto de la familia, grupo, asistencia y cuota. <b>Nada de datos de salud.</b> Los menores de 14 años van siempre ligados a la cuenta de su padre, madre o tutor, como pide la normativa española. Firmamos un contrato de encargado del tratamiento antes de empezar, y los datos se alojan en servidores de la Unión Europea.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q" type="button">Tengo todo en un Excel y en papel. ¿Tengo que pasarlo yo?</button>
+        <div class="faq-a"><div>No. Me pasas lo que tengas, tal cual, y lo cargo yo. Si hay listas en papel, se pueden fotografiar.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q" type="button">¿Los profesores y las familias tienen que instalar algo?</button>
+        <div class="faq-a"><div>No. El panel se abre desde el navegador del móvil o del ordenador con su usuario. Cada uno ve solo lo suyo.</div></div>
+      </div>
+      <div class="faq-it">
+        <button class="faq-q" type="button">¿Cuánto cuesta?</button>
+        <div class="faq-a"><div>Depende de las piezas que actives y del tamaño de tu academia, así que no hay precio de catálogo. Te lo digo en la llamada, con tus números delante. <b>Lo que sí te adelanto:</b> no pagas por lo que no usas.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contacto" id="contacto">
+  <div class="wrap">
+    <div class="aud-grid">
+      <div>
+        <span class="section-tag">Sin compromiso</span>
+        <h2 class="section-title">Cuéntame tu academia <em>y te digo qué tiene sentido</em></h2>
+        <p class="section-sub">Rellena esto en un minuto y te escribo para buscar un hueco. Si lo que necesitas no lo hago, te lo diré igual.</p>
+        <ol class="aud-pasos">
+          <li>Me cuentas tu academia aquí abajo.</li>
+          <li>Te escribo en 24 h laborables para hablar 20 minutos.</li>
+          <li>Te propongo solo las piezas que te sirvan, con precio cerrado.</li>
+        </ol>
+        <div class="otras-vias">
+          <div class="t">Si prefieres saltarte el formulario</div>
+          <div class="btn-row">
+            <a class="btn btn-w" href="https://wa.me/34647471991?text=Hola%20Alejandro%2C%20tengo%20una%20academia%20y%20me%20gustar%C3%ADa%20hablar%20contigo">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 13.99c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.56c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn btn-s" href="#" data-cal>Reservar llamada</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="form-academia">
+        <input type="hidden" name="access_key" id="w3f-key">
+        <input type="hidden" name="subject" value="Primera consulta — academia o escuela">
+        <input type="hidden" name="from_name" value="fastsolutionsia.es/academias">
+        <label class="hp" for="f-botcheck">No rellenes este campo</label>
+        <input type="text" id="f-botcheck" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+        <div class="dos">
+          <div>
+            <label for="f-nombre">Tu nombre</label>
+            <input type="text" id="f-nombre" name="nombre" required autocomplete="name">
+          </div>
+          <div>
+            <label for="f-centro">Academia o escuela</label>
+            <input type="text" id="f-centro" name="centro" required autocomplete="organization" placeholder="Nombre y ciudad">
+          </div>
+        </div>
+        <div class="dos">
+          <div>
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" required autocomplete="email">
+          </div>
+          <div>
+            <label for="f-tel">Teléfono o WhatsApp</label>
+            <input type="tel" id="f-tel" name="telefono" required autocomplete="tel">
+          </div>
+        </div>
+        <div class="dos">
+          <div>
+            <label for="f-tipo">Tipo de centro</label>
+            <select id="f-tipo" name="tipo" required>
+              <option value="">Elige una opción</option>
+              <option>Baile, música o teatro</option>
+              <option>Idiomas o refuerzo escolar</option>
+              <option>Deporte (artes marciales, yoga, pilates…)</option>
+              <option>Colegio o centro reglado</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-alumnos">Alumnos aproximados</label>
+            <select id="f-alumnos" name="alumnos" required>
+              <option value="">Elige una opción</option>
+              <option>Menos de 50</option>
+              <option>Entre 50 y 150</option>
+              <option>Más de 150</option>
+              <option>No lo sé con certeza</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="f-tiempo">¿Qué es lo que más tiempo te quita? (opcional)</label>
+          <textarea id="f-tiempo" name="lo_que_mas_tiempo_quita" maxlength="600"></textarea>
+        </div>
+        <label class="rgpd">
+          <input type="checkbox" name="consentimiento" required>
+          <span>Acepto que FastSolutions IA trate mis datos para responder a esta solicitud, según la <a href="/legal" target="_blank" rel="noopener">política de privacidad</a>. No se ceden a terceros y puedo pedir su borrado cuando quiera.</span>
+        </label>
+        <button type="submit" class="btn btn-p" id="form-btn">Enviar</button>
+        <div class="form-msg" id="form-msg" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot">
+        <div class="foot-marca">
+          <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>FastSolutions<span>IA</span></b>
+        </div>
+        <p>Gestión y asistentes con IA para academias y escuelas. Alejandro Horcajuelo, España.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#problema">El problema</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#panel">El panel</a>
+        <a href="#faq">Preguntas</a>
+      </div>
+      <div class="foot-links">
+        <a href="tel:+34647471991">647 471 991</a>
+        <a href="https://wa.me/34647471991">WhatsApp</a>
+        <a href="mailto:fastsolutionsia@gmail.com">fastsolutionsia@gmail.com</a>
+        <a href="/legal">Aviso legal y privacidad</a>
+      </div>
+      <div class="foot-links">
+        <a href="/">Todos los sectores</a>
+        <a href="/clinicas-dentales">Clínicas dentales</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="anyo">2026</span> FastSolutions IA · Alejandro Horcajuelo</span>
+      <span>fastsolutionsia.es</span>
+    </div>
+  </div>
+</footer>
+
+<a class="flota" href="https://wa.me/34647471991?text=Hola%20Alejandro%2C%20tengo%20una%20academia%20y%20te%20escribo%20desde%20la%20web" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 13.99c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.56c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+</a>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   CONFIGURACIÓN — los mismos valores que /clinicas-dentales
+   ───────────────────────────────────────────────────────────── */
+const CONFIG = {
+  CAL_URL: 'https://cal.com/fastsolutionsia-5fogir/llamada-20-min',
+  WEB3FORMS_KEY: 'bf244512-1547-481f-9a15-bc347e1d9877'
+};
+
+/* ── Tema claro / oscuro ── */
+const raiz = document.documentElement;
+const botonTema = document.getElementById('tema');
+const metaTema = document.querySelector('meta[name="theme-color"]');
+function pintaTema() {
+  const oscuro = raiz.classList.contains('dark');
+  botonTema.setAttribute('aria-label', oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  metaTema.setAttribute('content', oscuro ? '#0b0d14' : '#dde4f0');
+}
+botonTema.addEventListener('click', () => {
+  raiz.classList.toggle('dark');
+  try { localStorage.setItem('theme', raiz.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+  pintaTema();
+});
+pintaTema();
+
+/* ── Enlaces de calendario ── */
+document.querySelectorAll('[data-cal]').forEach(a => {
+  if (CONFIG.CAL_URL) { a.href = CONFIG.CAL_URL; a.target = '_blank'; a.rel = 'noopener'; }
+  else { a.href = 'https://wa.me/34647471991?text=Hola%20Alejandro%2C%20quiero%20reservar%20una%20llamada'; }
+});
+document.getElementById('w3f-key').value = CONFIG.WEB3FORMS_KEY;
+document.getElementById('anyo').textContent = new Date().getFullYear();
+
+/* ── Reveal al entrar en pantalla ── */
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach((e, i) => {
+    if (!e.isIntersecting) return;
+    setTimeout(() => e.target.classList.add('visible'), i * 110);
+    observador.unobserve(e.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv').forEach(el => observador.observe(el));
+
+/* ── Panel de ejemplo: los interruptores encienden y apagan tarjetas ── */
+const vacio = document.querySelector('.vacio');
+function pintaPanel() {
+  let activas = 0;
+  document.querySelectorAll('.mando').forEach(m => {
+    const on = m.getAttribute('aria-checked') === 'true';
+    const tarjeta = document.querySelector('[data-tj="' + m.dataset.mod + '"]');
+    tarjeta.hidden = !on;
+    if (on) activas++;
+  });
+  vacio.hidden = activas > 0;
+}
+document.querySelectorAll('.mando').forEach(m => {
+  m.addEventListener('click', () => {
+    m.setAttribute('aria-checked', m.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+    pintaPanel();
+  });
+});
+pintaPanel();
+
+/* ── FAQ ── */
+document.querySelectorAll('.faq-q').forEach(boton => {
+  boton.setAttribute('aria-expanded', 'false');
+  boton.addEventListener('click', () => {
+    const item = boton.parentElement;
+    const panel = item.querySelector('.faq-a');
+    const abierta = item.classList.contains('abierta');
+    document.querySelectorAll('.faq-it.abierta').forEach(otra => {
+      otra.classList.remove('abierta');
+      otra.querySelector('.faq-a').style.maxHeight = null;
+      otra.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!abierta) {
+      item.classList.add('abierta');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      boton.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+/* ── Formulario ── */
+const formulario = document.getElementById('form-academia');
+const aviso = document.getElementById('form-msg');
+const boton = document.getElementById('form-btn');
+formulario.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  aviso.className = 'form-msg';
+  if (!CONFIG.WEB3FORMS_KEY) {
+    aviso.className = 'form-msg ko';
+    aviso.textContent = 'El formulario todavía no está conectado. Escríbeme por WhatsApp al 647 471 991.';
+    return;
+  }
+  boton.disabled = true;
+  boton.textContent = 'Enviando…';
+  try {
+    const respuesta = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(formulario)
+    });
+    const datos = await respuesta.json();
+    if (!datos.success) throw new Error(datos.message || 'error');
+    formulario.reset();
+    aviso.className = 'form-msg ok';
+    aviso.textContent = 'Recibido. Te escribo en 24 h laborables para buscar un hueco de 20 minutos.';
+  } catch (err) {
+    aviso.className = 'form-msg ko';
+    aviso.textContent = 'No ha salido el envío. Escríbeme por WhatsApp al 647 471 991 y lo vemos al momento.';
+  } finally {
+    boton.disabled = false;
+    boton.textContent = 'Enviar';
+  }
+});
+</script>
+</body>
+</html>
