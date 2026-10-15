@@ -29,10 +29,7 @@ CLIENTES/**/datos/*.local.json
 # Instrucciones locales de Claude — este repo es publico
 CLAUDE.md
 
-# Generacion de la tarjeta de visita: scripts y previsualizacion, no web publica
-tarjetas/
-
-# Material de venta interno: guion de visita, auditorias e informes de clinicas
+# Material de venta interno: guiones, precios, auditorias, dossier y tarjeta de visita
 VENTA/
 
 # Temporales
@@ -44,8 +41,11 @@ qa-resultado/
 # Lista de tareas personal
 PENDIENTES.md
 
-# Documentacion del registrador de dominio (PDFs con datos de contrato)
-IONOS/
+# Administracion: contratos del registrador (IONOS) y documentos con datos personales
+ADMIN/
+
+# Recursos internos: galeria de componentes de terceros (sin licencia, no se redistribuye) e inspiracion
+RECURSOS/
 
 # Servidor local para probar cleanUrls antes de publicar
 vista-previa.py
